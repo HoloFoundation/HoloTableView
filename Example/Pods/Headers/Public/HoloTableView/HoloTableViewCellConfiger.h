@@ -1,1 +1,1 @@
-../../../../../HoloTableView/Classes/Configer/HoloTableViewCellConfiger.h
+../../../../../HoloTableView/Classes/Holo/HoloTableViewCellConfiger.h

@@ -1,1 +1,1 @@
-../../../../../HoloTableView/Classes/Section Row/HoloSection.h
+../../../../../HoloTableView/Classes/Holo/HoloSection.h

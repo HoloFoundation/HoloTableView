@@ -1,1 +1,1 @@
-../../../../../HoloTableView/Classes/Category/UITableView+HoloTableViewProxy.h
+../../../../../HoloTableView/Classes/Holo/UITableView+HoloTableViewProxy.h

@@ -1,1 +1,1 @@
-../../../../../HoloTableView/Classes/CellProtocol/HoloTableViewProtocol.h
+../../../../../HoloTableView/Classes/Holo/HoloTableViewProtocol.h

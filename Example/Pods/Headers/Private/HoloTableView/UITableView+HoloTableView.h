@@ -1,1 +1,1 @@
-../../../../../HoloTableView/Classes/Category/UITableView+HoloTableView.h
+../../../../../HoloTableView/Classes/Holo/UITableView+HoloTableView.h
