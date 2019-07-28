@@ -10,15 +10,13 @@
 
 @implementation HoloTableViewOneCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+- (void)cellForRow:(NSDictionary *)model {
+    self.backgroundColor = model[@"bgColor"];
+    self.textLabel.text = model[@"text"];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
++ (CGFloat)heightForRow:(NSDictionary *)model {
+    return [model[@"height"] floatValue];
 }
 
 @end

@@ -7,26 +7,68 @@
 //
 
 #import "HoloExampleTwoViewController.h"
+#import <HoloTableView/HoloTableView.h>
 
 @interface HoloExampleTwoViewController ()
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
 @implementation HoloExampleTwoViewController
 
+- (void)dealloc {
+    NSLog(@"------HoloExampleTwoViewController dealloc");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    [self.view addSubview:self.tableView];
+    [self.tableView holo_configTableView:^(HoloTableViewConfiger * _Nonnull configer) {
+        configer.cell(@"one").cls(@"HoloTableViewOneCell");
+        configer.cell(@"two").cls(@"HoloTableViewTwoCell");
+        configer.cell(@"three").cls(@"HoloTableViewThreeCell");
+    }];
+    
+    [self.tableView holo_makeSection:^(HoloTableViewMaker * _Nonnull make) {
+        make.section(@"sectionA");
+        
+        make.row(@"one")
+        .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!", @"height":@44})
+        .didSelectHandler(^(id  _Nonnull model) {
+            NSLog(@"----%@", model);
+        });
+    }];
+    
+    [self.tableView holo_makeSection:^(HoloTableViewMaker * _Nonnull make) {
+        make.section(@"sectionB");
+        
+        make.row(@"two")
+        .height(88);
+        
+        make.row(@"three")
+        .height(120);
+    }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+
+#pragma mark - getter
+- (UITableView *)tableView {
+    if (!_tableView) {
+        CGRect frame = CGRectMake(0, 88, self.view.frame.size.width, self.view.frame.size.height-88);
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
+        _tableView.tableFooterView = [UIView new];
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+    }
+    return _tableView;
+}
 
 @end

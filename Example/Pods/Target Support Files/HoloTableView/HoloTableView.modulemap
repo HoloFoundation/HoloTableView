@@ -1,0 +1,6 @@
+framework module HoloTableView {
+  umbrella header "HoloTableView-umbrella.h"
+
+  export *
+  module * { export * }
+}

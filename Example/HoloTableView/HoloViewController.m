@@ -7,6 +7,9 @@
 //
 
 #import "HoloViewController.h"
+#import "HoloExampleOneViewController.h"
+#import "HoloExampleTwoViewController.h"
+#import "HoloExampleThreeViewController.h"
 
 @interface HoloViewController ()
 
@@ -14,16 +17,45 @@
 
 @implementation HoloViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    UIButton *oneButton = [self createButtonWithTitle:@"one vc"];
+    oneButton.frame = CGRectMake(40, 80, self.view.frame.size.width-40*2, 44);
+    [self.view addSubview:oneButton];
+    [oneButton addTarget:self action:@selector(presentOneVC) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *twoButton = [self createButtonWithTitle:@"two vc"];
+    twoButton.frame = CGRectMake(40, 80*2, self.view.frame.size.width-40*2, 44);
+    [self.view addSubview:twoButton];
+    [twoButton addTarget:self action:@selector(presentTwoVC) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *threeButton = [self createButtonWithTitle:@"three vc"];
+    threeButton.frame = CGRectMake(40, 80*3, self.view.frame.size.width-40*2, 44);
+    [self.view addSubview:threeButton];
+    [threeButton addTarget:self action:@selector(presentThreeVC) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UIButton *)createButtonWithTitle:(NSString *)title {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.layer.cornerRadius = 4.0;
+    button.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    button.layer.borderWidth = 1.0;
+    [button setTitle:title forState:UIControlStateNormal];
+    return button;
+}
+
+- (void)presentOneVC {
+    [self presentViewController:[HoloExampleOneViewController new] animated:YES completion:nil];
+}
+
+- (void)presentTwoVC {
+    [self presentViewController:[HoloExampleTwoViewController new] animated:YES completion:nil];
+}
+
+- (void)presentThreeVC {
+    [self presentViewController:[HoloExampleThreeViewController new] animated:YES completion:nil];
 }
 
 @end

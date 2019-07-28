@@ -9,4 +9,11 @@
 
 @implementation HoloTableViewCellConfiger
 
+- (HoloTableViewCellConfiger *(^)(NSString *))cls {
+    return ^id(NSString *cls) {
+        self.clsName = cls;
+        return self;
+    };
+}
+
 @end

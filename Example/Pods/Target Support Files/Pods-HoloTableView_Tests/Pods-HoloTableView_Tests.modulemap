@@ -1,0 +1,6 @@
+framework module Pods_HoloTableView_Tests {
+  umbrella header "Pods-HoloTableView_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

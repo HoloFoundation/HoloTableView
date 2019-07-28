@@ -1,0 +1,22 @@
+{
+  "name": "HoloTableView",
+  "version": "0.1.0",
+  "summary": "A short description of HoloTableView.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/gonghonglou/HoloTableView",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "gonghonglou": "gonghonglou@icloud.com"
+  },
+  "source": {
+    "git": "https://github.com/gonghonglou/HoloTableView.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "HoloTableView/Classes/**/*"
+}

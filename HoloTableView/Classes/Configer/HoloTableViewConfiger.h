@@ -6,10 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@class HoloTableViewCellConfiger;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableViewConfiger : NSObject
+
+@property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^cell)(NSString *cell);
+
+- (NSDictionary *)install;
 
 @end
 
