@@ -70,11 +70,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return 0;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.holoRows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section >= self.holoSections.count) return [UITableViewCell new];
+
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.holoRows[indexPath.row];
     
@@ -100,6 +104,8 @@
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section >= self.holoSections.count) return 0;
+
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.holoRows[indexPath.row];
     
@@ -114,18 +120,24 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section >= self.holoSections.count) return;
+    
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.holoRows[indexPath.row];
     if (holoRow.didSelectHandler) holoRow.didSelectHandler(holoRow.model);
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section >= self.holoSections.count) return;
+    
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.holoRows[indexPath.row];
     if (holoRow.willDisplayHandler) holoRow.willDisplayHandler(cell);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    if (indexPath.section >= self.holoSections.count) return;
+    
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.holoRows[indexPath.row];
     if (holoRow.didEndDisplayHandler) holoRow.didEndDisplayHandler(cell);
@@ -133,21 +145,29 @@
 
 #pragma mark - UITableViewDelegate (header and footer)
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return nil;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.headerView;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return nil;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return 0;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.headerViewHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return 0;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.footerViewHeight;
 }

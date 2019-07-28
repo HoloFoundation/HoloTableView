@@ -24,8 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
+    
     [self.tableView holo_configTableView:^(HoloTableViewConfiger * _Nonnull configer) {
         configer.cell(@"one").cls(@"HoloTableViewOneCell");
         configer.cell(@"two").cls(@"HoloTableViewTwoCell");
@@ -54,6 +55,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+//    [self.tableView holo_deleteSection:@"sectionA"];
+//    [self.tableView reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

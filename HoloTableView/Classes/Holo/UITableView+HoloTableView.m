@@ -66,18 +66,14 @@
     }
 }
 
-- (void)holo_deleteSection:(void (^)(HoloTableViewMaker * _Nonnull))block {
-    HoloTableViewMaker *maker = [HoloTableViewMaker new];
-    if (block) block(maker);
-    
-    HoloSection *deleteSection = [maker install];
-    if (!deleteSection.tag) {
-        [self.holoTableViewProxy holo_deleteAllSection];
-    } else {
-        HoloSection *holoSection = [self.holoTableViewProxy holo_sectionWithTag:deleteSection.tag];
-        if (holoSection) {
-            [self.holoTableViewProxy holo_deleteSection:holoSection];
-        }
+- (void)holo_deleteAllSection {
+    [self.holoTableViewProxy holo_deleteAllSection];
+}
+
+- (void)holo_deleteSection:(NSString *)tag {
+    HoloSection *holoSection = [self.holoTableViewProxy holo_sectionWithTag:tag];
+    if (holoSection) {
+        [self.holoTableViewProxy holo_deleteSection:holoSection];
     }
 }
 

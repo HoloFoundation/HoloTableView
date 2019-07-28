@@ -18,7 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)holo_updateSection:(void(^)(HoloTableViewMaker *make))block;
 
-- (void)holo_deleteSection:(void(^)(HoloTableViewMaker *make))block;
+- (void)holo_deleteAllSection;
+
+- (void)holo_deleteSection:(NSString *)tag;
 
 @end
 
