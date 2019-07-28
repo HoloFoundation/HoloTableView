@@ -105,19 +105,14 @@
     
     NSString *clsName = self.cellClsDict[holoRow.cell];
     Class cls = clsName ? NSClassFromString(clsName) : NSClassFromString(holoRow.cell);
-    if (holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
+    if ([cls conformsToProtocol:@protocol(HoloTableViewProtocol)] && holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
         CGFloat cellHeight = [cls heightForRow:holoRow.model];
         return cellHeight;
     }
-//    if ([cls conformsToProtocol:@protocol(HoloTableViewProtocol)]) {
-//        CGFloat cellHeight = [cls heightForRow:holoRow.model];
-//        return cellHeight;
-//    }
     
     return holoRow.height;
 }
 
-//
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.holoRows[indexPath.row];
@@ -125,6 +120,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.holoRows[indexPath.row];
+    if (holoRow.willDisplayHandler) holoRow.willDisplayHandler(cell);
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.holoRows[indexPath.row];
     if (holoRow.didEndDisplayHandler) holoRow.didEndDisplayHandler(cell);

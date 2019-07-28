@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^didSelectHandler)(id);
 
+@property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell);
+
 @property (nonatomic, copy) void (^didEndDisplayHandler)(UITableViewCell *cell);
 
 @end

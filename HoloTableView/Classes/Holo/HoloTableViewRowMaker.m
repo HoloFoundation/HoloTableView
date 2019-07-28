@@ -46,9 +46,16 @@
     };
 }
 
+- (HoloTableViewRowMaker *(^)(void (^)(UITableViewCell *)))willDisplayHandler {
+    return ^id( void (^willDisplayHandler)(UITableViewCell *cell) ){
+        self.row.willDisplayHandler = willDisplayHandler;
+        return self;
+    };
+}
+
 - (HoloTableViewRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayHandler {
-    return ^id( void (^didSelectHandler)(UITableViewCell *cell) ){
-        self.row.didEndDisplayHandler = didSelectHandler;
+    return ^id( void (^didEndDisplayHandler)(UITableViewCell *cell) ){
+        self.row.didEndDisplayHandler = didEndDisplayHandler;
         return self;
     };
 }

@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^didSelectHandler)(void(^)(id model));
 
+@property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell));
+
 @property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^didEndDisplayHandler)(void(^)(UITableViewCell *cell));
 
 @end
