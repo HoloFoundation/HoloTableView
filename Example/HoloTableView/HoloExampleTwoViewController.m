@@ -52,6 +52,8 @@
         make.row(@"three")
         .height(120);
     }];
+    
+    [self.tableView reloadData];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
