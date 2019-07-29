@@ -9,7 +9,31 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
+## Usage
+
+```objective-c
+[self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
+   make.row(@"HoloTableViewOneCell")
+   .model(@{@"title":@"one cell"});
+   
+   make.row(@"HoloTableViewTwoCell")
+   .model([NSObject new])
+   .tag(@"two")
+   .willDisplayHandler(^(UITableViewCell * _Nonnull cell) {
+       NSLog(@"willDisplayHandler");
+   })
+   .didEndDisplayingHandler(^(UITableViewCell * _Nonnull cell) {
+       NSLog(@"didEndDisplayingHandler");
+   })
+   .didSelectHandler(^(id  _Nonnull model) {
+       NSLog(@"did select model : %@", model);
+   });
+}];
+    
+[self.tableView reloadData];
+
+// etc...
+```
 
 ## Installation
 
@@ -27,3 +51,5 @@ gonghonglou, gonghonglou@icloud.com
 ## License
 
 HoloTableView is available under the MIT license. See the LICENSE file for more info.
+
+
