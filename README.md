@@ -11,7 +11,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-Yore UITableViewCell must conforms to protocol: `HoloTableViewProtocol` and implement their selectors: 
+Your UITableViewCell must conforms to protocol: `HoloTableViewProtocol` and implement their selectors: 
 
 ```objective-c
 - (void)cellForRow:(id)model;
