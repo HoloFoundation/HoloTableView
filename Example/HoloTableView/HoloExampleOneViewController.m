@@ -52,19 +52,13 @@
              @{@"bgColor": [UIColor cyanColor], @"text":@"Hello World!--4", @"height":@44},
              @{@"bgColor": [UIColor redColor], @"text":@"Hello World!--5", @"height":@44},
              @{@"bgColor": [UIColor yellowColor], @"text":@"Hello World!--6", @"height":@88},
-             @{@"bgColor": [UIColor blueColor], @"text":@"Hello World!--7", @"height":@44},
+             @{@"bgColor": [UIColor cyanColor], @"text":@"Hello World!--7", @"height":@44},
              @{@"bgColor": [UIColor greenColor], @"text":@"Hello World!--8", @"height":@22}
              ];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-//    [self.tableView holo_updateRows:^(HoloTableViewRowUpdateMaker * _Nonnull make) {
-//        make.tag(@"123")
-//        .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--123", @"height":@44});
-//    }];
-//    [self.tableView reloadData];
 }
 
 

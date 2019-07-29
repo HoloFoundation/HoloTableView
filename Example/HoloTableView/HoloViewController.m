@@ -9,7 +9,6 @@
 #import "HoloViewController.h"
 #import "HoloExampleOneViewController.h"
 #import "HoloExampleTwoViewController.h"
-#import "HoloExampleThreeViewController.h"
 
 @interface HoloViewController ()
 
@@ -22,19 +21,14 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     UIButton *oneButton = [self createButtonWithTitle:@"one vc"];
-    oneButton.frame = CGRectMake(40, 80, self.view.frame.size.width-40*2, 44);
+    oneButton.frame = CGRectMake(40, 200, self.view.frame.size.width-40*2, 44);
     [self.view addSubview:oneButton];
     [oneButton addTarget:self action:@selector(presentOneVC) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *twoButton = [self createButtonWithTitle:@"two vc"];
-    twoButton.frame = CGRectMake(40, 80*2, self.view.frame.size.width-40*2, 44);
+    twoButton.frame = CGRectMake(40, 300, self.view.frame.size.width-40*2, 44);
     [self.view addSubview:twoButton];
     [twoButton addTarget:self action:@selector(presentTwoVC) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *threeButton = [self createButtonWithTitle:@"three vc"];
-    threeButton.frame = CGRectMake(40, 80*3, self.view.frame.size.width-40*2, 44);
-    [self.view addSubview:threeButton];
-    [threeButton addTarget:self action:@selector(presentThreeVC) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (UIButton *)createButtonWithTitle:(NSString *)title {
@@ -52,10 +46,6 @@
 
 - (void)presentTwoVC {
     [self presentViewController:[HoloExampleTwoViewController new] animated:YES completion:nil];
-}
-
-- (void)presentThreeVC {
-    [self presentViewController:[HoloExampleThreeViewController new] animated:YES completion:nil];
 }
 
 @end

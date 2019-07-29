@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)holo_appendSections:(NSArray<HoloSection *> *)sections;
 
-- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section;
+- (void)holo_updateSection:(HoloSection *)targetSection fromSection:(HoloSection *)fromSection;
 
 - (void)holo_removeSection:(HoloSection *)section;
 

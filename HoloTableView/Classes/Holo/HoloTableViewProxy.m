@@ -94,8 +94,9 @@
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (indexPath.section >= self.holoSections.count) return;
-    
     HoloSection *holoSection = self.holoSections[indexPath.section];
+    
+    if (indexPath.row >= holoSection.rows.count) return;
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.didEndDisplayingHandler) holoRow.didEndDisplayingHandler(cell);
 }

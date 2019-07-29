@@ -18,7 +18,7 @@
 @implementation HoloExampleTwoViewController
 
 - (void)dealloc {
-    NSLog(@"------HoloExampleTwoViewController dealloc");
+    NSLog(@"HoloExampleTwoViewController dealloc");
 }
 
 - (void)viewDidLoad {
@@ -34,7 +34,29 @@
     }];
     
     [self.tableView holo_makeSection:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"sectionA");
+        UIView *headerView = [UIView new];
+        headerView.backgroundColor = [UIColor brownColor];
+        UIView *footerView = [UIView new];
+        footerView.backgroundColor = [UIColor orangeColor];
+
+        make.section(@"sectionA")
+        .headerView(headerView)
+        .headerViewHeight(10)
+        .willDisplayHeaderViewHandler(^(UIView * _Nonnull view) {
+            NSLog(@"willDisplayHeaderViewHandler");
+        })
+        .didEndDisplayingHeaderViewHandler(^(UIView * _Nonnull view) {
+            NSLog(@"didEndDisplayingHeaderViewHandler");
+        })
+        .footerView(footerView)
+        .footerViewHeight(20)
+        .willDisplayFooterViewHandler(^(UIView * _Nonnull view) {
+            NSLog(@"willDisplayFooterViewHandler");
+        })
+        .didEndDisplayingFooterViewHandler(^(UIView * _Nonnull view) {
+            NSLog(@"didEndDisplayingFooterViewHandler");
+        });
+        
         make.section(@"sectionB");
         make.section(@"sectionC");
     }];
@@ -43,25 +65,30 @@
         make.row(@"one")
         .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!", @"height":@44})
         .didSelectHandler(^(id  _Nonnull model) {
-            NSLog(@"----%@", model);
+            NSLog(@"did select : %@", model);
+        })
+        .willDisplayHandler(^(UITableViewCell * _Nonnull cell) {
+            NSLog(@"willDisplayHandler");
+        })
+        .didEndDisplayingHandler(^(UITableViewCell * _Nonnull cell) {
+            NSLog(@"didEndDisplayingHandler");
         });
     }];
     
     [self.tableView holo_makeRowsInSection:@"sectionB" block:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(@"two")
-        .height(88);
+        .height(44)
+        .tag(@"111");
         
         make.row(@"three")
-        .height(120);
+        .height(88)
+        .tag(@"222");
     }];
     
     [self.tableView reloadData];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
-//    [self.tableView holo_deleteSection:@"sectionA"];
-//    [self.tableView reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

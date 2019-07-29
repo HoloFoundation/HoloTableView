@@ -39,9 +39,9 @@
     
     NSMutableArray *loseSections = [NSMutableArray new];
     for (HoloSection *section in [maker install]) {
-        HoloSection *replaceSection = [self.proxyDataSource holo_sectionWithTag:section.tag];
-        if (replaceSection) {
-            [self.proxyDataSource holo_replaceSection:replaceSection withSection:section];
+        HoloSection *updateSection = [self.proxyDataSource holo_sectionWithTag:section.tag];
+        if (updateSection) {
+            [self.proxyDataSource holo_updateSection:updateSection fromSection:section];
         } else {
             [loseSections addObject:section];
         }

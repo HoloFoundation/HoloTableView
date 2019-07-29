@@ -57,13 +57,33 @@
     self.holoSections = array;
 }
 
-- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section {
-    if (!replaceSection || !section) return;
+- (void)holo_updateSection:(HoloSection *)targetSection fromSection:(HoloSection *)fromSection {
+    if (!targetSection || !fromSection) return;
     
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-    NSInteger index = [array indexOfObject:replaceSection];
-    [array replaceObjectAtIndex:index withObject:section];
-    self.holoSections = array;
+    if (fromSection.headerView) {
+        targetSection.headerView = fromSection.headerView;
+    }
+    if (fromSection.footerView) {
+        targetSection.footerView = fromSection.footerView;
+    }
+    if (fromSection.headerViewHeight) {
+        targetSection.headerViewHeight = fromSection.headerViewHeight;
+    }
+    if (fromSection.footerViewHeight) {
+        targetSection.footerViewHeight = fromSection.footerViewHeight;
+    }
+    if (fromSection.willDisplayHeaderViewHandler) {
+        targetSection.willDisplayHeaderViewHandler = fromSection.willDisplayHeaderViewHandler;
+    }
+    if (fromSection.willDisplayFooterViewHandler) {
+        targetSection.willDisplayFooterViewHandler = fromSection.willDisplayFooterViewHandler;
+    }
+    if (fromSection.didEndDisplayingHeaderViewHandler) {
+        targetSection.didEndDisplayingHeaderViewHandler = fromSection.didEndDisplayingHeaderViewHandler;
+    }
+    if (fromSection.didEndDisplayingFooterViewHandler) {
+        targetSection.didEndDisplayingFooterViewHandler = fromSection.didEndDisplayingFooterViewHandler;
+    }
 }
 
 - (void)holo_removeSection:(HoloSection *)section {
