@@ -112,6 +112,20 @@
     };
 }
 
+- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayHeaderViewHandler {
+    return ^id( void (^willDisplayHeaderViewHandler)(id) ){
+        self.section.willDisplayHeaderViewHandler = willDisplayHeaderViewHandler;
+        return self;
+    };
+}
+
+- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayFooterViewHandler {
+    return ^id( void (^willDisplayFooterViewHandler)(id) ){
+        self.section.willDisplayFooterViewHandler = willDisplayFooterViewHandler;
+        return self;
+    };
+}
+
 @end
 
 //============================================================:HoloTableViewSectionMaker

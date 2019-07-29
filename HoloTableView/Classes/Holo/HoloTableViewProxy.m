@@ -121,6 +121,16 @@
     return holoSection.footerViewHeight;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    HoloSection *holoSection = self.holoSections[section];
+    if (holoSection.willDisplayHeaderViewHandler) holoSection.willDisplayHeaderViewHandler(view);
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    HoloSection *holoSection = self.holoSections[section];
+    if (holoSection.willDisplayFooterViewHandler) holoSection.willDisplayFooterViewHandler(view);
+}
+
 #pragma mark - getter
 - (HoloTableViewDataSource *)dataSource {
     if (!_dataSource) {

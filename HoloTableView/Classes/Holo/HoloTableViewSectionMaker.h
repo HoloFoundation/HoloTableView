@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat footerViewHeight;
 
+@property (nonatomic, copy) void (^willDisplayHeaderViewHandler)(UIView *view);
+
+@property (nonatomic, copy) void (^willDisplayFooterViewHandler)(UIView *view);
+
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows;
 
@@ -49,6 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^headerViewHeight)(CGFloat headerViewHeight);
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^footerViewHeight)(CGFloat footerViewHeight);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderViewHandler)(void(^)(UIView *view));
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayFooterViewHandler)(void(^)(UIView *view));
 
 @end
 
