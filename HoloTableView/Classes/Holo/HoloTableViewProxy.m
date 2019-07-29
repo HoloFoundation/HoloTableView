@@ -6,8 +6,8 @@
 //
 
 #import "HoloTableViewProxy.h"
-#import "HoloSection.h"
-#import "HoloRow.h"
+#import "HoloTableViewRowMaker.h"
+#import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewProtocol.h"
 
 @interface HoloTableViewProxy ()
@@ -54,15 +54,34 @@
     self.holoSections = array;
 }
 
-- (void)holo_deleteSection:(HoloSection *)holoSection {
+- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)holoSection {
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+    NSInteger index = [array indexOfObject:replaceSection];
+    [array replaceObjectAtIndex:index withObject:holoSection];
+    self.holoSections = array;
+}
+
+- (void)holo_removeSection:(HoloSection *)holoSection {
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
     [array removeObject:holoSection];
     self.holoSections = array;
 }
 
-- (void)holo_deleteAllSection {
+- (void)holo_removeAllSection {
     self.holoSections = nil;
 }
+
+- (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
+    for (HoloSection *holoSection in self.holoSections) {
+        for (HoloRow *holoRow in holoSection.holoRows) {
+            if ([holoRow.tag isEqualToString:tag] || (!holoRow.tag && !tag)) {
+                return holoSection;
+            }
+        }
+    }
+    return nil;
+}
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

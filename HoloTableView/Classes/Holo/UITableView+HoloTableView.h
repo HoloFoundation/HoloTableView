@@ -6,21 +6,34 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HoloTableViewMaker, HoloTableViewConfiger;
+@class HoloTableViewConfiger, HoloTableViewRowMaker, HoloTableViewSectionMaker, HoloTableViewRowUpdateMaker;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (HoloTableView)
 
+// 配置 cell 与 cls 的对应关系
 - (void)holo_configTableView:(void(^)(HoloTableViewConfiger *configer))block;
 
-- (void)holo_makeSection:(void(^)(HoloTableViewMaker *make))block;
+// 操作 section
+- (void)holo_makeSection:(void(^)(HoloTableViewSectionMaker *make))block;
 
-- (void)holo_updateSection:(void(^)(HoloTableViewMaker *make))block;
+- (void)holo_updateSection:(void(^)(HoloTableViewSectionMaker *make))block;
 
-- (void)holo_deleteAllSection;
+- (void)holo_removeAllSection;
 
-- (void)holo_deleteSection:(NSString *)tag;
+- (void)holo_removeSection:(NSString *)tag;
+
+// 操作 row
+- (void)holo_makeRows:(void(^)(HoloTableViewRowMaker *make))block;
+
+- (void)holo_updateRows:(void(^)(HoloTableViewRowUpdateMaker *make))block;
+
+- (void)holo_makeRowsInSection:(NSString *)tag block:(void(^)(HoloTableViewRowMaker *make))block;
+
+- (void)holo_removeAllRowsInSection:(NSString *)tag;
+
+- (void)holo_removeRow:(NSString *)tag;
 
 @end
 

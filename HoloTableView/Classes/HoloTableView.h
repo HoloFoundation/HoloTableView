@@ -9,11 +9,10 @@
 #define HoloTableView_h
 
 #import "UITableView+HoloTableView.h"
-#import "HoloTableViewMaker.h"
-#import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowMaker.h"
+#import "HoloTableViewSectionMaker.h"
+#import "HoloTableViewRowUpdateMaker.h"
 #import "HoloTableViewProtocol.h"
 #import "HoloTableViewConfiger.h"
-#import "HoloTableViewCellConfiger.h"
 
 #endif /* HoloTableView_h */

@@ -28,12 +28,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     
-    [self.tableView holo_makeSection:^(HoloTableViewMaker * _Nonnull make) {
+    [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(@"HoloTableViewOneCell")
         .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--1", @"height":@44})
         .didSelectHandler(^(id  _Nonnull model) {
             NSLog(@"----%@", model);
-        });
+        })
+        .tag(@"123");
         
         make.row(@"HoloTableViewOneCell")
         .model(@{@"bgColor": [UIColor redColor], @"text":@"Hello World!--2", @"height":@44});
@@ -46,7 +47,13 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.tableView holo_updateRows:^(HoloTableViewRowUpdateMaker * _Nonnull make) {
+        make.tag(@"123")
+        .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--123", @"height":@44});
+    }];
+    [self.tableView reloadData];
 }
 
 

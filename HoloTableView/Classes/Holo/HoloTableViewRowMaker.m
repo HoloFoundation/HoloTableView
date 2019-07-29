@@ -6,9 +6,28 @@
 //
 
 #import "HoloTableViewRowMaker.h"
-#import "HoloRow.h"
 
-@implementation HoloTableViewRowMaker
+//============================================================:HoloRow
+@implementation HoloRow
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _height = CGFLOAT_MIN;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        _configSEL = @selector(cellForRow:);
+        _heightSEL = @selector(heightForRow:);
+#pragma clang diagnostic pop
+    }
+    
+    return self;
+}
+
+@end
+
+//============================================================:HoloRowMaker
+@implementation HoloRowMaker
 
 - (instancetype)init {
     self = [super init];
@@ -18,46 +37,80 @@
     return self;
 }
 
-- (HoloTableViewRowMaker *(^)(id))model {
+- (HoloRowMaker *(^)(id))model {
     return ^id(id model){
         self.row.model = model;
         return self;
     };
 }
 
-- (HoloTableViewRowMaker *(^)(CGFloat))height {
+- (HoloRowMaker *(^)(CGFloat))height {
     return ^id(CGFloat height){
         self.row.height = height;
         return self;
     };
 }
 
-- (HoloTableViewRowMaker *(^)(NSString *))tag {
+- (HoloRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag){
         self.row.tag = tag;
         return self;
     };
 }
 
-- (HoloTableViewRowMaker * (^)(void (^)(id)))didSelectHandler {
+- (HoloRowMaker * (^)(void (^)(id)))didSelectHandler {
     return ^id( void (^didSelectHandler)(id) ){
         self.row.didSelectHandler = didSelectHandler;
         return self;
     };
 }
 
-- (HoloTableViewRowMaker *(^)(void (^)(UITableViewCell *)))willDisplayHandler {
+- (HoloRowMaker *(^)(void (^)(UITableViewCell *)))willDisplayHandler {
     return ^id( void (^willDisplayHandler)(UITableViewCell *cell) ){
         self.row.willDisplayHandler = willDisplayHandler;
         return self;
     };
 }
 
-- (HoloTableViewRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayHandler {
+- (HoloRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayHandler {
     return ^id( void (^didEndDisplayHandler)(UITableViewCell *cell) ){
         self.row.didEndDisplayHandler = didEndDisplayHandler;
         return self;
     };
+}
+
+@end
+
+//============================================================:HoloTableViewRowMaker
+@interface HoloTableViewRowMaker ()
+
+@property (nonatomic, strong) NSMutableArray<HoloRow *> *holoRows;
+
+@end
+
+@implementation HoloTableViewRowMaker
+
+- (HoloRowMaker *(^)(NSString *))row {
+    __weak typeof(self) weakSelf = self;
+    return ^id(NSString *cell) {
+        __weak typeof(weakSelf) strongSelf = weakSelf;
+        HoloRowMaker *rowMaker = [HoloRowMaker new];
+        rowMaker.row.cell = cell;
+        [strongSelf.holoRows addObject:rowMaker.row];
+        return rowMaker;
+    };
+}
+
+- (NSArray<HoloRow *> *)install {
+    return self.holoRows;
+}
+
+#pragma mark - getter
+- (NSMutableArray<HoloRow *> *)holoRows {
+    if (!_holoRows) {
+        _holoRows = [NSMutableArray new];
+    }
+    return _holoRows;
 }
 
 @end

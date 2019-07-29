@@ -6,8 +6,20 @@
 //
 
 #import "HoloTableViewConfiger.h"
-#import "HoloTableViewCellConfiger.h"
 
+//============================================================:HoloTableViewCellConfiger
+@implementation HoloTableViewCellConfiger
+
+- (HoloTableViewCellConfiger *(^)(NSString *))cls {
+    return ^id(NSString *cls) {
+        self.clsName = cls;
+        return self;
+    };
+}
+
+@end
+
+//============================================================:HoloTableViewConfiger
 @interface HoloTableViewConfiger ()
 
 @property (nonatomic, strong) NSMutableArray *cellArray;

@@ -6,25 +6,57 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloRow, HoloTableViewRowMaker;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloTableViewRowMaker : NSObject
+//============================================================:HoloRow
+@interface HoloRow : NSObject
+
+@property (nonatomic, copy) NSString *cell;
+
+@property (nonatomic, strong) id model;
+
+@property (nonatomic, assign) CGFloat height;
+
+@property (nonatomic, copy) NSString *tag;
+
+@property (nonatomic, assign) SEL configSEL;
+
+@property (nonatomic, assign) SEL heightSEL;
+
+@property (nonatomic, copy) void (^didSelectHandler)(id);
+
+@property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell);
+
+@property (nonatomic, copy) void (^didEndDisplayHandler)(UITableViewCell *cell);
+
+@end
+
+//============================================================:HoloRowMaker
+@interface HoloRowMaker : NSObject
 
 @property (nonatomic, strong, readonly) HoloRow *row;
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^model)(id model);
+@property (nonatomic, copy, readonly) HoloRowMaker *(^model)(id model);
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^height)(CGFloat height);
+@property (nonatomic, copy, readonly) HoloRowMaker *(^height)(CGFloat height);
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^tag)(NSString *tag);
+@property (nonatomic, copy, readonly) HoloRowMaker *(^tag)(NSString *tag);
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^didSelectHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloRowMaker *(^didSelectHandler)(void(^)(id model));
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell));
+@property (nonatomic, copy, readonly) HoloRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell));
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMaker *(^didEndDisplayHandler)(void(^)(UITableViewCell *cell));
+@property (nonatomic, copy, readonly) HoloRowMaker *(^didEndDisplayHandler)(void(^)(UITableViewCell *cell));
+
+@end
+
+//============================================================:HoloTableViewRowMaker
+@interface HoloTableViewRowMaker : NSObject
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^row)(NSString *rowName);
+
+- (NSArray<HoloRow *> *)install;
 
 @end
 

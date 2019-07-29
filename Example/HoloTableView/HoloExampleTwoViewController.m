@@ -33,9 +33,13 @@
         configer.cell(@"three").cls(@"HoloTableViewThreeCell");
     }];
     
-    [self.tableView holo_makeSection:^(HoloTableViewMaker * _Nonnull make) {
+    [self.tableView holo_makeSection:^(HoloTableViewSectionMaker * _Nonnull make) {
         make.section(@"sectionA");
-        
+        make.section(@"sectionB");
+        make.section(@"sectionC");
+    }];
+    
+    [self.tableView holo_makeRowsInSection:@"sectionA" block:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(@"one")
         .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!", @"height":@44})
         .didSelectHandler(^(id  _Nonnull model) {
@@ -43,9 +47,7 @@
         });
     }];
     
-    [self.tableView holo_makeSection:^(HoloTableViewMaker * _Nonnull make) {
-        make.section(@"sectionB");
-        
+    [self.tableView holo_makeRowsInSection:@"sectionB" block:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(@"two")
         .height(88);
         
