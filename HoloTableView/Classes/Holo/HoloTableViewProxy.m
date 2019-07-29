@@ -97,7 +97,7 @@
     
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.didEndDisplayHandler) holoRow.didEndDisplayHandler(cell);
+    if (holoRow.didEndDisplayingHandler) holoRow.didEndDisplayingHandler(cell);
 }
 
 #pragma mark - UITableViewDelegate (header and footer)
@@ -129,6 +129,16 @@
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
     if (holoSection.willDisplayFooterViewHandler) holoSection.willDisplayFooterViewHandler(view);
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section {
+    HoloSection *holoSection = self.holoSections[section];
+    if (holoSection.didEndDisplayingHeaderViewHandler) holoSection.didEndDisplayingHeaderViewHandler(view);
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section {
+    HoloSection *holoSection = self.holoSections[section];
+    if (holoSection.didEndDisplayingFooterViewHandler) holoSection.didEndDisplayingFooterViewHandler(view);
 }
 
 #pragma mark - getter

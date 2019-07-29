@@ -72,9 +72,9 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayHandler {
-    return ^id( void (^didEndDisplayHandler)(UITableViewCell *cell) ){
-        self.row.didEndDisplayHandler = didEndDisplayHandler;
+- (HoloRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayingHandler {
+    return ^id( void (^didEndDisplayingHandler)(UITableViewCell *cell) ){
+        self.row.didEndDisplayingHandler = didEndDisplayingHandler;
         return self;
     };
 }

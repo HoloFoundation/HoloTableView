@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell);
 
-@property (nonatomic, copy) void (^didEndDisplayHandler)(UITableViewCell *cell);
+@property (nonatomic, copy) void (^didEndDisplayingHandler)(UITableViewCell *cell);
 
 @end
 
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell));
 
-@property (nonatomic, copy, readonly) HoloRowMaker *(^didEndDisplayHandler)(void(^)(UITableViewCell *cell));
+@property (nonatomic, copy, readonly) HoloRowMaker *(^didEndDisplayingHandler)(void(^)(UITableViewCell *cell));
 
 @end
 

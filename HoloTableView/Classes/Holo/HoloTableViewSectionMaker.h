@@ -30,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^willDisplayFooterViewHandler)(UIView *view);
 
+@property (nonatomic, copy) void (^didEndDisplayingHeaderViewHandler)(UIView *view);
+
+@property (nonatomic, copy) void (^didEndDisplayingFooterViewHandler)(UIView *view);
+
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows;
 
@@ -57,6 +61,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderViewHandler)(void(^)(UIView *view));
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayFooterViewHandler)(void(^)(UIView *view));
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingHeaderViewHandler)(void(^)(UIView *view));
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingFooterViewHandler)(void(^)(UIView *view));
 
 @end
 

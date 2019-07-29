@@ -126,6 +126,20 @@
     };
 }
 
+- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingHeaderViewHandler {
+    return ^id( void (^didEndDisplayingHeaderViewHandler)(id) ){
+        self.section.didEndDisplayingHeaderViewHandler = didEndDisplayingHeaderViewHandler;
+        return self;
+    };
+}
+
+- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingFooterViewHandler {
+    return ^id( void (^didEndDisplayingFooterViewHandler)(id) ){
+        self.section.didEndDisplayingFooterViewHandler = didEndDisplayingFooterViewHandler;
+        return self;
+    };
+}
+
 @end
 
 //============================================================:HoloTableViewSectionMaker
