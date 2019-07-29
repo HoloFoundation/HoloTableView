@@ -27,9 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat footerViewHeight;
 
 
-- (void)holo_appendRows:(NSArray<HoloRow *> *)holoRows;
+- (void)holo_appendRows:(NSArray<HoloRow *> *)rows;
 
-- (void)holo_updateRow:(HoloUpdateRow *)holoUpdateRow;
+- (void)holo_updateRow:(HoloUpdateRow *)updateRow;
 
 - (void)holo_removeRow:(NSString *)tag;
 

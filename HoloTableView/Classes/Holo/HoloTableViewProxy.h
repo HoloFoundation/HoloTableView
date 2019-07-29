@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloRow, HoloSection;
+@class HoloSection;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (HoloSection *)holo_sectionWithTag:(NSString * _Nullable)tag;
 
-- (void)holo_appendSection:(HoloSection *)holoSection;
+- (void)holo_appendSection:(HoloSection *)section;
 
-- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)holoSection;
+- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section;
 
-- (void)holo_removeSection:(HoloSection *)holoSection;
+- (void)holo_removeSection:(HoloSection *)section;
 
 - (void)holo_removeAllSection;
 

@@ -20,30 +20,30 @@
     return self;
 }
 
-- (void)holo_appendRows:(NSArray<HoloRow *> *)holoRows {
+- (void)holo_appendRows:(NSArray<HoloRow *> *)rows {
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoRows];
-    [array addObjectsFromArray:holoRows];
+    [array addObjectsFromArray:rows];
     self.holoRows = array;
 }
 
-- (void)holo_updateRow:(HoloUpdateRow *)holoUpdateRow {
+- (void)holo_updateRow:(HoloUpdateRow *)updateRow {
     HoloRow *replaceRow;
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoRows];
     for (HoloRow *row in array) {
-        if ([row.tag isEqualToString:holoUpdateRow.tag] || (!row.tag && !holoUpdateRow.tag)) {
+        if ([row.tag isEqualToString:updateRow.tag] || (!row.tag && !updateRow.tag)) {
             replaceRow = row;
             break;
         }
     }
     if (replaceRow) {
-        if (holoUpdateRow.cell) {
-            replaceRow.cell = holoUpdateRow.cell;
+        if (updateRow.cell) {
+            replaceRow.cell = updateRow.cell;
         }
-        if (holoUpdateRow.model) {
-            replaceRow.model = holoUpdateRow.model;
+        if (updateRow.model) {
+            replaceRow.model = updateRow.model;
         }
-        if (holoUpdateRow.height) {
-            replaceRow.height = holoUpdateRow.height;
+        if (updateRow.height) {
+            replaceRow.height = updateRow.height;
         }
     }
 }

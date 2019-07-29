@@ -48,22 +48,22 @@
     return nil;
 }
 
-- (void)holo_appendSection:(HoloSection *)holoSection {
+- (void)holo_appendSection:(HoloSection *)section {
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-    [array addObject:holoSection];
+    [array addObject:section];
     self.holoSections = array;
 }
 
-- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)holoSection {
+- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section {
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
     NSInteger index = [array indexOfObject:replaceSection];
-    [array replaceObjectAtIndex:index withObject:holoSection];
+    [array replaceObjectAtIndex:index withObject:section];
     self.holoSections = array;
 }
 
-- (void)holo_removeSection:(HoloSection *)holoSection {
+- (void)holo_removeSection:(HoloSection *)section {
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-    [array removeObject:holoSection];
+    [array removeObject:section];
     self.holoSections = array;
 }
 

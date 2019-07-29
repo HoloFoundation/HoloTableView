@@ -15,6 +15,8 @@
 		59EABF129E5B4E43F618E7608708A393 /* HoloTableViewConfiger.h in Headers */ = {isa = PBXBuildFile; fileRef = BABEC997E15301B2E86440B19358F478 /* HoloTableViewConfiger.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		66C751DB9713C5837CA678CD4678A6FF /* HoloTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 445EAB7BF4FF61039A97A8EEB65D789A /* HoloTableView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6FDED64565087F220964199612378AAB /* HoloTableViewProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = FBD7FB277788DB0E4CE7D3503DAA7875 /* HoloTableViewProxy.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		75C81EF922EEF98C00C337A6 /* HoloTableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C81EF722EEF98C00C337A6 /* HoloTableViewDataSource.h */; };
+		75C81EFA22EEF98C00C337A6 /* HoloTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C81EF822EEF98C00C337A6 /* HoloTableViewDataSource.m */; };
 		959834EFA456E95A791F02FBA4673100 /* UITableView+HoloTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 60180C9E731376FF4A1D02B27EBA4DBA /* UITableView+HoloTableViewProxy.m */; };
 		975EFFE423886C88B03323AA54582E92 /* HoloTableViewRowUpdateMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 41C30D8B527DB5B837CA661E501544BC /* HoloTableViewRowUpdateMaker.m */; };
 		9BDA8DFF428F6AEE54FF10C8697B06EF /* HoloTableViewSectionMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA83F7521127EEDF0C6398E495C3533 /* HoloTableViewSectionMaker.m */; };
@@ -47,11 +49,11 @@
 
 /* Begin PBXFileReference section */
 		12E02EA4A886296D39178145D11E240B /* HoloTableView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HoloTableView-prefix.pch"; sourceTree = "<group>"; };
-		1357E5EECE0B1B888F35202E4BD605CE /* libHoloTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libHoloTableView.a; path = libHoloTableView.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1357E5EECE0B1B888F35202E4BD605CE /* libHoloTableView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHoloTableView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1453F8A94E63EE5C5327B0815EA480CB /* Pods-HoloTableView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HoloTableView_Tests-dummy.m"; sourceTree = "<group>"; };
 		1D0E988B0C98C90B44F9A2F0FE17B4CB /* HoloTableViewRowUpdateMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HoloTableViewRowUpdateMaker.h; sourceTree = "<group>"; };
-		1F807C7B18867AEDF75EA23AA14EE607 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		2814B8DA5F988D257CF31BD8421F0FA3 /* HoloTableView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = HoloTableView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		1F807C7B18867AEDF75EA23AA14EE607 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2814B8DA5F988D257CF31BD8421F0FA3 /* HoloTableView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = HoloTableView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2B9B3433C451C2D5622B2D45789A5F58 /* Pods-HoloTableView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HoloTableView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		323C055E431387B72445B6E2D073CD87 /* Pods-HoloTableView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HoloTableView_Example-dummy.m"; sourceTree = "<group>"; };
 		3D75D8F2B12EB4116EC9104DD0443605 /* UITableView+HoloTableViewProxy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UITableView+HoloTableViewProxy.h"; sourceTree = "<group>"; };
@@ -61,22 +63,24 @@
 		60180C9E731376FF4A1D02B27EBA4DBA /* UITableView+HoloTableViewProxy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITableView+HoloTableViewProxy.m"; sourceTree = "<group>"; };
 		69070C3A9767B5B430C5EBAFC83E1E1D /* HoloTableViewConfiger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HoloTableViewConfiger.m; sourceTree = "<group>"; };
 		6CAFD4CFDBEEF4AC5C9DCDB1C91B97EF /* HoloTableViewRowMaker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HoloTableViewRowMaker.m; sourceTree = "<group>"; };
+		75C81EF722EEF98C00C337A6 /* HoloTableViewDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloTableViewDataSource.h; sourceTree = "<group>"; };
+		75C81EF822EEF98C00C337A6 /* HoloTableViewDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloTableViewDataSource.m; sourceTree = "<group>"; };
 		775BFC8D5A1AA4C0F2200095CC2DBE8D /* HoloTableViewProxy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = HoloTableViewProxy.m; sourceTree = "<group>"; };
 		8F77F593FC388EF34A85A248449531EA /* Pods-HoloTableView_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HoloTableView_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		90926A6A060419064D08668B1BDBB054 /* Pods-HoloTableView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HoloTableView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		938B1EBA1B3752E48AE70C492A20E3AC /* Pods-HoloTableView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HoloTableView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		956E4BD204DB804D7586682B4B8631B4 /* HoloTableViewRowMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HoloTableViewRowMaker.h; sourceTree = "<group>"; };
 		9A48BA1681FEE363B6D8D785E94E2CFF /* Pods-HoloTableView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HoloTableView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A0FCC91B4C23B1BCEDE4DC8B478FEBD5 /* libPods-HoloTableView_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-HoloTableView_Tests.a"; path = "libPods-HoloTableView_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A0FCC91B4C23B1BCEDE4DC8B478FEBD5 /* libPods-HoloTableView_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloTableView_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4179A54B05ADA28039B0AD636B98BAA /* HoloTableViewProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HoloTableViewProtocol.h; sourceTree = "<group>"; };
 		A474BDE73F0BD6D90D77AC0A3D40DEBA /* Pods-HoloTableView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HoloTableView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		AA9B4E90B0190FC453184E1E5C5EFDC8 /* Pods-HoloTableView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HoloTableView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		B9AC0403A0BB1AFFF13EA3DD2B43BB48 /* Pods-HoloTableView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HoloTableView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BABEC997E15301B2E86440B19358F478 /* HoloTableViewConfiger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HoloTableViewConfiger.h; sourceTree = "<group>"; };
-		D2A95A81371E51EA35D225F69D72A1E7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		D2A95A81371E51EA35D225F69D72A1E7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D4E6A269E6512BC451A6E7AC9482BA97 /* UITableView+HoloTableView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITableView+HoloTableView.m"; sourceTree = "<group>"; };
-		E5B66BCE7182D4E7641AE13189E79E6F /* libPods-HoloTableView_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-HoloTableView_Example.a"; path = "libPods-HoloTableView_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5B66BCE7182D4E7641AE13189E79E6F /* libPods-HoloTableView_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HoloTableView_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB0D76250B1780F4C0C8ECEB9F6FC88 /* UITableView+HoloTableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UITableView+HoloTableView.h"; sourceTree = "<group>"; };
 		EF6C020FCCF36F8A828D37627DDA2192 /* HoloTableViewSectionMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = HoloTableViewSectionMaker.h; sourceTree = "<group>"; };
 		F5D88944BBDE1684C3AAE8B8CDE6ABA6 /* HoloTableView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HoloTableView.xcconfig; sourceTree = "<group>"; };
@@ -214,6 +218,8 @@
 				A4179A54B05ADA28039B0AD636B98BAA /* HoloTableViewProtocol.h */,
 				FBD7FB277788DB0E4CE7D3503DAA7875 /* HoloTableViewProxy.h */,
 				775BFC8D5A1AA4C0F2200095CC2DBE8D /* HoloTableViewProxy.m */,
+				75C81EF722EEF98C00C337A6 /* HoloTableViewDataSource.h */,
+				75C81EF822EEF98C00C337A6 /* HoloTableViewDataSource.m */,
 				956E4BD204DB804D7586682B4B8631B4 /* HoloTableViewRowMaker.h */,
 				6CAFD4CFDBEEF4AC5C9DCDB1C91B97EF /* HoloTableViewRowMaker.m */,
 				1D0E988B0C98C90B44F9A2F0FE17B4CB /* HoloTableViewRowUpdateMaker.h */,
@@ -246,6 +252,7 @@
 				66C751DB9713C5837CA678CD4678A6FF /* HoloTableView.h in Headers */,
 				59EABF129E5B4E43F618E7608708A393 /* HoloTableViewConfiger.h in Headers */,
 				54D8987D4797E5080D9806FD6DA027EF /* HoloTableViewProtocol.h in Headers */,
+				75C81EF922EEF98C00C337A6 /* HoloTableViewDataSource.h in Headers */,
 				6FDED64565087F220964199612378AAB /* HoloTableViewProxy.h in Headers */,
 				A00565D9A9B67DFAB7703A0C333D1D5C /* HoloTableViewRowMaker.h in Headers */,
 				F634332FE2F5A1F7844496D9470436FB /* HoloTableViewRowUpdateMaker.h in Headers */,
@@ -375,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAFC0B1EC0A5D8555EB279F0C18BFE74 /* HoloTableView-dummy.m in Sources */,
+				75C81EFA22EEF98C00C337A6 /* HoloTableViewDataSource.m in Sources */,
 				4577D657648766AEF0FB6E17752697D0 /* HoloTableViewConfiger.m in Sources */,
 				D854044DA96E741D46D3020D36D226C3 /* HoloTableViewProxy.m in Sources */,
 				B37019945AEB183CC9DBFD99FCEB78C3 /* HoloTableViewRowMaker.m in Sources */,
@@ -480,8 +488,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
