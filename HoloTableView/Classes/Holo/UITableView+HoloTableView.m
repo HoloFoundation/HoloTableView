@@ -46,7 +46,9 @@
             [loseSections addObject:holoSection];
         }
     }
-    [self.proxyDataSource holo_appendSections:loseSections];
+    if (loseSections.count > 0) {
+        [self.proxyDataSource holo_appendSections:loseSections];
+    }
 }
 
 - (void)holo_removeAllSection {

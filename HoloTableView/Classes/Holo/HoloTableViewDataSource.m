@@ -75,7 +75,7 @@
 }
 
 - (void)holo_removeAllSection {
-    self.holoSections = nil;
+    self.holoSections = [NSArray new];
 }
 
 - (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
