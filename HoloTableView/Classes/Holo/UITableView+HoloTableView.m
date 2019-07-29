@@ -11,7 +11,7 @@
 #import "HoloTableViewConfiger.h"
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowMaker.h"
-#import "HoloTableViewRowUpdateMaker.h"
+#import "HoloTableViewUpdateRowMaker.h"
 #import "HoloTableViewDataSource.h"
 
 @implementation UITableView (HoloTableView)
@@ -78,8 +78,8 @@
     [section holo_appendRows:rows];
 }
 
-- (void)holo_updateRows:(void (^)(HoloTableViewRowUpdateMaker *))block {
-    HoloTableViewRowUpdateMaker *maker = [HoloTableViewRowUpdateMaker new];
+- (void)holo_updateRows:(void (^)(HoloTableViewUpdateRowMaker *))block {
+    HoloTableViewUpdateRowMaker *maker = [HoloTableViewUpdateRowMaker new];
     if (block) block(maker);
     
     for (HoloUpdateRow *updateRow in [maker install]) {

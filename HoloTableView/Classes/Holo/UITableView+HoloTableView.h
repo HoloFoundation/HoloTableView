@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HoloTableViewConfiger, HoloTableViewRowMaker, HoloTableViewSectionMaker, HoloTableViewRowUpdateMaker;
+@class HoloTableViewConfiger, HoloTableViewRowMaker, HoloTableViewSectionMaker, HoloTableViewUpdateRowMaker;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 操作 row
 - (void)holo_makeRows:(void(^)(HoloTableViewRowMaker *make))block;
 
-- (void)holo_updateRows:(void(^)(HoloTableViewRowUpdateMaker *make))block;
+- (void)holo_updateRows:(void(^)(HoloTableViewUpdateRowMaker *make))block;
 
 - (void)holo_makeRowsInSection:(NSString *)tag block:(void(^)(HoloTableViewRowMaker *make))block;
 

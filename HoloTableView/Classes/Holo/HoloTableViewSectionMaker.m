@@ -7,7 +7,7 @@
 
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowMaker.h"
-#import "HoloTableViewRowUpdateMaker.h"
+#import "HoloTableViewUpdateRowMaker.h"
 
 //============================================================:HoloSection
 @implementation HoloSection

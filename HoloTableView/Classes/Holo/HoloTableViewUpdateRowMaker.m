@@ -1,19 +1,19 @@
 //
-//  HoloTableViewRowUpdateMaker.m
+//  HoloTableViewUpdateRowMaker.m
 //  HoloTableView
 //
 //  Created by 与佳期 on 2019/7/29.
 //
 
-#import "HoloTableViewRowUpdateMaker.h"
+#import "HoloTableViewUpdateRowMaker.h"
 
 //============================================================:HoloUpdateRow
 @implementation HoloUpdateRow
 
 @end
 
-//============================================================:HoloRowUpdateMaker
-@implementation HoloRowUpdateMaker
+//============================================================:HoloUpdateRowMaker
+@implementation HoloUpdateRowMaker
 
 - (instancetype)init {
     self = [super init];
@@ -23,14 +23,14 @@
     return self;
 }
 
-- (HoloRowUpdateMaker *(^)(id))model {
+- (HoloUpdateRowMaker *(^)(id))model {
     return ^id(id model){
         self.updateRow.model = model;
         return self;
     };
 }
 
-- (HoloRowUpdateMaker *(^)(CGFloat))height {
+- (HoloUpdateRowMaker *(^)(CGFloat))height {
     return ^id(CGFloat height){
         self.updateRow.height = height;
         return self;
@@ -39,20 +39,20 @@
 
 @end
 
-//============================================================:HoloTableViewRowUpdateMaker
-@interface HoloTableViewRowUpdateMaker ()
+//============================================================:HoloTableViewUpdateRowMaker
+@interface HoloTableViewUpdateRowMaker ()
 
 @property (nonatomic, strong) NSMutableArray<HoloUpdateRow *> *holoUpdateRows;
 
 @end
 
-@implementation HoloTableViewRowUpdateMaker
+@implementation HoloTableViewUpdateRowMaker
 
-- (HoloRowUpdateMaker *(^)(NSString *))tag {
+- (HoloUpdateRowMaker *(^)(NSString *))tag {
     __weak typeof(self) weakSelf = self;
     return ^id(NSString *tag) {
         __weak typeof(weakSelf) strongSelf = weakSelf;
-        HoloRowUpdateMaker *rowMaker = [HoloRowUpdateMaker new];
+        HoloUpdateRowMaker *rowMaker = [HoloUpdateRowMaker new];
         rowMaker.updateRow.tag = tag;
         [strongSelf.holoUpdateRows addObject:rowMaker.updateRow];
         return rowMaker;

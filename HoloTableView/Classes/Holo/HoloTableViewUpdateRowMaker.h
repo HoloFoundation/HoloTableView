@@ -1,5 +1,5 @@
 //
-//  HoloTableViewRowUpdateMaker.h
+//  HoloTableViewUpdateRowMaker.h
 //  HoloTableView
 //
 //  Created by 与佳期 on 2019/7/29.
@@ -22,21 +22,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloRowUpdateMaker
-@interface HoloRowUpdateMaker : NSObject
+//============================================================:HoloUpdateRowMaker
+@interface HoloUpdateRowMaker : NSObject
 
 @property (nonatomic, strong, readonly) HoloUpdateRow *updateRow;
 
-@property (nonatomic, copy, readonly) HoloRowUpdateMaker *(^model)(id model);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^model)(id model);
 
-@property (nonatomic, copy, readonly) HoloRowUpdateMaker *(^height)(CGFloat height);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^height)(CGFloat height);
 
 @end
 
-//============================================================:HoloTableViewRowUpdateMaker
-@interface HoloTableViewRowUpdateMaker : NSObject
+//============================================================:HoloTableViewUpdateRowMaker
+@interface HoloTableViewUpdateRowMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloRowUpdateMaker *(^tag)(NSString *tag);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^tag)(NSString *tag);
 
 - (NSArray<HoloUpdateRow *> *)install;
 
