@@ -46,11 +46,11 @@
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.tag forIndexPath:indexPath];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.tag];
+    NSString *clsName = self.cellClsDict[holoRow.cell] ?: holoRow.cell;
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"HoloTableViewCellReuseIdentifier_%@", clsName];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
-        NSString *clsName = self.cellClsDict[holoRow.cell];
-        Class cls = clsName ? NSClassFromString(clsName) : NSClassFromString(holoRow.cell);
-        cell = [[cls alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:holoRow.tag];
+        cell = [[NSClassFromString(clsName) alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
     
     if (holoRow.configSEL && [cell respondsToSelector:holoRow.configSEL]) {
@@ -60,7 +60,7 @@
 #pragma clang diagnostic pop
     }
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:holoRow.tag];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
     return cell;
 }

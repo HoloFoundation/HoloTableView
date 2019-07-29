@@ -13,7 +13,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _height = CGFLOAT_MIN;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         _configSEL = @selector(cellForRow:);
