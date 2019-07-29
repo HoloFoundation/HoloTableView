@@ -18,7 +18,7 @@
 @implementation HoloExampleOneViewController
 
 - (void)dealloc {
-    NSLog(@"------HoloExampleOneViewController dealloc");
+    NSLog(@"HoloExampleOneViewController dealloc");
 }
 
 - (void)viewDidLoad {
@@ -29,31 +29,42 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
-        make.row(@"HoloTableViewOneCell")
-        .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--1", @"height":@44})
-        .didSelectHandler(^(id  _Nonnull model) {
-            NSLog(@"----%@", model);
-        })
-        .tag(@"123");
-        
-        make.row(@"HoloTableViewOneCell")
-        .model(@{@"bgColor": [UIColor redColor], @"text":@"Hello World!--2", @"height":@44});
-        
-        make.row(@"HoloTableViewOneCell")
-        .model(@{@"bgColor": [UIColor yellowColor], @"text":@"Hello World!--3", @"height":@44});
+        [self _makeRows:make];
     }];
-    
     [self.tableView reloadData];
 }
 
+- (void)_makeRows:(HoloTableViewRowMaker *)make {
+    for (NSDictionary *dict in [self _models]) {
+        make.row(@"HoloTableViewOneCell")
+        .model(dict)
+        .didSelectHandler(^(id  _Nonnull model) {
+            NSLog(@"did select model : %@", model);
+        });
+    }
+}
+
+- (NSArray *)_models {
+    return @[
+             @{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--1", @"height":@44},
+             @{@"bgColor": [UIColor grayColor], @"text":@"Hello World!--2", @"height":@44},
+             @{@"bgColor": [UIColor magentaColor], @"text":@"Hello World!--3", @"height":@44},
+             @{@"bgColor": [UIColor cyanColor], @"text":@"Hello World!--4", @"height":@44},
+             @{@"bgColor": [UIColor redColor], @"text":@"Hello World!--5", @"height":@44},
+             @{@"bgColor": [UIColor yellowColor], @"text":@"Hello World!--6", @"height":@88},
+             @{@"bgColor": [UIColor blueColor], @"text":@"Hello World!--7", @"height":@44},
+             @{@"bgColor": [UIColor greenColor], @"text":@"Hello World!--8", @"height":@22}
+             ];
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
-    [self.tableView holo_updateRows:^(HoloTableViewRowUpdateMaker * _Nonnull make) {
-        make.tag(@"123")
-        .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--123", @"height":@44});
-    }];
-    [self.tableView reloadData];
+//    [self.tableView holo_updateRows:^(HoloTableViewRowUpdateMaker * _Nonnull make) {
+//        make.tag(@"123")
+//        .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--123", @"height":@44});
+//    }];
+//    [self.tableView reloadData];
 }
 
 

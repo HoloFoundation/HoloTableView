@@ -6,6 +6,7 @@
 //
 
 #import "HoloTableViewProxy.h"
+#import "HoloTableViewDataSource.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewProtocol.h"
@@ -26,61 +27,60 @@
     self = [super init];
     if (self) {
         _tableView = tableView;
-        _holoSections = [NSArray new];
     }
     return self;
 }
 
-- (void)configCellClsDict:(NSDictionary *)cellClsDict {
-    self.cellClsDict = cellClsDict;
-}
-
-- (HoloSection *)holo_defultSection {
-    return self.holoSections.firstObject;
-}
-
-- (HoloSection *)holo_sectionWithTag:(NSString *)tag {
-    for (HoloSection *holoSection in self.holoSections) {
-        if ([holoSection.tag isEqualToString:tag] || (!holoSection.tag && !tag)) {
-            return holoSection;
-        }
-    }
-    return nil;
-}
-
-- (void)holo_appendSection:(HoloSection *)section {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-    [array addObject:section];
-    self.holoSections = array;
-}
-
-- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-    NSInteger index = [array indexOfObject:replaceSection];
-    [array replaceObjectAtIndex:index withObject:section];
-    self.holoSections = array;
-}
-
-- (void)holo_removeSection:(HoloSection *)section {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-    [array removeObject:section];
-    self.holoSections = array;
-}
-
-- (void)holo_removeAllSection {
-    self.holoSections = nil;
-}
-
-- (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
-    for (HoloSection *holoSection in self.holoSections) {
-        for (HoloRow *holoRow in holoSection.holoRows) {
-            if ([holoRow.tag isEqualToString:tag] || (!holoRow.tag && !tag)) {
-                return holoSection;
-            }
-        }
-    }
-    return nil;
-}
+//- (void)configCellClsDict:(NSDictionary *)cellClsDict {
+//    self.cellClsDict = cellClsDict;
+//}
+//
+//- (HoloSection *)holo_defultSection {
+//    return self.holoSections.firstObject;
+//}
+//
+//- (HoloSection *)holo_sectionWithTag:(NSString *)tag {
+//    for (HoloSection *holoSection in self.holoSections) {
+//        if ([holoSection.tag isEqualToString:tag] || (!holoSection.tag && !tag)) {
+//            return holoSection;
+//        }
+//    }
+//    return nil;
+//}
+//
+//- (void)holo_appendSection:(HoloSection *)section {
+//    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+//    [array addObject:section];
+//    self.holoSections = array;
+//}
+//
+//- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section {
+//    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+//    NSInteger index = [array indexOfObject:replaceSection];
+//    [array replaceObjectAtIndex:index withObject:section];
+//    self.holoSections = array;
+//}
+//
+//- (void)holo_removeSection:(HoloSection *)section {
+//    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+//    [array removeObject:section];
+//    self.holoSections = array;
+//}
+//
+//- (void)holo_removeAllSection {
+//    self.holoSections = nil;
+//}
+//
+//- (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
+//    for (HoloSection *holoSection in self.holoSections) {
+//        for (HoloRow *holoRow in holoSection.holoRows) {
+//            if ([holoRow.tag isEqualToString:tag] || (!holoRow.tag && !tag)) {
+//                return holoSection;
+//            }
+//        }
+//    }
+//    return nil;
+//}
 
 
 #pragma mark - UITableViewDataSource
@@ -171,6 +171,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.footerViewHeight;
+}
+
+#pragma mark - getter
+- (HoloTableViewDataSource *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [HoloTableViewDataSource new];
+    }
+    return _dataSource;
+}
+
+- (NSArray<HoloSection *> *)holoSections {
+    return [self.dataSource fetchHoloSections];
+}
+
+- (NSDictionary *)cellClsDict {
+    return [self.dataSource fetchCellClsDict];
 }
 
 @end

@@ -27,4 +27,9 @@ static char kHoloTableViewProxyKey;
     return tableViewProxy;
 }
 
+#pragma mark - getter & setter
+- (HoloTableViewDataSource *)proxyDataSource {
+    return self.holoTableViewProxy.dataSource;
+}
+
 @end
