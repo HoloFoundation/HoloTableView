@@ -29,22 +29,18 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
-        [self _makeRows:make];
+        for (NSDictionary *dict in [self _modelsFromOtherWay]) {
+            make.row(@"HoloTableViewOneCell")
+            .model(dict)
+            .didSelectHandler(^(id  _Nonnull model) {
+                NSLog(@"did select model : %@", model);
+            });
+        }
     }];
     [self.tableView reloadData];
 }
 
-- (void)_makeRows:(HoloTableViewRowMaker *)make {
-    for (NSDictionary *dict in [self _models]) {
-        make.row(@"HoloTableViewOneCell")
-        .model(dict)
-        .didSelectHandler(^(id  _Nonnull model) {
-            NSLog(@"did select model : %@", model);
-        });
-    }
-}
-
-- (NSArray *)_models {
+- (NSArray *)_modelsFromOtherWay {
     return @[
              @{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--1", @"height":@44},
              @{@"bgColor": [UIColor grayColor], @"text":@"Hello World!--2", @"height":@44},
