@@ -25,15 +25,18 @@ Your UITableViewCell must conforms to protocol: `HoloTableViewProtocol` and impl
 [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
    // one cell
    make.row(@"HoloTableViewOneCell")
-   .model(@{@"title":@"one cell"});
+   .model(@{@"title":@"one cell"})
+   .height(22);
    
    // two cell
    make.row(@"HoloTableViewTwoCell")
-   .model(@{@"title":@"two cell"});
+   .model(@{@"title":@"two cell"})
+   .height(44);
    
    // three cell
    make.row(@"HoloTableViewTgreeCell")
    .model([NSObject new])
+   .height(66)
    .tag(@"three")
    .willDisplayHandler(^(UITableViewCell * _Nonnull cell) {
        NSLog(@"will display");
