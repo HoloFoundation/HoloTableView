@@ -20,6 +20,7 @@
 - (void)holo_configTableView:(void(^)(HoloTableViewConfiger *configer))block {
     HoloTableViewConfiger *configer = [HoloTableViewConfiger new];
     if (block) block(configer);
+    
     NSDictionary *cellClsDict = [configer install];
     [self.proxyDataSource configCellClsDict:cellClsDict];
 }
@@ -29,26 +30,23 @@
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
-    for (HoloSection *holoSection in [maker install]) {
-        HoloSection *appendSection = [self.proxyDataSource holo_sectionWithTag:holoSection.tag];
-        if (!appendSection) {
-            [self.proxyDataSource holo_appendSection:holoSection];
-        }
-    }
+    [self.proxyDataSource holo_appendSections:[maker install]];
 }
 
 - (void)holo_updateSection:(void (^)(HoloTableViewSectionMaker *))block {
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
+    NSMutableArray *loseSections = [NSMutableArray new];
     for (HoloSection *holoSection in [maker install]) {
         HoloSection *replaceSection = [self.proxyDataSource holo_sectionWithTag:holoSection.tag];
         if (replaceSection) {
             [self.proxyDataSource holo_replaceSection:replaceSection withSection:holoSection];
         } else {
-            [self.proxyDataSource holo_appendSection:holoSection];
+            [loseSections addObject:holoSection];
         }
     }
+    [self.proxyDataSource holo_appendSections:loseSections];
 }
 
 - (void)holo_removeAllSection {

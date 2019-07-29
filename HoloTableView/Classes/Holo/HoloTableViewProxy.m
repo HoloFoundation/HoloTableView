@@ -31,58 +31,6 @@
     return self;
 }
 
-//- (void)configCellClsDict:(NSDictionary *)cellClsDict {
-//    self.cellClsDict = cellClsDict;
-//}
-//
-//- (HoloSection *)holo_defultSection {
-//    return self.holoSections.firstObject;
-//}
-//
-//- (HoloSection *)holo_sectionWithTag:(NSString *)tag {
-//    for (HoloSection *holoSection in self.holoSections) {
-//        if ([holoSection.tag isEqualToString:tag] || (!holoSection.tag && !tag)) {
-//            return holoSection;
-//        }
-//    }
-//    return nil;
-//}
-//
-//- (void)holo_appendSection:(HoloSection *)section {
-//    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-//    [array addObject:section];
-//    self.holoSections = array;
-//}
-//
-//- (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section {
-//    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-//    NSInteger index = [array indexOfObject:replaceSection];
-//    [array replaceObjectAtIndex:index withObject:section];
-//    self.holoSections = array;
-//}
-//
-//- (void)holo_removeSection:(HoloSection *)section {
-//    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
-//    [array removeObject:section];
-//    self.holoSections = array;
-//}
-//
-//- (void)holo_removeAllSection {
-//    self.holoSections = nil;
-//}
-//
-//- (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
-//    for (HoloSection *holoSection in self.holoSections) {
-//        for (HoloRow *holoRow in holoSection.holoRows) {
-//            if ([holoRow.tag isEqualToString:tag] || (!holoRow.tag && !tag)) {
-//                return holoSection;
-//            }
-//        }
-//    }
-//    return nil;
-//}
-
-
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.holoSections.count;
@@ -90,12 +38,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    return holoSection.holoRows.count;
+    return holoSection.rows.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.holoRows[indexPath.row];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
     
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.tag forIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.tag];
@@ -120,7 +68,7 @@
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.holoRows[indexPath.row];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
     
     NSString *clsName = self.cellClsDict[holoRow.cell];
     Class cls = clsName ? NSClassFromString(clsName) : NSClassFromString(holoRow.cell);
@@ -134,13 +82,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.holoRows[indexPath.row];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.didSelectHandler) holoRow.didSelectHandler(holoRow.model);
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.holoRows[indexPath.row];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.willDisplayHandler) holoRow.willDisplayHandler(cell);
 }
 
@@ -148,7 +96,7 @@
     if (indexPath.section >= self.holoSections.count) return;
     
     HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.holoRows[indexPath.row];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.didEndDisplayHandler) holoRow.didEndDisplayHandler(cell);
 }
 

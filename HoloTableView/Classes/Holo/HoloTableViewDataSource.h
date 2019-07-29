@@ -19,11 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configCellClsDict:(NSDictionary *)cellDict;
 
-- (HoloSection *)holo_defultSection;
-
 - (HoloSection *)holo_sectionWithTag:(NSString * _Nullable)tag;
 
 - (void)holo_appendSection:(HoloSection *)section;
+
+- (void)holo_appendSections:(NSArray<HoloSection *> *)sections;
 
 - (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section;
 

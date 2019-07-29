@@ -32,26 +32,34 @@
     self.cellClsDict = cellClsDict;
 }
 
-- (HoloSection *)holo_defultSection {
-    return self.holoSections.firstObject;
-}
-
 - (HoloSection *)holo_sectionWithTag:(NSString *)tag {
-    for (HoloSection *holoSection in self.holoSections) {
-        if ([holoSection.tag isEqualToString:tag] || (!holoSection.tag && !tag)) {
-            return holoSection;
+    for (HoloSection *section in self.holoSections) {
+        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+            return section;
         }
     }
     return nil;
 }
 
 - (void)holo_appendSection:(HoloSection *)section {
+    if (!section) return;
+    
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
     [array addObject:section];
     self.holoSections = array;
 }
 
+- (void)holo_appendSections:(NSArray<HoloSection *> *)sections {
+    if (sections.count <= 0) return;
+    
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+    [array addObjectsFromArray:sections];
+    self.holoSections = array;
+}
+
 - (void)holo_replaceSection:(HoloSection *)replaceSection withSection:(HoloSection *)section {
+    if (!replaceSection || !section) return;
+    
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
     NSInteger index = [array indexOfObject:replaceSection];
     [array replaceObjectAtIndex:index withObject:section];
@@ -59,6 +67,8 @@
 }
 
 - (void)holo_removeSection:(HoloSection *)section {
+    if (!section) return;
+    
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
     [array removeObject:section];
     self.holoSections = array;
@@ -69,10 +79,10 @@
 }
 
 - (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
-    for (HoloSection *holoSection in self.holoSections) {
-        for (HoloRow *holoRow in holoSection.holoRows) {
-            if ([holoRow.tag isEqualToString:tag] || (!holoRow.tag && !tag)) {
-                return holoSection;
+    for (HoloSection *section in self.holoSections) {
+        for (HoloRow *row in section.rows) {
+            if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
+                return section;
             }
         }
     }

@@ -22,7 +22,7 @@
 //============================================================:HoloTableViewConfiger
 @interface HoloTableViewConfiger ()
 
-@property (nonatomic, strong) NSMutableArray *cellArray;
+@property (nonatomic, strong) NSMutableArray *configerArray;
 
 @property (nonatomic, strong) NSMutableDictionary *cellDict;
 
@@ -34,24 +34,24 @@
     return ^id(NSString *cell) {
         HoloTableViewCellConfiger *configer = [HoloTableViewCellConfiger new];
         configer.cellName = cell;
-        [self.cellArray addObject:configer];
+        [self.configerArray addObject:configer];
         return configer;
     };
 }
 
 - (NSDictionary *)install {
-    for (HoloTableViewCellConfiger *configer in self.cellArray) {
+    for (HoloTableViewCellConfiger *configer in self.configerArray) {
         self.cellDict[configer.cellName] = configer.clsName;
     }
     return [self.cellDict copy];
 }
 
 #pragma mark - getter
-- (NSMutableArray *)cellArray {
-    if (!_cellArray) {
-        _cellArray = [NSMutableArray new];
+- (NSMutableArray *)configerArray {
+    if (!_configerArray) {
+        _configerArray = [NSMutableArray new];
     }
-    return _cellArray;
+    return _configerArray;
 }
 
 - (NSMutableDictionary *)cellDict {

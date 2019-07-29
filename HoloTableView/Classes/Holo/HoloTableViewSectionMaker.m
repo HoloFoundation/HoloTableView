@@ -15,20 +15,24 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _holoRows = [NSArray new];
+        _rows = [NSArray new];
     }
     return self;
 }
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoRows];
+    if (rows.count <= 0) return;
+    
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     [array addObjectsFromArray:rows];
-    self.holoRows = array;
+    self.rows = array;
 }
 
 - (void)holo_updateRow:(HoloUpdateRow *)updateRow {
+    if (!updateRow) return;
+    
     HoloRow *replaceRow;
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoRows];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     for (HoloRow *row in array) {
         if ([row.tag isEqualToString:updateRow.tag] || (!row.tag && !updateRow.tag)) {
             replaceRow = row;
@@ -50,7 +54,7 @@
 
 - (void)holo_removeRow:(NSString *)tag {
     HoloRow *removeRow;
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoRows];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     for (HoloRow *row in array) {
         if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
             removeRow = row;
@@ -59,36 +63,22 @@
     }
     if (removeRow) {
         [array removeObject:removeRow];
-        self.holoRows = array;
+        self.rows = array;
     }
 }
 
-- (void)holo_replaceRowWithTag:(NSString *)tag withRow:(HoloRow *)holoRow {
-    HoloRow *replaceRow;
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoRows];
-    for (HoloRow *row in array) {
-        if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
-            replaceRow = row;
-            break;
-        }
-    }
-    if (replaceRow) {
-        NSInteger index = [array indexOfObject:replaceRow];
-        [array replaceObjectAtIndex:index withObject:holoRow];
-        self.holoRows = array;
-    }
+- (void)holo_replaceRow:(HoloRow *)replaceRow withRow:(HoloRow *)row {
+    if (!replaceRow || row) return;
     
-}
-- (void)holo_replaceRow:(HoloRow *)replaceRow withRow:(HoloRow *)holoRow {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoRows];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     NSInteger index = [array indexOfObject:replaceRow];
-    [array replaceObjectAtIndex:index withObject:holoRow];
-    self.holoRows = array;
+    [array replaceObjectAtIndex:index withObject:row];
+    self.rows = array;
     
 }
 
 - (void)holo_removeAllRows {
-    self.holoRows = nil;
+    self.rows = nil;
 }
 
 @end
