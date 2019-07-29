@@ -67,18 +67,8 @@
     }
 }
 
-- (void)holo_replaceRow:(HoloRow *)replaceRow withRow:(HoloRow *)row {
-    if (!replaceRow || row) return;
-    
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    NSInteger index = [array indexOfObject:replaceRow];
-    [array replaceObjectAtIndex:index withObject:row];
-    self.rows = array;
-    
-}
-
 - (void)holo_removeAllRows {
-    self.rows = nil;
+    self.rows = [NSArray new];
 }
 
 @end

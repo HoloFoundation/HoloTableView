@@ -38,12 +38,12 @@
     if (block) block(maker);
     
     NSMutableArray *loseSections = [NSMutableArray new];
-    for (HoloSection *holoSection in [maker install]) {
-        HoloSection *replaceSection = [self.proxyDataSource holo_sectionWithTag:holoSection.tag];
+    for (HoloSection *section in [maker install]) {
+        HoloSection *replaceSection = [self.proxyDataSource holo_sectionWithTag:section.tag];
         if (replaceSection) {
-            [self.proxyDataSource holo_replaceSection:replaceSection withSection:holoSection];
+            [self.proxyDataSource holo_replaceSection:replaceSection withSection:section];
         } else {
-            [loseSections addObject:holoSection];
+            [loseSections addObject:section];
         }
     }
     if (loseSections.count > 0) {
@@ -56,9 +56,9 @@
 }
 
 - (void)holo_removeSection:(NSString *)tag {
-    HoloSection *holoSection = [self.proxyDataSource holo_sectionWithTag:tag];
-    if (holoSection) {
-        [self.proxyDataSource holo_removeSection:holoSection];
+    HoloSection *section = [self.proxyDataSource holo_sectionWithTag:tag];
+    if (section) {
+        [self.proxyDataSource holo_removeSection:section];
     }
 }
 
@@ -67,25 +67,25 @@
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
-    NSArray *holoRows = [maker install];
-    if (holoRows.count <= 0) return;
+    NSArray *rows = [maker install];
+    if (rows.count <= 0) return;
     
-    HoloSection *holoSection = [self.proxyDataSource holo_sectionWithTag:nil];
-    if (!holoSection) {
-        holoSection = [HoloSection new];
-        [self.proxyDataSource holo_appendSection:holoSection];
+    HoloSection *section = [self.proxyDataSource holo_sectionWithTag:nil];
+    if (!section) {
+        section = [HoloSection new];
+        [self.proxyDataSource holo_appendSection:section];
     }
-    [holoSection holo_appendRows:holoRows];
+    [section holo_appendRows:rows];
 }
 
 - (void)holo_updateRows:(void (^)(HoloTableViewRowUpdateMaker *))block {
     HoloTableViewRowUpdateMaker *maker = [HoloTableViewRowUpdateMaker new];
     if (block) block(maker);
     
-    for (HoloUpdateRow *holoUpdateRow in [maker install]) {
-        HoloSection *holoSection = [self.proxyDataSource holo_sectionWithRowTag:holoUpdateRow.tag];
-        if (holoSection) {
-            [holoSection holo_updateRow:holoUpdateRow];
+    for (HoloUpdateRow *updateRow in [maker install]) {
+        HoloSection *section = [self.proxyDataSource holo_sectionWithRowTag:updateRow.tag];
+        if (section) {
+            [section holo_updateRow:updateRow];
         }
     }
 }
@@ -94,31 +94,29 @@
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
-    NSArray *holoRows = [maker install];
-    if (holoRows.count <= 0) return;
+    NSArray *rows = [maker install];
+    if (rows.count <= 0) return;
 
-    HoloSection *holoSection = [self.proxyDataSource holo_sectionWithTag:tag];
-    if (holoSection) {
-        [holoSection holo_appendRows:holoRows];
-    } else {
-        holoSection = [HoloSection new];
-        holoSection.tag = tag;
-        [holoSection holo_appendRows:holoRows];
-        [self.proxyDataSource holo_appendSection:holoSection];
+    HoloSection *section = [self.proxyDataSource holo_sectionWithTag:tag];
+    if (!section) {
+        section = [HoloSection new];
+        section.tag = tag;
+        [self.proxyDataSource holo_appendSection:section];
     }
+    [section holo_appendRows:rows];
 }
 
 - (void)holo_removeAllRowsInSection:(NSString *)tag {
-    HoloSection *holoSection = [self.proxyDataSource holo_sectionWithTag:tag];
-    if (holoSection) {
-        [holoSection holo_removeAllRows];
+    HoloSection *section = [self.proxyDataSource holo_sectionWithTag:tag];
+    if (section) {
+        [section holo_removeAllRows];
     }
 }
 
 - (void)holo_removeRow:(NSString *)tag {
-    HoloSection *holoSection = [self.proxyDataSource holo_sectionWithRowTag:tag];
-    if (holoSection) {
-        [holoSection holo_removeRow:tag];
+    HoloSection *section = [self.proxyDataSource holo_sectionWithRowTag:tag];
+    if (section) {
+        [section holo_removeRow:tag];
     }
 }
 
