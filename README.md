@@ -23,17 +23,23 @@ Yore UITableViewCell must conforms to protocol: `HoloTableViewProtocol` and impl
 
 ```objective-c
 [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
+   // one cell
    make.row(@"HoloTableViewOneCell")
    .model(@{@"title":@"one cell"});
    
+   // two cell
    make.row(@"HoloTableViewTwoCell")
+   .model(@{@"title":@"two cell"});
+   
+   // three cell
+   make.row(@"HoloTableViewTgreeCell")
    .model([NSObject new])
-   .tag(@"two")
+   .tag(@"three")
    .willDisplayHandler(^(UITableViewCell * _Nonnull cell) {
-       NSLog(@"willDisplayHandler");
+       NSLog(@"will display");
    })
    .didEndDisplayingHandler(^(UITableViewCell * _Nonnull cell) {
-       NSLog(@"didEndDisplayingHandler");
+       NSLog(@"did end displaying");
    })
    .didSelectHandler(^(id  _Nonnull model) {
        NSLog(@"did select model : %@", model);
