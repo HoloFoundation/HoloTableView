@@ -18,21 +18,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSArray<HoloRow *> *rows;
 
 #pragma mark - header and footer
-@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIView *header;
 
-@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UIView *footer;
 
-@property (nonatomic, assign) CGFloat headerViewHeight;
+@property (nonatomic, assign) CGFloat headerHeight;
 
-@property (nonatomic, assign) CGFloat footerViewHeight;
+@property (nonatomic, assign) CGFloat footerHeight;
 
-@property (nonatomic, copy) void (^willDisplayHeaderViewHandler)(UIView *view);
+@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header);
 
-@property (nonatomic, copy) void (^willDisplayFooterViewHandler)(UIView *view);
+@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer);
 
-@property (nonatomic, copy) void (^didEndDisplayingHeaderViewHandler)(UIView *view);
+@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header);
 
-@property (nonatomic, copy) void (^didEndDisplayingFooterViewHandler)(UIView *view);
+@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer);
 
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows;
@@ -50,21 +50,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) HoloSection *section;
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerView)(UIView *headerView);
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^header)(UIView *header);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerView)(UIView *footerView);
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^footer)(UIView *footer);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerViewHeight)(CGFloat headerViewHeight);
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerHeight)(CGFloat headerHeight);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerViewHeight)(CGFloat footerViewHeight);
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerHeight)(CGFloat footerHeight);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderViewHandler)(void(^)(UIView *view));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header));
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayFooterViewHandler)(void(^)(UIView *view));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer));
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingHeaderViewHandler)(void(^)(UIView *view));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header));
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingFooterViewHandler)(void(^)(UIView *view));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer));
 
 @end
 

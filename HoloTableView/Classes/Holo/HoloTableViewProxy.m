@@ -104,42 +104,42 @@
 #pragma mark - UITableViewDelegate (header and footer)
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    return holoSection.headerView;
+    return holoSection.header;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    return holoSection.footerView;
+    return holoSection.footer;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    return holoSection.headerViewHeight;
+    return holoSection.headerHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    return holoSection.footerViewHeight;
+    return holoSection.footerHeight;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    if (holoSection.willDisplayHeaderViewHandler) holoSection.willDisplayHeaderViewHandler(view);
+    if (holoSection.willDisplayHeaderHandler) holoSection.willDisplayHeaderHandler(view);
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    if (holoSection.willDisplayFooterViewHandler) holoSection.willDisplayFooterViewHandler(view);
+    if (holoSection.willDisplayFooterHandler) holoSection.willDisplayFooterHandler(view);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    if (holoSection.didEndDisplayingHeaderViewHandler) holoSection.didEndDisplayingHeaderViewHandler(view);
+    if (holoSection.didEndDisplayingHeaderHandler) holoSection.didEndDisplayingHeaderHandler(view);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
-    if (holoSection.didEndDisplayingFooterViewHandler) holoSection.didEndDisplayingFooterViewHandler(view);
+    if (holoSection.didEndDisplayingFooterHandler) holoSection.didEndDisplayingFooterHandler(view);
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -47,29 +47,29 @@
 - (void)holo_updateSection:(HoloSection *)targetSection fromSection:(HoloSection *)fromSection {
     if (!targetSection || !fromSection) return;
     
-    if (fromSection.headerView) {
-        targetSection.headerView = fromSection.headerView;
+    if (fromSection.header) {
+        targetSection.header = fromSection.header;
     }
-    if (fromSection.footerView) {
-        targetSection.footerView = fromSection.footerView;
+    if (fromSection.footer) {
+        targetSection.footer = fromSection.footer;
     }
-    if (fromSection.headerViewHeight) {
-        targetSection.headerViewHeight = fromSection.headerViewHeight;
+    if (fromSection.headerHeight) {
+        targetSection.headerHeight = fromSection.headerHeight;
     }
-    if (fromSection.footerViewHeight) {
-        targetSection.footerViewHeight = fromSection.footerViewHeight;
+    if (fromSection.footerHeight) {
+        targetSection.footerHeight = fromSection.footerHeight;
     }
-    if (fromSection.willDisplayHeaderViewHandler) {
-        targetSection.willDisplayHeaderViewHandler = fromSection.willDisplayHeaderViewHandler;
+    if (fromSection.willDisplayHeaderHandler) {
+        targetSection.willDisplayHeaderHandler = fromSection.willDisplayHeaderHandler;
     }
-    if (fromSection.willDisplayFooterViewHandler) {
-        targetSection.willDisplayFooterViewHandler = fromSection.willDisplayFooterViewHandler;
+    if (fromSection.willDisplayFooterHandler) {
+        targetSection.willDisplayFooterHandler = fromSection.willDisplayFooterHandler;
     }
-    if (fromSection.didEndDisplayingHeaderViewHandler) {
-        targetSection.didEndDisplayingHeaderViewHandler = fromSection.didEndDisplayingHeaderViewHandler;
+    if (fromSection.didEndDisplayingHeaderHandler) {
+        targetSection.didEndDisplayingHeaderHandler = fromSection.didEndDisplayingHeaderHandler;
     }
-    if (fromSection.didEndDisplayingFooterViewHandler) {
-        targetSection.didEndDisplayingFooterViewHandler = fromSection.didEndDisplayingFooterViewHandler;
+    if (fromSection.didEndDisplayingFooterHandler) {
+        targetSection.didEndDisplayingFooterHandler = fromSection.didEndDisplayingFooterHandler;
     }
 }
 

@@ -35,27 +35,27 @@
     }];
     
     [self.tableView holo_makeSection:^(HoloTableViewSectionMaker * _Nonnull make) {
-        UIView *headerView = [UIView new];
-        headerView.backgroundColor = [UIColor brownColor];
-        UIView *footerView = [UIView new];
-        footerView.backgroundColor = [UIColor orangeColor];
+        UIView *header = [UIView new];
+        header.backgroundColor = [UIColor brownColor];
+        UIView *footer = [UIView new];
+        footer.backgroundColor = [UIColor orangeColor];
 
         make.section(@"sectionA")
-        .headerView(headerView)
-        .headerViewHeight(10)
-        .willDisplayHeaderViewHandler(^(UIView * _Nonnull view) {
-            NSLog(@"willDisplayHeaderViewHandler");
+        .header(header)
+        .headerHeight(10)
+        .willDisplayHeaderHandler(^(UIView * _Nonnull view) {
+            NSLog(@"willDisplayHeaderHandler");
         })
-        .didEndDisplayingHeaderViewHandler(^(UIView * _Nonnull view) {
-            NSLog(@"didEndDisplayingHeaderViewHandler");
+        .didEndDisplayingHeaderHandler(^(UIView * _Nonnull view) {
+            NSLog(@"didEndDisplayingHeaderHandler");
         })
-        .footerView(footerView)
-        .footerViewHeight(20)
-        .willDisplayFooterViewHandler(^(UIView * _Nonnull view) {
-            NSLog(@"willDisplayFooterViewHandler");
+        .footer(footer)
+        .footerHeight(20)
+        .willDisplayFooterHandler(^(UIView * _Nonnull view) {
+            NSLog(@"willDisplayFooterHandler");
         })
-        .didEndDisplayingFooterViewHandler(^(UIView * _Nonnull view) {
-            NSLog(@"didEndDisplayingFooterViewHandler");
+        .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
+            NSLog(@"didEndDisplayingFooterHandler");
         });
         
         make.section(@"sectionB");

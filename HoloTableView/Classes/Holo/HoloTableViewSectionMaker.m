@@ -84,58 +84,58 @@
     return self;
 }
 
-- (HoloSectionMaker *(^)(UIView *))headerView {
-    return ^id(UIView *headerView) {
-        self.section.headerView = headerView;
+- (HoloSectionMaker *(^)(UIView *))header {
+    return ^id(UIView *header) {
+        self.section.header = header;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(UIView *))footerView {
-    return ^id(UIView *footerView) {
-        self.section.footerView = footerView;
+- (HoloSectionMaker *(^)(UIView *))footer {
+    return ^id(UIView *footer) {
+        self.section.footer = footer;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(CGFloat))headerViewHeight {
-    return ^id(CGFloat headerViewHeight) {
-        self.section.headerViewHeight = headerViewHeight;
+- (HoloSectionMaker *(^)(CGFloat))headerHeight {
+    return ^id(CGFloat headerHeight) {
+        self.section.headerHeight = headerHeight;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(CGFloat))footerViewHeight {
-    return ^id(CGFloat footerViewHeight) {
-        self.section.footerViewHeight = footerViewHeight;
+- (HoloSectionMaker *(^)(CGFloat))footerHeight {
+    return ^id(CGFloat footerHeight) {
+        self.section.footerHeight = footerHeight;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayHeaderViewHandler {
-    return ^id( void (^willDisplayHeaderViewHandler)(id) ){
-        self.section.willDisplayHeaderViewHandler = willDisplayHeaderViewHandler;
+- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayHeaderHandler {
+    return ^id( void (^willDisplayHeaderHandler)(id) ){
+        self.section.willDisplayHeaderHandler = willDisplayHeaderHandler;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayFooterViewHandler {
-    return ^id( void (^willDisplayFooterViewHandler)(id) ){
-        self.section.willDisplayFooterViewHandler = willDisplayFooterViewHandler;
+- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayFooterHandler {
+    return ^id( void (^willDisplayFooterHandler)(id) ){
+        self.section.willDisplayFooterHandler = willDisplayFooterHandler;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingHeaderViewHandler {
-    return ^id( void (^didEndDisplayingHeaderViewHandler)(id) ){
-        self.section.didEndDisplayingHeaderViewHandler = didEndDisplayingHeaderViewHandler;
+- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingHeaderHandler {
+    return ^id( void (^didEndDisplayingHeaderHandler)(id) ){
+        self.section.didEndDisplayingHeaderHandler = didEndDisplayingHeaderHandler;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingFooterViewHandler {
-    return ^id( void (^didEndDisplayingFooterViewHandler)(id) ){
-        self.section.didEndDisplayingFooterViewHandler = didEndDisplayingFooterViewHandler;
+- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingFooterHandler {
+    return ^id( void (^didEndDisplayingFooterHandler)(id) ){
+        self.section.didEndDisplayingFooterHandler = didEndDisplayingFooterHandler;
         return self;
     };
 }
