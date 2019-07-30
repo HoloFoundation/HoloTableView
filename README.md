@@ -36,7 +36,7 @@ If you want to set the model for your UITableViewCell or change the height of yo
    .height(44);
    
    // three cell
-   make.row(@"HoloTableViewTgreeCell")
+   make.row(@"HoloExampleThreeTableViewCell")
    .model([NSObject new])
    .height(66)
    .tag(@"three")
