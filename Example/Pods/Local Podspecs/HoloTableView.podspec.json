@@ -2,7 +2,7 @@
   "name": "HoloTableView",
   "version": "0.1.0",
   "summary": "Harness the power of UITableView with a simplified, chainable and expressive syntax.",
-  "description": "TODO: Add long description of the pod here.",
+  "description": "HoloTableView is a light-weight extension for UITableView. Harness the power of UITableView with a simplified, chainable and expressive syntax.",
   "homepage": "https://github.com/gonghonglou/HoloTableView",
   "license": {
     "type": "MIT",
