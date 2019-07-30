@@ -24,12 +24,12 @@ Your UITableViewCell must conforms to protocol: `HoloTableViewProtocol` and impl
 ```objective-c
 [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
    // one cell
-   make.row(@"HoloTableViewOneCell")
+   make.row(@"HoloExampleOneTableViewCell")
    .model(@{@"title":@"one cell"})
    .height(22);
    
    // two cell
-   make.row(@"HoloTableViewTwoCell")
+   make.row(@"HoloExampleTwoTableViewCell")
    .model(@{@"title":@"two cell"})
    .height(44);
    
