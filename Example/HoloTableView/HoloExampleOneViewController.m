@@ -9,7 +9,7 @@
 #import "HoloExampleOneViewController.h"
 #import <HoloTableView/HoloTableView.h>
 
-@interface HoloExampleOneViewController ()
+@interface HoloExampleOneViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -38,6 +38,8 @@
         }
     }];
     [self.tableView reloadData];
+    
+    self.tableView.holo_tableScrollDelegate = self;
 }
 
 - (NSArray *)_modelsFromOtherWay {
@@ -53,10 +55,15 @@
              ];
 }
 
+#pragma mark - touchesBegan
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"scrollViewDidScroll");
+}
 
 #pragma mark - getter
 - (UITableView *)tableView {

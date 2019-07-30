@@ -142,20 +142,111 @@
     if (holoSection.didEndDisplayingFooterViewHandler) holoSection.didEndDisplayingFooterViewHandler(view);
 }
 
-#pragma mark - getter
-- (HoloTableViewDataSource *)dataSource {
-    if (!_dataSource) {
-        _dataSource = [HoloTableViewDataSource new];
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidScroll:scrollView];
     }
-    return _dataSource;
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidZoom:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidZoom:scrollView];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillBeginDragging:scrollView];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillBeginDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndScrollingAnimation:scrollView];
+    }
+}
+
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(viewForZoomingInScrollView:)]) {
+        return [self.holo_tableScrollDelegate viewForZoomingInScrollView:scrollView];
+    }
+    return nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillBeginZooming:withView:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillBeginZooming:scrollView withView:view];
+    }
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndZooming:withView:atScale:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewShouldScrollToTop:)]) {
+        return [self.holo_tableScrollDelegate scrollViewShouldScrollToTop:scrollView];
+    }
+    return YES;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidScrollToTop:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidScrollToTop:scrollView];
+    }
+}
+
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]) {
+        if (@available(iOS 11.0, *)) {
+            [self.holo_tableScrollDelegate scrollViewDidChangeAdjustedContentInset:scrollView];
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}
+
+#pragma mark - getter
+- (HoloTableViewDataSource *)holo_tableDataSource {
+    if (!_holo_tableDataSource) {
+        _holo_tableDataSource = [HoloTableViewDataSource new];
+    }
+    return _holo_tableDataSource;
 }
 
 - (NSArray<HoloSection *> *)holoSections {
-    return [self.dataSource fetchHoloSections];
+    return [self.holo_tableDataSource fetchHoloSections];
 }
 
 - (NSDictionary *)cellClsDict {
-    return [self.dataSource fetchCellClsDict];
+    return [self.holo_tableDataSource fetchCellClsDict];
 }
 
 @end

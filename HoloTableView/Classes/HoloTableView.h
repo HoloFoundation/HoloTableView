@@ -9,6 +9,7 @@
 #define HoloTableView_h
 
 #import "UITableView+HoloTableView.h"
+#import "UITableView+HoloTableViewProxy.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewUpdateRowMaker.h"

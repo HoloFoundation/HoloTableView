@@ -13,7 +13,7 @@ static char kHoloTableViewProxyKey;
 
 @implementation UITableView (HoloTableViewProxy)
 
-- (HoloTableViewProxy *)holoTableViewProxy {
+- (HoloTableViewProxy *)holo_tableViewProxy {
     HoloTableViewProxy *tableViewProxy = objc_getAssociatedObject(self, &kHoloTableViewProxyKey);
     if (!tableViewProxy) {
         tableViewProxy = [[HoloTableViewProxy alloc] initWithTableView:self];
@@ -28,8 +28,16 @@ static char kHoloTableViewProxyKey;
 }
 
 #pragma mark - getter & setter
-- (HoloTableViewDataSource *)proxyDataSource {
-    return self.holoTableViewProxy.dataSource;
+- (HoloTableViewDataSource *)holo_tableDataSource {
+    return self.holo_tableViewProxy.holo_tableDataSource;
+}
+
+- (id<UIScrollViewDelegate>)holo_tableScrollDelegate {
+    return self.holo_tableViewProxy.holo_tableScrollDelegate;
+}
+
+- (void)setHolo_tableScrollDelegate:(id<UIScrollViewDelegate>)holo_tableScrollDelegate {
+    self.holo_tableViewProxy.holo_tableScrollDelegate = holo_tableScrollDelegate;
 }
 
 @end
