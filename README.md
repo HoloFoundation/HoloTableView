@@ -50,10 +50,10 @@ Your UITableViewCell must conforms to protocol: `HoloTableViewProtocol` and impl
        NSLog(@"did select model : %@", model);
    });
 }];
+// etc...
     
 [self.tableView reloadData];
 
-// etc...
 ```
 
 ## Installation
