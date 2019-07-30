@@ -92,9 +92,9 @@
 
 - (NSDictionary *)_cellClaMap {
     return @{
-             @"one"     :@"HoloTableViewOneCell",
-             @"two"     :@"HoloTableViewTwoCell",
-             @"three"   :@"HoloTableViewThreeCell"
+             @"one"     :@"HoloExampleOneTableViewCell",
+             @"two"     :@"HoloExampleTwoTableViewCell",
+             @"three"   :@"HoloExampleThreeTableViewCell"
              };
 }
 

@@ -1,19 +1,19 @@
 //
-//  HoloTableViewThreeCell.m
+//  HoloExampleTwoTableViewCell.m
 //  HoloTableView_Example
 //
 //  Created by 与佳期 on 2019/7/28.
 //  Copyright © 2019 gonghonglou. All rights reserved.
 //
 
-#import "HoloTableViewThreeCell.h"
+#import "HoloExampleTwoTableViewCell.h"
 
-@implementation HoloTableViewThreeCell
+@implementation HoloExampleTwoTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor redColor];
+        self.backgroundColor = [UIColor yellowColor];
     }
     return self;
 }

@@ -1,5 +1,5 @@
 //
-//  HoloTableViewOneCell.h
+//  HoloExampleTwoTableViewCell.h
 //  HoloTableView_Example
 //
 //  Created by 与佳期 on 2019/7/28.
@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <HoloTableView/HoloTableViewProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloTableViewOneCell : UITableViewCell <HoloTableViewProtocol>
+@interface HoloExampleTwoTableViewCell : UITableViewCell
 
 @end
 

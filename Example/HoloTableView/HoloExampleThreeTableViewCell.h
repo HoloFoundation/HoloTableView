@@ -1,5 +1,5 @@
 //
-//  HoloTableViewThreeCell.h
+//  HoloExampleThreeTableViewCell.h
 //  HoloTableView_Example
 //
 //  Created by 与佳期 on 2019/7/28.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloTableViewThreeCell : UITableViewCell
+@interface HoloExampleThreeTableViewCell : UITableViewCell
 
 @end
 

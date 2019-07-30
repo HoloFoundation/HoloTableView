@@ -30,7 +30,7 @@
     
     [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
         for (NSDictionary *dict in [self _modelsFromOtherWay]) {
-            make.row(@"HoloTableViewOneCell")
+            make.row(@"HoloExampleOneTableViewCell")
             .model(dict)
             .didSelectHandler(^(id  _Nonnull model) {
                 NSLog(@"did select model : %@", model);

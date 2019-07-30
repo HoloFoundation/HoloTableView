@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HoloTableView: 790dd1db477fd5ece103648922637e1f9b6f41ce
+  HoloTableView: 9003e17d31caf8f4315ca33b1b9a6d0fcacb998a
 
 PODFILE CHECKSUM: 4a04413c8d8cb6d0e0045bb58a41b9b63e9ba415
 
