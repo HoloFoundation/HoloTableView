@@ -28,9 +28,10 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView holo_configTableView:^(HoloTableViewConfiger * _Nonnull configer) {
-        configer.cell(@"one").cls(@"HoloTableViewOneCell");
-        configer.cell(@"two").cls(@"HoloTableViewTwoCell");
-        configer.cell(@"three").cls(@"HoloTableViewThreeCell");
+        NSDictionary *cellClsMap = [self _cellClaMap];
+        [cellClsMap enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
+            configer.cell(key).cls(obj);
+        }];
     }];
     
     [self.tableView holo_makeSection:^(HoloTableViewSectionMaker * _Nonnull make) {
@@ -86,6 +87,15 @@
     }];
     
     [self.tableView reloadData];
+}
+
+
+- (NSDictionary *)_cellClaMap {
+    return @{
+             @"one"     :@"HoloTableViewOneCell",
+             @"two"     :@"HoloTableViewTwoCell",
+             @"three"   :@"HoloTableViewThreeCell"
+             };
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
