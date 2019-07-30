@@ -28,8 +28,12 @@
 }
 
 
-- (void)configCellClsDict:(NSDictionary *)cellClsDict {
-    self.cellClsDict = cellClsDict;
+- (void)configCellClsDict:(NSDictionary *)cellClsDict {    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self.cellClsDict];
+    [cellClsDict enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
+        dict[cell] = cls;
+    }];
+    self.cellClsDict = [dict copy];
 }
 
 - (HoloSection *)holo_sectionWithTag:(NSString *)tag {
