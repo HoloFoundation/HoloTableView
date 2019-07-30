@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) NSMutableArray *configerArray;
 
-@property (nonatomic, strong) NSMutableDictionary *cellDict;
+@property (nonatomic, strong) NSMutableDictionary *cellClsMap;
 
 @end
 
@@ -41,9 +41,9 @@
 
 - (NSDictionary *)install {
     for (HoloTableViewCellConfiger *configer in self.configerArray) {
-        self.cellDict[configer.cellName] = configer.clsName;
+        self.cellClsMap[configer.cellName] = configer.clsName;
     }
-    return [self.cellDict copy];
+    return [self.cellClsMap copy];
 }
 
 #pragma mark - getter
@@ -54,11 +54,11 @@
     return _configerArray;
 }
 
-- (NSMutableDictionary *)cellDict {
-    if (!_cellDict) {
-        _cellDict = [NSMutableDictionary new];
+- (NSMutableDictionary *)cellClsMap {
+    if (!_cellClsMap) {
+        _cellClsMap = [NSMutableDictionary new];
     }
-    return _cellDict;
+    return _cellClsMap;
 }
 
 @end
