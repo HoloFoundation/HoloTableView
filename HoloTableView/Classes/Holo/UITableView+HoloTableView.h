@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
  *  Update these rows in the callee for current UITableView.
- *  If current UITableView can't find these rows, ignore theme.
+ *  If current UITableView can't find these rows, ignore them.
  *
  *  @param block scope within which you can create some rows which you wish to apply to current UITableView.
  */
