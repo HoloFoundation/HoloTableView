@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param block scope within which you can configure the cell name and class name's map which you wish to apply to current UITableView.
  */
-- (void)holo_configTableView:(void(^)(HoloTableViewConfiger *configer))block;
+- (void)holo_configTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block;
 
 
 #pragma mark - operate section
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param block scope within which you can create some sections which you wish to apply to current UITableView.
  */
-- (void)holo_makeSection:(void(^)(HoloTableViewSectionMaker *make))block;
+- (void)holo_makeSection:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block;
 
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param block scope within which you can create some sections which you wish to apply to current UITableView.
  */
-- (void)holo_updateSection:(void(^)(HoloTableViewSectionMaker *make))block;
+- (void)holo_updateSection:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block;
 
 /**
  *  Remove all sections.
@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param block scope within which you can create some rows which you wish to apply to current UITableView.
  */
-- (void)holo_makeRows:(void(^)(HoloTableViewRowMaker *make))block;
+- (void)holo_makeRows:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
 
 /**
  *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param block scope within which you can create some rows which you wish to apply to current UITableView.
  */
-- (void)holo_updateRows:(void(^)(HoloTableViewUpdateRowMaker *make))block;
+- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block;
 
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param block scope within which you can create some rows which you wish to apply to current UITableView.
  */
-- (void)holo_makeRowsInSection:(NSString *)tag block:(void(^)(HoloTableViewRowMaker *make))block;
+- (void)holo_makeRowsInSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
 
 /**
  *  Remove all rows in a section according to the tag.

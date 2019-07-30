@@ -17,7 +17,7 @@
 @implementation UITableView (HoloTableView)
 
 #pragma mark - configure cell class map
-- (void)holo_configTableView:(void(^)(HoloTableViewConfiger *configer))block {
+- (void)holo_configTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block  {
     HoloTableViewConfiger *configer = [HoloTableViewConfiger new];
     if (block) block(configer);
     
@@ -26,14 +26,14 @@
 }
 
 #pragma mark - operate section
-- (void)holo_makeSection:(void (^)(HoloTableViewSectionMaker *))block {
+- (void)holo_makeSection:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block {
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
     [self.proxyDataSource holo_appendSections:[maker install]];
 }
 
-- (void)holo_updateSection:(void (^)(HoloTableViewSectionMaker *))block {
+- (void)holo_updateSection:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block {
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
@@ -63,7 +63,7 @@
 }
 
 #pragma mark - operate row
-- (void)holo_makeRows:(void (^)(HoloTableViewRowMaker *))block {
+- (void)holo_makeRows:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block {
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
@@ -78,7 +78,7 @@
     [section holo_appendRows:rows];
 }
 
-- (void)holo_updateRows:(void (^)(HoloTableViewUpdateRowMaker *))block {
+- (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block {
     HoloTableViewUpdateRowMaker *maker = [HoloTableViewUpdateRowMaker new];
     if (block) block(maker);
     
@@ -90,7 +90,7 @@
     }
 }
 
-- (void)holo_makeRowsInSection:(NSString *)tag block:(void (^)(HoloTableViewRowMaker *))block {
+- (void)holo_makeRowsInSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block {
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
