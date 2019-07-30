@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Creates a HoloTableViewConfiger in the callee for current UITableView.
  *  Configure pairs of map (class name match cell name) for all cells.
- *  If the class doesn't exist, creat a class with the cell name.
+ *  If the class name doesn't exist, creat a class with the cell name.
  *
  *  @param block scope within which you can configure the cell name and class name's map which you wish to apply to current UITableView.
  */
@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
  *  Update these rows in the callee for current UITableView.
- *  If current UITableView can't find these rows, ignore them.
+ *  If current UITableView don't contain these rows, ignore them.
  *
  *  @param block scope within which you can create some rows which you wish to apply to current UITableView.
  */
