@@ -22,6 +22,8 @@ Your UITableViewCell must conforms to protocol: `HoloTableViewProtocol` and impl
 ## Usage
 
 ```objective-c
+[self.view addSubview:self.tableView];
+
 [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
    // one cell
    make.row(@"HoloExampleOneTableViewCell")
