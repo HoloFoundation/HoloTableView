@@ -16,7 +16,7 @@
 
 @implementation UITableView (HoloTableView)
 
-// 配置 cell 与 cls 的对应关系
+#pragma mark - configure cell class map
 - (void)holo_configTableView:(void(^)(HoloTableViewConfiger *configer))block {
     HoloTableViewConfiger *configer = [HoloTableViewConfiger new];
     if (block) block(configer);
@@ -25,7 +25,7 @@
     [self.proxyDataSource configCellClsDict:cellClsDict];
 }
 
-// 操作 section
+#pragma mark - operate section
 - (void)holo_makeSection:(void (^)(HoloTableViewSectionMaker *))block {
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
@@ -62,7 +62,7 @@
     }
 }
 
-// 操作 row
+#pragma mark - operate row
 - (void)holo_makeRows:(void (^)(HoloTableViewRowMaker *))block {
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (HoloTableView)
 
+#pragma mark - configure cell class map
 /**
  *  Creates a HoloTableViewConfiger in the callee for current UITableView.
  *  Configure pairs of map (class name match cell name) for all cells.
@@ -22,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_configTableView:(void(^)(HoloTableViewConfiger *configer))block;
 
 
+#pragma mark - operate section
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
  *  Append these sections in the callee to the data source, don't care about tag of the section.
@@ -52,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_removeSection:(NSString *)tag;
 
 
+#pragma mark - operate row
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
  *  Append these rows in the callee to defult section of UITableView.
