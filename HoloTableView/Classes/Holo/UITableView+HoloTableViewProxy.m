@@ -27,17 +27,4 @@ static char kHoloTableViewProxyKey;
     return tableViewProxy;
 }
 
-#pragma mark - getter & setter
-- (HoloTableViewDataSource *)holo_tableDataSource {
-    return self.holo_tableViewProxy.holo_tableDataSource;
-}
-
-- (id<UIScrollViewDelegate>)holo_tableScrollDelegate {
-    return self.holo_tableViewProxy.holo_tableScrollDelegate;
-}
-
-- (void)setHolo_tableScrollDelegate:(id<UIScrollViewDelegate>)holo_tableScrollDelegate {
-    self.holo_tableViewProxy.holo_tableScrollDelegate = holo_tableScrollDelegate;
-}
-
 @end

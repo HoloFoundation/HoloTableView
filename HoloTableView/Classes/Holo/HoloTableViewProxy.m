@@ -15,9 +15,9 @@
 
 @property (nonatomic, weak) UITableView *tableView;
 
-@property (nonatomic, copy) NSArray<HoloSection *> *holoSections;
+@property (nonatomic, copy, readonly) NSArray<HoloSection *> *holoSections;
 
-@property (nonatomic, copy) NSDictionary *cellClsDict;
+@property (nonatomic, copy, readonly) NSDictionary *holoCellClsMap;
 
 @end
 
@@ -46,7 +46,7 @@
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.tag forIndexPath:indexPath];
-    NSString *clsName = self.cellClsDict[holoRow.cell] ?: holoRow.cell;
+    NSString *clsName = self.holoCellClsMap[holoRow.cell] ?: holoRow.cell;
     NSString *reuseIdentifier = [NSString stringWithFormat:@"HoloTableViewCellReuseIdentifier_%@", clsName];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
@@ -70,7 +70,7 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     
-    NSString *clsName = self.cellClsDict[holoRow.cell];
+    NSString *clsName = self.holoCellClsMap[holoRow.cell];
     Class cls = clsName ? NSClassFromString(clsName) : NSClassFromString(holoRow.cell);
     if ([cls conformsToProtocol:@protocol(HoloTableViewProtocol)] && holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
         CGFloat cellHeight = [cls heightForRow:holoRow.model];
@@ -242,11 +242,11 @@
 }
 
 - (NSArray<HoloSection *> *)holoSections {
-    return [self.holo_tableDataSource fetchHoloSections];
+    return self.holo_tableDataSource.holo_sections;
 }
 
-- (NSDictionary *)cellClsDict {
-    return [self.holo_tableDataSource fetchCellClsDict];
+- (NSDictionary *)holoCellClsMap {
+    return self.holo_tableDataSource.holo_cellClsMap;
 }
 
 @end

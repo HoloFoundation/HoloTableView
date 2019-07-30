@@ -9,35 +9,18 @@
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowMaker.h"
 
-@interface HoloTableViewDataSource ()
-
-@property (nonatomic, copy) NSArray<HoloSection *> *holoSections;
-
-@property (nonatomic, copy) NSDictionary *cellClsDict;
-
-@end
-
 @implementation HoloTableViewDataSource
 
-- (NSArray<HoloSection *> *)fetchHoloSections {
-    return self.holoSections;
-}
-
-- (NSDictionary *)fetchCellClsDict {
-    return self.cellClsDict;
-}
-
-
-- (void)configCellClsDict:(NSDictionary *)cellClsDict {    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self.cellClsDict];
-    [cellClsDict enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
-        dict[cell] = cls;
+- (void)configCellClsMap:(NSDictionary *)dict {
+    NSMutableDictionary *map = [NSMutableDictionary dictionaryWithDictionary:self.holo_cellClsMap];
+    [dict enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
+        map[cell] = cls;
     }];
-    self.cellClsDict = [dict copy];
+    self.holo_cellClsMap = [map copy];
 }
 
 - (HoloSection *)holo_sectionWithTag:(NSString *)tag {
-    for (HoloSection *section in self.holoSections) {
+    for (HoloSection *section in self.holo_sections) {
         if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
             return section;
         }
@@ -48,17 +31,17 @@
 - (void)holo_appendSection:(HoloSection *)section {
     if (!section) return;
     
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
     [array addObject:section];
-    self.holoSections = array;
+    self.holo_sections = array;
 }
 
 - (void)holo_appendSections:(NSArray<HoloSection *> *)sections {
     if (sections.count <= 0) return;
     
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
     [array addObjectsFromArray:sections];
-    self.holoSections = array;
+    self.holo_sections = array;
 }
 
 - (void)holo_updateSection:(HoloSection *)targetSection fromSection:(HoloSection *)fromSection {
@@ -93,17 +76,17 @@
 - (void)holo_removeSection:(HoloSection *)section {
     if (!section) return;
     
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holoSections];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
     [array removeObject:section];
-    self.holoSections = array;
+    self.holo_sections = array;
 }
 
 - (void)holo_removeAllSection {
-    self.holoSections = [NSArray new];
+    self.holo_sections = [NSArray new];
 }
 
 - (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
-    for (HoloSection *section in self.holoSections) {
+    for (HoloSection *section in self.holo_sections) {
         for (HoloRow *row in section.rows) {
             if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
                 return section;
@@ -114,18 +97,18 @@
 }
 
 #pragma mark - getter
-- (NSArray<HoloSection *> *)holoSections {
-    if (!_holoSections) {
-        _holoSections = [NSArray new];
+- (NSArray<HoloSection *> *)holo_sections {
+    if (!_holo_sections) {
+        _holo_sections = [NSArray new];
     }
-    return _holoSections;
+    return _holo_sections;
 }
 
-- (NSDictionary *)cellClsDict {
-    if (!_cellClsDict) {
-        _cellClsDict = [NSDictionary new];
+- (NSDictionary *)holo_cellClsMap {
+    if (!_holo_cellClsMap) {
+        _holo_cellClsMap = [NSDictionary new];
     }
-    return _cellClsDict;
+    return _holo_cellClsMap;
 }
 
 @end

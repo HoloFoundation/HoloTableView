@@ -14,10 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) HoloTableViewProxy *holo_tableViewProxy;
 
-@property (nonatomic, strong, readonly) HoloTableViewDataSource *holo_tableDataSource;
-
-@property (nonatomic, weak) id<UIScrollViewDelegate> holo_tableScrollDelegate;
-
 @end
 
 NS_ASSUME_NONNULL_END

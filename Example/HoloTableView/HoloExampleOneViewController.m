@@ -39,7 +39,7 @@
     }];
     [self.tableView reloadData];
     
-    self.tableView.holo_tableScrollDelegate = self;
+    self.tableView.holo_tableViewProxy.holo_tableScrollDelegate = self;
 }
 
 - (NSArray *)_modelsFromOtherWay {

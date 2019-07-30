@@ -12,12 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableViewDataSource : NSObject
 
-- (NSArray<HoloSection *> *)fetchHoloSections;
+@property (nonatomic, copy) NSArray<HoloSection *> *holo_sections;
 
-- (NSDictionary *)fetchCellClsDict;
+@property (nonatomic, copy) NSDictionary *holo_cellClsMap;
 
 
-- (void)configCellClsDict:(NSDictionary *)cellDict;
+- (void)configCellClsMap:(NSDictionary *)dict;
 
 - (HoloSection *)holo_sectionWithTag:(NSString * _Nullable)tag;
 
