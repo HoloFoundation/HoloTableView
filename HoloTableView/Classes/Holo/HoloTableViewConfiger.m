@@ -22,9 +22,13 @@
 //============================================================:HoloTableViewConfiger
 @interface HoloTableViewConfiger ()
 
-@property (nonatomic, strong) NSMutableArray *configerArray;
+@property (nonatomic, strong) NSMutableArray *cellClsConfigers;
 
 @property (nonatomic, strong) NSMutableDictionary *cellClsMap;
+
+@property (nonatomic, copy) NSArray *sectionIndexTitlesArray;
+
+@property (nonatomic, copy) NSInteger (^ sectionForSectionIndexTitleBlock)(NSArray<NSString *> *, NSString *, NSInteger);
 
 @end
 
@@ -34,24 +38,46 @@
     return ^id(NSString *cell) {
         HoloTableViewCellConfiger *configer = [HoloTableViewCellConfiger new];
         configer.cellName = cell;
-        [self.configerArray addObject:configer];
+        [self.cellClsConfigers addObject:configer];
         return configer;
     };
 }
 
+- (HoloTableViewConfiger * (^)(NSArray<NSString *> *))sectionIndexTitles {
+    return ^id(NSArray<NSString *> *sectionIndexTitles) {
+        self.sectionIndexTitlesArray = sectionIndexTitles;
+        return self;
+    };
+}
+
+- (HoloTableViewConfiger *(^)(NSInteger (^)(NSArray<NSString *> *, NSString *, NSInteger)))sectionForSectionIndexTitleHandler {
+    return ^id(NSInteger (^ sectionForSectionIndexTitleHandler)(NSArray<NSString *> *, NSString *, NSInteger)) {
+        self.sectionForSectionIndexTitleBlock = sectionForSectionIndexTitleHandler;
+        return self;
+    };
+}
+
 - (NSDictionary *)install {
-    for (HoloTableViewCellConfiger *configer in self.configerArray) {
+    for (HoloTableViewCellConfiger *configer in self.cellClsConfigers) {
         self.cellClsMap[configer.cellName] = configer.clsName;
     }
     return [self.cellClsMap copy];
 }
 
+- (NSArray<NSString *> *)fetchSectionIndexTitles {
+    return self.sectionIndexTitlesArray;
+}
+
+- (NSInteger(^)(NSArray<NSString *> *, NSString *, NSInteger))fetchSectionForSectionIndexTitleHandler {
+    return self.sectionForSectionIndexTitleBlock;
+}
+
 #pragma mark - getter
-- (NSMutableArray *)configerArray {
-    if (!_configerArray) {
-        _configerArray = [NSMutableArray new];
+- (NSMutableArray *)cellClsConfigers {
+    if (!_cellClsConfigers) {
+        _cellClsConfigers = [NSMutableArray new];
     }
-    return _configerArray;
+    return _cellClsConfigers;
 }
 
 - (NSMutableDictionary *)cellClsMap {

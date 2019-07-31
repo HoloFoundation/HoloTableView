@@ -67,6 +67,21 @@
     return cell;
 }
 
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return self.holo_tableDataSource.holo_sectionIndexTitles;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    NSInteger (^ sectionForSectionIndexTitleHandler)(NSArray<NSString *> *, NSString *, NSInteger) = self.holo_tableDataSource.holo_sectionForSectionIndexTitleHandler;
+    if (sectionForSectionIndexTitleHandler) {
+        NSInteger targetIndex = sectionForSectionIndexTitleHandler(self.holo_tableDataSource.holo_sectionIndexTitles, title, index);
+        return targetIndex;
+    } else {
+        return index;
+    }
+}
+
+
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];

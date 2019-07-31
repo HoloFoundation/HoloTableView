@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSDictionary *holo_cellClsMap;
 
+@property (nonatomic, copy) NSArray<NSString *> *holo_sectionIndexTitles;
+
+@property (nonatomic, copy) NSInteger (^holo_sectionForSectionIndexTitleHandler)(NSArray<NSString *> *, NSString *, NSInteger index);
+
 
 - (void)configCellClsMap:(NSDictionary *)dict;
 

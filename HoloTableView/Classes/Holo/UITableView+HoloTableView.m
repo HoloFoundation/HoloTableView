@@ -23,6 +23,9 @@
     
     NSDictionary *map = [configer install];
     [self.holo_tableViewProxy.holo_tableDataSource configCellClsMap:map];
+    
+    self.holo_tableViewProxy.holo_tableDataSource.holo_sectionIndexTitles = [configer fetchSectionIndexTitles];
+    self.holo_tableViewProxy.holo_tableDataSource.holo_sectionForSectionIndexTitleHandler = [configer fetchSectionForSectionIndexTitleHandler];
 }
 
 #pragma mark - operate section
