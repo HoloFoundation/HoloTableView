@@ -28,8 +28,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     
-    self.tableView.holo_tableViewProxy.holo_tableScrollDelegate = self;
-    self.tableView.holo_tableViewProxy.holo_overrideDataSource = self;
+    self.tableView.holo_proxy.holo_scrollDelegate = self;
+    self.tableView.holo_proxy.holo_dataSource = self;
     self.tableView.editing = YES;
 
     

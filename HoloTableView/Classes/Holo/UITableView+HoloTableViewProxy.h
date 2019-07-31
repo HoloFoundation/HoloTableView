@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (HoloTableViewProxy)
 
-@property (nonatomic, strong, readonly) HoloTableViewProxy *holo_tableViewProxy;
+@property (nonatomic, strong, readonly) HoloTableViewProxy *holo_proxy;
 
 @end
 

@@ -13,7 +13,7 @@ static char kHoloTableViewProxyKey;
 
 @implementation UITableView (HoloTableViewProxy)
 
-- (HoloTableViewProxy *)holo_tableViewProxy {
+- (HoloTableViewProxy *)holo_proxy {
     HoloTableViewProxy *tableViewProxy = objc_getAssociatedObject(self, &kHoloTableViewProxyKey);
     if (!tableViewProxy) {
         tableViewProxy = [[HoloTableViewProxy alloc] initWithTableView:self];

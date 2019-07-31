@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HoloTableViewCellProtocol <NSObject>
 
 @optional
+
 - (void)cellForRow:(id)model;
 
 + (CGFloat)heightForRow:(id)model;

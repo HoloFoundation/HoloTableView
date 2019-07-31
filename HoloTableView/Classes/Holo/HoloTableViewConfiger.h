@@ -25,11 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^cell)(NSString *cell);
 
-#pragma mark - sectionIndexTitles
 @property (nonatomic, copy, readonly) HoloTableViewConfiger *(^sectionIndexTitles)(NSArray<NSString *> *sectionIndexTitles);
 
 @property (nonatomic, copy, readonly) HoloTableViewConfiger *(^sectionForSectionIndexTitleHandler)(NSInteger(^)(NSArray<NSString *> *sectionIndexTitles, NSString *title, NSInteger index));
-
 
 - (NSDictionary *)install;
 

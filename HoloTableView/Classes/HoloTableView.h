@@ -11,7 +11,7 @@
 #import "UITableView+HoloTableView.h"
 #import "UITableView+HoloTableViewProxy.h"
 #import "HoloTableViewProxy.h"
-#import "HoloTableViewDataSource.h"
+#import "HoloTableViewProxyData.h"
 #import "HoloTableViewConfiger.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"

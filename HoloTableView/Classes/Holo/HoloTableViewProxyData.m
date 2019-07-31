@@ -1,15 +1,15 @@
 //
-//  HoloTableViewDataSource.m
+//  HoloTableViewProxyData.m
 //  HoloTableView
 //
 //  Created by 与佳期 on 2019/7/29.
 //
 
-#import "HoloTableViewDataSource.h"
+#import "HoloTableViewProxyData.h"
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowMaker.h"
 
-@implementation HoloTableViewDataSource
+@implementation HoloTableViewProxyData
 
 - (void)configCellClsMap:(NSDictionary *)dict {
     NSMutableDictionary *map = [NSMutableDictionary dictionaryWithDictionary:self.holo_cellClsMap];

@@ -1,5 +1,5 @@
 //
-//  HoloTableViewDataSource.h
+//  HoloTableViewProxyData.h
 //  HoloTableView
 //
 //  Created by 与佳期 on 2019/7/29.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloTableViewDataSource : NSObject
+@interface HoloTableViewProxyData : NSObject
 
 @property (nonatomic, copy) NSArray<HoloSection *> *holo_sections;
 
@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray<NSString *> *holo_sectionIndexTitles;
 
 @property (nonatomic, copy) NSInteger (^holo_sectionForSectionIndexTitleHandler)(NSArray<NSString *> *, NSString *, NSInteger index);
-
 
 - (void)configCellClsMap:(NSDictionary *)dict;
 
