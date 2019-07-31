@@ -44,14 +44,14 @@
 
 - (NSArray *)_modelsFromOtherWay {
     return @[
-             @{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!--1", @"height":@44},
-             @{@"bgColor": [UIColor grayColor], @"text":@"Hello World!--2", @"height":@44},
-             @{@"bgColor": [UIColor magentaColor], @"text":@"Hello World!--3", @"height":@44},
-             @{@"bgColor": [UIColor cyanColor], @"text":@"Hello World!--4", @"height":@44},
-             @{@"bgColor": [UIColor redColor], @"text":@"Hello World!--5", @"height":@44},
-             @{@"bgColor": [UIColor yellowColor], @"text":@"Hello World!--6", @"height":@88},
-             @{@"bgColor": [UIColor cyanColor], @"text":@"Hello World!--7", @"height":@44},
-             @{@"bgColor": [UIColor greenColor], @"text":@"Hello World!--8", @"height":@22}
+             @{@"bgColor": [UIColor lightGrayColor], @"text": @"cell--1", @"height": @44},
+             @{@"bgColor": [UIColor grayColor],      @"text": @"cell--2", @"height": @44},
+             @{@"bgColor": [UIColor magentaColor],   @"text": @"cell--3", @"height": @44},
+             @{@"bgColor": [UIColor cyanColor],      @"text": @"cell--4", @"height": @44},
+             @{@"bgColor": [UIColor redColor],       @"text": @"cell--5", @"height": @44},
+             @{@"bgColor": [UIColor yellowColor],    @"text": @"cell--6", @"height": @88},
+             @{@"bgColor": [UIColor cyanColor],      @"text": @"cell--7", @"height": @44},
+             @{@"bgColor": [UIColor greenColor],     @"text": @"cell--8", @"height": @22}
              ];
 }
 
