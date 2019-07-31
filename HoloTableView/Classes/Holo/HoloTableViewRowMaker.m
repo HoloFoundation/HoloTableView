@@ -57,6 +57,27 @@
     };
 }
 
+- (HoloRowMaker * (^)(void (^)(id)))willSelectHandler {
+    return ^id( void (^willSelectHandler)(id) ){
+        self.row.willSelectHandler = willSelectHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker * (^)(void (^)(id)))willDeselectHandler {
+    return ^id( void (^willDeselectHandler)(id) ){
+        self.row.willDeselectHandler = willDeselectHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker * (^)(void (^)(id)))didDeselectHandler {
+    return ^id( void (^didDeselectHandler)(id) ){
+        self.row.didDeselectHandler = didDeselectHandler;
+        return self;
+    };
+}
+
 - (HoloRowMaker * (^)(void (^)(id)))didSelectHandler {
     return ^id( void (^didSelectHandler)(id) ){
         self.row.didSelectHandler = didSelectHandler;

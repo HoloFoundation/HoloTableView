@@ -24,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) SEL heightSEL;
 
+@property (nonatomic, copy) void (^willSelectHandler)(id);
+
+@property (nonatomic, copy) void (^willDeselectHandler)(id);
+
+@property (nonatomic, copy) void (^didDeselectHandler)(id);
+
 @property (nonatomic, copy) void (^didSelectHandler)(id);
 
 @property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell);
@@ -42,6 +48,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloRowMaker *(^height)(CGFloat height);
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^tag)(NSString *tag);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^willSelectHandler)(void(^)(id model));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^willDeselectHandler)(void(^)(id model));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^didDeselectHandler)(void(^)(id model));
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^didSelectHandler)(void(^)(id model));
 

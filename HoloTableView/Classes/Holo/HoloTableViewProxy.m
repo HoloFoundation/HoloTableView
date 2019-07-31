@@ -80,12 +80,6 @@
     return holoRow.height;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.didSelectHandler) holoRow.didSelectHandler(holoRow.model);
-}
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
@@ -100,6 +94,33 @@
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.didEndDisplayingHandler) holoRow.didEndDisplayingHandler(cell);
 }
+
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.willSelectHandler) holoRow.willSelectHandler(holoRow.model);
+    return indexPath;
+}
+
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.willDeselectHandler) holoRow.willDeselectHandler(holoRow.model);
+    return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didDeselectHandler) holoRow.didDeselectHandler(holoRow.model);
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didSelectHandler) holoRow.didSelectHandler(holoRow.model);
+}
+
 
 #pragma mark - UITableViewDelegate (header and footer)
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
