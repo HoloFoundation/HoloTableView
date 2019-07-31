@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloExampleOneTableViewCell : UITableViewCell <HoloTableViewProtocol>
+@interface HoloExampleOneTableViewCell : UITableViewCell <HoloTableViewCellProtocol>
 
 @end
 

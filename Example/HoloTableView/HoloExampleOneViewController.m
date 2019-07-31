@@ -9,7 +9,7 @@
 #import "HoloExampleOneViewController.h"
 #import <HoloTableView/HoloTableView.h>
 
-@interface HoloExampleOneViewController () <UIScrollViewDelegate>
+@interface HoloExampleOneViewController () <UIScrollViewDelegate, HoloTableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -28,6 +28,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     
+    self.tableView.holo_tableViewProxy.holo_tableScrollDelegate = self;
+    self.tableView.holo_tableViewProxy.holo_overrideDataSource = self;
+    self.tableView.editing = YES;
+
+    
     [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
         for (NSDictionary *dict in [self _modelsFromOtherWay]) {
             make.row(@"HoloExampleOneTableViewCell")
@@ -38,8 +43,6 @@
         }
     }];
     [self.tableView reloadData];
-    
-    self.tableView.holo_tableViewProxy.holo_tableScrollDelegate = self;
 }
 
 - (NSArray *)_modelsFromOtherWay {
