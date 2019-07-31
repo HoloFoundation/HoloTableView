@@ -49,6 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^tag)(NSString *tag);
 
+@property (nonatomic, copy, readonly) HoloRowMaker *(^configSEL)(SEL configSEL);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^heightSEL)(SEL heightSEL);
+
 @property (nonatomic, copy, readonly) HoloRowMaker *(^willSelectHandler)(void(^)(id model));
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^willDeselectHandler)(void(^)(id model));

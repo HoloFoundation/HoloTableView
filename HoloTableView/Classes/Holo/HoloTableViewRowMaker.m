@@ -57,6 +57,20 @@
     };
 }
 
+- (HoloRowMaker *(^)(SEL))configSEL {
+    return ^id(SEL configSEL) {
+        self.row.configSEL = configSEL;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(SEL))heightSEL {
+    return ^id(SEL heightSEL) {
+        self.row.heightSEL = heightSEL;
+        return self;
+    };
+}
+
 - (HoloRowMaker * (^)(void (^)(id)))willSelectHandler {
     return ^id( void (^willSelectHandler)(id) ){
         self.row.willSelectHandler = willSelectHandler;

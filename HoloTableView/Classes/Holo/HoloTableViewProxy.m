@@ -70,11 +70,21 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     
-    NSString *clsName = self.holoCellClsMap[holoRow.cell];
-    Class cls = clsName ? NSClassFromString(clsName) : NSClassFromString(holoRow.cell);
-    if ([cls conformsToProtocol:@protocol(HoloTableViewProtocol)] && holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
-        CGFloat cellHeight = [cls heightForRow:holoRow.model];
-        return cellHeight;
+    NSString *clsName = self.holoCellClsMap[holoRow.cell] ?: holoRow.cell;
+    Class cls = NSClassFromString(clsName);
+    if (holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
+        NSMethodSignature *signature = [cls methodSignatureForSelector:holoRow.heightSEL];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        invocation.target = cls;
+        invocation.selector = holoRow.heightSEL;
+        id model = holoRow.model;
+        [invocation setArgument:&model atIndex:2];
+        [invocation invoke];
+        
+        CGFloat height;
+        [invocation getReturnValue:&height];
+        
+        return height;
     }
     
     return holoRow.height;
