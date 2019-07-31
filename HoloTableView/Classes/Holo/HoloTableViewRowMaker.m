@@ -13,6 +13,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _height = CGFLOAT_MIN;
+        _shouldHighlight = YES;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         _configSEL = @selector(cellForRow:);
@@ -71,6 +73,13 @@
     };
 }
 
+- (HoloRowMaker *(^)(BOOL))shouldHighlight {
+    return ^id(BOOL shouldHighlight) {
+        self.row.shouldHighlight = shouldHighlight;
+        return self;
+    };
+}
+
 - (HoloRowMaker * (^)(void (^)(id)))willSelectHandler {
     return ^id( void (^willSelectHandler)(id) ){
         self.row.willSelectHandler = willSelectHandler;
@@ -109,6 +118,20 @@
 - (HoloRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayingHandler {
     return ^id( void (^didEndDisplayingHandler)(UITableViewCell *cell) ){
         self.row.didEndDisplayingHandler = didEndDisplayingHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(id)))didHighlightHandler {
+    return ^id( void (^didHighlightHandler)(id) ){
+        self.row.didHighlightHandler = didHighlightHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(id)))didUnHighlightHandler {
+    return ^id( void (^didUnHighlightHandler)(id) ){
+        self.row.didUnHighlightHandler = didUnHighlightHandler;
         return self;
     };
 }

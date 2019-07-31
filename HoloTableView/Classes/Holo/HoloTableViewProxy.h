@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HoloTableViewProtocol.h"
 @class HoloTableViewDataSource, HoloSection;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<UIScrollViewDelegate> holo_tableScrollDelegate;
 
-@property (nonatomic, weak) id<UITableViewDataSource> holo_overrideDataSource;
+@property (nonatomic, weak) id<HoloTableViewDataSource> holo_overrideDataSource;
 
-@property (nonatomic, weak) id<UITableViewDelegate> holo_overrideDelegate;
+@property (nonatomic, weak) id<HoloTableViewDelegate> holo_overrideDelegate;
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
 

@@ -211,20 +211,22 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:shouldHighlightRowAtIndexPath:)]) {
-        return [self.holo_overrideDelegate tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
-    }
-    return YES;
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow.shouldHighlight;
 }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didHighlightHandler) holoRow.didHighlightHandler(holoRow.model);
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didUnHighlightHandler) holoRow.didUnHighlightHandler(holoRow.model);
 }
-
-
-
 
 
 #pragma mark - UITableViewDelegate (header and footer)

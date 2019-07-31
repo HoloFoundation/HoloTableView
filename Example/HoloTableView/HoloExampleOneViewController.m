@@ -9,7 +9,7 @@
 #import "HoloExampleOneViewController.h"
 #import <HoloTableView/HoloTableView.h>
 
-@interface HoloExampleOneViewController () <UIScrollViewDelegate>
+@interface HoloExampleOneViewController () <UIScrollViewDelegate, HoloTableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 
