@@ -67,6 +67,49 @@
     return cell;
 }
 
+//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+//- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_overrideDataSource respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]) {
+        return [self.holo_overrideDataSource tableView:tableView canEditRowAtIndexPath:indexPath];
+    }
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_overrideDataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
+        return [self.holo_overrideDataSource tableView:tableView canMoveRowAtIndexPath:indexPath];
+    }
+    return NO;
+}
+
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    if ([self.holo_overrideDataSource respondsToSelector:@selector(sectionIndexTitlesForTableView:)]) {
+        return [self.holo_overrideDataSource sectionIndexTitlesForTableView:tableView];
+    }
+    return nil;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    if ([self.holo_overrideDataSource respondsToSelector:@selector(tableView:sectionForSectionIndexTitle:atIndex:)]) {
+        return [self.holo_overrideDataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
+    }
+    return 0;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_overrideDataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
+        [self.holo_overrideDataSource tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    if ([self.holo_overrideDataSource respondsToSelector:@selector(tableView:moveRowAtIndexPath:toIndexPath:)]) {
+        [self.holo_overrideDataSource tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    }
+}
+
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HoloSection *holoSection = self.holoSections[indexPath.section];
@@ -132,6 +175,56 @@
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.didSelectHandler) holoRow.didSelectHandler(holoRow.model);
 }
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)]) {
+        return [self.holo_overrideDelegate tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
+    }
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]) {
+        return [self.holo_overrideDelegate tableView:tableView estimatedHeightForHeaderInSection:section];
+    }
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
+    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]) {
+        return [self.holo_overrideDelegate tableView:tableView estimatedHeightForFooterInSection:section];
+    }
+    return CGFLOAT_MIN;
+}
+
+- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:accessoryTypeForRowWithIndexPath:)]) {
+        return [self.holo_overrideDelegate tableView:tableView accessoryTypeForRowWithIndexPath:indexPath];
+    }
+    return UITableViewCellAccessoryNone;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
+        [self.holo_overrideDelegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:shouldHighlightRowAtIndexPath:)]) {
+        return [self.holo_overrideDelegate tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
+    }
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+
+
 
 
 #pragma mark - UITableViewDelegate (header and footer)
