@@ -175,89 +175,89 @@
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
-        [self.holo_overrideScrollDelegate scrollViewDidScroll:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidScroll:scrollView];
     }
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidZoom:)]) {
-        [self.holo_overrideScrollDelegate scrollViewDidZoom:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidZoom:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidZoom:scrollView];
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
-        [self.holo_overrideScrollDelegate scrollViewWillBeginDragging:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillBeginDragging:scrollView];
     }
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
-        [self.holo_overrideScrollDelegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
-        [self.holo_overrideScrollDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)]) {
-        [self.holo_overrideScrollDelegate scrollViewWillBeginDecelerating:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillBeginDecelerating:scrollView];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
-        [self.holo_overrideScrollDelegate scrollViewDidEndDecelerating:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndDecelerating:scrollView];
     }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)]) {
-        [self.holo_overrideScrollDelegate scrollViewDidEndScrollingAnimation:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndScrollingAnimation:scrollView];
     }
 }
 
 - (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(viewForZoomingInScrollView:)]) {
-        return [self.holo_overrideScrollDelegate viewForZoomingInScrollView:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(viewForZoomingInScrollView:)]) {
+        return [self.holo_tableScrollDelegate viewForZoomingInScrollView:scrollView];
     }
     return nil;
 }
 
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewWillBeginZooming:withView:)]) {
-        [self.holo_overrideScrollDelegate scrollViewWillBeginZooming:scrollView withView:view];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewWillBeginZooming:withView:)]) {
+        [self.holo_tableScrollDelegate scrollViewWillBeginZooming:scrollView withView:view];
     }
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidEndZooming:withView:atScale:)]) {
-        [self.holo_overrideScrollDelegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidEndZooming:withView:atScale:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
     }
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewShouldScrollToTop:)]) {
-        return [self.holo_overrideScrollDelegate scrollViewShouldScrollToTop:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewShouldScrollToTop:)]) {
+        return [self.holo_tableScrollDelegate scrollViewShouldScrollToTop:scrollView];
     }
     return YES;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidScrollToTop:)]) {
-        [self.holo_overrideScrollDelegate scrollViewDidScrollToTop:scrollView];
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidScrollToTop:)]) {
+        [self.holo_tableScrollDelegate scrollViewDidScrollToTop:scrollView];
     }
 }
 
 - (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView {
-    if ([self.holo_overrideScrollDelegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]) {
+    if ([self.holo_tableScrollDelegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]) {
         if (@available(iOS 11.0, *)) {
-            [self.holo_overrideScrollDelegate scrollViewDidChangeAdjustedContentInset:scrollView];
+            [self.holo_tableScrollDelegate scrollViewDidChangeAdjustedContentInset:scrollView];
         } else {
             // Fallback on earlier versions
         }
