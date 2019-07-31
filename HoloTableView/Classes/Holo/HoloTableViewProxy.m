@@ -197,13 +197,6 @@
     return CGFLOAT_MIN;
 }
 
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
-    if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:accessoryTypeForRowWithIndexPath:)]) {
-        return [self.holo_overrideDelegate tableView:tableView accessoryTypeForRowWithIndexPath:indexPath];
-    }
-    return UITableViewCellAccessoryNone;
-}
-
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_overrideDelegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
         [self.holo_overrideDelegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
