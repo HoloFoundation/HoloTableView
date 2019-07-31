@@ -26,13 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat footerHeight;
 
-@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header);
+@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header) NS_AVAILABLE_IOS(6_0);
 
-@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer);
+@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer) NS_AVAILABLE_IOS(6_0);
 
-@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header);
+@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header) NS_AVAILABLE_IOS(6_0);
 
-@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer);
+@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer) NS_AVAILABLE_IOS(6_0);
 
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows;
@@ -58,13 +58,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^footerHeight)(CGFloat footerHeight);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header)) NS_AVAILABLE_IOS(6_0);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer)) NS_AVAILABLE_IOS(6_0);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header)) NS_AVAILABLE_IOS(6_0);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer));
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer)) NS_AVAILABLE_IOS(6_0);
 
 @end
 
