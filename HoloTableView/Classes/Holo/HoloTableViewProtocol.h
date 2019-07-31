@@ -10,9 +10,12 @@
 
 @protocol HoloTableViewProtocol <NSObject>
 
+@optional
 - (void)cellForRow:(id)model;
 
 + (CGFloat)heightForRow:(id)model;
+
++ (CGFloat)estimatedHeightForRow:(id)model;
 
 @end
 

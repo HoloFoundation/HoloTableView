@@ -75,21 +75,34 @@
     NSString *clsName = self.holoCellClsMap[holoRow.cell] ?: holoRow.cell;
     Class cls = NSClassFromString(clsName);
     if (holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
-        NSMethodSignature *signature = [cls methodSignatureForSelector:holoRow.heightSEL];
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-        invocation.target = cls;
-        invocation.selector = holoRow.heightSEL;
-        id model = holoRow.model;
-        [invocation setArgument:&model atIndex:2];
-        [invocation invoke];
-        
-        CGFloat height;
-        [invocation getReturnValue:&height];
-        
-        return height;
+        return [self _heightWithMethodSignatureCls:cls selector:holoRow.heightSEL model:holoRow.model];
     }
-    
     return holoRow.height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+
+    NSString *clsName = self.holoCellClsMap[holoRow.cell] ?: holoRow.cell;
+    Class cls = NSClassFromString(clsName);
+    if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
+        return [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
+    }
+    return holoRow.estimatedHeight;
+}
+
+- (CGFloat)_heightWithMethodSignatureCls:(Class)cls selector:(SEL)selector model:(id)model {
+    NSMethodSignature *signature = [cls methodSignatureForSelector:selector];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = cls;
+    invocation.selector = selector;
+    [invocation setArgument:&model atIndex:2];
+    [invocation invoke];
+    
+    CGFloat height;
+    [invocation getReturnValue:&height];
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

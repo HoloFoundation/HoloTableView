@@ -7,6 +7,9 @@
 
 #import "HoloTableViewRowMaker.h"
 
+#define HOLO_SCREEN_WIDTH   [[UIScreen mainScreen] bounds].size.width
+#define HOLO_SCREEN_HEIGHT  [[UIScreen mainScreen] bounds].size.height
+
 //============================================================:HoloRow
 @implementation HoloRow
 
@@ -14,11 +17,13 @@
     self = [super init];
     if (self) {
         _height = CGFLOAT_MIN;
+        _estimatedHeight = HOLO_SCREEN_HEIGHT;
         _shouldHighlight = YES;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         _configSEL = @selector(cellForRow:);
         _heightSEL = @selector(heightForRow:);
+        _estimatedHeightSEL = @selector(estimatedHeightForRow:);
 #pragma clang diagnostic pop
     }
     
@@ -52,6 +57,13 @@
     };
 }
 
+- (HoloRowMaker *(^)(CGFloat))estimatedHeight {
+    return ^id(CGFloat estimatedHeight){
+        self.row.estimatedHeight = estimatedHeight;
+        return self;
+    };
+}
+
 - (HoloRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag){
         self.row.tag = tag;
@@ -62,6 +74,13 @@
 - (HoloRowMaker *(^)(SEL))configSEL {
     return ^id(SEL configSEL) {
         self.row.configSEL = configSEL;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(SEL))estimatedHeightSEL {
+    return ^id(SEL estimatedHeightSEL) {
+        self.row.estimatedHeightSEL = estimatedHeightSEL;
         return self;
     };
 }
