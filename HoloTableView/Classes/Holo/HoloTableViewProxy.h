@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) HoloTableViewDataSource *holo_tableDataSource;
 
-@property (nonatomic, weak) id<UIScrollViewDelegate> holo_tableScrollDelegate;
+@property (nonatomic, weak) id<UIScrollViewDelegate> holo_overrideScrollDelegate;
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
 
