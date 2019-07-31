@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) NSArray<HoloRow *> *rows;
 
-#pragma mark - header and footer
 @property (nonatomic, strong) UIView *header;
 
 @property (nonatomic, strong) UIView *footer;

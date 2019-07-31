@@ -81,11 +81,7 @@
     }
 }
 
-
-
-//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
-//- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
-
+#pragma mark override
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_dataSource respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]) {
         return [self.holo_dataSource tableView:tableView canEditRowAtIndexPath:indexPath];
@@ -111,6 +107,9 @@
         [self.holo_dataSource tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     }
 }
+
+//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+//- (nullable NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
 
 
 #pragma mark - UITableViewDelegate
@@ -231,7 +230,7 @@
 }
 
 
-#pragma mark - UITableViewDelegate (header and footer)
+#pragma mark header and footer
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.header;
