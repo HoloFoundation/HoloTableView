@@ -37,6 +37,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return 0;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.rows.count;
 }
@@ -144,11 +146,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return 0;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.headerHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section >= self.holoSections.count) return 0;
+    
     HoloSection *holoSection = self.holoSections[section];
     return holoSection.footerHeight;
 }
