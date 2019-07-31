@@ -133,6 +133,24 @@
     if (holoRow.didSelectHandler) holoRow.didSelectHandler(holoRow.model);
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow.shouldHighlight;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didHighlightHandler) holoRow.didHighlightHandler(holoRow.model);
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didUnHighlightHandler) holoRow.didUnHighlightHandler(holoRow.model);
+}
+
 
 #pragma mark - UITableViewDelegate (header and footer)
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

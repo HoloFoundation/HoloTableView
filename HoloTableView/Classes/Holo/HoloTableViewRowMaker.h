@@ -24,17 +24,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) SEL heightSEL;
 
-@property (nonatomic, copy) void (^willSelectHandler)(id);
+@property (nonatomic, assign) BOOL shouldHighlight;
 
-@property (nonatomic, copy) void (^willDeselectHandler)(id);
+@property (nonatomic, copy) void (^willSelectHandler)(id model);
 
-@property (nonatomic, copy) void (^didDeselectHandler)(id);
+@property (nonatomic, copy) void (^willDeselectHandler)(id model);
 
-@property (nonatomic, copy) void (^didSelectHandler)(id);
+@property (nonatomic, copy) void (^didDeselectHandler)(id model);
+
+@property (nonatomic, copy) void (^didSelectHandler)(id model);
 
 @property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell);
 
 @property (nonatomic, copy) void (^didEndDisplayingHandler)(UITableViewCell *cell);
+
+@property (nonatomic, copy) void (^didHighlightHandler)(id model);
+
+@property (nonatomic, copy) void (^didUnHighlightHandler)(id model);
 
 @end
 
@@ -53,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^heightSEL)(SEL heightSEL);
 
+@property (nonatomic, copy, readonly) HoloRowMaker *(^shouldHighlight)(BOOL shouldHighlight);
+
 @property (nonatomic, copy, readonly) HoloRowMaker *(^willSelectHandler)(void(^)(id model));
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^willDeselectHandler)(void(^)(id model));
@@ -64,6 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell));
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^didEndDisplayingHandler)(void(^)(UITableViewCell *cell));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^didHighlightHandler)(void(^)(id model));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^didUnHighlightHandler)(void(^)(id model));
 
 @end
 
