@@ -19,23 +19,6 @@
     self.holo_cellClsMap = [map copy];
 }
 
-- (HoloSection *)holo_sectionWithTag:(NSString *)tag {
-    for (HoloSection *section in self.holo_sections) {
-        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
-            return section;
-        }
-    }
-    return nil;
-}
-
-- (void)holo_appendSection:(HoloSection *)section {
-    if (!section) return;
-    
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
-    [array addObject:section];
-    self.holo_sections = array;
-}
-
 - (void)holo_appendSections:(NSArray<HoloSection *> *)sections {
     if (sections.count <= 0) return;
     
@@ -44,7 +27,25 @@
     self.holo_sections = array;
 }
 
-- (void)holo_updateSection:(HoloSection *)targetSection fromSection:(HoloSection *)fromSection {
+- (void)holo_updateSections:(NSArray<HoloSection *> *)sections {
+    for (HoloSection *updateSection in sections) {
+        for (HoloSection *targetSection in [self _sectionsWithTag:updateSection.tag]) {
+            [self _updateSection:targetSection fromSection:updateSection];
+        }
+    }
+}
+
+- (NSArray<HoloSection *> *)_sectionsWithTag:(NSString *)tag {
+    NSMutableArray *array = [NSMutableArray new];
+    for (HoloSection *section in self.holo_sections) {
+        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+            [array addObject:section];
+        }
+    }
+    return [array copy];
+}
+
+- (void)_updateSection:(HoloSection *)targetSection fromSection:(HoloSection *)fromSection {
     if (!targetSection || !fromSection) return;
     
     if (fromSection.header) {
@@ -73,16 +74,37 @@
     }
 }
 
-- (void)holo_removeSection:(HoloSection *)section {
+- (void)holo_removeAllSection {
+    self.holo_sections = [NSArray new];
+}
+
+- (void)holo_removeSection:(NSString *)tag {
+    NSArray *sections = [self _sectionsWithTag:tag];
+    if (sections.count > 0) {
+        NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
+        [array removeObjectsInArray:sections];
+        self.holo_sections = array;
+    }
+}
+
+
+
+
+- (HoloSection *)holo_sectionWithTag:(NSString *)tag {
+    for (HoloSection *section in self.holo_sections) {
+        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+            return section;
+        }
+    }
+    return nil;
+}
+
+- (void)holo_appendSection:(HoloSection *)section {
     if (!section) return;
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
-    [array removeObject:section];
+    [array addObject:section];
     self.holo_sections = array;
-}
-
-- (void)holo_removeAllSection {
-    self.holo_sections = [NSArray new];
 }
 
 - (void)holo_removeRow:(NSString *)tag {
