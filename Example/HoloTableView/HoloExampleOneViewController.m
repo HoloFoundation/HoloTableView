@@ -9,7 +9,7 @@
 #import "HoloExampleOneViewController.h"
 #import <HoloTableView/HoloTableView.h>
 
-@interface HoloExampleOneViewController () <UIScrollViewDelegate, HoloTableViewDataSource>
+@interface HoloExampleOneViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -27,11 +27,6 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
-    
-    self.tableView.holo_proxy.holo_scrollDelegate = self;
-    self.tableView.holo_proxy.holo_dataSource = self;
-    self.tableView.editing = YES;
-
     
     [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
         for (NSDictionary *dict in [self _modelsFromOtherWay]) {
@@ -61,20 +56,6 @@
 #pragma mark - touchesBegan
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"scrollViewDidScroll");
-}
-
-#pragma mark - HoloTableViewDataSource
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    NSLog(@"---");
 }
 
 #pragma mark - getter

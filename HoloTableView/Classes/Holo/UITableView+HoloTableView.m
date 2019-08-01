@@ -91,7 +91,7 @@
         HoloRow *targetRow = dict[@"targetRow"];
         HoloRow *updateRow = dict[@"updateRow"];
         if (!targetRow) {
-            HoloLog(@"⚠️[HoloTableView] No found section with the row: %@.", updateRow.tag);
+            HoloLog(@"⚠️[HoloTableView] No found row with the tag: %@.", updateRow.tag);
             continue;
         }
         
