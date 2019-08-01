@@ -29,7 +29,7 @@
     self.tableView.holo_proxy.holo_scrollDelegate = self;
     self.tableView.holo_proxy.holo_dataSource = self;
     self.tableView.holo_proxy.holo_delegate = self;
-//    self.tableView.editing = YES;
+    self.tableView.editing = YES;
     
     [self.tableView holo_configTableView:^(HoloTableViewConfiger * _Nonnull configer) {
         NSDictionary *cellClsMap = [self _cellClaMap];
