@@ -16,6 +16,8 @@
     self = [super init];
     if (self) {
         _rows = [NSArray new];
+        _headerHeight = CGFLOAT_MIN;
+        _footerHeight = CGFLOAT_MIN;
     }
     return self;
 }
