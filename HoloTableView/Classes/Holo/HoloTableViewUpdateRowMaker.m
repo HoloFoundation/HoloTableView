@@ -106,9 +106,7 @@
 }
 
 - (HoloUpdateRowMaker *(^)(NSString *))tag {
-    __weak typeof(self) weakSelf = self;
     return ^id(NSString *tag) {
-        __weak typeof(weakSelf) strongSelf = weakSelf;
         HoloUpdateRowMaker *rowMaker = [HoloUpdateRowMaker new];
         HoloUpdateRow *updateRow = rowMaker.updateRow;
         updateRow.tag = tag;
@@ -131,13 +129,13 @@
             }
         }
         
+        NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetRow) {
-            [strongSelf.holoUpdateRows addObject:@{@"targetRow" : targetRow,
-                                                   @"updateRow" : updateRow
-                                                   }];
-        } else {
-            HoloLog(@"⚠️No found row with the tag.");
+            dict[@"targetRow"] = targetRow;
         }
+        dict[@"updateRow"] = updateRow;
+        [self.holoUpdateRows addObject:dict];
+        
         return rowMaker;
     };
 }

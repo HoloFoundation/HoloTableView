@@ -165,12 +165,10 @@
 @implementation HoloTableViewRowMaker
 
 - (HoloRowMaker *(^)(NSString *))row {
-    __weak typeof(self) weakSelf = self;
     return ^id(NSString *cell) {
-        __weak typeof(weakSelf) strongSelf = weakSelf;
         HoloRowMaker *rowMaker = [HoloRowMaker new];
         rowMaker.row.cell = cell;
-        [strongSelf.holoRows addObject:rowMaker.row];
+        [self.holoRows addObject:rowMaker.row];
         return rowMaker;
     };
 }

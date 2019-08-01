@@ -132,15 +132,13 @@
 }
 
 - (HoloSectionMaker *(^)(NSString *))section {
-    __weak typeof(self) weakSelf = self;
     return ^id(NSString *tag) {
-        __weak typeof(weakSelf) strongSelf = weakSelf;
         HoloSectionMaker *sectionMaker = [HoloSectionMaker new];
-        sectionMaker.section.tag = tag;
+        HoloSection *updateSection = sectionMaker.section;
+        updateSection.tag = tag;
         
         HoloSection *targetSection;
-        HoloSection *updateSection = sectionMaker.section;
-        for (HoloSection *section in strongSelf.targetSections) {
+        for (HoloSection *section in self.targetSections) {
             if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
                 
                 updateSection.headerHeight = section.headerHeight;
@@ -156,7 +154,7 @@
             dict[@"targetSection"] = targetSection;
         }
         dict[@"updateSection"] = updateSection;
-        [strongSelf.holoUpdateSections addObject:dict];
+        [self.holoUpdateSections addObject:dict];
         
         return sectionMaker;
     };

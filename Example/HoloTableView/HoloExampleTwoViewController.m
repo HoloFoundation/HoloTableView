@@ -99,12 +99,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    [self.tableView holo_updateRows:^(HoloTableViewUpdateRowMaker * _Nonnull make) {
-        make.tag(@"11w11").height(200);
-    }];
-    [self.tableView reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

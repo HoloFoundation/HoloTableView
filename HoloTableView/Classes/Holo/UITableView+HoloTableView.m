@@ -13,6 +13,7 @@
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewUpdateRowMaker.h"
 #import "HoloTableViewProxyData.h"
+#import "HoloTableViewMacro.h"
 
 @implementation UITableView (HoloTableView)
 
@@ -46,8 +47,11 @@
     
     for (NSDictionary *dict in [maker install]) {
         HoloSection *targetSection = dict[@"targetSection"];
-        if (!targetSection) continue;
         HoloSection *updateSection = dict[@"updateSection"];
+        if (!targetSection) {
+            HoloLog(@"⚠️[HoloTableView] No found section with the tag: %@.", updateSection.tag);
+            continue;
+        }
         
         targetSection.headerHeight = updateSection.headerHeight;
         targetSection.footerHeight = updateSection.footerHeight;
@@ -86,6 +90,10 @@
     for (NSDictionary *dict in [maker install]) {
         HoloRow *targetRow = dict[@"targetRow"];
         HoloRow *updateRow = dict[@"updateRow"];
+        if (!targetRow) {
+            HoloLog(@"⚠️[HoloTableView] No found section with the row: %@.", updateRow.tag);
+            continue;
+        }
         
         if (updateRow.cell) targetRow.cell = updateRow.cell;
         if (updateRow.model) targetRow.model = updateRow.model;
