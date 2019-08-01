@@ -82,14 +82,21 @@
 }
 
 - (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block {
-    HoloTableViewUpdateRowMaker *maker = [HoloTableViewUpdateRowMaker new];
+    HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
     if (block) block(maker);
     
-    for (HoloUpdateRow *updateRow in [maker install]) {
-        HoloSection *section = [self.holo_proxy.holo_proxyData holo_sectionWithRowTag:updateRow.tag];
-        if (section) {
-            [section holo_updateRow:updateRow];
-        }
+    for (NSDictionary *dict in [maker install]) {
+        HoloRow *targetRow = dict[@"targetRow"];
+        HoloRow *updateRow = dict[@"updateRow"];
+        
+        targetRow.cell = updateRow.cell;
+        targetRow.model = updateRow.model;
+        targetRow.height = updateRow.height;
+        targetRow.estimatedHeight = updateRow.estimatedHeight;
+        targetRow.configSEL = updateRow.configSEL;
+        targetRow.heightSEL = updateRow.heightSEL;
+        targetRow.estimatedHeightSEL = updateRow.estimatedHeightSEL;
+        targetRow.shouldHighlight = updateRow.shouldHighlight;
     }
 }
 
@@ -117,10 +124,7 @@
 }
 
 - (void)holo_removeRow:(NSString *)tag {
-    HoloSection *section = [self.holo_proxy.holo_proxyData holo_sectionWithRowTag:tag];
-    if (section) {
-        [section holo_removeRow:tag];
-    }
+    [self.holo_proxy.holo_proxyData holo_removeRow:tag];
 }
 
 @end

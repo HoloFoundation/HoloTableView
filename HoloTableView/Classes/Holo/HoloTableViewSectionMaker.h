@@ -35,9 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows;
 
-- (void)holo_updateRow:(HoloUpdateRow *)updateRow;
-
-- (void)holo_removeRow:(NSString *)tag;
+- (void)holo_removeRow:(HoloRow *)row;
 
 - (void)holo_removeAllRows;
 

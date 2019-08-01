@@ -9,7 +9,6 @@
 #import "HoloTableViewProxyData.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"
-#import "HoloTableViewProtocol.h"
 
 @interface HoloTableViewProxy ()
 
@@ -191,6 +190,24 @@
     if (holoRow.didSelectHandler) holoRow.didSelectHandler(holoRow.model);
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow.shouldHighlight;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didHighlightHandler) holoRow.didHighlightHandler(holoRow.model);
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didUnHighlightHandler) holoRow.didUnHighlightHandler(holoRow.model);
+}
+
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]) {
         return [self.holo_delegate tableView:tableView estimatedHeightForHeaderInSection:section];
@@ -209,24 +226,6 @@
     if ([self.holo_delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
         [self.holo_delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
     }
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.rows[indexPath.row];
-    return holoRow.shouldHighlight;
-}
-
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.didHighlightHandler) holoRow.didHighlightHandler(holoRow.model);
-}
-
-- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    HoloSection *holoSection = self.holoSections[indexPath.section];
-    HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.didUnHighlightHandler) holoRow.didUnHighlightHandler(holoRow.model);
 }
 
 

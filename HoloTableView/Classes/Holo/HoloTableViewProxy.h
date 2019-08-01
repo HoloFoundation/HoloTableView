@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HoloTableViewProtocol.h"
-@class HoloTableViewProxyData, HoloSection;
+@class HoloTableViewProxyData;
 
 NS_ASSUME_NONNULL_BEGIN
 

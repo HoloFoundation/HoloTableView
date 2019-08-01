@@ -85,15 +85,14 @@
     self.holo_sections = [NSArray new];
 }
 
-- (HoloSection *)holo_sectionWithRowTag:(NSString *)tag {
+- (void)holo_removeRow:(NSString *)tag {
     for (HoloSection *section in self.holo_sections) {
         for (HoloRow *row in section.rows) {
             if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
-                return section;
+                [section holo_removeRow:row];
             }
         }
     }
-    return nil;
 }
 
 #pragma mark - getter

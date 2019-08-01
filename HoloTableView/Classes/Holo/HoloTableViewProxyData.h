@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)holo_removeAllSection;
 
-- (HoloSection *)holo_sectionWithRowTag:(NSString * _Nullable)tag;
+- (void)holo_removeRow:(NSString * _Nullable)tag;
 
 @end
 

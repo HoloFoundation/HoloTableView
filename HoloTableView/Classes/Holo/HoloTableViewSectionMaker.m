@@ -28,43 +28,13 @@
     self.rows = array;
 }
 
-- (void)holo_updateRow:(HoloUpdateRow *)updateRow {
-    if (!updateRow) return;
+- (void)holo_removeRow:(HoloRow *)row {
+    if (!row) return;
     
-    HoloRow *replaceRow;
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    for (HoloRow *row in array) {
-        if ([row.tag isEqualToString:updateRow.tag] || (!row.tag && !updateRow.tag)) {
-            replaceRow = row;
-            break;
-        }
-    }
-    if (replaceRow) {
-        if (updateRow.cell) {
-            replaceRow.cell = updateRow.cell;
-        }
-        if (updateRow.model) {
-            replaceRow.model = updateRow.model;
-        }
-        if (updateRow.height) {
-            replaceRow.height = updateRow.height;
-        }
-    }
-}
+    [array removeObject:row];
+    self.rows = array;
 
-- (void)holo_removeRow:(NSString *)tag {
-    HoloRow *removeRow;
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    for (HoloRow *row in array) {
-        if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
-            removeRow = row;
-            break;
-        }
-    }
-    if (removeRow) {
-        [array removeObject:removeRow];
-        self.rows = array;
-    }
 }
 
 - (void)holo_removeAllRows {
