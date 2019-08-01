@@ -8,6 +8,7 @@
 #import "HoloTableViewUpdateRowMaker.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"
+#import "HoloTableViewMacro.h"
 
 //============================================================:HoloUpdateRow
 @implementation HoloUpdateRow
@@ -134,6 +135,8 @@
             [strongSelf.holoUpdateRows addObject:@{@"targetRow" : targetRow,
                                                    @"updateRow" : updateRow
                                                    }];
+        } else {
+            HoloLog(@"⚠️No found row with the tag.");
         }
         return rowMaker;
     };

@@ -6,9 +6,7 @@
 //
 
 #import "HoloTableViewRowMaker.h"
-
-#define HOLO_SCREEN_WIDTH   [[UIScreen mainScreen] bounds].size.width
-#define HOLO_SCREEN_HEIGHT  [[UIScreen mainScreen] bounds].size.height
+#import "HoloTableViewMacro.h"
 
 //============================================================:HoloRow
 @implementation HoloRow
