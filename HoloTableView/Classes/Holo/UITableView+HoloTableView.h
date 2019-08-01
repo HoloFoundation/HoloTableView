@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
  *  Update these sections in the callee for current UITableView.
- *  If current UITableView don't contain some sections in the callee, append them to the data source.
+ *  If current UITableView don't contain some sections in the callee, ignore them.
  *
  *  @param block scope within which you can create some sections which you wish to apply to current UITableView.
  */

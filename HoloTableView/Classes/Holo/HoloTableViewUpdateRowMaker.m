@@ -86,7 +86,7 @@
 //============================================================:HoloTableViewUpdateRowMaker
 @interface HoloTableViewUpdateRowMaker ()
 
-@property (nonatomic, copy) NSArray *holoSections;
+@property (nonatomic, copy) NSArray<HoloSection *> *holoSections;
 
 @property (nonatomic, strong) HoloRow *targetRow;
 
@@ -96,10 +96,10 @@
 
 @implementation HoloTableViewUpdateRowMaker
 
-- (instancetype)initWithProxyDataSections:(NSArray *)sections {
+- (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections {
     self = [super init];
     if (self) {
-        self.holoSections = sections;
+        _holoSections = sections;
     }
     return self;
 }
@@ -117,8 +117,6 @@
             for (HoloRow *row in section.rows) {
                 if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
                     
-                    updateRow.cell = row.cell;
-                    updateRow.model = row.model;
                     updateRow.height = row.height;
                     updateRow.estimatedHeight = row.estimatedHeight;
                     updateRow.configSEL = row.configSEL;
@@ -127,6 +125,7 @@
                     updateRow.shouldHighlight = row.shouldHighlight;
                     
                     targetRow = row;
+                    break;
                 }
             }
         }

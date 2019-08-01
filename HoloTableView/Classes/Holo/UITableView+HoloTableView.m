@@ -32,14 +32,32 @@
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
-    [self.holo_proxy.holo_proxyData holo_appendSections:[maker install]];
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSDictionary *dict in [maker install]) {
+        HoloRow *updateSection = dict[@"updateSection"];
+        [array addObject:updateSection];
+    }
+    [self.holo_proxy.holo_proxyData holo_appendSections:array];
 }
 
 - (void)holo_updateSection:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block {
-    HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
+    HoloTableViewSectionMaker *maker = [[HoloTableViewSectionMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
     if (block) block(maker);
     
-    [self.holo_proxy.holo_proxyData holo_updateSections:[maker install]];
+    for (NSDictionary *dict in [maker install]) {
+        HoloSection *targetSection = dict[@"targetSection"];
+        if (!targetSection) continue;
+        HoloSection *updateSection = dict[@"updateSection"];
+        
+        targetSection.headerHeight = updateSection.headerHeight;
+        targetSection.footerHeight = updateSection.footerHeight;
+        if (targetSection.header) targetSection.header = updateSection.header;
+        if (targetSection.footer) targetSection.footer = updateSection.footer;
+        if (targetSection.willDisplayHeaderHandler) targetSection.willDisplayHeaderHandler = updateSection.willDisplayHeaderHandler;
+        if (targetSection.willDisplayFooterHandler) targetSection.willDisplayFooterHandler = updateSection.willDisplayFooterHandler;
+        if (targetSection.didEndDisplayingHeaderHandler) targetSection.didEndDisplayingHeaderHandler = updateSection.didEndDisplayingHeaderHandler;
+        if (targetSection.didEndDisplayingFooterHandler) targetSection.didEndDisplayingFooterHandler = updateSection.didEndDisplayingFooterHandler;
+    }
 }
 
 - (void)holo_removeAllSection {
@@ -58,12 +76,7 @@
     NSArray *rows = [maker install];
     if (rows.count <= 0) return;
     
-    HoloSection *section = [self.holo_proxy.holo_proxyData holo_sectionWithTag:nil];
-    if (!section) {
-        section = [HoloSection new];
-        [self.holo_proxy.holo_proxyData holo_appendSection:section];
-    }
-    [section holo_appendRows:rows];
+    [self.holo_proxy.holo_proxyData holo_appendRows:[maker install] toSection:nil];
 }
 
 - (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block {
@@ -74,8 +87,8 @@
         HoloRow *targetRow = dict[@"targetRow"];
         HoloRow *updateRow = dict[@"updateRow"];
         
-        targetRow.cell = updateRow.cell;
-        targetRow.model = updateRow.model;
+        if (updateRow.cell) targetRow.cell = updateRow.cell;
+        if (updateRow.model) targetRow.model = updateRow.model;
         targetRow.height = updateRow.height;
         targetRow.estimatedHeight = updateRow.estimatedHeight;
         targetRow.configSEL = updateRow.configSEL;
@@ -92,20 +105,11 @@
     NSArray *rows = [maker install];
     if (rows.count <= 0) return;
 
-    HoloSection *section = [self.holo_proxy.holo_proxyData holo_sectionWithTag:tag];
-    if (!section) {
-        section = [HoloSection new];
-        section.tag = tag;
-        [self.holo_proxy.holo_proxyData holo_appendSection:section];
-    }
-    [section holo_appendRows:rows];
+    [self.holo_proxy.holo_proxyData holo_appendRows:[maker install] toSection:tag];
 }
 
 - (void)holo_removeAllRowsInSection:(NSString *)tag {
-    HoloSection *section = [self.holo_proxy.holo_proxyData holo_sectionWithTag:tag];
-    if (section) {
-        [section holo_removeAllRows];
-    }
+    [self.holo_proxy.holo_proxyData holo_removeAllRowsInSection:tag];
 }
 
 - (void)holo_removeRow:(NSString *)tag {

@@ -115,11 +115,21 @@
 //============================================================:HoloTableViewSectionMaker
 @interface HoloTableViewSectionMaker ()
 
-@property (nonatomic, strong) NSMutableArray<HoloSection *> *holoSections;
+@property (nonatomic, copy) NSArray<HoloSection *> *targetSections;
+
+@property (nonatomic, strong) NSMutableArray<NSDictionary *> *holoUpdateSections;
 
 @end
 
 @implementation HoloTableViewSectionMaker
+
+- (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections {
+    self = [super init];
+    if (self) {
+        _targetSections = sections;
+    }
+    return self;
+}
 
 - (HoloSectionMaker *(^)(NSString *))section {
     __weak typeof(self) weakSelf = self;
@@ -127,21 +137,41 @@
         __weak typeof(weakSelf) strongSelf = weakSelf;
         HoloSectionMaker *sectionMaker = [HoloSectionMaker new];
         sectionMaker.section.tag = tag;
-        [strongSelf.holoSections addObject:sectionMaker.section];
+        
+        HoloSection *targetSection;
+        HoloSection *updateSection = sectionMaker.section;
+        for (HoloSection *section in strongSelf.targetSections) {
+            if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+                
+                updateSection.headerHeight = section.headerHeight;
+                updateSection.footerHeight = section.footerHeight;
+                
+                targetSection = section;
+                break;
+            }
+        }
+        
+        NSMutableDictionary *dict = [NSMutableDictionary new];
+        if (targetSection) {
+            dict[@"targetSection"] = targetSection;
+        }
+        dict[@"updateSection"] = updateSection;
+        [strongSelf.holoUpdateSections addObject:dict];
+        
         return sectionMaker;
     };
 }
 
-- (NSArray<HoloSection *> *)install {
-    return self.holoSections;
+- (NSArray<NSDictionary *> *)install {
+    return [self.holoUpdateSections copy];
 }
 
 #pragma mark - getter
-- (NSMutableArray<HoloSection *> *)holoSections {
-    if (!_holoSections) {
-        _holoSections = [NSMutableArray new];
+- (NSMutableArray<NSDictionary *> *)holoUpdateSections {
+    if (!_holoUpdateSections) {
+        _holoUpdateSections = [NSMutableArray new];
     }
-    return _holoSections;
+    return _holoUpdateSections;
 }
 
 
