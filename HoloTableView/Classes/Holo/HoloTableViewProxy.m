@@ -32,10 +32,18 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ([self.holo_dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
+        return [self.holo_dataSource numberOfSectionsInTableView:tableView];
+    }
+    
     return self.holoSections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self.holo_dataSource respondsToSelector:@selector(tableView:numberOfRowsInSection:)]) {
+        return [self.holo_dataSource tableView:tableView numberOfRowsInSection:section];
+    }
+    
     if (section >= self.holoSections.count) return 0;
     
     HoloSection *holoSection = self.holoSections[section];
@@ -43,6 +51,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_dataSource respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
+        return [self.holo_dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+    
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     
@@ -67,10 +79,18 @@
 }
 
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    if ([self.holo_dataSource respondsToSelector:@selector(sectionIndexTitlesForTableView:)]) {
+        return [self.holo_dataSource sectionIndexTitlesForTableView:tableView];
+    }
+    
     return self.holo_proxyData.holo_sectionIndexTitles;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    if ([self.holo_dataSource respondsToSelector:@selector(tableView:sectionForSectionIndexTitle:atIndex:)]) {
+        return [self.holo_dataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
+    }
+    
     NSInteger (^ sectionForSectionIndexTitleHandler)(NSArray<NSString *> *, NSString *, NSInteger) = self.holo_proxyData.holo_sectionForSectionIndexTitleHandler;
     if (sectionForSectionIndexTitleHandler) {
         NSInteger targetIndex = sectionForSectionIndexTitleHandler(self.holo_proxyData.holo_sectionIndexTitles, title, index);
@@ -88,17 +108,17 @@
     return YES;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_dataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
+        [self.holo_dataSource tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    }
+}
+
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         return [self.holo_dataSource tableView:tableView canMoveRowAtIndexPath:indexPath];
     }
     return NO;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.holo_dataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
-        [self.holo_dataSource tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
-    }
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
