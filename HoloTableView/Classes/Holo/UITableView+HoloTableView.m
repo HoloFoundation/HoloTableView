@@ -112,7 +112,7 @@
     
     NSArray *rows = [maker install];
     if (rows.count <= 0) return;
-
+    
     [self.holo_proxy.holo_proxyData holo_appendRows:[maker install] toSection:tag];
 }
 
