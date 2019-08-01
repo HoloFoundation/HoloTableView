@@ -9,7 +9,7 @@
 #import "HoloExampleTwoViewController.h"
 #import <HoloTableView/HoloTableView.h>
 
-@interface HoloExampleTwoViewController () <UIScrollViewDelegate, HoloTableViewDataSource>
+@interface HoloExampleTwoViewController () <UIScrollViewDelegate, HoloTableViewDataSource, HoloTableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -28,7 +28,8 @@
     [self.view addSubview:self.tableView];
     self.tableView.holo_proxy.holo_scrollDelegate = self;
     self.tableView.holo_proxy.holo_dataSource = self;
-    self.tableView.editing = YES;
+    self.tableView.holo_proxy.holo_delegate = self;
+//    self.tableView.editing = YES;
     
     [self.tableView holo_configTableView:^(HoloTableViewConfiger * _Nonnull configer) {
         NSDictionary *cellClsMap = [self _cellClaMap];
@@ -124,6 +125,15 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     NSLog(@"---");
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+#pragma mark - HoloTableViewDelegate
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"delegate";
 }
 
 #pragma mark - getter

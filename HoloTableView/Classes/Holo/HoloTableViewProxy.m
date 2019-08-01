@@ -104,7 +104,7 @@
     if ([self.holo_dataSource respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]) {
         return [self.holo_dataSource tableView:tableView canEditRowAtIndexPath:indexPath];
     }
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
