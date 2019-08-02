@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//============================================================:HoloRow
+////////////////////////////////////////////////////////////
 @interface HoloRow : NSObject
 
 @property (nonatomic, copy) NSString *cell;
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloRowMaker
+////////////////////////////////////////////////////////////
 @interface HoloRowMaker : NSObject
 
 @property (nonatomic, strong, readonly) HoloRow *row;
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloTableViewRowMaker
+////////////////////////////////////////////////////////////
 @interface HoloTableViewRowMaker : NSObject
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^row)(NSString *rowName);

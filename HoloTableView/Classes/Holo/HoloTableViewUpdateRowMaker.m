@@ -10,12 +10,12 @@
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewMacro.h"
 
-//============================================================:HoloUpdateRow
+////////////////////////////////////////////////////////////
 @implementation HoloUpdateRow
 
 @end
 
-//============================================================:HoloUpdateRowMaker
+////////////////////////////////////////////////////////////
 @implementation HoloUpdateRowMaker
 
 - (instancetype)init {
@@ -84,7 +84,7 @@
 
 @end
 
-//============================================================:HoloTableViewUpdateRowMaker
+////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker ()
 
 @property (nonatomic, copy) NSArray<HoloSection *> *holoSections;

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//============================================================:HoloSection
+////////////////////////////////////////////////////////////
 @interface HoloSection : NSObject
 
 @property (nonatomic, copy) NSString *tag;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloSectionMaker
+////////////////////////////////////////////////////////////
 @interface HoloSectionMaker : NSObject
 
 @property (nonatomic, strong, readonly) HoloSection *section;
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloTableViewSectionMaker
+////////////////////////////////////////////////////////////
 @interface HoloTableViewSectionMaker : NSObject
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^section)(NSString *tag);

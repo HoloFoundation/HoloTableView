@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//============================================================:HoloTableViewCellProtocol
+////////////////////////////////////////////////////////////
 @protocol HoloTableViewCellProtocol <NSObject>
 
 @optional
@@ -23,15 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
-//============================================================:HoloTableViewDelegate
+////////////////////////////////////////////////////////////
 @protocol HoloTableViewDelegate <UITableViewDelegate>
 
 
 @end
 
-
-//============================================================:HoloTableViewDataSource
+////////////////////////////////////////////////////////////
 @protocol HoloTableViewDataSource <NSObject>
 
 @optional

@@ -8,7 +8,7 @@
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewMacro.h"
 
-//============================================================:HoloRow
+////////////////////////////////////////////////////////////
 @implementation HoloRow
 
 - (instancetype)init {
@@ -30,7 +30,7 @@
 
 @end
 
-//============================================================:HoloRowMaker
+////////////////////////////////////////////////////////////
 @implementation HoloRowMaker
 
 - (instancetype)init {
@@ -155,7 +155,7 @@
 
 @end
 
-//============================================================:HoloTableViewRowMaker
+////////////////////////////////////////////////////////////
 @interface HoloTableViewRowMaker ()
 
 @property (nonatomic, strong) NSMutableArray<HoloRow *> *holoRows;

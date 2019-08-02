@@ -7,7 +7,7 @@
 
 #import "HoloTableViewConfiger.h"
 
-//============================================================:HoloTableViewCellConfiger
+////////////////////////////////////////////////////////////
 @implementation HoloTableViewCellConfiger
 
 - (HoloTableViewCellConfiger *(^)(NSString *))cls {
@@ -19,7 +19,7 @@
 
 @end
 
-//============================================================:HoloTableViewConfiger
+////////////////////////////////////////////////////////////
 @interface HoloTableViewConfiger ()
 
 @property (nonatomic, strong) NSMutableArray *cellClsConfigers;

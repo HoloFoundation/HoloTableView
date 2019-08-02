@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//============================================================:HoloTableViewCellConfiger
+////////////////////////////////////////////////////////////
 @interface HoloTableViewCellConfiger : NSObject
 
 @property (nonatomic, copy) NSString *cellName;
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloTableViewConfiger
+////////////////////////////////////////////////////////////
 @interface HoloTableViewConfiger : NSObject
 
 @property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^cell)(NSString *cell);

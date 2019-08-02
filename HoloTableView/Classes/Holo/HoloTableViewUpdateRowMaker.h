@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//============================================================:HoloUpdateRow
+////////////////////////////////////////////////////////////
 @interface HoloUpdateRow : NSObject
 
 @property (nonatomic, copy) NSString *tag;
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloUpdateRowMaker
+////////////////////////////////////////////////////////////
 @interface HoloUpdateRowMaker : NSObject
 
 @property (nonatomic, strong, readonly) HoloUpdateRow *updateRow;
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//============================================================:HoloTableViewUpdateRowMaker
+////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker : NSObject
 
 @property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^tag)(NSString *tag);
