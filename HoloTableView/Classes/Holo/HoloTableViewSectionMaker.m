@@ -22,12 +22,14 @@
     return self;
 }
 
-- (void)holo_appendRows:(NSArray<HoloRow *> *)rows {
-    if (rows.count <= 0) return;
+- (NSIndexSet *)holo_appendRows:(NSArray<HoloRow *> *)rows {
+    if (rows.count <= 0) return nil;
     
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.rows.count, rows.count)];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     [array addObjectsFromArray:rows];
     self.rows = array;
+    return indexSet;
 }
 
 - (void)holo_removeRow:(HoloRow *)row {
@@ -140,6 +142,7 @@
         updateSection.tag = tag;
         
         HoloSection *targetSection;
+        NSNumber *targetIndex;
         for (HoloSection *section in self.targetSections) {
             if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
                 
@@ -147,6 +150,7 @@
                 updateSection.footerHeight = section.footerHeight;
                 
                 targetSection = section;
+                targetIndex = [NSNumber numberWithInteger:[self.targetSections indexOfObject:section]];
                 break;
             }
         }
@@ -154,6 +158,7 @@
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetSection) {
             dict[@"targetSection"] = targetSection;
+            dict[@"targetIndex"] = targetIndex;
         }
         dict[@"updateSection"] = updateSection;
         [self.holoUpdateSections addObject:dict];

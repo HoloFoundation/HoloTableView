@@ -111,6 +111,7 @@
         HoloUpdateRow *updateRow = rowMaker.updateRow;
         updateRow.tag = tag;
         
+        NSIndexPath *targetIndexPath;
         HoloRow *targetRow;
         for (HoloSection *section in self.holoSections) {
             for (HoloRow *row in section.rows) {
@@ -124,6 +125,9 @@
                     updateRow.shouldHighlight = row.shouldHighlight;
                     
                     targetRow = row;
+                    NSInteger sectionIndex = [self.holoSections indexOfObject:section];
+                    NSInteger rowIndex = [section.rows indexOfObject:row];
+                    targetIndexPath = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
                     break;
                 }
             }
@@ -132,6 +136,7 @@
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetRow) {
             dict[@"targetRow"] = targetRow;
+            dict[@"targetIndexPath"] = targetIndexPath;
         }
         dict[@"updateRow"] = updateRow;
         [self.holoUpdateRows addObject:dict];

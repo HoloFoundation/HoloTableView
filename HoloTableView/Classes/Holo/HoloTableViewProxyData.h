@@ -28,11 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSIndexSet *)holo_removeSection:(NSString *)tag;
 
-- (void)holo_appendRows:(NSArray<HoloRow *> *)rows toSection:(NSString * _Nullable)tag;
+- (HoloSection *)holo_sectionWithTag:(NSString * _Nullable)tag;
 
-- (void)holo_removeAllRowsInSection:(NSString *)tag;
+- (NSArray<NSIndexPath *> *)holo_appendRows:(NSArray<HoloRow *> *)rows toSection:(NSString * _Nullable)tag;
 
-- (void)holo_removeRow:(NSString * _Nullable)tag;
+- (NSArray<NSIndexPath *> *)holo_removeAllRowsInSection:(NSString *)tag;
+
+- (NSArray<NSIndexPath *> *)holo_removeRow:(NSString * _Nullable)tag;
 
 @end
 

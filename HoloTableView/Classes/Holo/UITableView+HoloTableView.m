@@ -74,7 +74,7 @@
             HoloLog(@"⚠️[HoloTableView] No found section with the tag: %@.", updateSection.tag);
             continue;
         }
-        [indexSet addIndex:[self.holo_proxy.holo_proxyData.holo_sections indexOfObject:targetSection]];
+        [indexSet addIndex:[dict[@"targetIndex"] integerValue]];
         
         targetSection.headerHeight = updateSection.headerHeight;
         targetSection.footerHeight = updateSection.footerHeight;
@@ -126,19 +126,43 @@
 #pragma mark - operate row
 // holo_makeRows
 - (void)holo_makeRows:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block {
+    [self _holo_makeRows:block reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_makeRows:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_makeRows:block reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_makeRows:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
-    [self.holo_proxy.holo_proxyData holo_appendRows:[maker install] toSection:nil];
-    
-//    [self insertRowsAtIndexPaths:<#(nonnull NSArray<NSIndexPath *> *)#> withRowAnimation:<#(UITableViewRowAnimation)#>];
+    HoloSection *defultSection = [self.holo_proxy.holo_proxyData holo_sectionWithTag:nil];
+    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_appendRows:[maker install] toSection:nil];
+    if (reload && indexPaths.count > 0) {
+        if (!defultSection) {
+            NSInteger index = self.holo_proxy.holo_proxyData.holo_sections.count - 1;
+            [self insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:animation];
+        } else {
+            [self insertRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+        }
+    }
 }
 
 // holo_updateRows
 - (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block {
+    [self _holo_updateRows:block reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_updateRows:block reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
     if (block) block(maker);
     
+    NSMutableArray *indexPaths = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
         HoloRow *targetRow = dict[@"targetRow"];
         HoloRow *updateRow = dict[@"updateRow"];
@@ -146,6 +170,7 @@
             HoloLog(@"⚠️[HoloTableView] No found row with the tag: %@.", updateRow.tag);
             continue;
         }
+        [indexPaths addObject:dict[@"targetIndexPath"]];
         
         if (updateRow.cell) targetRow.cell = updateRow.cell;
         if (updateRow.model) targetRow.model = updateRow.model;
@@ -157,32 +182,66 @@
         targetRow.shouldHighlight = updateRow.shouldHighlight;
     }
     
-//    [self reloadRowsAtIndexPaths:<#(nonnull NSArray<NSIndexPath *> *)#> withRowAnimation:<#(UITableViewRowAnimation)#>];
+    if (reload && indexPaths.count > 0) {
+        [self reloadRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+    }
 }
 
 // holo_makeRowsInSection
 - (void)holo_makeRowsInSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block {
+    [self _holo_makeRowsInSection:tag block:block reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_makeRowsInSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_makeRowsInSection:tag block:block reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_makeRowsInSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
-    [self.holo_proxy.holo_proxyData holo_appendRows:[maker install] toSection:tag];
-    
-//    [self insertRowsAtIndexPaths:<#(nonnull NSArray<NSIndexPath *> *)#> withRowAnimation:<#(UITableViewRowAnimation)#>];
-
+    HoloSection *defultSection = [self.holo_proxy.holo_proxyData holo_sectionWithTag:tag];
+    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_appendRows:[maker install] toSection:tag];
+    if (reload && indexPaths.count > 0) {
+        if (!defultSection) {
+            NSInteger index = self.holo_proxy.holo_proxyData.holo_sections.count - 1;
+            [self insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:animation];
+        } else {
+            [self insertRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+        }
+    }
 }
 
 // holo_removeAllRowsInSection
 - (void)holo_removeAllRowsInSection:(NSString *)tag {
-    [self.holo_proxy.holo_proxyData holo_removeAllRowsInSection:tag];
-    
-//    [self deleteRowsAtIndexPaths:<#(nonnull NSArray<NSIndexPath *> *)#> withRowAnimation:<#(UITableViewRowAnimation)#>];
+    [self _holo_removeAllRowsInSection:tag reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_removeAllRowsInSection:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_removeAllRowsInSection:tag reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_removeAllRowsInSection:(NSString *)tag reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_removeAllRowsInSection:tag];
+    if (reload && indexPaths.count > 0) {
+        [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+    }
 }
 
 // holo_removeRow
 - (void)holo_removeRow:(NSString *)tag {
-    [self.holo_proxy.holo_proxyData holo_removeRow:tag];
-    
-//    [self deleteRowsAtIndexPaths:<#(nonnull NSArray<NSIndexPath *> *)#> withRowAnimation:<#(UITableViewRowAnimation)#>];
+    [self _holo_removeRow:tag reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_removeRow:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_removeRow:tag reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_removeRow:(NSString *)tag reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_removeRow:tag];
+    if (reload && indexPaths.count > 0) {
+        [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+    }
 }
 
 @end

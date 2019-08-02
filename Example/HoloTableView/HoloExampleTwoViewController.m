@@ -36,14 +36,14 @@
         [cellClsMap enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
             configer.cell(key).cls(obj);
         }];
-        
+
         configer.sectionIndexTitles(@[@"A", @"B", @"C"])
         .sectionForSectionIndexTitleHandler(^NSInteger(NSArray<NSString *> * _Nonnull sectionIndexTitles, NSString * _Nonnull title, NSInteger index) {
             NSLog(@"section for section title: %@, index: %ld", title, (long)index);
             return index;
         });
     }];
-    
+
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
         UIView *header = [UIView new];
         header.backgroundColor = [UIColor brownColor];
@@ -67,13 +67,14 @@
         .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
             NSLog(@"didEndDisplayingFooterHandler");
         });
-        
+
         make.section(@"sectionB");
         make.section(@"sectionC");
     }];
-    
+
     [self.tableView holo_makeRowsInSection:@"sectionA" block:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(@"one")
+        .tag(@"A-1")
         .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!", @"height":@44})
         .didSelectHandler(^(id  _Nonnull model) {
             NSLog(@"did select : %@", model);
@@ -89,11 +90,11 @@
     [self.tableView holo_makeRowsInSection:@"sectionB" block:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(@"two")
         .height(44)
-        .tag(@"111");
+        .tag(@"B-1");
         
         make.row(@"three")
         .height(88)
-        .tag(@"222");
+        .tag(@"B-2");
     }];
     
     [self.tableView reloadData];
@@ -110,8 +111,7 @@
 
 #pragma mark - touchesBegan
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-    [self.tableView holo_removeSection:@"sectionB" withReloadAnimation:UITableViewRowAnimationNone];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
