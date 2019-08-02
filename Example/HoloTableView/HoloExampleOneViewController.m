@@ -36,8 +36,7 @@
                 NSLog(@"did select model : %@", model);
             });
         }
-    }];
-    [self.tableView reloadData];
+    } withReloadAnimation:UITableViewRowAnimationNone];
 }
 
 - (NSArray *)_modelsFromOtherWay {

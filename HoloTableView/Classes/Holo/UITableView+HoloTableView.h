@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
  *  Append these sections in the callee to the data source, don't care about tag of the section.
  *
- *  Refresh automatically.
+ *  Refresh current UITableView automatically.
  *
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the insertion is to be animated, for example, fade in or slide in from the left. See UITableViewRowAnimation for descriptions of these constants.
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Update these sections in the callee for current UITableView.
  *  If current UITableView don't contain some sections in the callee, ignore them.
  *
- *  Refresh automatically.
+ *  Refresh current UITableView automatically.
  *
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new section rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Remove all sections.
  *
- *  Refresh automatically.
+ *  Refresh current UITableView automatically.
  *
  *  @param animation A constant that either specifies the kind of animation to perform when deleting the section or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Remove a section according to the tag.
  *
- *  Refresh automatically.
+ *  Refresh current UITableView automatically.
  *
  *  @param tag section tag
  *  @param animation A constant that either specifies the kind of animation to perform when deleting the section or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
@@ -112,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Append these rows in the callee to defult section of UITableView.
  *  If current UITableView don't contain any section, create a new one and append it to the data source.
  *
- *  Refresh automatically.
+ *  Refresh current UITableView automatically.
  *
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that either specifies the kind of animation to perform when inserting the cell or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Update these rows in the callee for current UITableView.
  *  If current UITableView don't contain these rows, ignore them.
  *
- *  Refresh automatically.
+ *  Refresh current UITableView automatically.
  *
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Append these rows in the callee to a section according to the tag.
  *  If current UITableView don't contain a section with the tag, create a new one with the tag and append it to the data source.
  *
- *  Refresh automatically.
+ *  Refresh current UITableView automatically.
  *
  *  @param tag section tag
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
@@ -187,6 +187,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Remove a rows according to the tag in all sections.
+ *
+ *  Refresh current UITableView automatically.
  *
  *  @param tag row tag
  *  @param animation A constant that indicates how the deletion is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants.
