@@ -11,7 +11,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-If you want to set the model for your UITableViewCell or change the height of your UITableViewCell, your UITableViewCell should conform to protocol: `HoloTableViewProtocol` and implement their selectors: 
+If you want to set the model to your UITableViewCell or change it's height according to the model, the UITableViewCell could conform to protocol: `HoloTableViewProtocol` and implement their selectors: 
 
 ```objective-c
 - (void)cellForRow:(id)model;
@@ -26,34 +26,19 @@ If you want to set the model for your UITableViewCell or change the height of yo
 
 [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
    // one cell
-   make.row(@"HoloExampleOneTableViewCell")
-   .model(@{@"title":@"one cell"})
-   .height(22);
+   make.row(@"OneTableViewCell").model(@{@"key":@"value1"}).height(22);
+   make.row(@"OneTableViewCell").model(@{@"key":@"value2"}).height(44);
    
    // two cell
-   make.row(@"HoloExampleTwoTableViewCell")
-   .model(@{@"title":@"two cell"})
-   .height(44);
+   make.row(@"TwoTableViewCell").model(@{@"key":@"value"}).height(44);
    
    // three cell
-   make.row(@"HoloExampleThreeTableViewCell")
-   .model([NSObject new])
-   .height(66)
-   .tag(@"three")
-   .willDisplayHandler(^(UITableViewCell * _Nonnull cell) {
-       NSLog(@"will display");
-   })
-   .didEndDisplayingHandler(^(UITableViewCell * _Nonnull cell) {
-       NSLog(@"did end displaying");
-   })
-   .didSelectHandler(^(id  _Nonnull model) {
+   make.row(@"ThreeTableViewCell").didSelectHandler(^(id  _Nonnull model) {
        NSLog(@"did select model : %@", model);
    });
-}];
-// etc...
-    
-[self.tableView reloadData];
+} withReloadAnimation:UITableViewRowAnimationNone];
 
+// etc...
 ```
 
 ## Installation
