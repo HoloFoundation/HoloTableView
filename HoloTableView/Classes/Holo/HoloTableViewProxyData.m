@@ -19,28 +19,39 @@
     self.holo_cellClsMap = [map copy];
 }
 
-- (void)holo_appendSections:(NSArray<HoloSection *> *)sections {
-    if (sections.count <= 0) return;
-    
+- (NSIndexSet *)holo_appendSections:(NSArray<HoloSection *> *)sections {
+    if (sections.count <= 0) return nil;
+
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.holo_sections.count, sections.count)];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
     [array addObjectsFromArray:sections];
     self.holo_sections = array;
+    return indexSet;
 }
 
-- (void)holo_removeAllSection {
+- (NSIndexSet *)holo_removeAllSection {
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.holo_sections.count)];
     self.holo_sections = [NSArray new];
+    return indexSet;
 }
 
-- (void)holo_removeSection:(NSString *)tag {
-    NSArray *sections = [self _sectionsWithTag:tag];
-    if (sections.count > 0) {
-        NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
-        [array removeObjectsInArray:sections];
-        self.holo_sections = array;
+- (NSIndexSet *)holo_removeSection:(NSString *)tag {
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
+    for (HoloSection *section in self.holo_sections) {
+        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+            [array removeObject:section];
+            NSInteger index = [self.holo_sections indexOfObject:section];
+            [indexSet addIndex:index];
+        }
     }
+    self.holo_sections = array;
+    return [indexSet copy];
 }
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows toSection:(NSString *)tag {
+    if (rows.count <= 0) return;
+    
     HoloSection *targetSection;
     for (HoloSection *section in self.holo_sections) {
         if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
@@ -57,8 +68,10 @@
 }
 
 - (void)holo_removeAllRowsInSection:(NSString *)tag {
-    for (HoloSection *section in [self _sectionsWithTag:tag]) {
-        [section holo_removeAllRows];
+    for (HoloSection *section in self.holo_sections) {
+        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+            [section holo_removeAllRows];
+        }
     }
 }
 
@@ -70,17 +83,6 @@
             }
         }
     }
-}
-
-
-- (NSArray<HoloSection *> *)_sectionsWithTag:(NSString *)tag {
-    NSMutableArray *array = [NSMutableArray new];
-    for (HoloSection *section in self.holo_sections) {
-        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
-            [array addObject:section];
-        }
-    }
-    return [array copy];
 }
 
 #pragma mark - getter

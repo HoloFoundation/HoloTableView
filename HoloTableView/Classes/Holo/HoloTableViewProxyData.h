@@ -22,11 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configCellClsMap:(NSDictionary *)dict;
 
-- (void)holo_appendSections:(NSArray<HoloSection *> *)sections;
+- (NSIndexSet *)holo_appendSections:(NSArray<HoloSection *> *)sections;
 
-- (void)holo_removeAllSection;
+- (NSIndexSet *)holo_removeAllSection;
 
-- (void)holo_removeSection:(NSString *)tag;
+- (NSIndexSet *)holo_removeSection:(NSString *)tag;
 
 - (void)holo_appendRows:(NSArray<HoloRow *> *)rows toSection:(NSString * _Nullable)tag;
 

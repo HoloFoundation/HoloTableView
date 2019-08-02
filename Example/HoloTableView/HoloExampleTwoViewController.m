@@ -44,7 +44,7 @@
         });
     }];
     
-    [self.tableView holo_makeSection:^(HoloTableViewSectionMaker * _Nonnull make) {
+    [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
         UIView *header = [UIView new];
         header.backgroundColor = [UIColor brownColor];
         UIView *footer = [UIView new];
@@ -110,7 +110,8 @@
 
 #pragma mark - touchesBegan
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.tableView holo_removeSection:@"sectionB" withReloadAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - UIScrollViewDelegate
