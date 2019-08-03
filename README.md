@@ -22,9 +22,10 @@ If you want to set the model to your UITableViewCell or change it's height accor
 ## Usage
 
 ```objective-c
-[self.view addSubview:self.tableView];
+UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+[self.view addSubview:tableView];
 
-[self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
+[tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
    // one cell
    make.row(@"OneTableViewCell").model(@{@"key":@"value1"});
    make.row(@"OneTableViewCell").model(@{@"key":@"value2"});
