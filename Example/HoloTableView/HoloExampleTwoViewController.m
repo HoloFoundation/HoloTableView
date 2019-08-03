@@ -45,26 +45,24 @@
     }];
 
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        for (NSInteger i = 0; i<30; i++) {
-            make.section(@"sectionA")
-            .header(@"HoloExampleHeaderView")
-            .headerHeight(22)
-            .headerModel(@{@"title":@"Hello world, header!"})
-            .willDisplayHeaderHandler(^(UIView * _Nonnull view) {
-                NSLog(@"willDisplayHeaderHandler");
-            })
-            .didEndDisplayingHeaderHandler(^(UIView * _Nonnull view) {
-                NSLog(@"didEndDisplayingHeaderHandler");
-            })
-            .footer(@"HoloExampleFooterView")
-            .footerHeight(44)
-            .willDisplayFooterHandler(^(UIView * _Nonnull view) {
-                NSLog(@"willDisplayFooterHandler");
-            })
-            .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
-                NSLog(@"didEndDisplayingFooterHandler");
-            });
-        }
+        make.section(@"sectionA")
+        .header(@"HoloExampleHeaderView")
+        .headerHeight(22)
+        .headerModel(@{@"title":@"Hello world, header!"})
+        .willDisplayHeaderHandler(^(UIView * _Nonnull view) {
+            NSLog(@"willDisplayHeaderHandler");
+        })
+        .didEndDisplayingHeaderHandler(^(UIView * _Nonnull view) {
+            NSLog(@"didEndDisplayingHeaderHandler");
+        })
+        .footer(@"HoloExampleFooterView")
+        .footerHeight(44)
+        .willDisplayFooterHandler(^(UIView * _Nonnull view) {
+            NSLog(@"willDisplayFooterHandler");
+        })
+        .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
+            NSLog(@"didEndDisplayingFooterHandler");
+        });
         
 //        make.section(@"sectionB").header(header).headerHeight(10);
 //        make.section(@"sectionC").header(header).headerHeight(10);
