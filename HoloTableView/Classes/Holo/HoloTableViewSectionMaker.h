@@ -13,17 +13,31 @@ NS_ASSUME_NONNULL_BEGIN
 ////////////////////////////////////////////////////////////
 @interface HoloSection : NSObject
 
-@property (nonatomic, copy) NSString *tag;
-
 @property (nonatomic, copy, nullable) NSArray<HoloRow *> *rows;
 
-@property (nonatomic, strong) UIView *header;
+@property (nonatomic, copy) NSString *tag;
 
-@property (nonatomic, strong) UIView *footer;
+@property (nonatomic, strong) NSString *header;
+
+@property (nonatomic, strong) NSString *footer;
+
+@property (nonatomic, strong) id headerModel;
+
+@property (nonatomic, strong) id footerModel;
 
 @property (nonatomic, assign) CGFloat headerHeight;
 
 @property (nonatomic, assign) CGFloat footerHeight;
+
+@property (nonatomic, assign) CGFloat headerEstimatedHeight NS_AVAILABLE_IOS(7_0);
+
+@property (nonatomic, assign) CGFloat footerEstimatedHeight NS_AVAILABLE_IOS(7_0);
+
+@property (nonatomic, assign) SEL headerFooterConfigSEL;
+
+@property (nonatomic, assign) SEL headerFooterHeightSEL;
+
+@property (nonatomic, assign) SEL headerFooterEstimatedHeightSEL NS_AVAILABLE_IOS(7_0);
 
 @property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header) NS_AVAILABLE_IOS(6_0);
 
@@ -46,13 +60,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) HoloSection *section;
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^header)(UIView *header);
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^header)(NSString *header);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^footer)(UIView *footer);
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^footer)(NSString *footer);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerModel)(id headerModel);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerModel)(id footerModel);
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^headerHeight)(CGFloat headerHeight);
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^footerHeight)(CGFloat footerHeight);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerEstimatedHeight)(CGFloat headerEstimatedHeight) NS_AVAILABLE_IOS(7_0);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerEstimatedHeight)(CGFloat footerEstimatedHeight) NS_AVAILABLE_IOS(7_0);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerFooterConfigSEL)(SEL headerConfigSEL);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerFooterHeightSEL)(SEL headerHeightSEL);
+
+@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerFooterEstimatedHeightSEL)(SEL headerEstimatedHeightSEL) NS_AVAILABLE_IOS(7_0);
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header)) NS_AVAILABLE_IOS(6_0);
 

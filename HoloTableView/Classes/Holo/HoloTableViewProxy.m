@@ -257,7 +257,14 @@
     }
     
     HoloSection *holoSection = self.holoSections[section];
-    return holoSection.header;
+    UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.header];
+    if (holoSection.headerFooterConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerFooterConfigSEL]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [holoHeaderView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.headerModel];
+#pragma clang diagnostic pop
+    }
+    return holoHeaderView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -266,7 +273,14 @@
     }
     
     HoloSection *holoSection = self.holoSections[section];
-    return holoSection.footer;
+    UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footer];
+    if (holoSection.headerFooterConfigSEL && [holoFooterView respondsToSelector:holoSection.headerFooterConfigSEL]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [holoFooterView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.footerModel];
+#pragma clang diagnostic pop
+    }
+    return holoFooterView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -276,6 +290,10 @@
     if (section >= self.holoSections.count) return CGFLOAT_MIN;
     
     HoloSection *holoSection = self.holoSections[section];
+    Class header = NSClassFromString(holoSection.header);
+    if (holoSection.headerFooterHeightSEL && [header respondsToSelector:holoSection.headerFooterHeightSEL]) {
+        return [self _heightWithMethodSignatureCls:header selector:holoSection.headerFooterHeightSEL model:holoSection.headerModel];
+    }
     return holoSection.headerHeight;
 }
 
@@ -286,7 +304,37 @@
     if (section >= self.holoSections.count) return CGFLOAT_MIN;
     
     HoloSection *holoSection = self.holoSections[section];
+    Class footer = NSClassFromString(holoSection.footer);
+    if (holoSection.headerFooterHeightSEL && [footer respondsToSelector:holoSection.headerFooterHeightSEL]) {
+        return [self _heightWithMethodSignatureCls:footer selector:holoSection.headerFooterHeightSEL model:holoSection.footerModel];
+    }
     return holoSection.footerHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]) {
+        return [self.holo_delegate tableView:tableView estimatedHeightForHeaderInSection:section];
+    }
+    
+    HoloSection *holoSection = self.holoSections[section];
+    Class header = NSClassFromString(holoSection.header);
+    if (holoSection.headerFooterEstimatedHeightSEL && [header respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
+        return [self _heightWithMethodSignatureCls:header selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.headerModel];
+    }
+    return holoSection.headerEstimatedHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
+    if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]) {
+        return [self.holo_delegate tableView:tableView estimatedHeightForFooterInSection:section];
+    }
+    
+    HoloSection *holoSection = self.holoSections[section];
+    Class footer = NSClassFromString(holoSection.footer);
+    if (holoSection.headerFooterEstimatedHeightSEL && [footer respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
+        return [self _heightWithMethodSignatureCls:footer selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.footerModel];
+    }
+    return holoSection.footerEstimatedHeight;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -323,20 +371,6 @@
     
     HoloSection *holoSection = self.holoSections[section];
     if (holoSection.didEndDisplayingFooterHandler) holoSection.didEndDisplayingFooterHandler(view);
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]) {
-        return [self.holo_delegate tableView:tableView estimatedHeightForHeaderInSection:section];
-    }
-    return CGFLOAT_MIN;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-    if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]) {
-        return [self.holo_delegate tableView:tableView estimatedHeightForFooterInSection:section];
-    }
-    return CGFLOAT_MIN;
 }
 
 #pragma mark override delegate

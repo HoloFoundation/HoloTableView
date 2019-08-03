@@ -45,28 +45,26 @@
     }];
 
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        UIView *header = [UIView new];
-        header.backgroundColor = [UIColor brownColor];
-        UIView *footer = [UIView new];
-        footer.backgroundColor = [UIColor cyanColor];
-
-        make.section(@"sectionA")
-        .header(header)
-        .headerHeight(22)
-        .willDisplayHeaderHandler(^(UIView * _Nonnull view) {
-            NSLog(@"willDisplayHeaderHandler");
-        })
-        .didEndDisplayingHeaderHandler(^(UIView * _Nonnull view) {
-            NSLog(@"didEndDisplayingHeaderHandler");
-        })
-        .footer(footer)
-        .footerHeight(22)
-        .willDisplayFooterHandler(^(UIView * _Nonnull view) {
-            NSLog(@"willDisplayFooterHandler");
-        })
-        .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
-            NSLog(@"didEndDisplayingFooterHandler");
-        });
+        for (NSInteger i = 0; i<30; i++) {
+            make.section(@"sectionA")
+            .header(@"HoloExampleHeaderView")
+            .headerHeight(22)
+            .headerModel(@{@"title":@"Hello world, header!"})
+            .willDisplayHeaderHandler(^(UIView * _Nonnull view) {
+                NSLog(@"willDisplayHeaderHandler");
+            })
+            .didEndDisplayingHeaderHandler(^(UIView * _Nonnull view) {
+                NSLog(@"didEndDisplayingHeaderHandler");
+            })
+            .footer(@"HoloExampleFooterView")
+            .footerHeight(44)
+            .willDisplayFooterHandler(^(UIView * _Nonnull view) {
+                NSLog(@"willDisplayFooterHandler");
+            })
+            .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
+                NSLog(@"didEndDisplayingFooterHandler");
+            });
+        }
         
 //        make.section(@"sectionB").header(header).headerHeight(10);
 //        make.section(@"sectionC").header(header).headerHeight(10);

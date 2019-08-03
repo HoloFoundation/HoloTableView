@@ -6,9 +6,9 @@
 //
 
 #import "HoloTableViewUpdateRowMaker.h"
+#import "HoloTableViewMacro.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"
-#import "HoloTableViewMacro.h"
 
 ////////////////////////////////////////////////////////////
 @implementation HoloUpdateRow

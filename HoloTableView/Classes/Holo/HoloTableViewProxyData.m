@@ -94,4 +94,11 @@
     return _holo_cellClsMap;
 }
 
+- (NSDictionary<NSString *,Class> *)holo_headerFooterMap {
+    if (!_holo_headerFooterMap) {
+        _holo_headerFooterMap = [NSDictionary new];
+    }
+    return _holo_headerFooterMap;
+}
+
 @end

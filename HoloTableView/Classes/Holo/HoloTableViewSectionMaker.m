@@ -6,6 +6,7 @@
 //
 
 #import "HoloTableViewSectionMaker.h"
+#import "HoloTableViewMacro.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewUpdateRowMaker.h"
 
@@ -18,6 +19,14 @@
         _rows = [NSArray new];
         _headerHeight = CGFLOAT_MIN;
         _footerHeight = CGFLOAT_MIN;
+        _headerEstimatedHeight = HOLO_SCREEN_HEIGHT;
+        _footerEstimatedHeight = HOLO_SCREEN_HEIGHT;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        _headerFooterConfigSEL = @selector(viewForHeaderFooter:);
+        _headerFooterHeightSEL = @selector(heightForHeaderFooter:);
+        _headerFooterEstimatedHeightSEL = @selector(estimatedHeightForHeaderFooter:);
+#pragma clang diagnostic pop
     }
     return self;
 }
@@ -58,16 +67,30 @@
     return self;
 }
 
-- (HoloSectionMaker *(^)(UIView *))header {
-    return ^id(UIView *header) {
+- (HoloSectionMaker *(^)(NSString *))header {
+    return ^id(NSString *header) {
         self.section.header = header;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(UIView *))footer {
-    return ^id(UIView *footer) {
+- (HoloSectionMaker *(^)(NSString *))footer {
+    return ^id(NSString *footer) {
         self.section.footer = footer;
+        return self;
+    };
+}
+
+- (HoloSectionMaker * (^)(id))headerModel {
+    return ^id(id headerModel) {
+        self.section.headerModel = headerModel;
+        return self;
+    };
+}
+
+- (HoloSectionMaker * (^)(id))footerModel {
+    return ^id(id footerModel) {
+        self.section.footerModel = footerModel;
         return self;
     };
 }
@@ -82,6 +105,41 @@
 - (HoloSectionMaker *(^)(CGFloat))footerHeight {
     return ^id(CGFloat footerHeight) {
         self.section.footerHeight = footerHeight;
+        return self;
+    };
+}
+
+- (HoloSectionMaker *(^)(CGFloat))headerEstimatedHeight {
+    return ^id(CGFloat headerEstimatedHeight) {
+        self.section.headerEstimatedHeight = headerEstimatedHeight;
+        return self;
+    };
+}
+
+- (HoloSectionMaker *(^)(CGFloat))footerEstimatedHeight {
+    return ^id(CGFloat footerEstimatedHeight) {
+        self.section.footerEstimatedHeight = footerEstimatedHeight;
+        return self;
+    };
+}
+
+- (HoloSectionMaker *(^)(SEL))headerFooterConfigSEL {
+    return ^id(SEL headerFooterConfigSEL) {
+        self.section.headerFooterConfigSEL = headerFooterConfigSEL;
+        return self;
+    };
+}
+
+- (HoloSectionMaker *(^)(SEL))headerFooterHeightSEL {
+    return ^id(SEL headerFooterHeightSEL) {
+        self.section.headerFooterHeightSEL = headerFooterHeightSEL;
+        return self;
+    };
+}
+
+- (HoloSectionMaker *(^)(SEL))headerFooterEstimatedHeightSEL {
+    return ^id(SEL headerFooterEstimatedHeightSEL) {
+        self.section.headerFooterEstimatedHeightSEL = headerFooterEstimatedHeightSEL;
         return self;
     };
 }
@@ -148,6 +206,11 @@
                 
                 updateSection.headerHeight = section.headerHeight;
                 updateSection.footerHeight = section.footerHeight;
+                updateSection.headerEstimatedHeight = section.headerEstimatedHeight;
+                updateSection.footerEstimatedHeight = section.footerEstimatedHeight;
+                updateSection.headerFooterConfigSEL = section.headerFooterConfigSEL;
+                updateSection.headerFooterHeightSEL = section.headerFooterHeightSEL;
+                updateSection.headerFooterEstimatedHeightSEL = section.headerFooterEstimatedHeightSEL;
                 
                 targetSection = section;
                 targetIndex = [NSNumber numberWithInteger:[self.targetSections indexOfObject:section]];

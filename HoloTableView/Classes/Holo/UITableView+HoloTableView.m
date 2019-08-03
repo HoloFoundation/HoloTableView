@@ -52,11 +52,27 @@
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
+    NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
         HoloSection *updateSection = dict[@"updateSection"];
         [array addObject:updateSection];
+
+        Class headerMapCls = headerFooterMap[updateSection.header];
+        Class headerCls = NSClassFromString(updateSection.header);
+        if (!headerMapCls && headerCls) {
+            [self registerClass:headerCls forHeaderFooterViewReuseIdentifier:updateSection.header];
+            headerFooterMap[updateSection.header] = headerCls;
+        }
+        Class footerMapCls = headerFooterMap[updateSection.footer];
+        Class footerCls = NSClassFromString(updateSection.footer);
+        if (!footerMapCls && footerCls) {
+            [self registerClass:footerCls forHeaderFooterViewReuseIdentifier:updateSection.footer];
+            headerFooterMap[updateSection.footer] = footerCls;
+        }
     }
+    self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
+    
     NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_appendSections:array];
     if (reload && indexSet.count > 0) {
         [self insertSections:indexSet withRowAnimation:animation];
@@ -76,6 +92,7 @@
     HoloTableViewSectionMaker *maker = [[HoloTableViewSectionMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
     if (block) block(maker);
     
+    NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
         HoloSection *targetSection = dict[@"targetSection"];
@@ -88,13 +105,38 @@
         
         targetSection.headerHeight = updateSection.headerHeight;
         targetSection.footerHeight = updateSection.footerHeight;
-        if (targetSection.header) targetSection.header = updateSection.header;
-        if (targetSection.footer) targetSection.footer = updateSection.footer;
-        if (targetSection.willDisplayHeaderHandler) targetSection.willDisplayHeaderHandler = updateSection.willDisplayHeaderHandler;
-        if (targetSection.willDisplayFooterHandler) targetSection.willDisplayFooterHandler = updateSection.willDisplayFooterHandler;
-        if (targetSection.didEndDisplayingHeaderHandler) targetSection.didEndDisplayingHeaderHandler = updateSection.didEndDisplayingHeaderHandler;
-        if (targetSection.didEndDisplayingFooterHandler) targetSection.didEndDisplayingFooterHandler = updateSection.didEndDisplayingFooterHandler;
+        targetSection.headerEstimatedHeight = updateSection.headerEstimatedHeight;
+        targetSection.footerEstimatedHeight = updateSection.footerEstimatedHeight;
+        targetSection.headerFooterConfigSEL = updateSection.headerFooterConfigSEL;
+        targetSection.headerFooterHeightSEL = updateSection.headerFooterHeightSEL;
+        targetSection.headerFooterEstimatedHeightSEL = updateSection.headerFooterEstimatedHeightSEL;
+        if (updateSection.willDisplayHeaderHandler) targetSection.willDisplayHeaderHandler = updateSection.willDisplayHeaderHandler;
+        if (updateSection.willDisplayFooterHandler) targetSection.willDisplayFooterHandler = updateSection.willDisplayFooterHandler;
+        if (updateSection.didEndDisplayingHeaderHandler) targetSection.didEndDisplayingHeaderHandler = updateSection.didEndDisplayingHeaderHandler;
+        if (updateSection.didEndDisplayingFooterHandler) targetSection.didEndDisplayingFooterHandler = updateSection.didEndDisplayingFooterHandler;
+        if (updateSection.header) {
+            targetSection.header = updateSection.header;
+            
+            Class headerMapCls = headerFooterMap[targetSection.header];
+            Class headerCls = NSClassFromString(targetSection.header);
+            if (!headerMapCls && headerCls) {
+                [self registerClass:headerCls forHeaderFooterViewReuseIdentifier:targetSection.header];
+                headerFooterMap[targetSection.header] = headerCls;
+            }
+        }
+        if (updateSection.footer) {
+            targetSection.footer = updateSection.footer;
+            
+            Class footerMapCls = headerFooterMap[targetSection.footer];
+            Class footerCls = NSClassFromString(targetSection.footer);
+            if (!footerMapCls && footerCls) {
+                [self registerClass:footerCls forHeaderFooterViewReuseIdentifier:targetSection.footer];
+                headerFooterMap[targetSection.footer] = footerCls;
+            }
+        }
+        
     }
+    self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
     
     if (reload && indexSet.count > 0) {
         [self reloadSections:indexSet withRowAnimation:animation];
@@ -219,6 +261,13 @@
         }
         [indexPaths addObject:dict[@"targetIndexPath"]];
         
+        targetRow.height = updateRow.height;
+        targetRow.estimatedHeight = updateRow.estimatedHeight;
+        targetRow.configSEL = updateRow.configSEL;
+        targetRow.heightSEL = updateRow.heightSEL;
+        targetRow.estimatedHeightSEL = updateRow.estimatedHeightSEL;
+        targetRow.shouldHighlight = updateRow.shouldHighlight;
+        if (updateRow.model) targetRow.model = updateRow.model;
         if (updateRow.cell) {
             Class class = NSClassFromString(updateRow.cell);
             if (!cellClsMap[updateRow.cell] && class) {
@@ -231,14 +280,6 @@
                 HoloLog(@"⚠️[HoloTableView] No found a Class with the name: %@.", updateRow.cell);
             }
         }
-        
-        if (updateRow.model) targetRow.model = updateRow.model;
-        targetRow.height = updateRow.height;
-        targetRow.estimatedHeight = updateRow.estimatedHeight;
-        targetRow.configSEL = updateRow.configSEL;
-        targetRow.heightSEL = updateRow.heightSEL;
-        targetRow.estimatedHeightSEL = updateRow.estimatedHeightSEL;
-        targetRow.shouldHighlight = updateRow.shouldHighlight;
     }
     self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
     

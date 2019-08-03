@@ -23,6 +23,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+////////////////////////////////////////////////////////////
+@protocol HoloTableViewHeaderFooterProtocol <NSObject>
+
+@optional
+
+- (void)viewForHeaderFooter:(id)model;
+
++ (CGFloat)heightForHeaderFooter:(id)model;
+
++ (CGFloat)estimatedHeightForHeaderFooter:(id)model;
+
+@end
+
 ////////////////////////////////////////////////////////////
 @protocol HoloTableViewDelegate <UITableViewDelegate>
 

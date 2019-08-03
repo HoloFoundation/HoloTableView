@@ -28,6 +28,8 @@
 		75C81ECD22EDAEE200C337A6 /* HoloExampleThreeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C81ECC22EDAEE200C337A6 /* HoloExampleThreeTableViewCell.m */; };
 		75C81ED822EDD84B00C337A6 /* HoloExampleOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C81ED722EDD84B00C337A6 /* HoloExampleOneViewController.m */; };
 		75C81EDB22EDD85F00C337A6 /* HoloExampleTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C81EDA22EDD85F00C337A6 /* HoloExampleTwoViewController.m */; };
+		75D667B222F5DFD600677569 /* HoloExampleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B122F5DFD600677569 /* HoloExampleFooterView.m */; };
+		75D667B522F5DFE100677569 /* HoloExampleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B422F5DFE100677569 /* HoloExampleHeaderView.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,10 @@
 		75C81ED722EDD84B00C337A6 /* HoloExampleOneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleOneViewController.m; sourceTree = "<group>"; };
 		75C81ED922EDD85F00C337A6 /* HoloExampleTwoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleTwoViewController.h; sourceTree = "<group>"; };
 		75C81EDA22EDD85F00C337A6 /* HoloExampleTwoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleTwoViewController.m; sourceTree = "<group>"; };
+		75D667B022F5DFD600677569 /* HoloExampleFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleFooterView.h; sourceTree = "<group>"; };
+		75D667B122F5DFD600677569 /* HoloExampleFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleFooterView.m; sourceTree = "<group>"; };
+		75D667B322F5DFE100677569 /* HoloExampleHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleHeaderView.h; sourceTree = "<group>"; };
+		75D667B422F5DFE100677569 /* HoloExampleHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleHeaderView.m; sourceTree = "<group>"; };
 		794AD65C688DA210AADE3D69 /* Pods-HoloTableView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloTableView_Example.release.xcconfig"; path = "Target Support Files/Pods-HoloTableView_Example/Pods-HoloTableView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7F02F1A1FFF210A44B412CF5 /* Pods-HoloTableView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloTableView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-HoloTableView_Tests/Pods-HoloTableView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -162,6 +168,10 @@
 				75C81EC322ED6C5B00C337A6 /* HoloExampleTwoTableViewCell.m */,
 				75C81ECB22EDAEE200C337A6 /* HoloExampleThreeTableViewCell.h */,
 				75C81ECC22EDAEE200C337A6 /* HoloExampleThreeTableViewCell.m */,
+				75D667B322F5DFE100677569 /* HoloExampleHeaderView.h */,
+				75D667B422F5DFE100677569 /* HoloExampleHeaderView.m */,
+				75D667B022F5DFD600677569 /* HoloExampleFooterView.h */,
+				75D667B122F5DFD600677569 /* HoloExampleFooterView.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -376,8 +386,10 @@
 				75C81ED822EDD84B00C337A6 /* HoloExampleOneViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HoloAppDelegate.m in Sources */,
 				75C81EC422ED6C5B00C337A6 /* HoloExampleTwoTableViewCell.m in Sources */,
+				75D667B522F5DFE100677569 /* HoloExampleHeaderView.m in Sources */,
 				6003F5A7195388D20070C39A /* HoloViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				75D667B222F5DFD600677569 /* HoloExampleFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
