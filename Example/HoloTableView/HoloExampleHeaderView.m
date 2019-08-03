@@ -19,11 +19,11 @@
     return self;
 }
 
-- (void)viewForHeaderFooter:(NSDictionary *)model {
+- (void)configHeaderFooterWithModel:(NSDictionary *)model {
     self.textLabel.text = model[@"title"];
 }
 
-+ (CGFloat)heightForHeaderFooter:(id)model {
++ (CGFloat)heightForHeaderFooterWithModel:(id)model {
     return 100;
 }
 
