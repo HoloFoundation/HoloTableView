@@ -43,7 +43,7 @@
             return index;
         });
     }];
-
+    
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
         make.section(@"sectionA")
         .header(@"HoloExampleHeaderView")
