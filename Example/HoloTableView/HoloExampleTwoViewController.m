@@ -68,8 +68,8 @@
             NSLog(@"didEndDisplayingFooterHandler");
         });
 
-        make.section(@"sectionB");
-        make.section(@"sectionC");
+//        make.section(@"sectionB").header(header).headerHeight(10);
+//        make.section(@"sectionC").header(header).headerHeight(10);
     }];
 
     [self.tableView holo_makeRowsInSection:@"sectionA" block:^(HoloTableViewRowMaker * _Nonnull make) {

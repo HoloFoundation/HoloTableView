@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSInteger (^holo_sectionForSectionIndexTitleHandler)(NSArray<NSString *> *, NSString *, NSInteger index);
 
-- (void)configCellClsMap:(NSDictionary *)dict;
-
 - (NSIndexSet *)holo_appendSections:(NSArray<HoloSection *> *)sections;
 
 - (NSIndexSet *)holo_removeAllSection;

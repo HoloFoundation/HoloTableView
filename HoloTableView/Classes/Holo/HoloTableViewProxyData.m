@@ -11,14 +11,6 @@
 
 @implementation HoloTableViewProxyData
 
-- (void)configCellClsMap:(NSDictionary *)dict {
-    NSMutableDictionary *map = [NSMutableDictionary dictionaryWithDictionary:self.holo_cellClsMap];
-    [dict enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
-        map[cell] = cls;
-    }];
-    self.holo_cellClsMap = [map copy];
-}
-
 - (NSIndexSet *)holo_appendSections:(NSArray<HoloSection *> *)sections {
     if (sections.count <= 0) return nil;
 

@@ -22,10 +22,10 @@
     HoloTableViewConfiger *configer = [HoloTableViewConfiger new];
     if (block) block(configer);
     
-    NSDictionary *map = [configer install];
-    [self.holo_proxy.holo_proxyData configCellClsMap:map];
-    self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = [configer fetchSectionIndexTitles];
-    self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = [configer fetchSectionForSectionIndexTitleHandler];
+    NSDictionary *dict = [configer install];
+    self.holo_proxy.holo_proxyData.holo_cellClsMap = dict[@"cellClsMap"];
+    self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = dict[@"sectionIndexTitles"];
+    self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[@"sectionForSectionIndexTitleHandler"];
 }
 
 #pragma mark - operate section

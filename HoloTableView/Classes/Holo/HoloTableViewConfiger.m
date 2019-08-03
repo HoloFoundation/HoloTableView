@@ -24,8 +24,6 @@
 
 @property (nonatomic, strong) NSMutableArray *cellClsConfigers;
 
-@property (nonatomic, strong) NSMutableDictionary *cellClsMap;
-
 @property (nonatomic, copy) NSArray *sectionIndexTitlesArray;
 
 @property (nonatomic, copy) NSInteger (^ sectionForSectionIndexTitleBlock)(NSArray<NSString *> *, NSString *, NSInteger);
@@ -58,18 +56,16 @@
 }
 
 - (NSDictionary *)install {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    
+    NSMutableDictionary *cellClsMap = [NSMutableDictionary new];
     for (HoloTableViewCellConfiger *configer in self.cellClsConfigers) {
-        self.cellClsMap[configer.cellName] = configer.clsName;
+        cellClsMap[configer.cellName] = configer.clsName;
     }
-    return [self.cellClsMap copy];
-}
-
-- (NSArray<NSString *> *)fetchSectionIndexTitles {
-    return self.sectionIndexTitlesArray;
-}
-
-- (NSInteger(^)(NSArray<NSString *> *, NSString *, NSInteger))fetchSectionForSectionIndexTitleHandler {
-    return self.sectionForSectionIndexTitleBlock;
+    dict[@"cellClsMap"] = [cellClsMap copy];
+    dict[@"sectionIndexTitles"] = self.sectionIndexTitlesArray;
+    dict[@"sectionForSectionIndexTitleHandler"] = self.sectionForSectionIndexTitleBlock;
+    return [dict copy];
 }
 
 #pragma mark - getter
@@ -78,13 +74,6 @@
         _cellClsConfigers = [NSMutableArray new];
     }
     return _cellClsConfigers;
-}
-
-- (NSMutableDictionary *)cellClsMap {
-    if (!_cellClsMap) {
-        _cellClsMap = [NSMutableDictionary new];
-    }
-    return _cellClsMap;
 }
 
 @end

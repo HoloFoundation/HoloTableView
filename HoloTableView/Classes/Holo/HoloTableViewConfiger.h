@@ -31,10 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary *)install;
 
-- (NSArray<NSString *> *)fetchSectionIndexTitles;
-
-- (NSInteger(^)(NSArray<NSString *> *, NSString *, NSInteger))fetchSectionForSectionIndexTitleHandler;
-
 @end
 
 NS_ASSUME_NONNULL_END
