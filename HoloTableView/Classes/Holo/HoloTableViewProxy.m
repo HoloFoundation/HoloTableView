@@ -14,7 +14,7 @@
 
 @property (nonatomic, copy, readonly) NSArray<HoloSection *> *holoSections;
 
-@property (nonatomic, copy, readonly) NSDictionary *holoCellClsMap;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoCellClsMap;
 
 @end
 
@@ -47,22 +47,14 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.tag forIndexPath:indexPath];
-    NSString *clsName = self.holoCellClsMap[holoRow.cell] ?: holoRow.cell;
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"HoloTableViewCellReuseIdentifier_%@", clsName];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (!cell) {
-        cell = [[NSClassFromString(clsName) alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-    }
+    NSString *clsName = NSStringFromClass(self.holoCellClsMap[holoRow.cell]);
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:clsName forIndexPath:indexPath];
     
     if (holoRow.configSEL && [cell respondsToSelector:holoRow.configSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [cell performSelector:holoRow.configSEL withObject:holoRow.model];
 #pragma clang diagnostic pop
-    }
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
     return cell;
 }
@@ -128,8 +120,7 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     
-    NSString *clsName = self.holoCellClsMap[holoRow.cell] ?: holoRow.cell;
-    Class cls = NSClassFromString(clsName);
+    Class cls = self.holoCellClsMap[holoRow.cell];
     if (holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.heightSEL model:holoRow.model];
     }
@@ -144,8 +135,7 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
 
-    NSString *clsName = self.holoCellClsMap[holoRow.cell] ?: holoRow.cell;
-    Class cls = NSClassFromString(clsName);
+    Class cls = self.holoCellClsMap[holoRow.cell];
     if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
     }
@@ -577,7 +567,7 @@
     return self.holo_proxyData.holo_sections;
 }
 
-- (NSDictionary *)holoCellClsMap {
+- (NSDictionary<NSString *, Class> *)holoCellClsMap {
     return self.holo_proxyData.holo_cellClsMap;
 }
 

@@ -41,25 +41,6 @@
     return [indexSet copy];
 }
 
-- (NSArray<NSIndexPath *> *)holo_appendRows:(NSArray<HoloRow *> *)rows toSection:(NSString *)tag {
-    if (rows.count <= 0) return nil;
-    
-    HoloSection *targetSection = [self holo_sectionWithTag:tag];
-    if (!targetSection) {
-        targetSection = [HoloSection new];
-        targetSection.tag = tag;
-        [self holo_appendSections:@[targetSection]];
-    }
-    
-    NSInteger sectionIndex = [self.holo_sections indexOfObject:targetSection];
-    NSIndexSet *indexSet = [targetSection holo_appendRows:rows];
-    NSMutableArray *indePathArray = [NSMutableArray new];
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-        [indePathArray addObject:[NSIndexPath indexPathForRow:idx inSection:sectionIndex]];
-    }];
-    return [indePathArray copy];
-}
-
 - (HoloSection *)holo_sectionWithTag:(NSString *)tag {
     for (HoloSection *section in self.holo_sections) {
         if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
@@ -106,7 +87,7 @@
     return _holo_sections;
 }
 
-- (NSDictionary *)holo_cellClsMap {
+- (NSDictionary<NSString *, Class> *)holo_cellClsMap {
     if (!_holo_cellClsMap) {
         _holo_cellClsMap = [NSDictionary new];
     }

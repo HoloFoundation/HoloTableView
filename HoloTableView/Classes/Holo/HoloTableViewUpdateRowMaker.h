@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^tag)(NSString *tag);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^tag)(NSString * _Nullable tag);
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections;
 

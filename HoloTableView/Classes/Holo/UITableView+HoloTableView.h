@@ -120,27 +120,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_makeRows:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
- *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
- *  Update these rows in the callee for current UITableView.
- *  If current UITableView don't contain these rows, ignore them.
- *
- *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
- */
-- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block;
-
-/**
- *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
- *  Update these rows in the callee for current UITableView.
- *  If current UITableView don't contain these rows, ignore them.
- *
- *  Refresh current UITableView automatically.
- *
- *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
- *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
- */
-- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
-
-/**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
  *  Append these rows in the callee to a section according to the tag.
  *  If current UITableView don't contain a section with the tag, create a new one with the tag and append it to the data source.
@@ -162,6 +141,27 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param animation A constant that either specifies the kind of animation to perform when inserting the cell or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
 - (void)holo_makeRowsInSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+
+/**
+ *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
+ *  Update these rows in the callee for current UITableView.
+ *  If current UITableView don't contain these rows, ignore them.
+ *
+ *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
+ */
+- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block;
+
+/**
+ *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
+ *  Update these rows in the callee for current UITableView.
+ *  If current UITableView don't contain these rows, ignore them.
+ *
+ *  Refresh current UITableView automatically.
+ *
+ *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
+ *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
+ */
+- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Remove all rows in a section according to the tag.

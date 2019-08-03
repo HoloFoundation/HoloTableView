@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSArray<HoloSection *> *holo_sections;
 
-@property (nonatomic, copy) NSDictionary *holo_cellClsMap;
+@property (nonatomic, copy) NSDictionary<NSString *, Class> *holo_cellClsMap;
 
 @property (nonatomic, copy) NSArray<NSString *> *holo_sectionIndexTitles;
 
@@ -27,8 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSIndexSet *)holo_removeSection:(NSString *)tag;
 
 - (HoloSection *)holo_sectionWithTag:(NSString * _Nullable)tag;
-
-- (NSArray<NSIndexPath *> *)holo_appendRows:(NSArray<HoloRow *> *)rows toSection:(NSString * _Nullable)tag;
 
 - (NSArray<NSIndexPath *> *)holo_removeAllRowsInSection:(NSString *)tag;
 

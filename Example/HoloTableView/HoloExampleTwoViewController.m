@@ -48,11 +48,11 @@
         UIView *header = [UIView new];
         header.backgroundColor = [UIColor brownColor];
         UIView *footer = [UIView new];
-        footer.backgroundColor = [UIColor orangeColor];
+        footer.backgroundColor = [UIColor cyanColor];
 
         make.section(@"sectionA")
         .header(header)
-        .headerHeight(10)
+        .headerHeight(22)
         .willDisplayHeaderHandler(^(UIView * _Nonnull view) {
             NSLog(@"willDisplayHeaderHandler");
         })
@@ -60,14 +60,14 @@
             NSLog(@"didEndDisplayingHeaderHandler");
         })
         .footer(footer)
-        .footerHeight(20)
+        .footerHeight(22)
         .willDisplayFooterHandler(^(UIView * _Nonnull view) {
             NSLog(@"willDisplayFooterHandler");
         })
         .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
             NSLog(@"didEndDisplayingFooterHandler");
         });
-
+        
 //        make.section(@"sectionB").header(header).headerHeight(10);
 //        make.section(@"sectionC").header(header).headerHeight(10);
     }];
@@ -88,13 +88,8 @@
     }];
     
     [self.tableView holo_makeRowsInSection:@"sectionB" block:^(HoloTableViewRowMaker * _Nonnull make) {
-        make.row(@"two")
-        .height(44)
-        .tag(@"B-1");
-        
-        make.row(@"three")
-        .height(88)
-        .tag(@"B-2");
+        make.row(@"two").height(44).tag(@"B-1");
+        make.row(@"three").height(88).tag(@"B-2");
     }];
     
     [self.tableView reloadData];
@@ -125,7 +120,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    NSLog(@"---");
+    NSLog(@"move row");
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
