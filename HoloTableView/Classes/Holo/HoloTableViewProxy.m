@@ -12,8 +12,6 @@
 
 @interface HoloTableViewProxy ()
 
-@property (nonatomic, weak) UITableView *tableView;
-
 @property (nonatomic, copy, readonly) NSArray<HoloSection *> *holoSections;
 
 @property (nonatomic, copy, readonly) NSDictionary *holoCellClsMap;
@@ -21,14 +19,6 @@
 @end
 
 @implementation HoloTableViewProxy
-
-- (instancetype)initWithTableView:(UITableView *)tableView {
-    self = [super init];
-    if (self) {
-        _tableView = tableView;
-    }
-    return self;
-}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

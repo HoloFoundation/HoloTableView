@@ -16,7 +16,7 @@ static char kHoloTableViewProxyKey;
 - (HoloTableViewProxy *)holo_proxy {
     HoloTableViewProxy *tableViewProxy = objc_getAssociatedObject(self, &kHoloTableViewProxyKey);
     if (!tableViewProxy) {
-        tableViewProxy = [[HoloTableViewProxy alloc] initWithTableView:self];
+        tableViewProxy = [HoloTableViewProxy new];
         objc_setAssociatedObject(self, &kHoloTableViewProxyKey, tableViewProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         
         if (!self.dataSource || !self.delegate) {

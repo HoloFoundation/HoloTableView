@@ -21,8 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<HoloTableViewDelegate> holo_delegate;
 
-- (instancetype)initWithTableView:(UITableView *)tableView;
-
 @end
 
 NS_ASSUME_NONNULL_END
