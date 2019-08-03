@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configureCellWithModel:(id)model;
 
-+ (CGFloat)heightForRowWithModel:(id)model;
++ (CGFloat)heightForCellWithModel:(id)model;
 
-+ (CGFloat)estimatedHeightForRowWithModel:(id)model;
++ (CGFloat)estimatedHeightForCellWithModel:(id)model;
 
 @end
 

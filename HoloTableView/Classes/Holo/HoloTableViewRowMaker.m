@@ -20,8 +20,8 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         _configSEL = @selector(configureCellWithModel:);
-        _heightSEL = @selector(heightForRowWithModel:);
-        _estimatedHeightSEL = @selector(estimatedHeightForRowWithModel:);
+        _heightSEL = @selector(heightForCellWithModel:);
+        _estimatedHeightSEL = @selector(estimatedHeightForCellWithModel:);
 #pragma clang diagnostic pop
     }
     

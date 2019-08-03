@@ -15,7 +15,7 @@
     self.textLabel.text = model[@"text"];
 }
 
-+ (CGFloat)heightForRowWithModel:(NSDictionary *)model {
++ (CGFloat)heightForCellWithModel:(NSDictionary *)model {
     return [model[@"height"] floatValue];
 }
 
