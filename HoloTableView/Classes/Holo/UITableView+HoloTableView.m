@@ -44,7 +44,7 @@
     
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
-        HoloRow *updateSection = dict[@"updateSection"];
+        HoloSection *updateSection = dict[@"updateSection"];
         [array addObject:updateSection];
     }
     NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_appendSections:array];

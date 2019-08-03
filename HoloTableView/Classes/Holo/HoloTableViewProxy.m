@@ -262,9 +262,6 @@
 
 #pragma mark header and footer
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    NSLog(@"viewForHeaderInSection");
-
     if ([self.holo_delegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)]) {
         return [self.holo_delegate tableView:tableView viewForHeaderInSection:section];
     }
@@ -274,9 +271,6 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    NSLog(@"viewForFooterInSection");
-
     if ([self.holo_delegate respondsToSelector:@selector(tableView:viewForFooterInSection:)]) {
         return [self.holo_delegate tableView:tableView viewForFooterInSection:section];
     }
@@ -342,9 +336,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    
-    NSLog(@"estimatedHeightForHeaderInSection");
-    
     if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]) {
         return [self.holo_delegate tableView:tableView estimatedHeightForHeaderInSection:section];
     }
@@ -352,9 +343,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-    
-    NSLog(@"estimatedHeightForFooterInSection");
-
     if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]) {
         return [self.holo_delegate tableView:tableView estimatedHeightForFooterInSection:section];
     }
