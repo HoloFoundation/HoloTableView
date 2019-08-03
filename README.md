@@ -16,7 +16,7 @@ If you want to set the model to your UITableViewCell or change it's height accor
 ```objective-c
 - (void)configureCellWithModel:(id)model;
 
-+ (CGFloat)heightForRowWithModel:(id)model;
++ (CGFloat)heightForCellWithModel:(id)model;
 ```
 
 ## Usage
