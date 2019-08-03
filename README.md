@@ -26,8 +26,8 @@ If you want to set the model to your UITableViewCell or change it's height accor
 
 [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
    // one cell
-   make.row(@"OneTableViewCell").model(@{@"key":@"value1"}).height(22);
-   make.row(@"OneTableViewCell").model(@{@"key":@"value2"}).height(44);
+   make.row(@"OneTableViewCell").model(@{@"key":@"value1"});
+   make.row(@"OneTableViewCell").model(@{@"key":@"value2"});
    
    // two cell
    make.row(@"TwoTableViewCell").model(@{@"key":@"value"}).height(44);
