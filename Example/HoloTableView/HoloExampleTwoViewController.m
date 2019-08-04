@@ -38,7 +38,7 @@
         }];
 
         configer.sectionIndexTitles(@[@"A", @"B", @"C"])
-        .sectionForSectionIndexTitleHandler(^NSInteger(NSArray<NSString *> * _Nonnull sectionIndexTitles, NSString * _Nonnull title, NSInteger index) {
+        .sectionForSectionIndexTitleHandler(^NSInteger(NSString * _Nonnull title, NSInteger index) {
             NSLog(@"section for section title: %@, index: %ld", title, (long)index);
             return index;
         });
