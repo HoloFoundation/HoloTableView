@@ -39,7 +39,7 @@
     self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[@"sectionForSectionIndexTitleHandler"];
 }
 
-#pragma mark - operate section
+#pragma mark - section
 // holo_makeSections
 - (void)holo_makeSections:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block {
     [self _holo_makeSections:block reload:NO withReloadAnimation:kNilOptions];
@@ -172,7 +172,7 @@
     }
 }
 
-#pragma mark - operate row
+#pragma mark - row
 // holo_makeRows
 - (void)holo_makeRows:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block {
     [self _holo_makeRowsInSection:nil block:block reload:NO withReloadAnimation:kNilOptions];

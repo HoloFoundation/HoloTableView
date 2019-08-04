@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_configTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block;
 
 
-#pragma mark - operate section
+#pragma mark - section
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
  *  Append these sections in the callee to the data source, don't care about tag of the section.
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_removeSection:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation;
 
 
-#pragma mark - operate row
+#pragma mark - row
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
  *  Append these rows in the callee to defult section of UITableView.
