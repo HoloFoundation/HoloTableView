@@ -21,15 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat height;
 
-@property (nonatomic, assign) CGFloat estimatedHeight NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, assign) CGFloat estimatedHeight;
 
 @property (nonatomic, assign) SEL configSEL;
 
 @property (nonatomic, assign) SEL heightSEL;
 
-@property (nonatomic, assign) SEL estimatedHeightSEL NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, assign) SEL estimatedHeightSEL;
 
-@property (nonatomic, assign) BOOL shouldHighlight NS_AVAILABLE_IOS(6_0);
+@property (nonatomic, assign) BOOL shouldHighlight;
 
 @end
 
@@ -44,15 +44,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^height)(CGFloat height);
 
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^estimatedHeight)(CGFloat estimatedHeight) NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^estimatedHeight)(CGFloat estimatedHeight);
 
 @property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^configSEL)(SEL configSEL);
 
 @property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^heightSEL)(SEL heightSEL);
 
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL) NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL);
 
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^shouldHighlight)(BOOL shouldHighlight) NS_AVAILABLE_IOS(6_0);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^shouldHighlight)(BOOL shouldHighlight);
 
 @end
 
