@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) HoloUpdateRow *updateRow;
 
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^cell)(NSString *cell);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^row)(NSString *row);
 
 @property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^model)(id model);
 

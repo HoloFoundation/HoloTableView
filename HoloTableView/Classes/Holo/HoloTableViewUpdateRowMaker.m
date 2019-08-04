@@ -26,9 +26,9 @@
     return self;
 }
 
-- (HoloUpdateRowMaker * (^)(NSString *))cell {
-    return ^id(NSString *cell){
-        self.updateRow.cell = cell;
+- (HoloUpdateRowMaker * (^)(NSString *))row {
+    return ^id(NSString *row){
+        self.updateRow.cell = row;
         return self;
     };
 }
