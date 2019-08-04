@@ -8,6 +8,7 @@
 #import "UITableView+HoloTableViewProxy.h"
 #import <objc/runtime.h>
 #import "HoloTableViewProxy.h"
+#import "HoloTableViewProxyData.h"
 
 static char kHoloTableViewProxyKey;
 
@@ -22,6 +23,14 @@ static char kHoloTableViewProxyKey;
         if (!self.dataSource || !self.delegate) {
             self.dataSource = tableViewProxy;
             self.delegate = tableViewProxy;
+            
+            // register UITableViewHeaderFooterView
+            NSString *reuseIdentifier = @"UITableViewHeaderFooterView";
+            Class headerFooterCls = NSClassFromString(@"UITableViewHeaderFooterView");
+            [self registerClass:headerFooterCls forHeaderFooterViewReuseIdentifier:reuseIdentifier];
+            NSMutableDictionary *headerFooterMap = tableViewProxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
+            headerFooterMap[reuseIdentifier] = headerFooterCls;
+            tableViewProxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
         }
     }
     return tableViewProxy;

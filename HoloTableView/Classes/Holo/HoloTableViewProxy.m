@@ -108,6 +108,7 @@
     }
 }
 
+// support these two methods with viewForHeaderInSection: and viewForFooterInSection:
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
 //- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
 
@@ -264,6 +265,14 @@
         [holoHeaderView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.headerModel];
 #pragma clang diagnostic pop
     }
+    if (!holoHeaderView && [self.holo_dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        NSString *title = [self.holo_dataSource tableView:tableView titleForHeaderInSection:section];
+        UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"UITableViewHeaderFooterView"];
+        headerView.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
+        headerView.textLabel.textColor = [UIColor colorWithRed:0.14 green:0.14 blue:0.14 alpha:1];
+        headerView.textLabel.text = title;
+        return headerView;
+    }
     return holoHeaderView;
 }
 
@@ -280,6 +289,14 @@
         [holoFooterView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.footerModel];
 #pragma clang diagnostic pop
     }
+    if (!holoFooterView && [self.holo_dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
+        NSString *title = [self.holo_dataSource tableView:tableView titleForFooterInSection:section];
+        UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"UITableViewHeaderFooterView"];
+        footerView.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
+        footerView.textLabel.textColor = [UIColor colorWithRed:0.14 green:0.14 blue:0.14 alpha:1];
+        footerView.textLabel.text = title;
+        return footerView;
+    }
     return holoFooterView;
 }
 
@@ -294,6 +311,9 @@
     if (holoSection.headerFooterHeightSEL && [header respondsToSelector:holoSection.headerFooterHeightSEL]) {
         return [self _heightWithMethodSignatureCls:header selector:holoSection.headerFooterHeightSEL model:holoSection.headerModel];
     }
+    if ((holoSection.headerHeight == CGFLOAT_MIN) && [self.holo_dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        return 28.0;
+    }
     return holoSection.headerHeight;
 }
 
@@ -307,6 +327,9 @@
     Class footer = NSClassFromString(holoSection.footer);
     if (holoSection.headerFooterHeightSEL && [footer respondsToSelector:holoSection.headerFooterHeightSEL]) {
         return [self _heightWithMethodSignatureCls:footer selector:holoSection.headerFooterHeightSEL model:holoSection.footerModel];
+    }
+    if ((holoSection.footerHeight == CGFLOAT_MIN) && [self.holo_dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
+        return 28.0;
     }
     return holoSection.footerHeight;
 }

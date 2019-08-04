@@ -60,8 +60,8 @@
         HoloSection *updateSection = dict[@"updateSection"];
         [array addObject:updateSection];
         
-        [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
-        [self _registerHeaderFooter:updateSection.footer withHeaderFooterMap:headerFooterMap];
+        if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
+        if (updateSection.footer) [self _registerHeaderFooter:updateSection.footer withHeaderFooterMap:headerFooterMap];
     }
     self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
     

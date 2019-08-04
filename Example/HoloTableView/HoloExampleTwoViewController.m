@@ -64,8 +64,8 @@
             NSLog(@"didEndDisplayingFooterHandler");
         });
         
-//        make.section(@"sectionB").header(header).headerHeight(10);
-//        make.section(@"sectionC").header(header).headerHeight(10);
+//        make.section(@"sectionB").headerHeight(10);
+//        make.section(@"sectionC").headerHeight(10);
     }];
 
     [self.tableView holo_makeRowsInSection:@"sectionA" block:^(HoloTableViewRowMaker * _Nonnull make) {
@@ -121,6 +121,14 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"header";
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return @"footer";
 }
 
 #pragma mark - HoloTableViewDelegate
