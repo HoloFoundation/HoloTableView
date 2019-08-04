@@ -22,6 +22,7 @@
     HoloTableViewConfiger *configer = [HoloTableViewConfiger new];
     if (block) block(configer);
     
+    // check cellClsMap
     NSDictionary *dict = [configer install];
     NSMutableDictionary *cellClsMap = [NSMutableDictionary new];
     [dict[@"cellClsMap"] enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
@@ -30,7 +31,7 @@
             [self registerClass:class forCellReuseIdentifier:cls];
             cellClsMap[cell] = class;
         } else {
-            HoloLog(@"⚠️[HoloTableView] No found a Class with the name: %@.", cls);
+            HoloLog(@"⚠️[HoloTableView] No found a class with the name: %@.", cls);
         }
     }];
     self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
@@ -52,27 +53,19 @@
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
+    // update headerFooterMap
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
         HoloSection *updateSection = dict[@"updateSection"];
         [array addObject:updateSection];
-
-        Class headerMapCls = headerFooterMap[updateSection.header];
-        Class headerCls = NSClassFromString(updateSection.header);
-        if (!headerMapCls && headerCls) {
-            [self registerClass:headerCls forHeaderFooterViewReuseIdentifier:updateSection.header];
-            headerFooterMap[updateSection.header] = headerCls;
-        }
-        Class footerMapCls = headerFooterMap[updateSection.footer];
-        Class footerCls = NSClassFromString(updateSection.footer);
-        if (!footerMapCls && footerCls) {
-            [self registerClass:footerCls forHeaderFooterViewReuseIdentifier:updateSection.footer];
-            headerFooterMap[updateSection.footer] = footerCls;
-        }
+        
+        [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
+        [self _registerHeaderFooter:updateSection.footer withHeaderFooterMap:headerFooterMap];
     }
     self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
     
+    // append sections
     NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_appendSections:array];
     if (reload && indexSet.count > 0) {
         [self insertSections:indexSet withRowAnimation:animation];
@@ -92,6 +85,7 @@
     HoloTableViewSectionMaker *maker = [[HoloTableViewSectionMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
     if (block) block(maker);
     
+    // update targetSection and headerFooterMap
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
@@ -116,30 +110,33 @@
         if (updateSection.didEndDisplayingFooterHandler) targetSection.didEndDisplayingFooterHandler = updateSection.didEndDisplayingFooterHandler;
         if (updateSection.header) {
             targetSection.header = updateSection.header;
-            
-            Class headerMapCls = headerFooterMap[targetSection.header];
-            Class headerCls = NSClassFromString(targetSection.header);
-            if (!headerMapCls && headerCls) {
-                [self registerClass:headerCls forHeaderFooterViewReuseIdentifier:targetSection.header];
-                headerFooterMap[targetSection.header] = headerCls;
-            }
+            [self _registerHeaderFooter:targetSection.header withHeaderFooterMap:headerFooterMap];
         }
         if (updateSection.footer) {
             targetSection.footer = updateSection.footer;
-            
-            Class footerMapCls = headerFooterMap[targetSection.footer];
-            Class footerCls = NSClassFromString(targetSection.footer);
-            if (!footerMapCls && footerCls) {
-                [self registerClass:footerCls forHeaderFooterViewReuseIdentifier:targetSection.footer];
-                headerFooterMap[targetSection.footer] = footerCls;
-            }
+            [self _registerHeaderFooter:targetSection.footer withHeaderFooterMap:headerFooterMap];
         }
-        
     }
     self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
     
+    // refresh view
     if (reload && indexSet.count > 0) {
         [self reloadSections:indexSet withRowAnimation:animation];
+    }
+}
+
+// _registerHeaderFooter
+- (void)_registerHeaderFooter:(NSString *)cls withHeaderFooterMap:(NSMutableDictionary *)headerFooterMap {
+    if (!headerFooterMap[cls]) {
+        Class class = NSClassFromString(cls);
+        if (!class) {
+            HoloLog(@"⚠️[HoloTableView] No found a headerFooter class with the name: %@.", cls);
+        } else if (![[class new] isKindOfClass:[UITableViewHeaderFooterView class]]) {
+            HoloLog(@"⚠️[HoloTableView] The class: %@, neither UITableViewHeaderFooterView nor its subclasses.", cls);
+        } else {
+            [self registerClass:class forHeaderFooterViewReuseIdentifier:cls];
+            headerFooterMap[cls] = class;
+        }
     }
 }
 
@@ -198,7 +195,7 @@
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
-    // update cell-cls map and registe class
+    // update cell-cls map and register class
     NSMutableDictionary *cellClsMap = self.holo_proxy.holo_proxyData.holo_cellClsMap.mutableCopy;
     NSMutableArray *rows = [NSMutableArray new];
     for (HoloRow *row in [maker install]) {
@@ -210,7 +207,7 @@
         if (cellClsMap[row.cell]) {
             [rows addObject:row];
         } else {
-            HoloLog(@"⚠️[HoloTableView] No found a Class with the name: %@.", row.cell);
+            HoloLog(@"⚠️[HoloTableView] No found a cell class with the name: %@.", row.cell);
         }
     }
     self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
@@ -249,9 +246,10 @@
 - (void)_holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
     if (block) block(maker);
-
-    NSMutableArray *indexPaths = [NSMutableArray new];
+    
+    // update cell-cls map and register class
     NSMutableDictionary *cellClsMap = self.holo_proxy.holo_proxyData.holo_cellClsMap.mutableCopy;
+    NSMutableArray *indexPaths = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
         HoloRow *targetRow = dict[@"targetRow"];
         HoloRow *updateRow = dict[@"updateRow"];
@@ -277,12 +275,13 @@
             if (cellClsMap[updateRow.cell]) {
                 targetRow.cell = updateRow.cell;
             } else {
-                HoloLog(@"⚠️[HoloTableView] No found a Class with the name: %@.", updateRow.cell);
+                HoloLog(@"⚠️[HoloTableView] No found a class with the name: %@.", updateRow.cell);
             }
         }
     }
     self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
     
+    // refresh view
     if (reload && indexPaths.count > 0) {
         [self reloadRowsAtIndexPaths:indexPaths withRowAnimation:animation];
     }
