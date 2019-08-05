@@ -17,5 +17,6 @@
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewUpdateRowMaker.h"
 #import "HoloTableViewProtocol.h"
+#import "HoloTableViewRowSwipeAction.h"
 
 #endif /* HoloTableView_h */

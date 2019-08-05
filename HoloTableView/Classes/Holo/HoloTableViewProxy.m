@@ -9,6 +9,7 @@
 #import "HoloTableViewProxyData.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"
+#import "HoloTableViewRowSwipeAction.h"
 
 @interface HoloTableViewProxy ()
 
@@ -81,17 +82,29 @@
     }
 }
 
-#pragma mark override datasource
+/// Editing
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_dataSource respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]) {
         return [self.holo_dataSource tableView:tableView canEditRowAtIndexPath:indexPath];
     }
-    return NO;
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow.canEdit;
 }
 
+/// Editing: delete/insert
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_dataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
         [self.holo_dataSource tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    }
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (holoRow.editingDeleteHandler) holoRow.editingDeleteHandler();
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        if (holoRow.editingInsertHandler) holoRow.editingInsertHandler();
     }
 }
 
@@ -99,13 +112,20 @@
     if ([self.holo_dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         return [self.holo_dataSource tableView:tableView canMoveRowAtIndexPath:indexPath];
     }
-    return NO;
+
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow.canMove;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if ([self.holo_dataSource respondsToSelector:@selector(tableView:moveRowAtIndexPath:toIndexPath:)]) {
         [self.holo_dataSource tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     }
+    
+    HoloSection *holoSection = self.holoSections[sourceIndexPath.section];
+    HoloRow *holoRow = holoSection.rows[sourceIndexPath.row];
+    if (holoRow.moveHandler) holoRow.moveHandler(sourceIndexPath, destinationIndexPath);
 }
 
 // support these two methods with viewForHeaderInSection: and viewForFooterInSection:
@@ -396,72 +416,140 @@
     if (holoSection.didEndDisplayingFooterHandler) holoSection.didEndDisplayingFooterHandler(view);
 }
 
-#pragma mark override delegate
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
         [self.holo_delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
     }
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.accessoryHandler) holoRow.accessoryHandler(holoRow.model);
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:editingStyleForRowAtIndexPath:)]) {
         return [self.holo_delegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
     }
-    return UITableViewCellEditingStyleDelete;
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow.editingStyle;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:)]) {
         return [self.holo_delegate tableView:tableView titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
     }
-    return nil;
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow.editingDeleteTitle;
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:editActionsForRowAtIndexPath:)]) {
         return [self.holo_delegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
     }
-    return nil;
+    
+    NSMutableArray *array = [NSMutableArray new];
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.trailingSwipeActions.count <= 0) return nil;
+    
+    for (HoloTableViewRowSwipeAction *swipeAction in holoRow.trailingSwipeActions) {
+        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:!(NSInteger)swipeAction.style title:swipeAction.title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            if (holoRow.trailingSwipeHandler) {
+                holoRow.trailingSwipeHandler(swipeAction, [holoRow.trailingSwipeActions indexOfObject:swipeAction]);
+            }
+        }];
+        [array addObject:action];
+    }
+    return [array copy];
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos) {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:leadingSwipeActionsConfigurationForRowAtIndexPath:)]) {
         return [self.holo_delegate tableView:tableView leadingSwipeActionsConfigurationForRowAtIndexPath:indexPath];
     }
-    return nil;
+    
+    NSMutableArray *array = [NSMutableArray new];
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.leadingSwipeActions.count <= 0) return nil;
+    
+    for (HoloTableViewRowSwipeAction *swipeAction in holoRow.leadingSwipeActions) {
+        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:(NSInteger)swipeAction.style title:swipeAction.title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            if (holoRow.leadingSwipeHandler) {
+                holoRow.leadingSwipeHandler(swipeAction, [holoRow.leadingSwipeHandler indexOfObject:swipeAction]);
+            }
+        }];
+        [array addObject:action];
+    }
+    UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:[array copy]];
+    return configuration;
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos) {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:trailingSwipeActionsConfigurationForRowAtIndexPath:)]) {
         return [self.holo_delegate tableView:tableView trailingSwipeActionsConfigurationForRowAtIndexPath:indexPath];
     }
-    return nil;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.holo_delegate respondsToSelector:@selector(tableView:shouldIndentWhileEditingRowAtIndexPath:)]) {
-        return [self.holo_delegate tableView:tableView shouldIndentWhileEditingRowAtIndexPath:indexPath];
+    
+    NSMutableArray *array = [NSMutableArray new];
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.trailingSwipeActions.count <= 0) return nil;
+    
+    for (HoloTableViewRowSwipeAction *swipeAction in holoRow.trailingSwipeActions) {
+        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:(NSInteger)swipeAction.style title:swipeAction.title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            if (holoRow.trailingSwipeHandler) {
+                holoRow.trailingSwipeHandler(swipeAction, [holoRow.trailingSwipeActions indexOfObject:swipeAction]);
+            }
+        }];
+        [array addObject:action];
     }
-    return YES;
+    UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:[array copy]];
+    return configuration;
 }
 
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:willBeginEditingRowAtIndexPath:)]) {
         [self.holo_delegate tableView:tableView willBeginEditingRowAtIndexPath:indexPath];
     }
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.willBeginSwipingHandler) holoRow.willBeginSwipingHandler();
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]) {
         [self.holo_delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
     }
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.didEndSwipingHandler) holoRow.didEndSwipingHandler();
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
     if ([self.holo_delegate respondsToSelector:@selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:)]) {
         return [self.holo_delegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
     }
+    
+    HoloSection *holoSection = self.holoSections[sourceIndexPath.section];
+    HoloRow *holoRow = holoSection.rows[sourceIndexPath.row];
+    if (holoRow.targetMoveHandler) {
+        return holoRow.targetMoveHandler(sourceIndexPath, proposedDestinationIndexPath);
+    }
     return proposedDestinationIndexPath;
+}
+
+#pragma mark override delegate
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.holo_delegate respondsToSelector:@selector(tableView:shouldIndentWhileEditingRowAtIndexPath:)]) {
+        return [self.holo_delegate tableView:tableView shouldIndentWhileEditingRowAtIndexPath:indexPath];
+    }
+    return YES;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {

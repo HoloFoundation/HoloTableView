@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class HoloTableViewRowSwipeAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,6 +47,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^didUnHighlightHandler)(id model);
 
+@property (nonatomic, copy) void (^accessoryHandler)(id model);
+
+/// Editing
+@property (nonatomic, assign) BOOL canEdit;
+
+/// Editing: swipe
+@property (nonatomic, copy) NSArray *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy) NSArray *trailingSwipeActions;
+
+@property (nonatomic, copy) void (^leadingSwipeHandler)(HoloTableViewRowSwipeAction *action, NSInteger index) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy) void (^trailingSwipeHandler)(HoloTableViewRowSwipeAction *action, NSInteger index);
+
+@property (nonatomic, copy) void (^willBeginSwipingHandler)(void);
+
+@property (nonatomic, copy) void (^didEndSwipingHandler)(void);
+
+/// Editing: move
+@property (nonatomic, assign) BOOL canMove;
+
+@property (nonatomic, copy) NSIndexPath *(^targetMoveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
+
+@property (nonatomic, copy) void (^moveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
+
+/// Editing: delete
+@property (nonatomic, copy) NSString *editingDeleteTitle;
+
+@property (nonatomic, copy) void (^editingDeleteHandler)(void);
+
+/// Editing: insert
+@property (nonatomic, copy) void (^editingInsertHandler)(void);
+
+@property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
+
 @end
 
 ////////////////////////////////////////////////////////////
@@ -84,6 +120,39 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloRowMaker *(^didHighlightHandler)(void(^)(id model));
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^didUnHighlightHandler)(void(^)(id model));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^accessoryHandler)(void(^)(id model));
+
+/// Editing
+@property (nonatomic, copy, readonly) HoloRowMaker *(^canEdit)(BOOL canEdit);
+
+/// Editing: swipe
+@property (nonatomic, copy, readonly) HoloRowMaker *(^leadingSwipeActions)(NSArray<HoloTableViewRowSwipeAction *> *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^trailingSwipeActions)(NSArray<HoloTableViewRowSwipeAction *> *trailingSwipeActions);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^leadingSwipeHandler)(void(^)(HoloTableViewRowSwipeAction *action, NSInteger index)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^trailingSwipeHandler)(void(^)(HoloTableViewRowSwipeAction *action, NSInteger index));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^willBeginSwipingHandler)(void(^)(void));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^didEndSwipingHandler)(void(^)(void));
+
+/// Editing: move
+@property (nonatomic, copy, readonly) HoloRowMaker *(^canMove)(BOOL canMove);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^targetMoveHandler)(NSIndexPath *(^targetIndexPath)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath));
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^moveHandler)(void(^)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath));
+
+/// Editing: delete
+@property (nonatomic, copy, readonly) HoloRowMaker *(^editingDeleteTitle)(NSString *title);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^editingDeleteHandler)(void(^)(void));
+
+/// Editing: insert
+@property (nonatomic, copy, readonly) HoloRowMaker *(^editingInsertHandler)(void(^)(void));
 
 @end
 

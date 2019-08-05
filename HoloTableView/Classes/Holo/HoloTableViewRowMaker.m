@@ -23,6 +23,9 @@
         _heightSEL = @selector(heightForCellWithModel:);
         _estimatedHeightSEL = @selector(estimatedHeightForCellWithModel:);
 #pragma clang diagnostic pop
+        _canEdit = NO;
+        _canMove = NO;
+        _editingStyle = UITableViewCellEditingStyleNone;
     }
     
     return self;
@@ -98,57 +101,170 @@
 }
 
 - (HoloRowMaker * (^)(void (^)(id)))willSelectHandler {
-    return ^id( void (^willSelectHandler)(id) ){
+    return ^id(void (^willSelectHandler)(id)){
         self.row.willSelectHandler = willSelectHandler;
         return self;
     };
 }
 
 - (HoloRowMaker * (^)(void (^)(id)))willDeselectHandler {
-    return ^id( void (^willDeselectHandler)(id) ){
+    return ^id(void (^willDeselectHandler)(id)) {
         self.row.willDeselectHandler = willDeselectHandler;
         return self;
     };
 }
 
 - (HoloRowMaker * (^)(void (^)(id)))didDeselectHandler {
-    return ^id( void (^didDeselectHandler)(id) ){
+    return ^id(void (^didDeselectHandler)(id)) {
         self.row.didDeselectHandler = didDeselectHandler;
         return self;
     };
 }
 
 - (HoloRowMaker * (^)(void (^)(id)))didSelectHandler {
-    return ^id( void (^didSelectHandler)(id) ){
+    return ^id(void (^didSelectHandler)(id)) {
         self.row.didSelectHandler = didSelectHandler;
         return self;
     };
 }
 
 - (HoloRowMaker *(^)(void (^)(UITableViewCell *)))willDisplayHandler {
-    return ^id( void (^willDisplayHandler)(UITableViewCell *cell) ){
+    return ^id(void (^willDisplayHandler)(UITableViewCell *cell)) {
         self.row.willDisplayHandler = willDisplayHandler;
         return self;
     };
 }
 
 - (HoloRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayingHandler {
-    return ^id( void (^didEndDisplayingHandler)(UITableViewCell *cell) ){
+    return ^id(void (^didEndDisplayingHandler)(UITableViewCell *cell)) {
         self.row.didEndDisplayingHandler = didEndDisplayingHandler;
         return self;
     };
 }
 
 - (HoloRowMaker *(^)(void (^)(id)))didHighlightHandler {
-    return ^id( void (^didHighlightHandler)(id) ){
+    return ^id(void (^didHighlightHandler)(id)) {
         self.row.didHighlightHandler = didHighlightHandler;
         return self;
     };
 }
 
 - (HoloRowMaker *(^)(void (^)(id)))didUnHighlightHandler {
-    return ^id( void (^didUnHighlightHandler)(id) ){
+    return ^id(void (^didUnHighlightHandler)(id)) {
         self.row.didUnHighlightHandler = didUnHighlightHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(id)))accessoryHandler {
+    return ^id(void (^accessoryHandler)(id)) {
+        self.row.accessoryHandler = accessoryHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(BOOL))canEdit {
+    return ^id(BOOL canEdit) {
+        self.row.canEdit = canEdit;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(NSArray<HoloTableViewRowSwipeAction *> *))leadingSwipeActions {
+    return ^id(NSArray *leadingSwipeActions) {
+        if (leadingSwipeActions.count > 0) self.row.canEdit = YES;
+        self.row.leadingSwipeActions = leadingSwipeActions;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(NSArray<HoloTableViewRowSwipeAction *> *))trailingSwipeActions {
+    return ^id(NSArray *trailingSwipeActions) {
+        if (trailingSwipeActions.count > 0) self.row.canEdit = YES;
+        self.row.trailingSwipeActions = trailingSwipeActions;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(HoloTableViewRowSwipeAction *, NSInteger)))leadingSwipeHandler {
+    return ^id(void (^leadingSwipeHandler)(HoloTableViewRowSwipeAction *, NSInteger)) {
+        self.row.leadingSwipeHandler = leadingSwipeHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(HoloTableViewRowSwipeAction *, NSInteger)))trailingSwipeHandler {
+    return ^id(void (^trailingSwipeHandler)(HoloTableViewRowSwipeAction *, NSInteger)) {
+        self.row.trailingSwipeHandler = trailingSwipeHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(void)))willBeginSwipingHandler {
+    return ^id(void (^willBeginSwipingHandler)(void)) {
+        self.row.willBeginSwipingHandler = willBeginSwipingHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(void)))didEndSwipingHandler {
+    return ^id(void (^didEndSwipingHandler)(void)) {
+        self.row.didEndSwipingHandler = didEndSwipingHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(BOOL))canMove {
+    return ^id(BOOL canMove) {
+        if (canMove) self.row.canEdit = YES;
+        self.row.canMove = canMove;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(NSIndexPath *(^)(NSIndexPath *, NSIndexPath *)))targetMoveHandler {
+    return ^id(NSIndexPath *(^targetMoveHandler)(NSIndexPath *, NSIndexPath *)) {
+        self.row.targetMoveHandler = targetMoveHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(NSIndexPath *, NSIndexPath *)))moveHandler {
+    return ^id(void (^moveHandler)(NSIndexPath *, NSIndexPath *)) {
+        if (moveHandler) {
+            self.row.canEdit = YES;
+            self.row.canMove = YES;
+        }
+        self.row.moveHandler = moveHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(NSString *))editingDeleteTitle {
+    return ^id(NSString *editingDeleteTitle) {
+        self.row.editingDeleteTitle = editingDeleteTitle;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(void)))editingDeleteHandler {
+    return ^id(void (^editingDeleteHandler)(void)) {
+        if (editingDeleteHandler) {
+            self.row.canEdit = YES;
+            self.row.editingStyle = UITableViewCellEditingStyleDelete;
+        }
+        self.row.editingDeleteHandler = editingDeleteHandler;
+        return self;
+    };
+}
+
+- (HoloRowMaker *(^)(void (^)(void)))editingInsertHandler {
+    return ^id(void (^editingInsertHandler)(void)) {
+        if (editingInsertHandler) {
+            self.row.canEdit = YES;
+            self.row.editingStyle = UITableViewCellEditingStyleInsert;
+        }
+        self.row.editingInsertHandler = editingInsertHandler;
         return self;
     };
 }
