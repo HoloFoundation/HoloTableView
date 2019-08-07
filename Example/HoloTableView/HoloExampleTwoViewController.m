@@ -94,13 +94,14 @@
 //        HoloTableViewRowSwipeAction *action1 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleNormal title:@"a1"];
 //        HoloTableViewRowSwipeAction *action2 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleDestructive title:@"a2"];
 //        HoloTableViewRowSwipeAction *action3 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleNormal title:@"a3"];
-        NSDictionary *action1 = @{@"title":@"a1", @"style":@0};
+        NSDictionary *action1 = @{@"title":@"a1", @"style":@1};
         NSDictionary *action2 = @{@"title":@"a2", @"style":@0};
-        NSDictionary *action3 = @{@"title":@"a3", @"style":@1};
+        NSDictionary *action3 = @{@"title":@"a3", @"style":@0};
         make.row(@"three").height(88).tag(@"B-2")
-        .leadingSwipeActions(@[@{@"title":@"a1", @"style":@0}, @{@"title":@"a3", @"style":@1}])
+        .leadingSwipeActions(@[action1, action2])
         .leadingSwipeHandler(^(id  _Nonnull action, NSInteger index, void (^ _Nonnull completionHandler)(BOOL)) {
             NSLog(@"leading---%@---%ld", [action valueForKey:@"title"], index);
+            completionHandler(NO);
         })
         .trailingSwipeActions(@[action1, action2, action3])
         .trailingSwipeHandler(^(id  _Nonnull action, NSInteger index, void (^ _Nonnull completionHandler)(BOOL)) {
