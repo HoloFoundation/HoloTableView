@@ -47,7 +47,6 @@
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     [array removeObject:row];
     self.rows = array;
-
 }
 
 - (void)holo_removeAllRows {

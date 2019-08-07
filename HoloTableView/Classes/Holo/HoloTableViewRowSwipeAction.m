@@ -16,4 +16,12 @@
     return action;
 }
 
++ (instancetype)rowSwipeActionWithStyle:(HoloTableViewRowSwipeActionStyle)style title:(NSString *)title handler:(HoloTableViewRowSwipeActionHandler)handler {
+    HoloTableViewRowSwipeAction *action = [HoloTableViewRowSwipeAction new];
+    action.style = style;
+    action.title = title;
+    action.handler = handler;
+    return action;
+}
+
 @end

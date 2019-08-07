@@ -170,7 +170,7 @@
     };
 }
 
-- (HoloRowMaker *(^)(NSArray<HoloTableViewRowSwipeAction *> *))leadingSwipeActions {
+- (HoloRowMaker *(^)(NSArray *))leadingSwipeActions {
     return ^id(NSArray *leadingSwipeActions) {
         if (leadingSwipeActions.count > 0) self.row.canEdit = YES;
         self.row.leadingSwipeActions = leadingSwipeActions;
@@ -178,7 +178,7 @@
     };
 }
 
-- (HoloRowMaker *(^)(NSArray<HoloTableViewRowSwipeAction *> *))trailingSwipeActions {
+- (HoloRowMaker *(^)(NSArray *))trailingSwipeActions {
     return ^id(NSArray *trailingSwipeActions) {
         if (trailingSwipeActions.count > 0) self.row.canEdit = YES;
         self.row.trailingSwipeActions = trailingSwipeActions;
@@ -186,15 +186,15 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(HoloTableViewRowSwipeAction *, NSInteger)))leadingSwipeHandler {
-    return ^id(void (^leadingSwipeHandler)(HoloTableViewRowSwipeAction *, NSInteger)) {
+- (HoloRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))leadingSwipeHandler {
+    return ^id(void (^leadingSwipeHandler)(id, NSInteger, void(^)(BOOL))) {
         self.row.leadingSwipeHandler = leadingSwipeHandler;
         return self;
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(HoloTableViewRowSwipeAction *, NSInteger)))trailingSwipeHandler {
-    return ^id(void (^trailingSwipeHandler)(HoloTableViewRowSwipeAction *, NSInteger)) {
+- (HoloRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))trailingSwipeHandler {
+    return ^id(void (^trailingSwipeHandler)(id, NSInteger, void(^)(BOOL))) {
         self.row.trailingSwipeHandler = trailingSwipeHandler;
         return self;
     };

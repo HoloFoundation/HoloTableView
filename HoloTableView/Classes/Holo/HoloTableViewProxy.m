@@ -88,7 +88,9 @@
         return [self.holo_dataSource tableView:tableView canEditRowAtIndexPath:indexPath];
     }
     
+    if (indexPath.section >= self.holoSections.count) return NO;
     HoloSection *holoSection = self.holoSections[indexPath.section];
+    if (indexPath.row >= holoSection.rows.count) return NO;
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     return holoRow.canEdit;
 }
@@ -455,13 +457,38 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.trailingSwipeActions.count <= 0) return nil;
-    
-    for (HoloTableViewRowSwipeAction *swipeAction in holoRow.trailingSwipeActions) {
-        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:!(NSInteger)swipeAction.style title:swipeAction.title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+
+    for (id object in holoRow.trailingSwipeActions) {
+        NSString *title = [object valueForKey:@"title"];
+        NSInteger style = [[object valueForKey:@"style"] integerValue];
+        UIColor *backgroundColor = [object valueForKey:@"backgroundColor"];
+        UIVisualEffect *backgroundEffect = [object valueForKey:@"backgroundEffect"];
+        HoloTableViewRowSwipeActionHandler handler = [object valueForKey:@"handler"];
+        NSInteger index = [holoRow.trailingSwipeActions indexOfObject:object];
+        
+        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:!style title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            if (handler) {
+                handler(object, index, ^(BOOL actionPerformed) {
+                    if (style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
+                        // must remove the data before deleting the cell
+                        [holoSection holo_removeRow:holoRow];
+                        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    }
+                });
+            }
             if (holoRow.trailingSwipeHandler) {
-                holoRow.trailingSwipeHandler(swipeAction, [holoRow.trailingSwipeActions indexOfObject:swipeAction]);
+                holoRow.trailingSwipeHandler(object, index, ^(BOOL actionPerformed) {
+                    if (style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
+                        // must remove the data before deleting the cell
+                        [holoSection holo_removeRow:holoRow];
+                        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    }
+                });
             }
         }];
+        if (backgroundColor) action.backgroundColor = backgroundColor;
+        if (backgroundEffect) action.backgroundEffect = backgroundEffect;
+        
         [array addObject:action];
     }
     return [array copy];
@@ -472,21 +499,9 @@
         return [self.holo_delegate tableView:tableView leadingSwipeActionsConfigurationForRowAtIndexPath:indexPath];
     }
     
-    NSMutableArray *array = [NSMutableArray new];
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.leadingSwipeActions.count <= 0) return nil;
-    
-    for (HoloTableViewRowSwipeAction *swipeAction in holoRow.leadingSwipeActions) {
-        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:(NSInteger)swipeAction.style title:swipeAction.title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            if (holoRow.leadingSwipeHandler) {
-                holoRow.leadingSwipeHandler(swipeAction, [holoRow.leadingSwipeHandler indexOfObject:swipeAction]);
-            }
-        }];
-        [array addObject:action];
-    }
-    UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:[array copy]];
-    return configuration;
+    return [self _swipeActionsConfigurationWithIndexPath:indexPath swipeActions:holoRow.leadingSwipeActions swipeHandler:holoRow.leadingSwipeHandler];
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos) {
@@ -494,17 +509,48 @@
         return [self.holo_delegate tableView:tableView trailingSwipeActionsConfigurationForRowAtIndexPath:indexPath];
     }
     
-    NSMutableArray *array = [NSMutableArray new];
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.trailingSwipeActions.count <= 0) return nil;
+    return [self _swipeActionsConfigurationWithIndexPath:indexPath swipeActions:holoRow.trailingSwipeActions swipeHandler:holoRow.trailingSwipeHandler];
+}
+
+- (UISwipeActionsConfiguration *)_swipeActionsConfigurationWithIndexPath:(NSIndexPath *)indexPath swipeActions:(NSArray *)swipeActions swipeHandler:(HoloTableViewRowSwipeActionHandler)swipeHandler API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos) {
     
-    for (HoloTableViewRowSwipeAction *swipeAction in holoRow.trailingSwipeActions) {
-        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:(NSInteger)swipeAction.style title:swipeAction.title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            if (holoRow.trailingSwipeHandler) {
-                holoRow.trailingSwipeHandler(swipeAction, [holoRow.trailingSwipeActions indexOfObject:swipeAction]);
+    if (swipeActions.count <= 0) return nil;
+    
+    HoloSection *holoSection = self.holoSections[indexPath.section];
+    HoloRow *holoRow = holoSection.rows[indexPath.row];
+    
+    NSMutableArray *array = [NSMutableArray new];
+    for (id object in swipeActions) {
+        NSString *title = [object valueForKey:@"title"];
+        NSInteger style = [[object valueForKey:@"style"] integerValue];
+        UIColor *backgroundColor = [object valueForKey:@"backgroundColor"];
+        UIImage *image = [object valueForKey:@"image"];
+        HoloTableViewRowSwipeActionHandler swipeActionHandler = [object valueForKey:@"handler"];
+        NSInteger index = [swipeActions indexOfObject:object];
+        
+        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:style title:title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            if (swipeActionHandler) {
+                swipeActionHandler(object, index, ^(BOOL actionPerformed) {
+                    completionHandler(actionPerformed);
+                    if (style == UIContextualActionStyleDestructive && actionPerformed) {
+                        [holoSection holo_removeRow:holoRow];
+                    }
+                });
+            }
+            if (swipeHandler) {
+                swipeHandler(object, index, ^(BOOL actionPerformed) {
+                    completionHandler(actionPerformed);
+                    if (style == UIContextualActionStyleDestructive && actionPerformed) {
+                        [holoSection holo_removeRow:holoRow];
+                    }
+                });
             }
         }];
+        if (backgroundColor) action.backgroundColor = backgroundColor;
+        if (image) action.image = image;
+        
         [array addObject:action];
     }
     UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:[array copy]];
@@ -526,7 +572,9 @@
         [self.holo_delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
     }
     
+    if (indexPath.section >= self.holoSections.count) return;
     HoloSection *holoSection = self.holoSections[indexPath.section];
+    if (indexPath.row >= holoSection.rows.count) return;
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (holoRow.didEndSwipingHandler) holoRow.didEndSwipingHandler();
 }

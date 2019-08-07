@@ -91,11 +91,21 @@
 
         });
         
-        HoloTableViewRowSwipeAction *action1 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleNormal title:@"a1"];
-        HoloTableViewRowSwipeAction *action2 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleDestructive title:@"a2"];
-        HoloTableViewRowSwipeAction *action3 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleNormal title:@"a3"];
-        make.row(@"three").height(88).tag(@"B-2").trailingSwipeActions(@[action1, action2, action3]).trailingSwipeHandler(^(HoloTableViewRowSwipeAction * _Nonnull action, NSInteger index) {
-            NSLog(@"---%@---%ld", action.title, index);
+//        HoloTableViewRowSwipeAction *action1 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleNormal title:@"a1"];
+//        HoloTableViewRowSwipeAction *action2 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleDestructive title:@"a2"];
+//        HoloTableViewRowSwipeAction *action3 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleNormal title:@"a3"];
+        NSDictionary *action1 = @{@"title":@"a1", @"style":@0};
+        NSDictionary *action2 = @{@"title":@"a2", @"style":@0};
+        NSDictionary *action3 = @{@"title":@"a3", @"style":@1};
+        make.row(@"three").height(88).tag(@"B-2")
+        .leadingSwipeActions(@[@{@"title":@"a1", @"style":@0}, @{@"title":@"a3", @"style":@1}])
+        .leadingSwipeHandler(^(id  _Nonnull action, NSInteger index, void (^ _Nonnull completionHandler)(BOOL)) {
+            NSLog(@"leading---%@---%ld", [action valueForKey:@"title"], index);
+        })
+        .trailingSwipeActions(@[action1, action2, action3])
+        .trailingSwipeHandler(^(id  _Nonnull action, NSInteger index, void (^ _Nonnull completionHandler)(BOOL)) {
+            NSLog(@"trailing---%@---%ld", [action valueForKey:@"title"], index);
+            completionHandler(YES);
         });
     }];
     

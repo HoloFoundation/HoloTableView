@@ -57,9 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSArray *trailingSwipeActions;
 
-@property (nonatomic, copy) void (^leadingSwipeHandler)(HoloTableViewRowSwipeAction *action, NSInteger index) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy) void (^leadingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy) void (^trailingSwipeHandler)(HoloTableViewRowSwipeAction *action, NSInteger index);
+@property (nonatomic, copy) void (^trailingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
 
 @property (nonatomic, copy) void (^willBeginSwipingHandler)(void);
 
@@ -127,13 +127,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloRowMaker *(^canEdit)(BOOL canEdit);
 
 /// Editing: swipe
-@property (nonatomic, copy, readonly) HoloRowMaker *(^leadingSwipeActions)(NSArray<HoloTableViewRowSwipeAction *> *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy, readonly) HoloRowMaker *(^trailingSwipeActions)(NSArray<HoloTableViewRowSwipeAction *> *trailingSwipeActions);
+/// HoloTableViewRowSwipeAction
+/// or
+/// NSDictionary
+@property (nonatomic, copy, readonly) HoloRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy, readonly) HoloRowMaker *(^leadingSwipeHandler)(void(^)(HoloTableViewRowSwipeAction *action, NSInteger index)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, readonly) HoloRowMaker *(^trailingSwipeActions)(NSArray *trailingSwipeActions);
 
-@property (nonatomic, copy, readonly) HoloRowMaker *(^trailingSwipeHandler)(void(^)(HoloTableViewRowSwipeAction *action, NSInteger index));
+@property (nonatomic, copy, readonly) HoloRowMaker *(^leadingSwipeHandler)(void(^)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed))) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy, readonly) HoloRowMaker *(^trailingSwipeHandler)(void(^)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)));
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^willBeginSwipingHandler)(void(^)(void));
 
