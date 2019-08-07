@@ -127,9 +127,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloRowMaker *(^canEdit)(BOOL canEdit);
 
 /// Editing: swipe
-/// HoloTableViewRowSwipeAction
-/// or
 /// NSDictionary
+/// or
+/// HoloTableViewRowSwipeAction
 @property (nonatomic, copy, readonly) HoloRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^trailingSwipeActions)(NSArray *trailingSwipeActions);
