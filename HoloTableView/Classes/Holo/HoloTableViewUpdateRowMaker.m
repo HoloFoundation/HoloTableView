@@ -49,7 +49,6 @@
         updateRow.tag = tag;
         
         NSIndexPath *targetIndexPath;
-        HoloSection *targetSection;
         HoloRow *targetRow;
         for (HoloSection *section in self.holoSections) {
             for (HoloRow *row in section.rows) {
@@ -73,7 +72,6 @@
                     updateRow.heightSEL = row.heightSEL;
                     updateRow.estimatedHeightSEL = row.estimatedHeightSEL;
                     
-                    targetSection = section;
                     targetRow = row;
                     NSInteger sectionIndex = [self.holoSections indexOfObject:section];
                     NSInteger rowIndex = [section.rows indexOfObject:row];
@@ -85,7 +83,6 @@
         
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetRow) {
-            dict[@"targetSection"] = targetSection;
             dict[@"targetRow"] = targetRow;
             dict[@"targetIndexPath"] = targetIndexPath;
         }
