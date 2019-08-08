@@ -6,6 +6,7 @@
 //
 
 #import "HoloTableViewSectionMaker.h"
+#import <objc/runtime.h>
 #import "HoloTableViewMacro.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewUpdateRowMaker.h"
@@ -203,10 +204,22 @@
         for (HoloSection *section in self.targetSections) {
             if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
                 
-                updateSection.headerHeight = section.headerHeight;
-                updateSection.footerHeight = section.footerHeight;
-                updateSection.headerEstimatedHeight = section.headerEstimatedHeight;
-                updateSection.footerEstimatedHeight = section.footerEstimatedHeight;
+                // set value of CGFloat and BOOL
+                unsigned int outCount;
+                objc_property_t * properties = class_copyPropertyList([section class], &outCount);
+                for (int i = 0; i < outCount; i++) {
+                    objc_property_t property = properties[i];
+                    const char * propertyAttr = property_getAttributes(property);
+                    char t = propertyAttr[1];
+                    if (t == 'd' || t == 'B') { // CGFloat or BOOL
+                        const char *propertyName = property_getName(property);
+                        NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                        id value = [section valueForKey:propertyNameStr];
+                        if (value) [updateSection setValue:value forKey:propertyNameStr];
+                    }
+                }
+                
+                // set value of SEL
                 updateSection.headerFooterConfigSEL = section.headerFooterConfigSEL;
                 updateSection.headerFooterHeightSEL = section.headerFooterHeightSEL;
                 updateSection.headerFooterEstimatedHeightSEL = section.headerFooterEstimatedHeightSEL;

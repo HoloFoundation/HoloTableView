@@ -53,7 +53,7 @@
         for (HoloSection *section in self.holoSections) {
             for (HoloRow *row in section.rows) {
                 if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
-                    // set value for CGFloat and BOOL
+                    // set value of CGFloat and BOOL
                     unsigned int outCount;
                     objc_property_t * properties = class_copyPropertyList([row class], &outCount);
                     for (int i = 0; i < outCount; i++) {
@@ -67,7 +67,7 @@
                             if (value) [updateRow setValue:value forKey:propertyNameStr];
                         }
                     }
-                    // set value for SEL
+                    // set value of SEL
                     updateRow.configSEL = row.configSEL;
                     updateRow.heightSEL = row.heightSEL;
                     updateRow.estimatedHeightSEL = row.estimatedHeightSEL;

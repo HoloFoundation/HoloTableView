@@ -98,25 +98,35 @@
         }
         [indexSet addIndex:[dict[@"targetIndex"] integerValue]];
         
-        targetSection.headerHeight = updateSection.headerHeight;
-        targetSection.footerHeight = updateSection.footerHeight;
-        targetSection.headerEstimatedHeight = updateSection.headerEstimatedHeight;
-        targetSection.footerEstimatedHeight = updateSection.footerEstimatedHeight;
+        // set value to property which it's not kind of SEL
+        unsigned int outCount;
+        objc_property_t * properties = class_copyPropertyList([updateSection class], &outCount);
+        for (int i = 0; i < outCount; i++) {
+            objc_property_t property = properties[i];
+            const char * propertyAttr = property_getAttributes(property);
+            char t = propertyAttr[1];
+            if (t != ':') { // not SEL
+                const char *propertyName = property_getName(property);
+                NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                id value = [updateSection valueForKey:propertyNameStr];
+                if (value) {
+                    if ([propertyNameStr isEqualToString:@"header"]) {
+                        targetSection.header = updateSection.header;
+                        [self _registerHeaderFooter:targetSection.header withHeaderFooterMap:headerFooterMap];
+                    } else if ([propertyNameStr isEqualToString:@"footer"]) {
+                        targetSection.footer = updateSection.footer;
+                        [self _registerHeaderFooter:targetSection.footer withHeaderFooterMap:headerFooterMap];
+                    } else {
+                        [targetSection setValue:value forKey:propertyNameStr];
+                    }
+                }
+            }
+        }
+        
+        // set value of SEL
         targetSection.headerFooterConfigSEL = updateSection.headerFooterConfigSEL;
         targetSection.headerFooterHeightSEL = updateSection.headerFooterHeightSEL;
         targetSection.headerFooterEstimatedHeightSEL = updateSection.headerFooterEstimatedHeightSEL;
-        if (updateSection.willDisplayHeaderHandler) targetSection.willDisplayHeaderHandler = updateSection.willDisplayHeaderHandler;
-        if (updateSection.willDisplayFooterHandler) targetSection.willDisplayFooterHandler = updateSection.willDisplayFooterHandler;
-        if (updateSection.didEndDisplayingHeaderHandler) targetSection.didEndDisplayingHeaderHandler = updateSection.didEndDisplayingHeaderHandler;
-        if (updateSection.didEndDisplayingFooterHandler) targetSection.didEndDisplayingFooterHandler = updateSection.didEndDisplayingFooterHandler;
-        if (updateSection.header) {
-            targetSection.header = updateSection.header;
-            [self _registerHeaderFooter:targetSection.header withHeaderFooterMap:headerFooterMap];
-        }
-        if (updateSection.footer) {
-            targetSection.footer = updateSection.footer;
-            [self _registerHeaderFooter:targetSection.footer withHeaderFooterMap:headerFooterMap];
-        }
     }
     self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
     
@@ -244,6 +254,7 @@
     [self _holo_updateRows:block isRemark:NO reload:YES withReloadAnimation:animation];
 }
 
+// holo_remakeRows
 - (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block {
     [self _holo_updateRows:block isRemark:YES reload:NO withReloadAnimation:kNilOptions];
 }
@@ -304,7 +315,7 @@
             }
         }
         
-        // set value for SEL
+        // set value of SEL
         targetRow.configSEL = updateRow.configSEL;
         targetRow.heightSEL = updateRow.heightSEL;
         targetRow.estimatedHeightSEL = updateRow.estimatedHeightSEL;
