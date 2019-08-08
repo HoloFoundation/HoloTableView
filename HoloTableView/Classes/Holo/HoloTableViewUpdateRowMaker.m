@@ -6,78 +6,15 @@
 //
 
 #import "HoloTableViewUpdateRowMaker.h"
-#import "HoloTableViewMacro.h"
-#import "HoloTableViewRowMaker.h"
+#import <objc/runtime.h>
 #import "HoloTableViewSectionMaker.h"
-
-////////////////////////////////////////////////////////////
-@implementation HoloUpdateRow
-
-@end
 
 ////////////////////////////////////////////////////////////
 @implementation HoloUpdateRowMaker
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _updateRow = [HoloUpdateRow new];
-    }
-    return self;
-}
-
-- (HoloUpdateRowMaker * (^)(NSString *))row {
-    return ^id(NSString *row){
-        self.updateRow.cell = row;
-        return self;
-    };
-}
-
-- (HoloUpdateRowMaker *(^)(id))model {
-    return ^id(id model){
-        self.updateRow.model = model;
-        return self;
-    };
-}
-
-- (HoloUpdateRowMaker *(^)(CGFloat))height {
-    return ^id(CGFloat height){
-        self.updateRow.height = height;
-        return self;
-    };
-}
-
-- (HoloUpdateRowMaker *(^)(CGFloat))estimatedHeight {
-    return ^id(CGFloat estimatedHeight){
-        self.updateRow.estimatedHeight = estimatedHeight;
-        return self;
-    };
-}
-
-- (HoloUpdateRowMaker * (^)(SEL))configSEL {
-    return ^id(SEL configSEL){
-        self.updateRow.configSEL = configSEL;
-        return self;
-    };
-}
-
-- (HoloUpdateRowMaker * (^)(SEL))heightSEL {
-    return ^id(SEL heightSEL){
-        self.updateRow.heightSEL = heightSEL;
-        return self;
-    };
-}
-
-- (HoloUpdateRowMaker * (^)(SEL))estimatedHeightSEL {
-    return ^id(SEL estimatedHeightSEL){
-        self.updateRow.estimatedHeightSEL = estimatedHeightSEL;
-        return self;
-    };
-}
-
-- (HoloUpdateRowMaker * (^)(BOOL))shouldHighlight {
-    return ^id(BOOL shouldHighlight){
-        self.updateRow.shouldHighlight = shouldHighlight;
+- (HoloUpdateRowMaker * (^)(NSString *))cell {
+    return ^id(NSString *cell){
+        self.row.cell = cell;
         return self;
     };
 }
@@ -108,22 +45,35 @@
 - (HoloUpdateRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag) {
         HoloUpdateRowMaker *rowMaker = [HoloUpdateRowMaker new];
-        HoloUpdateRow *updateRow = rowMaker.updateRow;
+        HoloRow *updateRow = rowMaker.row;
         updateRow.tag = tag;
         
         NSIndexPath *targetIndexPath;
+        HoloSection *targetSection;
         HoloRow *targetRow;
         for (HoloSection *section in self.holoSections) {
             for (HoloRow *row in section.rows) {
                 if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
-                    
-                    updateRow.height = row.height;
-                    updateRow.estimatedHeight = row.estimatedHeight;
+                    // set value for CGFloat and BOOL
+                    unsigned int outCount;
+                    objc_property_t * properties = class_copyPropertyList([row class], &outCount);
+                    for (int i = 0; i < outCount; i++) {
+                        objc_property_t property = properties[i];
+                        const char * propertyAttr = property_getAttributes(property);
+                        char t = propertyAttr[1];
+                        if (t == 'd' || t == 'B') { // CGFloat or BOOL
+                            const char *propertyName = property_getName(property);
+                            NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                            id value = [row valueForKey:propertyNameStr];
+                            if (value) [updateRow setValue:value forKey:propertyNameStr];
+                        }
+                    }
+                    // set value for SEL
                     updateRow.configSEL = row.configSEL;
                     updateRow.heightSEL = row.heightSEL;
                     updateRow.estimatedHeightSEL = row.estimatedHeightSEL;
-                    updateRow.shouldHighlight = row.shouldHighlight;
                     
+                    targetSection = section;
                     targetRow = row;
                     NSInteger sectionIndex = [self.holoSections indexOfObject:section];
                     NSInteger rowIndex = [section.rows indexOfObject:row];
@@ -135,6 +85,7 @@
         
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetRow) {
+            dict[@"targetSection"] = targetSection;
             dict[@"targetRow"] = targetRow;
             dict[@"targetIndexPath"] = targetIndexPath;
         }

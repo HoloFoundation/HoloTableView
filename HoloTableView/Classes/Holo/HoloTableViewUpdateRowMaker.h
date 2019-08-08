@@ -6,53 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloRow, HoloSection;
+#import "HoloTableViewRowMaker.h"
+@class HoloSection;
 
 NS_ASSUME_NONNULL_BEGIN
 
 ////////////////////////////////////////////////////////////
-@interface HoloUpdateRow : NSObject
+@interface HoloUpdateRowMaker : HoloRowMaker
 
-@property (nonatomic, copy) NSString *tag;
-
-@property (nonatomic, copy) NSString *cell;
-
-@property (nonatomic, strong) id model;
-
-@property (nonatomic, assign) CGFloat height;
-
-@property (nonatomic, assign) CGFloat estimatedHeight;
-
-@property (nonatomic, assign) SEL configSEL;
-
-@property (nonatomic, assign) SEL heightSEL;
-
-@property (nonatomic, assign) SEL estimatedHeightSEL;
-
-@property (nonatomic, assign) BOOL shouldHighlight;
-
-@end
-
-////////////////////////////////////////////////////////////
-@interface HoloUpdateRowMaker : NSObject
-
-@property (nonatomic, strong, readonly) HoloUpdateRow *updateRow;
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^row)(NSString *row);
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^model)(id model);
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^height)(CGFloat height);
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^estimatedHeight)(CGFloat estimatedHeight);
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^configSEL)(SEL configSEL);
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^heightSEL)(SEL heightSEL);
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL);
-
-@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^shouldHighlight)(BOOL shouldHighlight);
+@property (nonatomic, copy, readonly) HoloUpdateRowMaker *(^cell)(NSString *cell);
 
 @end
 

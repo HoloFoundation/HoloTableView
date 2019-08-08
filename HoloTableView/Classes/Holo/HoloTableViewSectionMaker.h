@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloRow, HoloUpdateRow;
+@class HoloRow;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,6 +6,7 @@
 //
 
 #import "UITableView+HoloTableView.h"
+#import <objc/runtime.h>
 #import "UITableView+HoloTableViewProxy.h"
 #import "HoloTableViewProxy.h"
 #import "HoloTableViewConfiger.h"
@@ -236,14 +237,22 @@
 
 // holo_updateRows
 - (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block {
-    [self _holo_updateRows:block reload:NO withReloadAnimation:kNilOptions];
+    [self _holo_updateRows:block isRemark:NO reload:NO withReloadAnimation:kNilOptions];
 }
 
 - (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_updateRows:block reload:YES withReloadAnimation:animation];
+    [self _holo_updateRows:block isRemark:NO reload:YES withReloadAnimation:animation];
 }
 
-- (void)_holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block {
+    [self _holo_updateRows:block isRemark:YES reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_updateRows:block isRemark:YES reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block isRemark:(BOOL)isRemark reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
     if (block) block(maker);
     
@@ -259,25 +268,46 @@
         }
         [indexPaths addObject:dict[@"targetIndexPath"]];
         
-        targetRow.height = updateRow.height;
-        targetRow.estimatedHeight = updateRow.estimatedHeight;
+        // set value to property which it's not kind of SEL
+        unsigned int outCount;
+        objc_property_t * properties = class_copyPropertyList([updateRow class], &outCount);
+        for (int i = 0; i < outCount; i++) {
+            objc_property_t property = properties[i];
+            const char * propertyAttr = property_getAttributes(property);
+            char t = propertyAttr[1];
+            if (t != ':') { // not SEL
+                const char *propertyName = property_getName(property);
+                NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                id value = [updateRow valueForKey:propertyNameStr];
+                if (value) {
+                    if ([propertyNameStr isEqualToString:@"cell"]) {
+                        Class class = NSClassFromString(updateRow.cell);
+                        if (!cellClsMap[updateRow.cell] && class) {
+                            [self registerClass:class forCellReuseIdentifier:updateRow.cell];
+                            cellClsMap[updateRow.cell] = class;
+                        }
+                        if (cellClsMap[updateRow.cell]) {
+                            targetRow.cell = updateRow.cell;
+                        } else {
+                            HoloLog(@"⚠️[HoloTableView] No found a class with the name: %@.", updateRow.cell);
+                        }
+                    } else {
+                        [targetRow setValue:value forKey:propertyNameStr];
+                    }
+                } else if (isRemark) {
+                    if ([propertyNameStr isEqualToString:@"cell"]) {
+                        HoloLog(@"⚠️[HoloTableView] No update the cell of the row which you wish to ramark with the tag: %@.", updateRow.tag);
+                    } else {
+                        [targetRow setValue:NULL forKey:propertyNameStr];
+                    }
+                }
+            }
+        }
+        
+        // set value for SEL
         targetRow.configSEL = updateRow.configSEL;
         targetRow.heightSEL = updateRow.heightSEL;
         targetRow.estimatedHeightSEL = updateRow.estimatedHeightSEL;
-        targetRow.shouldHighlight = updateRow.shouldHighlight;
-        if (updateRow.model) targetRow.model = updateRow.model;
-        if (updateRow.cell) {
-            Class class = NSClassFromString(updateRow.cell);
-            if (!cellClsMap[updateRow.cell] && class) {
-                [self registerClass:class forCellReuseIdentifier:updateRow.cell];
-                cellClsMap[updateRow.cell] = class;
-            }
-            if (cellClsMap[updateRow.cell]) {
-                targetRow.cell = updateRow.cell;
-            } else {
-                HoloLog(@"⚠️[HoloTableView] No found a class with the name: %@.", updateRow.cell);
-            }
-        }
     }
     self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
     
