@@ -9,6 +9,8 @@
 #import <objc/runtime.h>
 #import "HoloTableViewSectionMaker.h"
 
+static NSString *kRowTagNil = @"row_tag_nil";
+
 ////////////////////////////////////////////////////////////
 @implementation HoloUpdateRowMaker
 
@@ -32,6 +34,8 @@
 
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *holoUpdateRows;
 
+@property (nonatomic, strong) NSMutableDictionary *rowIndexPathsDict;
+
 @end
 
 @implementation HoloTableViewUpdateRowMaker
@@ -41,6 +45,19 @@
     if (self) {
         _holoSections = sections;
         _isRemark = isRemark;
+        
+        for (HoloSection *section in self.holoSections) {
+            for (HoloRow *row in section.rows) {
+                NSString *dictKey = row.tag ?: kRowTagNil;
+                if (self.rowIndexPathsDict[dictKey]) continue;
+                
+                NSMutableDictionary *dict = @{@"targetRow" : row}.mutableCopy;
+                NSInteger sectionIndex = [self.holoSections indexOfObject:section];
+                NSInteger rowIndex = [section.rows indexOfObject:row];
+                dict[@"targetIndexPath"] = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+                self.rowIndexPathsDict[dictKey] = [dict copy];
+            }
+        }
     }
     return self;
 }
@@ -51,40 +68,30 @@
         HoloRow *updateRow = rowMaker.row;
         updateRow.tag = tag;
         
-        NSIndexPath *targetIndexPath;
-        HoloRow *targetRow;
-        for (HoloSection *section in self.holoSections) {
-            for (HoloRow *row in section.rows) {
-                if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
-                    
-                    if (!self.isRemark) {
-                        // set value of CGFloat and BOOL
-                        unsigned int outCount;
-                        objc_property_t * properties = class_copyPropertyList([row class], &outCount);
-                        for (int i = 0; i < outCount; i++) {
-                            objc_property_t property = properties[i];
-                            const char * propertyAttr = property_getAttributes(property);
-                            char t = propertyAttr[1];
-                            if (t == 'd' || t == 'B') { // CGFloat or BOOL
-                                const char *propertyName = property_getName(property);
-                                NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-                                id value = [row valueForKey:propertyNameStr];
-                                if (value) [updateRow setValue:value forKey:propertyNameStr];
-                            }
-                        }
-                        // set value of SEL
-                        updateRow.configSEL = row.configSEL;
-                        updateRow.heightSEL = row.heightSEL;
-                        updateRow.estimatedHeightSEL = row.estimatedHeightSEL;
-                    }
-                    
-                    targetRow = row;
-                    NSInteger sectionIndex = [self.holoSections indexOfObject:section];
-                    NSInteger rowIndex = [section.rows indexOfObject:row];
-                    targetIndexPath = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
-                    break;
+        NSString *dictKey = tag ?: kRowTagNil;
+        NSDictionary *rowIndexPathDict = self.rowIndexPathsDict[dictKey];
+        
+        NSIndexPath *targetIndexPath = rowIndexPathDict[@"targetIndexPath"];
+        HoloRow *targetRow = rowIndexPathDict[@"targetRow"];
+        if (!self.isRemark && targetRow) {
+            // set value of CGFloat and BOOL
+            unsigned int outCount;
+            objc_property_t * properties = class_copyPropertyList([targetRow class], &outCount);
+            for (int i = 0; i < outCount; i++) {
+                objc_property_t property = properties[i];
+                const char * propertyAttr = property_getAttributes(property);
+                char t = propertyAttr[1];
+                if (t == 'd' || t == 'B') { // CGFloat or BOOL
+                    const char *propertyName = property_getName(property);
+                    NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                    id value = [targetRow valueForKey:propertyNameStr];
+                    if (value) [updateRow setValue:value forKey:propertyNameStr];
                 }
             }
+            // set value of SEL
+            updateRow.configSEL = targetRow.configSEL;
+            updateRow.heightSEL = targetRow.heightSEL;
+            updateRow.estimatedHeightSEL = targetRow.estimatedHeightSEL;
         }
         
         NSMutableDictionary *dict = [NSMutableDictionary new];
@@ -109,6 +116,13 @@
         _holoUpdateRows = [NSMutableArray new];
     }
     return _holoUpdateRows;
+}
+
+- (NSMutableDictionary *)rowIndexPathsDict {
+    if (!_rowIndexPathsDict) {
+        _rowIndexPathsDict = [NSMutableDictionary new];
+    }
+    return _rowIndexPathsDict;
 }
 
 @end
