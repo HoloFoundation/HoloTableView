@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
- *  Remake these sections in the callee for current UITableView.
+ *  Remake these sections (Reinit all properties) in the callee for current UITableView.
  *  If current UITableView don't contain some sections in the callee, ignore them.
  *
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
- *  Remake these sections in the callee for current UITableView.
+ *  Remake these sections (Reinit all properties) in the callee for current UITableView.
  *  If current UITableView don't contain some sections in the callee, ignore them.
  *
  *  Refresh current UITableView automatically.
@@ -186,7 +186,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
- *  Remake these rows in the callee for current UITableView.
+ *  Remake these rows (Reinit all properties) in the callee for current UITableView.
  *  If current UITableView don't contain these rows, ignore them.
  *
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
@@ -195,7 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
- *  Remake these rows in the callee for current UITableView.
+ *  Remake these rows (Reinit all properties) in the callee for current UITableView.
  *  If current UITableView don't contain these rows, ignore them.
  *
  *  Refresh current UITableView automatically.
