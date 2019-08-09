@@ -9,6 +9,11 @@
 #import "HoloTableViewRowMaker.h"
 @class HoloSection;
 
+#define HOLO_TARGET_ROW         @"holo_target_row"
+#define HOLO_TARGET_INDEXPATH   @"holo_targetIndexPath"
+#define HOLO_UPDATE_ROW         @"holo_updateRow"
+#define HOLO_ROW_TAG_NIL        @"holo_row_tag_nil"
+
 NS_ASSUME_NONNULL_BEGIN
 
 ////////////////////////////////////////////////////////////

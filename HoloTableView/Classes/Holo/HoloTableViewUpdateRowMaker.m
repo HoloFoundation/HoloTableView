@@ -9,8 +9,6 @@
 #import <objc/runtime.h>
 #import "HoloTableViewSectionMaker.h"
 
-static NSString *kRowTagNil = @"row_tag_nil";
-
 ////////////////////////////////////////////////////////////
 @implementation HoloUpdateRowMaker
 
@@ -48,13 +46,13 @@ static NSString *kRowTagNil = @"row_tag_nil";
         
         for (HoloSection *section in self.holoSections) {
             for (HoloRow *row in section.rows) {
-                NSString *dictKey = row.tag ?: kRowTagNil;
+                NSString *dictKey = row.tag ?: HOLO_ROW_TAG_NIL;
                 if (self.rowIndexPathsDict[dictKey]) continue;
                 
-                NSMutableDictionary *dict = @{@"targetRow" : row}.mutableCopy;
+                NSMutableDictionary *dict = @{HOLO_TARGET_ROW : row}.mutableCopy;
                 NSInteger sectionIndex = [self.holoSections indexOfObject:section];
                 NSInteger rowIndex = [section.rows indexOfObject:row];
-                dict[@"targetIndexPath"] = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+                dict[HOLO_TARGET_INDEXPATH] = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
                 self.rowIndexPathsDict[dictKey] = [dict copy];
             }
         }
@@ -68,11 +66,11 @@ static NSString *kRowTagNil = @"row_tag_nil";
         HoloRow *updateRow = rowMaker.row;
         updateRow.tag = tag;
         
-        NSString *dictKey = tag ?: kRowTagNil;
+        NSString *dictKey = tag ?: HOLO_ROW_TAG_NIL;
         NSDictionary *rowIndexPathDict = self.rowIndexPathsDict[dictKey];
         
-        NSIndexPath *targetIndexPath = rowIndexPathDict[@"targetIndexPath"];
-        HoloRow *targetRow = rowIndexPathDict[@"targetRow"];
+        NSIndexPath *targetIndexPath = rowIndexPathDict[HOLO_TARGET_INDEXPATH];
+        HoloRow *targetRow = rowIndexPathDict[HOLO_TARGET_ROW];
         if (!self.isRemark && targetRow) {
             // set value of CGFloat and BOOL
             unsigned int outCount;
@@ -96,10 +94,10 @@ static NSString *kRowTagNil = @"row_tag_nil";
         
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetRow) {
-            dict[@"targetRow"] = targetRow;
-            dict[@"targetIndexPath"] = targetIndexPath;
+            dict[HOLO_TARGET_ROW] = targetRow;
+            dict[HOLO_TARGET_INDEXPATH] = targetIndexPath;
         }
-        dict[@"updateRow"] = updateRow;
+        dict[HOLO_UPDATE_ROW] = updateRow;
         [self.holoUpdateRows addObject:dict];
         
         return rowMaker;

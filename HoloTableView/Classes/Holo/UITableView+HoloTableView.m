@@ -58,7 +58,7 @@
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
-        HoloSection *updateSection = dict[@"updateSection"];
+        HoloSection *updateSection = dict[HOLO_UPDATE_SECTION];
         [array addObject:updateSection];
         
         if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
@@ -99,13 +99,13 @@
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
-        HoloSection *targetSection = dict[@"targetSection"];
-        HoloSection *updateSection = dict[@"updateSection"];
+        HoloSection *targetSection = dict[HOLO_TARGET_SECTION];
+        HoloSection *updateSection = dict[HOLO_UPDATE_SECTION];
         if (!targetSection) {
             HoloLog(@"⚠️[HoloTableView] No found a section with the tag: %@.", updateSection.tag);
             continue;
         }
-        [indexSet addIndex:[dict[@"targetIndex"] integerValue]];
+        [indexSet addIndex:[dict[HOLO_TARGET_INDEX] integerValue]];
         
         // set value to property which it's not kind of SEL
         unsigned int outCount;
@@ -284,13 +284,13 @@
     NSMutableDictionary *cellClsMap = self.holo_proxy.holo_proxyData.holo_cellClsMap.mutableCopy;
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
-        HoloRow *targetRow = dict[@"targetRow"];
-        HoloRow *updateRow = dict[@"updateRow"];
+        HoloRow *targetRow = dict[HOLO_TARGET_ROW];
+        HoloRow *updateRow = dict[HOLO_UPDATE_ROW];
         if (!targetRow) {
             HoloLog(@"⚠️[HoloTableView] No found a row with the tag: %@.", updateRow.tag);
             continue;
         }
-        [indexPaths addObject:dict[@"targetIndexPath"]];
+        [indexPaths addObject:dict[HOLO_TARGET_INDEXPATH]];
         
         // set value to property which it's not kind of SEL
         unsigned int outCount;

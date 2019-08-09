@@ -8,10 +8,6 @@
 #import "HoloTableViewSectionMaker.h"
 #import <objc/runtime.h>
 #import "HoloTableViewMacro.h"
-#import "HoloTableViewRowMaker.h"
-#import "HoloTableViewUpdateRowMaker.h"
-
-static NSString *kSectionTagNil = @"section_tag_nil";
 
 ////////////////////////////////////////////////////////////
 @implementation HoloSection
@@ -199,11 +195,11 @@ static NSString *kSectionTagNil = @"section_tag_nil";
         
         for (HoloSection *section in self.targetSections) {
             
-            NSString *dictKey = section.tag ?: kSectionTagNil;
+            NSString *dictKey = section.tag ?: HOLO_SECTION_TAG_NIL;
             if (self.sectionIndexsDict[dictKey]) continue;
             
-            NSMutableDictionary *dict = @{@"targetSection" : section}.mutableCopy;
-            dict[@"targetIndex"] = [NSNumber numberWithInteger:[self.targetSections indexOfObject:section]];
+            NSMutableDictionary *dict = @{HOLO_TARGET_SECTION : section}.mutableCopy;
+            dict[HOLO_TARGET_INDEX] = [NSNumber numberWithInteger:[self.targetSections indexOfObject:section]];
             self.sectionIndexsDict[dictKey] = [dict copy];
         }
     }
@@ -216,11 +212,11 @@ static NSString *kSectionTagNil = @"section_tag_nil";
         HoloSection *updateSection = sectionMaker.section;
         updateSection.tag = tag;
         
-        NSString *dictKey = tag ?: kSectionTagNil;
+        NSString *dictKey = tag ?: HOLO_SECTION_TAG_NIL;
         NSDictionary *sectionIndexDict = self.sectionIndexsDict[dictKey];
 
-        HoloSection *targetSection = sectionIndexDict[@"targetSection"];
-        NSNumber *targetIndex = sectionIndexDict[@"targetIndex"];
+        HoloSection *targetSection = sectionIndexDict[HOLO_TARGET_SECTION];
+        NSNumber *targetIndex = sectionIndexDict[HOLO_TARGET_INDEX];
         
         if (!self.isRemark && targetSection) {
             // set value of CGFloat and BOOL
@@ -246,10 +242,10 @@ static NSString *kSectionTagNil = @"section_tag_nil";
         
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetSection) {
-            dict[@"targetSection"] = targetSection;
-            dict[@"targetIndex"] = targetIndex;
+            dict[HOLO_TARGET_SECTION] = targetSection;
+            dict[HOLO_TARGET_INDEX] = targetIndex;
         }
-        dict[@"updateSection"] = updateSection;
+        dict[HOLO_UPDATE_SECTION] = updateSection;
         [self.holoUpdateSections addObject:dict];
         
         return sectionMaker;
