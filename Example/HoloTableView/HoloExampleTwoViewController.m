@@ -98,11 +98,6 @@
         NSDictionary *action2 = @{@"title":@"a2", @"style":@0};
         NSDictionary *action3 = @{@"title":@"a3", @"style":@0};
         make.row(@"three").height(88).tag(@"B-2")
-        .leadingSwipeActions(@[action1, action2])
-        .leadingSwipeHandler(^(id  _Nonnull action, NSInteger index, void (^ _Nonnull completionHandler)(BOOL)) {
-            NSLog(@"leading---%@---%ld", [action valueForKey:@"title"], index);
-            completionHandler(NO);
-        })
         .trailingSwipeActions(@[action1, action2, action3])
         .trailingSwipeHandler(^(id  _Nonnull action, NSInteger index, void (^ _Nonnull completionHandler)(BOOL)) {
             NSLog(@"trailing---%@---%ld", [action valueForKey:@"title"], index);

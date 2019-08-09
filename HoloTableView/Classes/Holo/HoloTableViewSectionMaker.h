@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloSectionMaker *(^section)(NSString *  _Nullable tag);
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections;
+- (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections isRemark:(BOOL)isRemark;
 
 - (NSArray<NSDictionary *> *)install;
 

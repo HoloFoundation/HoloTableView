@@ -75,15 +75,24 @@
 
 // holo_updateSections
 - (void)holo_updateSections:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block {
-    [self _holo_updateSections:block reload:NO withReloadAnimation:kNilOptions];
+    [self _holo_updateSections:block isRemark:NO reload:NO withReloadAnimation:kNilOptions];
 }
 
 - (void)holo_updateSections:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_updateSections:block reload:YES withReloadAnimation:animation];
+    [self _holo_updateSections:block isRemark:NO reload:YES withReloadAnimation:animation];
 }
 
-- (void)_holo_updateSections:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
-    HoloTableViewSectionMaker *maker = [[HoloTableViewSectionMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
+// holo_remakeSections
+- (void)holo_remakeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block {
+    [self _holo_updateSections:block isRemark:YES reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_remakeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_updateSections:block isRemark:YES reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_updateSections:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block isRemark:(BOOL)isRemark reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+    HoloTableViewSectionMaker *maker = [[HoloTableViewSectionMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections isRemark:isRemark];
     if (block) block(maker);
     
     // update targetSection and headerFooterMap
@@ -108,6 +117,8 @@
             if (t != ':') { // not SEL
                 const char *propertyName = property_getName(property);
                 NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                if ([propertyNameStr isEqualToString:@"rows"]) continue;
+                
                 id value = [updateSection valueForKey:propertyNameStr];
                 if (value) {
                     if ([propertyNameStr isEqualToString:@"header"]) {
@@ -119,6 +130,8 @@
                     } else {
                         [targetSection setValue:value forKey:propertyNameStr];
                     }
+                } else if (isRemark) {
+                    [targetSection setValue:NULL forKey:propertyNameStr];
                 }
             }
         }
@@ -264,7 +277,7 @@
 }
 
 - (void)_holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block isRemark:(BOOL)isRemark reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
-    HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections];
+    HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.holo_proxyData.holo_sections isRemark:isRemark];
     if (block) block(maker);
     
     // update cell-cls map and register class

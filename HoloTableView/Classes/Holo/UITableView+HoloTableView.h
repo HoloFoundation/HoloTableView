@@ -66,6 +66,27 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_updateSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
+ *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
+ *  Remake these sections in the callee for current UITableView.
+ *  If current UITableView don't contain some sections in the callee, ignore them.
+ *
+ *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
+ */
+- (void)holo_remakeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block;
+
+/**
+ *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
+ *  Remake these sections in the callee for current UITableView.
+ *  If current UITableView don't contain some sections in the callee, ignore them.
+ *
+ *  Refresh current UITableView automatically.
+ *
+ *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
+ *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new section rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
+ */
+- (void)holo_remakeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+
+/**
  *  Remove all sections.
  */
 - (void)holo_removeAllSections;
