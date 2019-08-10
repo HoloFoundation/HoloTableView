@@ -64,14 +64,12 @@
             NSLog(@"didEndDisplayingFooterHandler");
         });
 
-//        make.section(@"sectionB").headerHeight(10);
-//        make.section(@"sectionC").headerHeight(10);
+//        make.section(@"sectionB").headerHeight(44);
+//        make.section(@"sectionC").headerHeight(44);
     }];
 
     [self.tableView holo_makeRowsInSection:@"sectionA" block:^(HoloTableViewRowMaker * _Nonnull make) {
-        make.row(@"one")
-        .tag(@"A-1")
-        .model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!", @"height":@44})
+        make.row(@"one").tag(@"A-1").model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!", @"height":@44})
         .didSelectHandler(^(id  _Nonnull model) {
             NSLog(@"did select : %@", model);
         })
@@ -84,9 +82,10 @@
     }];
     
     [self.tableView holo_makeRowsInSection:@"sectionB" block:^(HoloTableViewRowMaker * _Nonnull make) {
-        make.row(@"two").height(44).tag(@"B-1").editingDeleteHandler(^(id  _Nonnull model) {
+        make.row(@"two").height(44).tag(@"B-1").editingDeleteTitle(@"dd").editingDeleteHandler(^(id  _Nonnull model) {
             
-        }).editingDeleteTitle(@"dd");
+        });
+        
         make.row(@"three").height(88).tag(@"B-2").moveHandler(^(NSIndexPath * _Nonnull atIndexPath, NSIndexPath * _Nonnull toIndexPath, void (^ _Nonnull completionHandler)(BOOL)) {
             
             completionHandler(YES);
