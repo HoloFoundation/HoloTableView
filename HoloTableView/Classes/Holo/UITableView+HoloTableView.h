@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (HoloTableView)
 
-#pragma mark - configure cell class map
+#pragma mark - configer
 /**
  *  Creates a HoloTableViewConfiger in the callee for current UITableView.
  *  Configure pairs of map (class name match cell name) for all cells.
