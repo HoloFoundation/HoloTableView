@@ -11,8 +11,8 @@
 @implementation HoloTableViewCellConfiger
 
 - (HoloTableViewCellConfiger *(^)(NSString *))cls {
-    return ^id(NSString *cls) {
-        self.clsName = cls;
+    return ^id(id obj) {
+        self.clsName = obj;
         return self;
     };
 }
@@ -33,24 +33,24 @@
 @implementation HoloTableViewConfiger
 
 - (HoloTableViewCellConfiger *(^)(NSString *))cell {
-    return ^id(NSString *cell) {
+    return ^id(id obj) {
         HoloTableViewCellConfiger *configer = [HoloTableViewCellConfiger new];
-        configer.cellName = cell;
+        configer.cellName = obj;
         [self.cellClsConfigers addObject:configer];
         return configer;
     };
 }
 
 - (HoloTableViewConfiger * (^)(NSArray<NSString *> *))sectionIndexTitles {
-    return ^id(NSArray<NSString *> *sectionIndexTitles) {
-        self.sectionIndexTitlesArray = sectionIndexTitles;
+    return ^id(id obj) {
+        self.sectionIndexTitlesArray = obj;
         return self;
     };
 }
 
 - (HoloTableViewConfiger * (^)(NSInteger (^)(NSString *, NSInteger)))sectionForSectionIndexTitleHandler {
-    return ^id(NSInteger (^sectionForSectionIndexTitleHandler)(NSString *, NSInteger)) {
-        self.sectionForSectionIndexTitleBlock = sectionForSectionIndexTitleHandler;
+    return ^id(id obj) {
+        self.sectionForSectionIndexTitleBlock = obj;
         return self;
     };
 }

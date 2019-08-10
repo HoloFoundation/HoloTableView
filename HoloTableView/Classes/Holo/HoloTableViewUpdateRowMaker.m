@@ -13,8 +13,8 @@
 @implementation HoloUpdateRowMaker
 
 - (HoloUpdateRowMaker * (^)(NSString *))cell {
-    return ^id(NSString *cell){
-        self.row.cell = cell;
+    return ^id(id obj) {
+        self.row.cell = obj;
         return self;
     };
 }

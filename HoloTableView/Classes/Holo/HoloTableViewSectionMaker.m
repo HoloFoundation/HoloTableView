@@ -69,106 +69,106 @@
 }
 
 - (HoloSectionMaker *(^)(NSString *))header {
-    return ^id(NSString *header) {
-        self.section.header = header;
+    return ^id(id obj) {
+        self.section.header = obj;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(NSString *))footer {
-    return ^id(NSString *footer) {
-        self.section.footer = footer;
+    return ^id(id obj) {
+        self.section.footer = obj;
         return self;
     };
 }
 
 - (HoloSectionMaker * (^)(id))headerModel {
-    return ^id(id headerModel) {
-        self.section.headerModel = headerModel;
+    return ^id(id obj) {
+        self.section.headerModel = obj;
         return self;
     };
 }
 
 - (HoloSectionMaker * (^)(id))footerModel {
-    return ^id(id footerModel) {
-        self.section.footerModel = footerModel;
+    return ^id(id obj) {
+        self.section.footerModel = obj;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(CGFloat))headerHeight {
-    return ^id(CGFloat headerHeight) {
-        self.section.headerHeight = headerHeight;
+    return ^id(CGFloat f) {
+        self.section.headerHeight = f;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(CGFloat))footerHeight {
-    return ^id(CGFloat footerHeight) {
-        self.section.footerHeight = footerHeight;
+    return ^id(CGFloat f) {
+        self.section.footerHeight = f;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(CGFloat))headerEstimatedHeight {
-    return ^id(CGFloat headerEstimatedHeight) {
-        self.section.headerEstimatedHeight = headerEstimatedHeight;
+    return ^id(CGFloat f) {
+        self.section.headerEstimatedHeight = f;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(CGFloat))footerEstimatedHeight {
-    return ^id(CGFloat footerEstimatedHeight) {
-        self.section.footerEstimatedHeight = footerEstimatedHeight;
+    return ^id(CGFloat f) {
+        self.section.footerEstimatedHeight = f;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(SEL))headerFooterConfigSEL {
-    return ^id(SEL headerFooterConfigSEL) {
-        self.section.headerFooterConfigSEL = headerFooterConfigSEL;
+    return ^id(SEL s) {
+        self.section.headerFooterConfigSEL = s;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(SEL))headerFooterHeightSEL {
-    return ^id(SEL headerFooterHeightSEL) {
-        self.section.headerFooterHeightSEL = headerFooterHeightSEL;
+    return ^id(SEL s) {
+        self.section.headerFooterHeightSEL = s;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(SEL))headerFooterEstimatedHeightSEL {
-    return ^id(SEL headerFooterEstimatedHeightSEL) {
-        self.section.headerFooterEstimatedHeightSEL = headerFooterEstimatedHeightSEL;
+    return ^id(SEL s) {
+        self.section.headerFooterEstimatedHeightSEL = s;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayHeaderHandler {
-    return ^id(void (^willDisplayHeaderHandler)(id)) {
-        self.section.willDisplayHeaderHandler = willDisplayHeaderHandler;
+    return ^id(id obj) {
+        self.section.willDisplayHeaderHandler = obj;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayFooterHandler {
-    return ^id(void (^willDisplayFooterHandler)(id)) {
-        self.section.willDisplayFooterHandler = willDisplayFooterHandler;
+    return ^id(id obj) {
+        self.section.willDisplayFooterHandler = obj;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingHeaderHandler {
-    return ^id(void (^didEndDisplayingHeaderHandler)(id)) {
-        self.section.didEndDisplayingHeaderHandler = didEndDisplayingHeaderHandler;
+    return ^id(id obj) {
+        self.section.didEndDisplayingHeaderHandler = obj;
         return self;
     };
 }
 
 - (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingFooterHandler {
-    return ^id(void (^didEndDisplayingFooterHandler)(id)) {
-        self.section.didEndDisplayingFooterHandler = didEndDisplayingFooterHandler;
+    return ^id(id obj) {
+        self.section.didEndDisplayingFooterHandler = obj;
         return self;
     };
 }
