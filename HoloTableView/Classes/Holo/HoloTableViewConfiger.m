@@ -62,9 +62,9 @@
     for (HoloTableViewCellConfiger *configer in self.cellClsConfigers) {
         cellClsMap[configer.cellName] = configer.clsName;
     }
-    dict[@"cellClsMap"] = [cellClsMap copy];
-    dict[@"sectionIndexTitles"] = self.sectionIndexTitlesArray;
-    dict[@"sectionForSectionIndexTitleHandler"] = self.sectionForSectionIndexTitleBlock;
+    dict[HOLO_CELL_CLS_MAP] = [cellClsMap copy];
+    dict[HOLO_SECTION_INDEX_TITLES] = self.sectionIndexTitlesArray;
+    dict[HOLO_SECTION_FOR_SECTION_INDEX_TITLES_HANDLER] = self.sectionForSectionIndexTitleBlock;
     return [dict copy];
 }
 

@@ -73,7 +73,7 @@
         return [self.holo_dataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
     }
     
-    NSInteger (^ sectionForSectionIndexTitleHandler)(NSString *, NSInteger) = self.holo_proxyData.holo_sectionForSectionIndexTitleHandler;
+    HoloSectionForSectionIndexTitleHandler sectionForSectionIndexTitleHandler = self.holo_proxyData.holo_sectionForSectionIndexTitleHandler;
     if (sectionForSectionIndexTitleHandler) {
         NSInteger targetIndex = sectionForSectionIndexTitleHandler(title, index);
         return targetIndex;

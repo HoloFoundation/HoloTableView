@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSInteger (^HoloSectionForSectionIndexTitleHandler)(NSString *, NSInteger index);
+
 @interface HoloTableViewProxyData : NSObject
 
 @property (nonatomic, copy) NSArray<HoloSection *> *holo_sections;
@@ -20,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSArray<NSString *> *holo_sectionIndexTitles;
 
-@property (nonatomic, copy) NSInteger (^holo_sectionForSectionIndexTitleHandler)(NSString *, NSInteger index);
+@property (nonatomic, copy) HoloSectionForSectionIndexTitleHandler holo_sectionForSectionIndexTitleHandler;
 
 - (NSIndexSet *)holo_appendSections:(NSArray<HoloSection *> *)sections;
 

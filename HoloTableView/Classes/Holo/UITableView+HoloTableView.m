@@ -26,7 +26,7 @@
     // check cellClsMap
     NSDictionary *dict = [configer install];
     NSMutableDictionary *cellClsMap = [NSMutableDictionary new];
-    [dict[@"cellClsMap"] enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
+    [dict[HOLO_CELL_CLS_MAP] enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
         Class class = NSClassFromString(cls);
         if (class) {
             [self registerClass:class forCellReuseIdentifier:cls];
@@ -36,8 +36,8 @@
         }
     }];
     self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
-    self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = dict[@"sectionIndexTitles"];
-    self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[@"sectionForSectionIndexTitleHandler"];
+    self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = dict[HOLO_SECTION_INDEX_TITLES];
+    self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[HOLO_SECTION_FOR_SECTION_INDEX_TITLES_HANDLER];
 }
 
 #pragma mark - section
