@@ -40,6 +40,12 @@
     return indexSet;
 }
 
+- (void)holo_appendRow:(HoloRow *)row atIndex:(NSInteger)index {
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
+    [array insertObject:row atIndex:index];
+    self.rows = array;
+}
+
 - (void)holo_removeRow:(HoloRow *)row {
     if (!row) return;
     

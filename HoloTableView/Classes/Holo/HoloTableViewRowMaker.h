@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSIndexPath *(^targetMoveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
 
-@property (nonatomic, copy) void (^moveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
+@property (nonatomic, copy) void (^moveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath, void(^completionHandler)(BOOL actionPerformed));
 
 /// Editing: delete
 @property (nonatomic, copy) NSString *editingDeleteTitle;
@@ -145,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloRowMaker *(^targetMoveHandler)(NSIndexPath *(^targetIndexPath)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath));
 
-@property (nonatomic, copy, readonly) HoloRowMaker *(^moveHandler)(void(^)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath));
+@property (nonatomic, copy, readonly) HoloRowMaker *(^moveHandler)(void(^)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath, void(^completionHandler)(BOOL actionPerformed)));
 
 /// Editing: delete
 @property (nonatomic, copy, readonly) HoloRowMaker *(^editingDeleteTitle)(NSString *title);

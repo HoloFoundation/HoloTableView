@@ -13,11 +13,16 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor cyanColor];        
-        self.textLabel.text = @"footer";
+        self.contentView.backgroundColor = [UIColor cyanColor];
+        // self.textLabel.text will became nil when the footer is reused
+        // self.textLabel.text = @"footer";
     }
     return self;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.textLabel.text = @"footer";
+}
 
 @end

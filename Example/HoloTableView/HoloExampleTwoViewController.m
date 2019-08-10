@@ -87,8 +87,9 @@
         make.row(@"two").height(44).tag(@"B-1").editingDeleteHandler(^(id  _Nonnull model) {
             
         }).editingDeleteTitle(@"dd");
-        make.row(@"three").height(88).tag(@"B-2").moveHandler(^(NSIndexPath * _Nonnull atIndexPath, NSIndexPath * _Nonnull toIndexPath) {
-
+        make.row(@"three").height(88).tag(@"B-2").moveHandler(^(NSIndexPath * _Nonnull atIndexPath, NSIndexPath * _Nonnull toIndexPath, void (^ _Nonnull completionHandler)(BOOL)) {
+            
+            completionHandler(YES);
         });
         
 //        HoloTableViewRowSwipeAction *action1 = [HoloTableViewRowSwipeAction rowSwipeActionWithStyle:HoloTableViewRowSwipeActionStyleNormal title:@"a1"];

@@ -122,9 +122,17 @@
         [self.holo_dataSource tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     }
     
-    HoloSection *holoSection = self.holoSections[sourceIndexPath.section];
-    HoloRow *holoRow = holoSection.rows[sourceIndexPath.row];
-    if (holoRow.moveHandler) holoRow.moveHandler(sourceIndexPath, destinationIndexPath);
+    HoloSection *sourceSection = self.holoSections[sourceIndexPath.section];
+    HoloRow *sourceRow = sourceSection.rows[sourceIndexPath.row];
+    if (sourceRow.moveHandler) {
+        sourceRow.moveHandler(sourceIndexPath, destinationIndexPath, ^(BOOL actionPerformed) {
+            if (actionPerformed) {
+                HoloSection *destinationSection = self.holoSections[destinationIndexPath.section];                
+                [sourceSection holo_removeRow:sourceRow];
+                [destinationSection holo_appendRow:sourceRow atIndex:destinationIndexPath.row];
+            }
+        });
+    }
 }
 
 // support these two methods with viewForHeaderInSection: and viewForFooterInSection:

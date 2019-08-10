@@ -229,8 +229,8 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(NSIndexPath *, NSIndexPath *)))moveHandler {
-    return ^id(void (^moveHandler)(NSIndexPath *, NSIndexPath *)) {
+- (HoloRowMaker *(^)(void (^)(NSIndexPath *, NSIndexPath *, void(^)(BOOL))))moveHandler {
+    return ^id(void (^moveHandler)(NSIndexPath *, NSIndexPath *, void(^)(BOOL))) {
         if (moveHandler) {
             self.row.canEdit = YES;
             self.row.canMove = YES;
