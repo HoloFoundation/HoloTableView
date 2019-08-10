@@ -247,8 +247,8 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(id)))editingDeleteHandler {
-    return ^id(void (^editingDeleteHandler)(id)) {
+- (HoloRowMaker * (^)(void (^)(id, void (^)(BOOL))))editingDeleteHandler {
+    return ^id(void (^editingDeleteHandler)(id, void (^)(BOOL))) {
         if (editingDeleteHandler) {
             self.row.canEdit = YES;
             self.row.editingStyle = UITableViewCellEditingStyleDelete;

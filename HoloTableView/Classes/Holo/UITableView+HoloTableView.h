@@ -237,10 +237,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)holo_removeRow:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation;
 
-//- (void)holo_removeRowAtIndexPath:(NSIndexPath *)indexPath;
-//- (void)holo_appendRow:(HoloRow *)row atIndexPath:(NSIndexPath *)indexPath;
-//- (void)holo_moveRowFromIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)indexPath;
-
 @end
 
 NS_ASSUME_NONNULL_END

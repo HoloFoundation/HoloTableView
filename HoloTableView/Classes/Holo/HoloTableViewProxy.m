@@ -101,7 +101,13 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (holoRow.editingDeleteHandler) holoRow.editingDeleteHandler(holoRow.model);
+        if (holoRow.editingDeleteHandler) {
+            holoRow.editingDeleteHandler(holoRow.model, ^(BOOL actionPerformed) {
+                // must remove the data before deleting the cell
+                [holoSection holo_removeRow:holoRow];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            });
+        }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         if (holoRow.editingInsertHandler) holoRow.editingInsertHandler(holoRow.model);
     }
@@ -127,7 +133,7 @@
     if (sourceRow.moveHandler) {
         sourceRow.moveHandler(sourceIndexPath, destinationIndexPath, ^(BOOL actionPerformed) {
             if (actionPerformed) {
-                HoloSection *destinationSection = self.holoSections[destinationIndexPath.section];                
+                HoloSection *destinationSection = self.holoSections[destinationIndexPath.section];
                 [sourceSection holo_removeRow:sourceRow];
                 [destinationSection holo_appendRow:sourceRow atIndex:destinationIndexPath.row];
             }

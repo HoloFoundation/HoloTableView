@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Editing: delete
 @property (nonatomic, copy) NSString *editingDeleteTitle;
 
-@property (nonatomic, copy) void (^editingDeleteHandler)(id model);
+@property (nonatomic, copy) void (^editingDeleteHandler)(id model, void(^completionHandler)(BOOL actionPerformed));
 
 /// Editing: insert
 @property (nonatomic, copy) void (^editingInsertHandler)(id model);
@@ -150,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Editing: delete
 @property (nonatomic, copy, readonly) HoloRowMaker *(^editingDeleteTitle)(NSString *title);
 
-@property (nonatomic, copy, readonly) HoloRowMaker *(^editingDeleteHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloRowMaker *(^editingDeleteHandler)(void(^)(id model, void(^completionHandler)(BOOL actionPerformed)));
 
 /// Editing: insert
 @property (nonatomic, copy, readonly) HoloRowMaker *(^editingInsertHandler)(void(^)(id model));
