@@ -73,13 +73,10 @@
         return [self.holo_dataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
     }
     
-    HoloSectionForSectionIndexTitleHandler sectionForSectionIndexTitleHandler = self.holo_proxyData.holo_sectionForSectionIndexTitleHandler;
-    if (sectionForSectionIndexTitleHandler) {
-        NSInteger targetIndex = sectionForSectionIndexTitleHandler(title, index);
-        return targetIndex;
-    } else {
-        return index;
+    if (self.holo_proxyData.holo_sectionForSectionIndexTitleHandler) {
+        return self.holo_proxyData.holo_sectionForSectionIndexTitleHandler(title, index);
     }
+    return index;
 }
 
 /// Editing

@@ -13,6 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSInteger (^HoloSectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
+
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewCellConfiger : NSObject
 
@@ -31,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableViewConfiger *(^sectionIndexTitles)(NSArray<NSString *> *sectionIndexTitles);
 
-@property (nonatomic, copy, readonly) HoloTableViewConfiger *(^sectionForSectionIndexTitleHandler)(NSInteger (^sectionIndex)(NSString *title, NSInteger index));
+@property (nonatomic, copy, readonly) HoloTableViewConfiger *(^sectionForSectionIndexTitleHandler)(HoloSectionForSectionIndexTitleHandler handler);
 
 - (NSDictionary *)install;
 

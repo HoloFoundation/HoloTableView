@@ -26,7 +26,7 @@
 
 @property (nonatomic, copy) NSArray *sectionIndexTitlesArray;
 
-@property (nonatomic, copy) NSInteger (^ sectionForSectionIndexTitleBlock)(NSString *, NSInteger);
+@property (nonatomic, copy) HoloSectionForSectionIndexTitleHandler sectionForSectionIndexTitleBlock;
 
 @end
 
@@ -48,8 +48,8 @@
     };
 }
 
-- (HoloTableViewConfiger *(^)(NSInteger (^)(NSString *, NSInteger)))sectionForSectionIndexTitleHandler {
-    return ^id(NSInteger (^ sectionForSectionIndexTitleHandler)(NSString *, NSInteger)) {
+- (HoloTableViewConfiger * (^)(HoloSectionForSectionIndexTitleHandler))sectionForSectionIndexTitleHandler {
+    return ^id(HoloSectionForSectionIndexTitleHandler sectionForSectionIndexTitleHandler) {
         self.sectionForSectionIndexTitleBlock = sectionForSectionIndexTitleHandler;
         return self;
     };

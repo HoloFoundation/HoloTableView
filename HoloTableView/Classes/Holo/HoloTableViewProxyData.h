@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSInteger (^HoloSectionForSectionIndexTitleHandler)(NSString *, NSInteger index);
+typedef NSInteger (^HoloSectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
 @interface HoloTableViewProxyData : NSObject
 
