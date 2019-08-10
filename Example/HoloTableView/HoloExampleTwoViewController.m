@@ -75,17 +75,17 @@
         .didSelectHandler(^(id  _Nonnull model) {
             NSLog(@"did select : %@", model);
         })
-        .willDisplayHandler(^(UITableViewCell * _Nonnull cell) {
+        .willDisplayHandler(^(UITableViewCell * _Nonnull cell, id  _Nonnull model) {
             NSLog(@"willDisplayHandler");
         })
-        .didEndDisplayingHandler(^(UITableViewCell * _Nonnull cell) {
+        .didEndDisplayingHandler(^(UITableViewCell * _Nonnull cell, id  _Nonnull model) {
             NSLog(@"didEndDisplayingHandler");
         });
     }];
     
     [self.tableView holo_makeRowsInSection:@"sectionB" block:^(HoloTableViewRowMaker * _Nonnull make) {
-        make.row(@"two").height(44).tag(@"B-1").editingDeleteHandler(^{
-
+        make.row(@"two").height(44).tag(@"B-1").editingDeleteHandler(^(id  _Nonnull model) {
+            
         }).editingDeleteTitle(@"dd");
         make.row(@"three").height(88).tag(@"B-2").moveHandler(^(NSIndexPath * _Nonnull atIndexPath, NSIndexPath * _Nonnull toIndexPath) {
 

@@ -101,9 +101,9 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (holoRow.editingDeleteHandler) holoRow.editingDeleteHandler();
+        if (holoRow.editingDeleteHandler) holoRow.editingDeleteHandler(holoRow.model);
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        if (holoRow.editingInsertHandler) holoRow.editingInsertHandler();
+        if (holoRow.editingInsertHandler) holoRow.editingInsertHandler(holoRow.model);
     }
 }
 
@@ -182,7 +182,7 @@
     
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.willDisplayHandler) holoRow.willDisplayHandler(cell);
+    if (holoRow.willDisplayHandler) holoRow.willDisplayHandler(cell, holoRow.model);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -195,7 +195,7 @@
     
     if (indexPath.row >= holoSection.rows.count) return;
     HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.didEndDisplayingHandler) holoRow.didEndDisplayingHandler(cell);
+    if (holoRow.didEndDisplayingHandler) holoRow.didEndDisplayingHandler(cell, holoRow.model);
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -563,7 +563,7 @@
     
     HoloSection *holoSection = self.holoSections[indexPath.section];
     HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.willBeginSwipingHandler) holoRow.willBeginSwipingHandler();
+    if (holoRow.willBeginSwipingHandler) holoRow.willBeginSwipingHandler(holoRow.model);
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -575,7 +575,7 @@
     HoloSection *holoSection = self.holoSections[indexPath.section];
     if (indexPath.row >= holoSection.rows.count) return;
     HoloRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.didEndSwipingHandler) holoRow.didEndSwipingHandler();
+    if (holoRow.didEndSwipingHandler) holoRow.didEndSwipingHandler(holoRow.model);
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {

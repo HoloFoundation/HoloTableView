@@ -128,15 +128,15 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(UITableViewCell *)))willDisplayHandler {
-    return ^id(void (^willDisplayHandler)(UITableViewCell *cell)) {
+- (HoloRowMaker *(^)(void (^)(UITableViewCell *, id)))willDisplayHandler {
+    return ^id(void (^willDisplayHandler)(UITableViewCell *, id)) {
         self.row.willDisplayHandler = willDisplayHandler;
         return self;
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(UITableViewCell *)))didEndDisplayingHandler {
-    return ^id(void (^didEndDisplayingHandler)(UITableViewCell *cell)) {
+- (HoloRowMaker *(^)(void (^)(UITableViewCell *, id)))didEndDisplayingHandler {
+    return ^id(void (^didEndDisplayingHandler)(UITableViewCell *, id)) {
         self.row.didEndDisplayingHandler = didEndDisplayingHandler;
         return self;
     };
@@ -200,15 +200,15 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(void)))willBeginSwipingHandler {
-    return ^id(void (^willBeginSwipingHandler)(void)) {
+- (HoloRowMaker *(^)(void (^)(id)))willBeginSwipingHandler {
+    return ^id(void (^willBeginSwipingHandler)(id)) {
         self.row.willBeginSwipingHandler = willBeginSwipingHandler;
         return self;
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(void)))didEndSwipingHandler {
-    return ^id(void (^didEndSwipingHandler)(void)) {
+- (HoloRowMaker *(^)(void (^)(id)))didEndSwipingHandler {
+    return ^id(void (^didEndSwipingHandler)(id)) {
         self.row.didEndSwipingHandler = didEndSwipingHandler;
         return self;
     };
@@ -247,8 +247,8 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(void)))editingDeleteHandler {
-    return ^id(void (^editingDeleteHandler)(void)) {
+- (HoloRowMaker *(^)(void (^)(id)))editingDeleteHandler {
+    return ^id(void (^editingDeleteHandler)(id)) {
         if (editingDeleteHandler) {
             self.row.canEdit = YES;
             self.row.editingStyle = UITableViewCellEditingStyleDelete;
@@ -258,8 +258,8 @@
     };
 }
 
-- (HoloRowMaker *(^)(void (^)(void)))editingInsertHandler {
-    return ^id(void (^editingInsertHandler)(void)) {
+- (HoloRowMaker *(^)(void (^)(id)))editingInsertHandler {
+    return ^id(void (^editingInsertHandler)(id)) {
         if (editingInsertHandler) {
             self.row.canEdit = YES;
             self.row.editingStyle = UITableViewCellEditingStyleInsert;
