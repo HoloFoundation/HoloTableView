@@ -11,12 +11,15 @@
 
 @implementation HoloTableViewProxyData
 
-- (NSIndexSet *)holo_appendSections:(NSArray<HoloSection *> *)sections {
+- (NSIndexSet *)holo_insertSections:(NSArray<HoloSection *> *)sections anIndex:(NSInteger)index {
     if (sections.count <= 0) return nil;
-
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.holo_sections.count, sections.count)];
+    
+    if (index < 0) index = 0;
+    if (index > self.holo_sections.count) index = self.holo_sections.count;
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, sections.count)];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
-    [array addObjectsFromArray:sections];
+    [array insertObjects:sections atIndexes:indexSet];
     self.holo_sections = array;
     return indexSet;
 }

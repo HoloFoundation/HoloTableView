@@ -135,7 +135,7 @@
             if (actionPerformed) {
                 HoloSection *destinationSection = self.holoSections[destinationIndexPath.section];
                 [sourceSection holo_removeRow:sourceRow];
-                [destinationSection holo_appendRow:sourceRow atIndex:destinationIndexPath.row];
+                [destinationSection holo_insertRows:@[sourceRow] atIndex:destinationIndexPath.row];
             }
         });
     }

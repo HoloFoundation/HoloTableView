@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSInteger (^holo_sectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
-- (NSIndexSet *)holo_appendSections:(NSArray<HoloSection *> *)sections;
+- (NSIndexSet *)holo_insertSections:(NSArray<HoloSection *> *)sections anIndex:(NSInteger)index;
 
 - (NSIndexSet *)holo_removeAllSection;
 

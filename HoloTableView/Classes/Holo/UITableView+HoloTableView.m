@@ -43,14 +43,22 @@
 #pragma mark - section
 // holo_makeSections
 - (void)holo_makeSections:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block {
-    [self _holo_makeSections:block reload:NO withReloadAnimation:kNilOptions];
+    [self _holo_insertSectionsAtIndex:NSIntegerMax block:block reload:NO withReloadAnimation:kNilOptions];
 }
 
 - (void)holo_makeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_makeSections:block reload:YES withReloadAnimation:animation];
+    [self _holo_insertSectionsAtIndex:NSIntegerMax block:block reload:YES withReloadAnimation:animation];
 }
 
-- (void)_holo_makeSections:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+- (void)holo_insertSectionsAtIndex:(NSInteger)index block:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block {
+    [self _holo_insertSectionsAtIndex:index block:block reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_insertSectionsAtIndex:(NSInteger)index block:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_insertSectionsAtIndex:index block:block reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_insertSectionsAtIndex:(NSInteger)index block:(void (NS_NOESCAPE ^)(HoloTableViewSectionMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
@@ -67,7 +75,7 @@
     self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
     
     // append sections
-    NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_appendSections:array];
+    NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_insertSections:array anIndex:index];
     if (reload && indexSet.count > 0) {
         [self insertSections:indexSet withRowAnimation:animation];
     }
@@ -199,23 +207,39 @@
 #pragma mark - row
 // holo_makeRows
 - (void)holo_makeRows:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block {
-    [self _holo_makeRowsInSection:nil block:block reload:NO withReloadAnimation:kNilOptions];
+    [self _holo_insertRowsAtIndex:NSIntegerMax inSection:nil block:block reload:NO withReloadAnimation:kNilOptions];
 }
 
 - (void)holo_makeRows:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_makeRowsInSection:nil block:block reload:YES withReloadAnimation:animation];
+    [self _holo_insertRowsAtIndex:NSIntegerMax inSection:nil block:block reload:YES withReloadAnimation:animation];
 }
 
 // holo_makeRowsInSection
 - (void)holo_makeRowsInSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block {
-    [self _holo_makeRowsInSection:tag block:block reload:NO withReloadAnimation:kNilOptions];
+    [self _holo_insertRowsAtIndex:NSIntegerMax inSection:tag block:block reload:NO withReloadAnimation:kNilOptions];
 }
 
 - (void)holo_makeRowsInSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_makeRowsInSection:tag block:block reload:YES withReloadAnimation:animation];
+    [self _holo_insertRowsAtIndex:NSIntegerMax inSection:tag block:block reload:YES withReloadAnimation:animation];
 }
 
-- (void)_holo_makeRowsInSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+- (void)holo_insertRowsAtIndex:(NSInteger)index block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block {
+    [self _holo_insertRowsAtIndex:index inSection:nil block:block reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_insertRowsAtIndex:(NSInteger)index block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_insertRowsAtIndex:index inSection:nil block:block reload:YES withReloadAnimation:animation];
+}
+
+- (void)holo_insertRowsAtIndex:(NSInteger)index inSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block {
+    [self _holo_insertRowsAtIndex:index inSection:tag block:block reload:NO withReloadAnimation:kNilOptions];
+}
+
+- (void)holo_insertRowsAtIndex:(NSInteger)index inSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_insertRowsAtIndex:index inSection:tag block:block reload:YES withReloadAnimation:animation];
+}
+
+- (void)_holo_insertRowsAtIndex:(NSInteger)index inSection:(NSString *)tag block:(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *))block reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
@@ -242,10 +266,10 @@
     if (!targetSection) {
         targetSection = [HoloSection new];
         targetSection.tag = tag;
-        [self.holo_proxy.holo_proxyData holo_appendSections:@[targetSection]];
+        [self.holo_proxy.holo_proxyData holo_insertSections:@[targetSection] anIndex:NSIntegerMax];
         isNewOne = YES;
     }
-    NSIndexSet *indexSet = [targetSection holo_appendRows:rows];
+    NSIndexSet *indexSet = [targetSection holo_insertRows:rows atIndex:index];
     NSInteger sectionIndex = [self.holo_proxy.holo_proxyData.holo_sections indexOfObject:targetSection];
     if (reload && isNewOne) {
         [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];

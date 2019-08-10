@@ -30,20 +30,17 @@
     return self;
 }
 
-- (NSIndexSet *)holo_appendRows:(NSArray<HoloRow *> *)rows {
+- (NSIndexSet *)holo_insertRows:(NSArray<HoloRow *> *)rows atIndex:(NSInteger)index {
     if (rows.count <= 0) return nil;
     
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.rows.count, rows.count)];
+    if (index < 0) index = 0;
+    if (index > self.rows.count) index = self.rows.count;
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, rows.count)];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array addObjectsFromArray:rows];
+    [array insertObjects:rows atIndexes:indexSet];
     self.rows = array;
     return indexSet;
-}
-
-- (void)holo_appendRow:(HoloRow *)row atIndex:(NSInteger)index {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array insertObject:row atIndex:index];
-    self.rows = array;
 }
 
 - (void)holo_removeRow:(HoloRow *)row {

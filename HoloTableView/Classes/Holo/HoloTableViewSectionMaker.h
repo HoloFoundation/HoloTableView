@@ -52,9 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer);
 
-- (NSIndexSet *)holo_appendRows:(NSArray<HoloRow *> *)rows;
-
-- (void)holo_appendRow:(HoloRow *)row atIndex:(NSInteger)index;
+- (NSIndexSet *)holo_insertRows:(NSArray<HoloRow *> *)rows atIndex:(NSInteger)index;
 
 - (void)holo_removeRow:(HoloRow *)row;
 
