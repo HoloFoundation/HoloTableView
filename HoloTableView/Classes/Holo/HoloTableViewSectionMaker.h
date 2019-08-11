@@ -8,10 +8,10 @@
 #import <Foundation/Foundation.h>
 @class HoloRow;
 
-#define HOLO_TARGET_SECTION     @"holo_targetSection"
-#define HOLO_TARGET_INDEX       @"targetIndex"
-#define HOLO_UPDATE_SECTION     @"updateSection"
-#define HOLO_SECTION_TAG_NIL    @"section_tag_nil"
+#define HOLO_TARGET_SECTION     @"holo_target_section"
+#define HOLO_TARGET_INDEX       @"holo_target_index"
+#define HOLO_UPDATE_SECTION     @"holo_update_section"
+#define HOLO_SECTION_TAG_NIL    @"holo_section_tag_nil"
 
 NS_ASSUME_NONNULL_BEGIN
 

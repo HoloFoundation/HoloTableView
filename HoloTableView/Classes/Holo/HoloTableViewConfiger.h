@@ -9,7 +9,7 @@
 
 #define HOLO_CELL_CLS_MAP                               @"holo_cell_cls_map"
 #define HOLO_SECTION_INDEX_TITLES                       @"holo_section_index_titles"
-#define HOLO_SECTION_FOR_SECTION_INDEX_TITLES_HANDLER   @"section_for_section_index_title_handler"
+#define HOLO_SECTION_FOR_SECTION_INDEX_TITLES_HANDLER   @"holo_section_for_section_index_title_handler"
 
 NS_ASSUME_NONNULL_BEGIN
 
