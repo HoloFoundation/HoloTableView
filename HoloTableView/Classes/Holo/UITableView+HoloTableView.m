@@ -19,7 +19,7 @@
 @implementation UITableView (HoloTableView)
 
 #pragma mark - configure cell class map
-- (void)holo_configTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block  {
+- (void)holo_configureTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block  {
     HoloTableViewConfiger *configer = [HoloTableViewConfiger new];
     if (block) block(configer);
     

@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param block Scope within which you can configure the cell name and class name's map which you wish to apply to current UITableView.
  */
-- (void)holo_configTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block;
+- (void)holo_configureTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block;
 
 
 #pragma mark - section

@@ -31,7 +31,7 @@
     self.tableView.holo_proxy.holo_delegate = self;
 //    self.tableView.editing = YES;
     
-    [self.tableView holo_configTableView:^(HoloTableViewConfiger * _Nonnull configer) {
+    [self.tableView holo_configureTableView:^(HoloTableViewConfiger * _Nonnull configer) {
         NSDictionary *cellClsMap = [self _cellClaMap];
         [cellClsMap enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
             configer.cell(key).cls(obj);
