@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)configHeaderFooterWithModel:(id)model;
+- (void)configureHeaderFooterWithModel:(id)model;
 
 + (CGFloat)heightForHeaderFooterWithModel:(id)model;
 
