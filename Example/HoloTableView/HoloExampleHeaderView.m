@@ -19,7 +19,7 @@
     return self;
 }
 
-- (void)configHeaderFooterWithModel:(NSDictionary *)model {
+- (void)configureHeaderFooterWithModel:(NSDictionary *)model {
     self.textLabel.text = model[@"title"];
 }
 
