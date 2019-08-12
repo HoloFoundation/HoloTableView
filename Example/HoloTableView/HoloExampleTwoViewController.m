@@ -67,7 +67,7 @@
 //        make.section(@"sectionB").headerHeight(44);
 //        make.section(@"sectionC").headerHeight(44);
     }];
-
+    
     [self.tableView holo_makeRowsInSection:@"sectionA" block:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(@"one").tag(@"A-1").model(@{@"bgColor": [UIColor lightGrayColor], @"text":@"Hello World!", @"height":@44})
         .didSelectHandler(^(id  _Nonnull model) {
