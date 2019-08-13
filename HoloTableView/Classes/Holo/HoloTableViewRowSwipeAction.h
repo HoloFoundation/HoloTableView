@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, HoloTableViewRowSwipeActionStyle) {
 
 @property (nonatomic, copy, nullable) UIColor *backgroundColor;
 
-@property (nonatomic, copy, nullable) UIVisualEffect* backgroundEffect NS_DEPRECATED_IOS(8_0, 10_0);
+@property (nonatomic, copy, nullable) UIVisualEffect *backgroundEffect NS_DEPRECATED_IOS(8_0, 10_0);
 
 @property (nonatomic, copy, nullable) UIImage *image API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
