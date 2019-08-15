@@ -8,12 +8,13 @@
 #import <Foundation/Foundation.h>
 @class HoloRow;
 
-#define HOLO_TARGET_SECTION     @"holo_target_section"
-#define HOLO_TARGET_INDEX       @"holo_target_index"
-#define HOLO_UPDATE_SECTION     @"holo_update_section"
-#define HOLO_SECTION_TAG_NIL    @"holo_section_tag_nil"
-
 NS_ASSUME_NONNULL_BEGIN
+
+static NSString * const kHoloTargetSection = @"holo_target_section";
+static NSString * const kHoloTargetIndex = @"holo_target_index";
+static NSString * const kHoloUpdateSection = @"holo_update_section";
+static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
+
 
 ////////////////////////////////////////////////////////////
 @interface HoloSection : NSObject

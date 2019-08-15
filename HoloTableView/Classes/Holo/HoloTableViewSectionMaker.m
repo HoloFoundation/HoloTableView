@@ -198,11 +198,11 @@
         
         for (HoloSection *section in self.targetSections) {
             
-            NSString *dictKey = section.tag ?: HOLO_SECTION_TAG_NIL;
+            NSString *dictKey = section.tag ?: kHoloSectionTagNil;
             if (self.sectionIndexsDict[dictKey]) continue;
             
-            NSMutableDictionary *dict = @{HOLO_TARGET_SECTION : section}.mutableCopy;
-            dict[HOLO_TARGET_INDEX] = [NSNumber numberWithInteger:[self.targetSections indexOfObject:section]];
+            NSMutableDictionary *dict = @{kHoloTargetSection : section}.mutableCopy;
+            dict[kHoloTargetIndex] = [NSNumber numberWithInteger:[self.targetSections indexOfObject:section]];
             self.sectionIndexsDict[dictKey] = [dict copy];
         }
     }
@@ -215,11 +215,11 @@
         HoloSection *updateSection = sectionMaker.section;
         updateSection.tag = tag;
         
-        NSString *dictKey = tag ?: HOLO_SECTION_TAG_NIL;
+        NSString *dictKey = tag ?: kHoloSectionTagNil;
         NSDictionary *sectionIndexDict = self.sectionIndexsDict[dictKey];
 
-        HoloSection *targetSection = sectionIndexDict[HOLO_TARGET_SECTION];
-        NSNumber *targetIndex = sectionIndexDict[HOLO_TARGET_INDEX];
+        HoloSection *targetSection = sectionIndexDict[kHoloTargetSection];
+        NSNumber *targetIndex = sectionIndexDict[kHoloTargetIndex];
         
         if (!self.isRemark && targetSection) {
             // set value of CGFloat and BOOL
@@ -245,10 +245,10 @@
         
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetSection) {
-            dict[HOLO_TARGET_SECTION] = targetSection;
-            dict[HOLO_TARGET_INDEX] = targetIndex;
+            dict[kHoloTargetSection] = targetSection;
+            dict[kHoloTargetIndex] = targetIndex;
         }
-        dict[HOLO_UPDATE_SECTION] = updateSection;
+        dict[kHoloUpdateSection] = updateSection;
         [self.holoUpdateSections addObject:dict];
         
         return sectionMaker;

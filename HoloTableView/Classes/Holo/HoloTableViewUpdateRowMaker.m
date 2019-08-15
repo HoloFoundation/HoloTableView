@@ -46,13 +46,13 @@
         
         for (HoloSection *section in self.holoSections) {
             for (HoloRow *row in section.rows) {
-                NSString *dictKey = row.tag ?: HOLO_ROW_TAG_NIL;
+                NSString *dictKey = row.tag ?: kHoloRowTagNil;
                 if (self.rowIndexPathsDict[dictKey]) continue;
                 
-                NSMutableDictionary *dict = @{HOLO_TARGET_ROW : row}.mutableCopy;
+                NSMutableDictionary *dict = @{kHoloTargetRow : row}.mutableCopy;
                 NSInteger sectionIndex = [self.holoSections indexOfObject:section];
                 NSInteger rowIndex = [section.rows indexOfObject:row];
-                dict[HOLO_TARGET_INDEXPATH] = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+                dict[kHoloTargetIndexPath] = [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
                 self.rowIndexPathsDict[dictKey] = [dict copy];
             }
         }
@@ -66,11 +66,11 @@
         HoloRow *updateRow = rowMaker.row;
         updateRow.tag = tag;
         
-        NSString *dictKey = tag ?: HOLO_ROW_TAG_NIL;
+        NSString *dictKey = tag ?: kHoloRowTagNil;
         NSDictionary *rowIndexPathDict = self.rowIndexPathsDict[dictKey];
         
-        NSIndexPath *targetIndexPath = rowIndexPathDict[HOLO_TARGET_INDEXPATH];
-        HoloRow *targetRow = rowIndexPathDict[HOLO_TARGET_ROW];
+        NSIndexPath *targetIndexPath = rowIndexPathDict[kHoloTargetIndexPath];
+        HoloRow *targetRow = rowIndexPathDict[kHoloTargetRow];
         if (!self.isRemark && targetRow) {
             // set value of CGFloat and BOOL
             unsigned int outCount;
@@ -94,10 +94,10 @@
         
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (targetRow) {
-            dict[HOLO_TARGET_ROW] = targetRow;
-            dict[HOLO_TARGET_INDEXPATH] = targetIndexPath;
+            dict[kHoloTargetRow] = targetRow;
+            dict[kHoloTargetIndexPath] = targetIndexPath;
         }
-        dict[HOLO_UPDATE_ROW] = updateRow;
+        dict[kHoloUpdateRow] = updateRow;
         [self.holoUpdateRows addObject:dict];
         
         return rowMaker;

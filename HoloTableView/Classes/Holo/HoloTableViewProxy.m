@@ -470,11 +470,11 @@
     if (holoRow.trailingSwipeActions.count <= 0) return nil;
 
     for (id object in holoRow.trailingSwipeActions) {
-        NSString *title = [object valueForKey:HOLO_SWIPE_ACTION_TITLE];
-        NSInteger style = [[object valueForKey:HOLO_SWIPE_ACTION_STYLE] integerValue];
-        UIColor *backgroundColor = [object valueForKey:HOLO_SWIPE_ACTION_BACKGROUND_COLOR];
-        UIVisualEffect *backgroundEffect = [object valueForKey:HOLO_SWIPE_ACTION_BACKGROUND_EFFECT];
-        HoloTableViewRowSwipeActionHandler handler = [object valueForKey:HOLO_SWIPE_ACTION_HANDLER];
+        NSString *title = [object valueForKey:kHoloSwipActionTitle];
+        NSInteger style = [[object valueForKey:kHoloSwipActionStyle] integerValue];
+        UIColor *backgroundColor = [object valueForKey:kHoloSwipActionBackgroundColor];
+        UIVisualEffect *backgroundEffect = [object valueForKey:kHoloSwipActionBackgroundEffect];
+        HoloTableViewRowSwipeActionHandler handler = [object valueForKey:kHoloSwipActionHandler];
         NSInteger index = [holoRow.trailingSwipeActions indexOfObject:object];
         
         UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:!style title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
@@ -534,11 +534,11 @@
     
     NSMutableArray *array = [NSMutableArray new];
     for (id object in swipeActions) {
-        NSString *title = [object valueForKey:HOLO_SWIPE_ACTION_TITLE];
-        NSInteger style = [[object valueForKey:HOLO_SWIPE_ACTION_STYLE] integerValue];
-        UIColor *backgroundColor = [object valueForKey:HOLO_SWIPE_ACTION_BACKGROUND_COLOR];
-        UIImage *image = [object valueForKey:HOLO_SWIPE_ACTION_IMAGE];
-        HoloTableViewRowSwipeActionHandler swipeActionHandler = [object valueForKey:HOLO_SWIPE_ACTION_HANDLER];
+        NSString *title = [object valueForKey:kHoloSwipActionTitle];
+        NSInteger style = [[object valueForKey:kHoloSwipActionStyle] integerValue];
+        UIColor *backgroundColor = [object valueForKey:kHoloSwipActionBackgroundColor];
+        UIImage *image = [object valueForKey:kHoloSwipActionImage];
+        HoloTableViewRowSwipeActionHandler swipeActionHandler = [object valueForKey:kHoloSwipActionHandler];
         NSInteger index = [swipeActions indexOfObject:object];
         
         UIContextualAction *action = [UIContextualAction contextualActionWithStyle:style title:title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {

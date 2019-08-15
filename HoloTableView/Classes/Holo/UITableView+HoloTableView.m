@@ -26,7 +26,7 @@
     // check cellClsMap
     NSDictionary *dict = [configer install];
     NSMutableDictionary *cellClsMap = [NSMutableDictionary new];
-    [dict[HOLO_CELL_CLS_MAP] enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
+    [dict[kHoloCellClsMap] enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
         Class class = NSClassFromString(cls);
         if (class) {
             [self registerClass:class forCellReuseIdentifier:cls];
@@ -36,8 +36,8 @@
         }
     }];
     self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
-    self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = dict[HOLO_SECTION_INDEX_TITLES];
-    self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[HOLO_SECTION_FOR_SECTION_INDEX_TITLES_HANDLER];
+    self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = dict[kHoloSectionIndexTitles];
+    self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[kHoloSectionForSectionIndexTitleHandler];
 }
 
 #pragma mark - section
@@ -66,7 +66,7 @@
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
-        HoloSection *updateSection = dict[HOLO_UPDATE_SECTION];
+        HoloSection *updateSection = dict[kHoloUpdateSection];
         [array addObject:updateSection];
         
         if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
@@ -107,13 +107,13 @@
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
-        HoloSection *targetSection = dict[HOLO_TARGET_SECTION];
-        HoloSection *updateSection = dict[HOLO_UPDATE_SECTION];
+        HoloSection *targetSection = dict[kHoloTargetSection];
+        HoloSection *updateSection = dict[kHoloUpdateSection];
         if (!targetSection) {
             HoloLog(@"⚠️[HoloTableView] No found a section with the tag: %@.", updateSection.tag);
             continue;
         }
-        [indexSet addIndex:[dict[HOLO_TARGET_INDEX] integerValue]];
+        [indexSet addIndex:[dict[kHoloTargetIndex] integerValue]];
         
         // set value to property which it's not kind of SEL
         unsigned int outCount;
@@ -308,13 +308,13 @@
     NSMutableDictionary *cellClsMap = self.holo_proxy.holo_proxyData.holo_cellClsMap.mutableCopy;
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
-        HoloRow *targetRow = dict[HOLO_TARGET_ROW];
-        HoloRow *updateRow = dict[HOLO_UPDATE_ROW];
+        HoloRow *targetRow = dict[kHoloTargetRow];
+        HoloRow *updateRow = dict[kHoloUpdateRow];
         if (!targetRow) {
             HoloLog(@"⚠️[HoloTableView] No found a row with the tag: %@.", updateRow.tag);
             continue;
         }
-        [indexPaths addObject:dict[HOLO_TARGET_INDEXPATH]];
+        [indexPaths addObject:dict[kHoloTargetIndexPath]];
         
         // set value to property which it's not kind of SEL
         unsigned int outCount;

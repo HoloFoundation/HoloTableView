@@ -8,14 +8,14 @@
 #import <Foundation/Foundation.h>
 @class HoloTableViewRowSwipeAction;
 
-#define HOLO_SWIPE_ACTION_TITLE             @"title"
-#define HOLO_SWIPE_ACTION_STYLE             @"style"
-#define HOLO_SWIPE_ACTION_BACKGROUND_COLOR  @"backgroundColor"
-#define HOLO_SWIPE_ACTION_BACKGROUND_EFFECT @"backgroundEffect"
-#define HOLO_SWIPE_ACTION_IMAGE             @"image"
-#define HOLO_SWIPE_ACTION_HANDLER           @"handler"
-
 NS_ASSUME_NONNULL_BEGIN
+static NSString * const kHoloSwipActionTitle = @"title";
+static NSString * const kHoloSwipActionStyle = @"style";
+static NSString * const kHoloSwipActionBackgroundColor = @"backgroundColor";
+static NSString * const kHoloSwipActionBackgroundEffect = @"backgroundEffect";
+static NSString * const kHoloSwipActionImage = @"image";
+static NSString * const kHoloSwipActionHandler = @"handler";
+
 
 typedef void (^HoloTableViewRowSwipeActionHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
 

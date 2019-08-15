@@ -7,11 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
-#define HOLO_CELL_CLS_MAP                               @"holo_cell_cls_map"
-#define HOLO_SECTION_INDEX_TITLES                       @"holo_section_index_titles"
-#define HOLO_SECTION_FOR_SECTION_INDEX_TITLES_HANDLER   @"holo_section_for_section_index_title_handler"
-
 NS_ASSUME_NONNULL_BEGIN
+
+static NSString * const kHoloCellClsMap = @"holo_cell_cls_map";
+static NSString * const kHoloSectionIndexTitles = @"holo_section_index_titles";
+static NSString * const kHoloSectionForSectionIndexTitleHandler = @"holo_section_for_section_index_title_handler";
+
 
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewCellConfiger : NSObject

@@ -9,12 +9,13 @@
 #import "HoloTableViewRowMaker.h"
 @class HoloSection;
 
-#define HOLO_TARGET_ROW         @"holo_target_row"
-#define HOLO_TARGET_INDEXPATH   @"holo_target_indexPath"
-#define HOLO_UPDATE_ROW         @"holo_update_row"
-#define HOLO_ROW_TAG_NIL        @"holo_row_tag_nil"
-
 NS_ASSUME_NONNULL_BEGIN
+
+static NSString *const kHoloTargetRow = @"holo_target_row";
+static NSString *const kHoloTargetIndexPath = @"holo_target_indexPath";
+static NSString *const kHoloUpdateRow = @"holo_update_row";
+static NSString *const kHoloRowTagNil = @"holo_row_tag_nil";
+
 
 ////////////////////////////////////////////////////////////
 @interface HoloUpdateRowMaker : HoloRowMaker
