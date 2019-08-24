@@ -10,7 +10,7 @@
 #import "HoloTableViewMacro.h"
 
 ////////////////////////////////////////////////////////////
-@implementation HoloSection
+@implementation HoloTableSection
 
 - (instancetype)init {
     self = [super init];
@@ -30,7 +30,7 @@
     return self;
 }
 
-- (NSIndexSet *)holo_insertRows:(NSArray<HoloRow *> *)rows atIndex:(NSInteger)index {
+- (NSIndexSet *)holo_insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
     if (rows.count <= 0) return nil;
     
     if (index < 0) index = 0;
@@ -43,7 +43,7 @@
     return indexSet;
 }
 
-- (void)holo_removeRow:(HoloRow *)row {
+- (void)holo_removeRow:(HoloTableRow *)row {
     if (!row) return;
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
@@ -58,115 +58,115 @@
 @end
 
 ////////////////////////////////////////////////////////////
-@implementation HoloSectionMaker
+@implementation HoloTableSectionMaker
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _section = [HoloSection new];
+        _section = [HoloTableSection new];
     }
     return self;
 }
 
-- (HoloSectionMaker *(^)(NSString *))header {
+- (HoloTableSectionMaker *(^)(NSString *))header {
     return ^id(id obj) {
         self.section.header = obj;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(NSString *))footer {
+- (HoloTableSectionMaker *(^)(NSString *))footer {
     return ^id(id obj) {
         self.section.footer = obj;
         return self;
     };
 }
 
-- (HoloSectionMaker * (^)(id))headerModel {
+- (HoloTableSectionMaker * (^)(id))headerModel {
     return ^id(id obj) {
         self.section.headerModel = obj;
         return self;
     };
 }
 
-- (HoloSectionMaker * (^)(id))footerModel {
+- (HoloTableSectionMaker * (^)(id))footerModel {
     return ^id(id obj) {
         self.section.footerModel = obj;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(CGFloat))headerHeight {
+- (HoloTableSectionMaker *(^)(CGFloat))headerHeight {
     return ^id(CGFloat f) {
         self.section.headerHeight = f;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(CGFloat))footerHeight {
+- (HoloTableSectionMaker *(^)(CGFloat))footerHeight {
     return ^id(CGFloat f) {
         self.section.footerHeight = f;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(CGFloat))headerEstimatedHeight {
+- (HoloTableSectionMaker *(^)(CGFloat))headerEstimatedHeight {
     return ^id(CGFloat f) {
         self.section.headerEstimatedHeight = f;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(CGFloat))footerEstimatedHeight {
+- (HoloTableSectionMaker *(^)(CGFloat))footerEstimatedHeight {
     return ^id(CGFloat f) {
         self.section.footerEstimatedHeight = f;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(SEL))headerFooterConfigSEL {
+- (HoloTableSectionMaker *(^)(SEL))headerFooterConfigSEL {
     return ^id(SEL s) {
         self.section.headerFooterConfigSEL = s;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(SEL))headerFooterHeightSEL {
+- (HoloTableSectionMaker *(^)(SEL))headerFooterHeightSEL {
     return ^id(SEL s) {
         self.section.headerFooterHeightSEL = s;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(SEL))headerFooterEstimatedHeightSEL {
+- (HoloTableSectionMaker *(^)(SEL))headerFooterEstimatedHeightSEL {
     return ^id(SEL s) {
         self.section.headerFooterEstimatedHeightSEL = s;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayHeaderHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *)))willDisplayHeaderHandler {
     return ^id(id obj) {
         self.section.willDisplayHeaderHandler = obj;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))willDisplayFooterHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *)))willDisplayFooterHandler {
     return ^id(id obj) {
         self.section.willDisplayFooterHandler = obj;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingHeaderHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingHeaderHandler {
     return ^id(id obj) {
         self.section.didEndDisplayingHeaderHandler = obj;
         return self;
     };
 }
 
-- (HoloSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingFooterHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingFooterHandler {
     return ^id(id obj) {
         self.section.didEndDisplayingFooterHandler = obj;
         return self;
@@ -178,7 +178,7 @@
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewSectionMaker ()
 
-@property (nonatomic, copy) NSArray<HoloSection *> *targetSections;
+@property (nonatomic, copy) NSArray<HoloTableSection *> *targetSections;
 
 @property (nonatomic, assign) BOOL isRemark;
 
@@ -190,13 +190,13 @@
 
 @implementation HoloTableViewSectionMaker
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections isRemark:(BOOL)isRemark {
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark {
     self = [super init];
     if (self) {
         _targetSections = sections;
         _isRemark = isRemark;
         
-        for (HoloSection *section in self.targetSections) {
+        for (HoloTableSection *section in self.targetSections) {
             
             NSString *dictKey = section.tag ?: kHoloSectionTagNil;
             if (self.sectionIndexsDict[dictKey]) continue;
@@ -209,16 +209,16 @@
     return self;
 }
 
-- (HoloSectionMaker *(^)(NSString *))section {
+- (HoloTableSectionMaker *(^)(NSString *))section {
     return ^id(NSString *tag) {
-        HoloSectionMaker *sectionMaker = [HoloSectionMaker new];
-        HoloSection *updateSection = sectionMaker.section;
+        HoloTableSectionMaker *sectionMaker = [HoloTableSectionMaker new];
+        HoloTableSection *updateSection = sectionMaker.section;
         updateSection.tag = tag;
         
         NSString *dictKey = tag ?: kHoloSectionTagNil;
         NSDictionary *sectionIndexDict = self.sectionIndexsDict[dictKey];
 
-        HoloSection *targetSection = sectionIndexDict[kHoloTargetSection];
+        HoloTableSection *targetSection = sectionIndexDict[kHoloTargetSection];
         NSNumber *targetIndex = sectionIndexDict[kHoloTargetIndex];
         
         if (!self.isRemark && targetSection) {

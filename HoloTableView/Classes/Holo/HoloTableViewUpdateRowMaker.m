@@ -10,9 +10,9 @@
 #import "HoloTableViewSectionMaker.h"
 
 ////////////////////////////////////////////////////////////
-@implementation HoloUpdateRowMaker
+@implementation HoloUpdateTableRowMaker
 
-- (HoloUpdateRowMaker * (^)(NSString *))cell {
+- (HoloUpdateTableRowMaker * (^)(NSString *))cell {
     return ^id(id obj) {
         self.row.cell = obj;
         return self;
@@ -24,11 +24,11 @@
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker ()
 
-@property (nonatomic, copy) NSArray<HoloSection *> *holoSections;
+@property (nonatomic, copy) NSArray<HoloTableSection *> *holoSections;
 
 @property (nonatomic, assign) BOOL isRemark;
 
-@property (nonatomic, strong) HoloRow *targetRow;
+@property (nonatomic, strong) HoloTableRow *targetRow;
 
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *holoUpdateRows;
 
@@ -38,14 +38,14 @@
 
 @implementation HoloTableViewUpdateRowMaker
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections isRemark:(BOOL)isRemark {
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark {
     self = [super init];
     if (self) {
         _holoSections = sections;
         _isRemark = isRemark;
         
-        for (HoloSection *section in self.holoSections) {
-            for (HoloRow *row in section.rows) {
+        for (HoloTableSection *section in self.holoSections) {
+            for (HoloTableRow *row in section.rows) {
                 NSString *dictKey = row.tag ?: kHoloRowTagNil;
                 if (self.rowIndexPathsDict[dictKey]) continue;
                 
@@ -60,17 +60,17 @@
     return self;
 }
 
-- (HoloUpdateRowMaker *(^)(NSString *))tag {
+- (HoloUpdateTableRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag) {
-        HoloUpdateRowMaker *rowMaker = [HoloUpdateRowMaker new];
-        HoloRow *updateRow = rowMaker.row;
+        HoloUpdateTableRowMaker *rowMaker = [HoloUpdateTableRowMaker new];
+        HoloTableRow *updateRow = rowMaker.row;
         updateRow.tag = tag;
         
         NSString *dictKey = tag ?: kHoloRowTagNil;
         NSDictionary *rowIndexPathDict = self.rowIndexPathsDict[dictKey];
         
         NSIndexPath *targetIndexPath = rowIndexPathDict[kHoloTargetIndexPath];
-        HoloRow *targetRow = rowIndexPathDict[kHoloTargetRow];
+        HoloTableRow *targetRow = rowIndexPathDict[kHoloTargetRow];
         if (!self.isRemark && targetRow) {
             // set value of CGFloat and BOOL
             unsigned int outCount;

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloRow;
+@class HoloTableRow;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,9 +17,9 @@ static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
 
 
 ////////////////////////////////////////////////////////////
-@interface HoloSection : NSObject
+@interface HoloTableSection : NSObject
 
-@property (nonatomic, copy, nullable) NSArray<HoloRow *> *rows;
+@property (nonatomic, copy, nullable) NSArray<HoloTableRow *> *rows;
 
 @property (nonatomic, copy) NSString *tag;
 
@@ -53,57 +53,57 @@ static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
 
 @property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer);
 
-- (NSIndexSet *)holo_insertRows:(NSArray<HoloRow *> *)rows atIndex:(NSInteger)index;
+- (NSIndexSet *)holo_insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index;
 
-- (void)holo_removeRow:(HoloRow *)row;
+- (void)holo_removeRow:(HoloTableRow *)row;
 
 - (void)holo_removeAllRows;
 
 @end
 
 ////////////////////////////////////////////////////////////
-@interface HoloSectionMaker : NSObject
+@interface HoloTableSectionMaker : NSObject
 
-@property (nonatomic, strong, readonly) HoloSection *section;
+@property (nonatomic, strong, readonly) HoloTableSection *section;
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^header)(NSString *header);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^header)(NSString *header);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^footer)(NSString *footer);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footer)(NSString *footer);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerModel)(id headerModel);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModel)(id headerModel);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerModel)(id footerModel);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModel)(id footerModel);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerHeight)(CGFloat headerHeight);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerHeight)(CGFloat headerHeight);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerHeight)(CGFloat footerHeight);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerHeight)(CGFloat footerHeight);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerEstimatedHeight)(CGFloat headerEstimatedHeight);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerEstimatedHeight)(CGFloat headerEstimatedHeight);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^footerEstimatedHeight)(CGFloat footerEstimatedHeight);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerEstimatedHeight)(CGFloat footerEstimatedHeight);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerFooterConfigSEL)(SEL headerConfigSEL);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterConfigSEL)(SEL headerConfigSEL);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerFooterHeightSEL)(SEL headerHeightSEL);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterHeightSEL)(SEL headerHeightSEL);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^headerFooterEstimatedHeightSEL)(SEL headerEstimatedHeightSEL);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterEstimatedHeightSEL)(SEL headerEstimatedHeightSEL);
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header));
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer));
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header));
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer));
 
 @end
 
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewSectionMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloSectionMaker *(^section)(NSString *  _Nullable tag);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^section)(NSString *  _Nullable tag);
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloSection *> *)sections isRemark:(BOOL)isRemark;
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark;
 
 - (NSArray<NSDictionary *> *)install;
 

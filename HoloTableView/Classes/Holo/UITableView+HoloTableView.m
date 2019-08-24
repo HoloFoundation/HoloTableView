@@ -66,7 +66,7 @@
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
-        HoloSection *updateSection = dict[kHoloUpdateSection];
+        HoloTableSection *updateSection = dict[kHoloUpdateSection];
         [array addObject:updateSection];
         
         if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
@@ -107,8 +107,8 @@
     NSMutableDictionary *headerFooterMap = self.holo_proxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
-        HoloSection *targetSection = dict[kHoloTargetSection];
-        HoloSection *updateSection = dict[kHoloUpdateSection];
+        HoloTableSection *targetSection = dict[kHoloTargetSection];
+        HoloTableSection *updateSection = dict[kHoloUpdateSection];
         if (!targetSection) {
             HoloLog(@"⚠️[HoloTableView] No found a section with the tag: %@.", updateSection.tag);
             continue;
@@ -246,7 +246,7 @@
     // update cell-cls map and register class
     NSMutableDictionary *cellClsMap = self.holo_proxy.holo_proxyData.holo_cellClsMap.mutableCopy;
     NSMutableArray *rows = [NSMutableArray new];
-    for (HoloRow *row in [maker install]) {
+    for (HoloTableRow *row in [maker install]) {
         Class class = NSClassFromString(row.cell);
         if (!cellClsMap[row.cell] && class) {
             [self registerClass:class forCellReuseIdentifier:row.cell];
@@ -262,9 +262,9 @@
     
     // append rows and refresh view
     BOOL isNewOne = NO;
-    HoloSection *targetSection = [self.holo_proxy.holo_proxyData holo_sectionWithTag:tag];
+    HoloTableSection *targetSection = [self.holo_proxy.holo_proxyData holo_sectionWithTag:tag];
     if (!targetSection) {
-        targetSection = [HoloSection new];
+        targetSection = [HoloTableSection new];
         targetSection.tag = tag;
         [self.holo_proxy.holo_proxyData holo_insertSections:@[targetSection] anIndex:NSIntegerMax];
         isNewOne = YES;
@@ -308,8 +308,8 @@
     NSMutableDictionary *cellClsMap = self.holo_proxy.holo_proxyData.holo_cellClsMap.mutableCopy;
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
-        HoloRow *targetRow = dict[kHoloTargetRow];
-        HoloRow *updateRow = dict[kHoloUpdateRow];
+        HoloTableRow *targetRow = dict[kHoloTargetRow];
+        HoloTableRow *updateRow = dict[kHoloUpdateRow];
         if (!targetRow) {
             HoloLog(@"⚠️[HoloTableView] No found a row with the tag: %@.", updateRow.tag);
             continue;

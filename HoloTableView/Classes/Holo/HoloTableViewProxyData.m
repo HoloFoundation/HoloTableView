@@ -11,7 +11,7 @@
 
 @implementation HoloTableViewProxyData
 
-- (NSIndexSet *)holo_insertSections:(NSArray<HoloSection *> *)sections anIndex:(NSInteger)index {
+- (NSIndexSet *)holo_insertSections:(NSArray<HoloTableSection *> *)sections anIndex:(NSInteger)index {
     if (sections.count <= 0) return nil;
     
     if (index < 0) index = 0;
@@ -33,7 +33,7 @@
 - (NSIndexSet *)holo_removeSection:(NSString *)tag {
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
-    for (HoloSection *section in self.holo_sections) {
+    for (HoloTableSection *section in self.holo_sections) {
         if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
             [array removeObject:section];
             NSInteger index = [self.holo_sections indexOfObject:section];
@@ -44,8 +44,8 @@
     return [indexSet copy];
 }
 
-- (HoloSection *)holo_sectionWithTag:(NSString *)tag {
-    for (HoloSection *section in self.holo_sections) {
+- (HoloTableSection *)holo_sectionWithTag:(NSString *)tag {
+    for (HoloTableSection *section in self.holo_sections) {
         if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
             return section;
         }
@@ -55,7 +55,7 @@
 
 - (NSArray<NSIndexPath *> *)holo_removeAllRowsInSection:(NSString *)tag {
     NSMutableArray *array = [NSMutableArray new];
-    for (HoloSection *section in self.holo_sections) {
+    for (HoloTableSection *section in self.holo_sections) {
         if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
             NSInteger sectionIndex = [self.holo_sections indexOfObject:section];
             for (NSInteger index = 0; index < section.rows.count; index++) {
@@ -69,8 +69,8 @@
 
 - (NSArray<NSIndexPath *> *)holo_removeRow:(NSString *)tag {
     NSMutableArray *array = [NSMutableArray new];
-    for (HoloSection *section in self.holo_sections) {
-        for (HoloRow *row in section.rows) {
+    for (HoloTableSection *section in self.holo_sections) {
+        for (HoloTableRow *row in section.rows) {
             if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
                 NSInteger sectionIndex = [self.holo_sections indexOfObject:section];
                 NSInteger rowIndex = [section.rows indexOfObject:row];
@@ -83,7 +83,7 @@
 }
 
 #pragma mark - getter
-- (NSArray<HoloSection *> *)holo_sections {
+- (NSArray<HoloTableSection *> *)holo_sections {
     if (!_holo_sections) {
         _holo_sections = [NSArray new];
     }
