@@ -8,6 +8,7 @@
 #ifndef HoloTableView_h
 #define HoloTableView_h
 
+// HoloTableView
 #import "UITableView+HoloTableView.h"
 #import "UITableView+HoloTableViewProxy.h"
 #import "HoloTableViewProxy.h"
@@ -18,5 +19,7 @@
 #import "HoloTableViewUpdateRowMaker.h"
 #import "HoloTableViewProtocol.h"
 #import "HoloTableViewRowSwipeAction.h"
+// Responder Event
+#import "UIResponder+HoloEvent.h"
 
 #endif /* HoloTableView_h */
