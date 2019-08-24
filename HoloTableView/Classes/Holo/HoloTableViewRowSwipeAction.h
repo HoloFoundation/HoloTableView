@@ -9,6 +9,7 @@
 @class HoloTableViewRowSwipeAction;
 
 NS_ASSUME_NONNULL_BEGIN
+
 static NSString * const kHoloSwipActionTitle = @"title";
 static NSString * const kHoloSwipActionStyle = @"style";
 static NSString * const kHoloSwipActionBackgroundColor = @"backgroundColor";
