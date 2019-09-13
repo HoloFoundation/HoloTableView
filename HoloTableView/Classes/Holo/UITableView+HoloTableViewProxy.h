@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HoloTableViewProxy, HoloTableViewDataSource;
+@class HoloTableViewProxy;
 
 NS_ASSUME_NONNULL_BEGIN
 
