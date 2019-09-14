@@ -399,7 +399,7 @@
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
-    if (holoSection.willDisplayHeaderHandler) holoSection.willDisplayHeaderHandler(view);
+    if (holoSection.willDisplayHeaderHandler) holoSection.willDisplayHeaderHandler(view, holoSection.headerModel);
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
@@ -408,7 +408,7 @@
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
-    if (holoSection.willDisplayFooterHandler) holoSection.willDisplayFooterHandler(view);
+    if (holoSection.willDisplayFooterHandler) holoSection.willDisplayFooterHandler(view, holoSection.footerModel);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -417,7 +417,7 @@
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
-    if (holoSection.didEndDisplayingHeaderHandler) holoSection.didEndDisplayingHeaderHandler(view);
+    if (holoSection.didEndDisplayingHeaderHandler) holoSection.didEndDisplayingHeaderHandler(view, holoSection.headerModel);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section {
@@ -426,7 +426,7 @@
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
-    if (holoSection.didEndDisplayingFooterHandler) holoSection.didEndDisplayingFooterHandler(view);
+    if (holoSection.didEndDisplayingFooterHandler) holoSection.didEndDisplayingFooterHandler(view, holoSection.footerModel);
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {

@@ -49,18 +49,18 @@
         .header(@"HoloExampleHeaderView")
         .headerHeight(22)
         .headerModel(@{@"title":@"Hello world, header!"})
-        .willDisplayHeaderHandler(^(UIView * _Nonnull view) {
+        .willDisplayHeaderHandler(^(UIView * _Nonnull header, id  _Nonnull model) {
             NSLog(@"willDisplayHeaderHandler");
         })
-        .didEndDisplayingHeaderHandler(^(UIView * _Nonnull view) {
+        .didEndDisplayingHeaderHandler(^(UIView * _Nonnull header, id  _Nonnull model) {
             NSLog(@"didEndDisplayingHeaderHandler");
         })
         .footer(@"HoloExampleFooterView")
         .footerHeight(44)
-        .willDisplayFooterHandler(^(UIView * _Nonnull view) {
+        .willDisplayFooterHandler(^(UIView * _Nonnull header, id  _Nonnull model) {
             NSLog(@"willDisplayFooterHandler");
         })
-        .didEndDisplayingFooterHandler(^(UIView * _Nonnull view) {
+        .didEndDisplayingFooterHandler(^(UIView * _Nonnull header, id  _Nonnull model) {
             NSLog(@"didEndDisplayingFooterHandler");
         });
         

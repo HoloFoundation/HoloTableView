@@ -145,28 +145,28 @@
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *)))willDisplayHeaderHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayHeaderHandler {
     return ^id(id obj) {
         self.section.willDisplayHeaderHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *)))willDisplayFooterHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayFooterHandler {
     return ^id(id obj) {
         self.section.willDisplayFooterHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingHeaderHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingHeaderHandler {
     return ^id(id obj) {
         self.section.didEndDisplayingHeaderHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *)))didEndDisplayingFooterHandler {
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingFooterHandler {
     return ^id(id obj) {
         self.section.didEndDisplayingFooterHandler = obj;
         return self;

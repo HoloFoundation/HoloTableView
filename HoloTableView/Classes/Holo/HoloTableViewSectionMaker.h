@@ -45,13 +45,13 @@ static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
 
 @property (nonatomic, assign) SEL headerFooterEstimatedHeightSEL;
 
-@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header);
+@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header, id model);
 
-@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer);
+@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer, id model);
 
-@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header);
+@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header, id model);
 
-@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer);
+@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer, id model);
 
 - (NSIndexSet *)holo_insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index;
 
@@ -88,13 +88,13 @@ static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterEstimatedHeightSEL)(SEL headerEstimatedHeightSEL);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header, id model));
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer, id model));
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header, id model));
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer, id model));
 
 @end
 
