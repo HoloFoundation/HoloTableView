@@ -199,9 +199,11 @@
 
 - (void)_holo_removeSection:(NSString *)tag reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_removeSection:tag];
-    if (reload && indexSet.count > 0) {
-        [self deleteSections:indexSet withRowAnimation:animation];
+    if (indexSet.count <= 0) {
+        HoloLog(@"⚠️[HoloTableView] No found a section with the tag: %@.", tag);
+        return;
     }
+    if (reload) [self deleteSections:indexSet withRowAnimation:animation];
 }
 
 #pragma mark - row
@@ -396,9 +398,7 @@
         HoloLog(@"⚠️[HoloTableView] No found a row with the tag: %@.", tag);
         return;
     }
-    if (reload && indexPaths.count > 0) {
-        [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
-    }
+    if (reload) [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
 }
 
 @end
