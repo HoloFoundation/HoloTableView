@@ -392,6 +392,10 @@
 
 - (void)_holo_removeRow:(NSString *)tag reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
     NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_removeRow:tag];
+    if (indexPaths.count <= 0) {
+        HoloLog(@"⚠️[HoloTableView] No found a row with the tag: %@.", tag);
+        return;
+    }
     if (reload && indexPaths.count > 0) {
         [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
     }
