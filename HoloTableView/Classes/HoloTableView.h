@@ -19,6 +19,7 @@
 #import "HoloTableViewUpdateRowMaker.h"
 #import "HoloTableViewProtocol.h"
 #import "HoloTableViewRowSwipeAction.h"
+#import "HoloTableViewMacro.h"
 // Responder Event
 #import "UIResponder+HoloEvent.h"
 
