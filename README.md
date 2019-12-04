@@ -14,9 +14,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 If you want to set the model to your UITableViewCell or change it's height according to the model, the UITableViewCell could conform to protocol: `HoloTableViewCellProtocol` and implement their selectors: 
 
 ```objective-c
-- (void)configureCellWithModel:(id)model;
+- (void)holo_configureCellWithModel:(id)model;
 
-+ (CGFloat)heightForCellWithModel:(id)model;
++ (CGFloat)holo_heightForCellWithModel:(id)model;
 ```
 
 ## Usage

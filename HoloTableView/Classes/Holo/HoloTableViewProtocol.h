@@ -15,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)configureCellWithModel:(id)model;
+- (void)holo_configureCellWithModel:(id)model;
 
-+ (CGFloat)heightForCellWithModel:(id)model;
++ (CGFloat)holo_heightForCellWithModel:(id)model;
 
-+ (CGFloat)estimatedHeightForCellWithModel:(id)model;
++ (CGFloat)holo_estimatedHeightForCellWithModel:(id)model;
 
 @end
 
@@ -29,11 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)configureHeaderFooterWithModel:(id)model;
+- (void)holo_configureHeaderFooterWithModel:(id)model;
 
-+ (CGFloat)heightForHeaderFooterWithModel:(id)model;
++ (CGFloat)holo_heightForHeaderFooterWithModel:(id)model;
 
-+ (CGFloat)estimatedHeightForHeaderFooterWithModel:(id)model;
++ (CGFloat)holo_estimatedHeightForHeaderFooterWithModel:(id)model;
 
 @end
 

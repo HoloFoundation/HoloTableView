@@ -10,12 +10,12 @@
 
 @implementation HoloExampleOneTableViewCell
 
-- (void)configureCellWithModel:(NSDictionary *)model {
+- (void)holo_configureCellWithModel:(NSDictionary *)model {
     self.backgroundColor = model[@"bgColor"];
     self.textLabel.text = model[@"text"];
 }
 
-+ (CGFloat)heightForCellWithModel:(NSDictionary *)model {
++ (CGFloat)holo_heightForCellWithModel:(NSDictionary *)model {
     return [model[@"height"] floatValue];
 }
 

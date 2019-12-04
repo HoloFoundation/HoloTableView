@@ -19,9 +19,9 @@
         _shouldHighlight = YES;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        _configSEL = @selector(configureCellWithModel:);
-        _heightSEL = @selector(heightForCellWithModel:);
-        _estimatedHeightSEL = @selector(estimatedHeightForCellWithModel:);
+        _configSEL = @selector(holo_configureCellWithModel:);
+        _heightSEL = @selector(holo_heightForCellWithModel:);
+        _estimatedHeightSEL = @selector(holo_estimatedHeightForCellWithModel:);
 #pragma clang diagnostic pop
         _canEdit = NO;
         _canMove = NO;

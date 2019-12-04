@@ -22,9 +22,9 @@
         _footerEstimatedHeight = HOLO_SCREEN_HEIGHT;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        _headerFooterConfigSEL = @selector(configureHeaderFooterWithModel:);
-        _headerFooterHeightSEL = @selector(heightForHeaderFooterWithModel:);
-        _headerFooterEstimatedHeightSEL = @selector(estimatedHeightForHeaderFooterWithModel:);
+        _headerFooterConfigSEL = @selector(holo_configureHeaderFooterWithModel:);
+        _headerFooterHeightSEL = @selector(holo_heightForHeaderFooterWithModel:);
+        _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
 #pragma clang diagnostic pop
     }
     return self;
