@@ -289,6 +289,15 @@
     };
 }
 
+- (HoloTableRowMaker * (^)(Class))rowCls {
+    return ^id(Class cls) {
+        HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
+        rowMaker.row.cell = NSStringFromClass(cls);
+        [self.holoRows addObject:rowMaker.row];
+        return rowMaker;
+    };
+}
+
 - (NSArray<HoloTableRow *> *)install {
     return self.holoRows;
 }
