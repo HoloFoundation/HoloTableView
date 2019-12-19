@@ -34,7 +34,7 @@
     [self.tableView holo_configureTableView:^(HoloTableViewConfiger * _Nonnull configer) {
         NSDictionary *cellClsMap = [self _cellClaMap];
         [cellClsMap enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
-            configer.cell(key).cls(obj);
+            configer.row(key).clsName(obj);
         }];
 
         configer.sectionIndexTitles(@[@"A", @"B", @"C"])

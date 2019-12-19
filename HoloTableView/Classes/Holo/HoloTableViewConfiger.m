@@ -8,11 +8,26 @@
 #import "HoloTableViewConfiger.h"
 
 ////////////////////////////////////////////////////////////
+@interface HoloTableViewCellConfiger ()
+
+@property (nonatomic, copy) NSString *row;
+
+@property (nonatomic, copy) NSString *rowName;
+
+@end
+
 @implementation HoloTableViewCellConfiger
 
-- (HoloTableViewCellConfiger *(^)(NSString *))cls {
+- (HoloTableViewCellConfiger *(^)(Class))cls {
+    return ^id(Class cls) {
+        self.rowName = NSStringFromClass(cls);
+        return self;
+    };
+}
+
+- (HoloTableViewCellConfiger * (^)(NSString *))clsName {
     return ^id(id obj) {
-        self.clsName = obj;
+        self.rowName = obj;
         return self;
     };
 }
@@ -32,10 +47,10 @@
 
 @implementation HoloTableViewConfiger
 
-- (HoloTableViewCellConfiger *(^)(NSString *))cell {
+- (HoloTableViewCellConfiger *(^)(NSString *))row {
     return ^id(id obj) {
         HoloTableViewCellConfiger *configer = [HoloTableViewCellConfiger new];
-        configer.cellName = obj;
+        configer.row = obj;
         [self.cellClsConfigers addObject:configer];
         return configer;
     };
@@ -60,7 +75,7 @@
     
     NSMutableDictionary *cellClsMap = [NSMutableDictionary new];
     for (HoloTableViewCellConfiger *configer in self.cellClsConfigers) {
-        cellClsMap[configer.cellName] = configer.clsName;
+        cellClsMap[configer.row] = configer.rowName;
     }
     dict[kHoloCellClsMap] = [cellClsMap copy];
     dict[kHoloSectionIndexTitles] = self.sectionIndexTitlesArray;

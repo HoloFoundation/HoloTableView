@@ -17,18 +17,16 @@ static NSString * const kHoloSectionForSectionIndexTitleHandler = @"holo_section
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewCellConfiger : NSObject
 
-@property (nonatomic, copy) NSString *cellName;
+@property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^cls)(Class cls);
 
-@property (nonatomic, copy) NSString *clsName;
-
-@property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^cls)(NSString *cls);
+@property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^clsName)(NSString *clsName);
 
 @end
 
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewConfiger : NSObject
 
-@property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^cell)(NSString *cell);
+@property (nonatomic, copy, readonly) HoloTableViewCellConfiger *(^row)(NSString *row);
 
 @property (nonatomic, copy, readonly) HoloTableViewConfiger *(^sectionIndexTitles)(NSArray<NSString *> *sectionIndexTitles);
 
