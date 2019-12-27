@@ -25,11 +25,11 @@ static char kHoloTableViewProxyKey;
             self.delegate = tableViewProxy;
             
             // register UITableViewHeaderFooterView
-            NSString *reuseIdentifier = @"UITableViewHeaderFooterView";
-            Class headerFooterCls = NSClassFromString(@"UITableViewHeaderFooterView");
-            [self registerClass:headerFooterCls forHeaderFooterViewReuseIdentifier:reuseIdentifier];
+            NSString *headerFooter = @"UITableViewHeaderFooterView";
+            Class headerFooterCls = NSClassFromString(headerFooter);
+            [self registerClass:headerFooterCls forHeaderFooterViewReuseIdentifier:headerFooter];
             NSMutableDictionary *headerFooterMap = tableViewProxy.holo_proxyData.holo_headerFooterMap.mutableCopy;
-            headerFooterMap[reuseIdentifier] = headerFooterCls;
+            headerFooterMap[headerFooter] = headerFooterCls;
             tableViewProxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
         }
     }
