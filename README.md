@@ -37,7 +37,9 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
    make.row(@"ThreeTableViewCell").didSelectHandler(^(id  _Nonnull model) {
        NSLog(@"did select row, model: %@", model);
    });
-} withReloadAnimation:UITableViewRowAnimationNone];
+}];
+
+[self.tableView reloadData];
 
 // etc...
 ```
