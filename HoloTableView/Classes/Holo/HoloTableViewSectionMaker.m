@@ -82,6 +82,20 @@
     };
 }
 
+- (HoloTableSectionMaker * (^)(Class))headerCls {
+    return ^id(Class cls) {
+        self.section.header = NSStringFromClass(cls);
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(Class))footerCls {
+    return ^id(Class cls) {
+        self.section.footer = NSStringFromClass(cls);
+        return self;
+    };
+}
+
 - (HoloTableSectionMaker * (^)(id))headerModel {
     return ^id(id obj) {
         self.section.headerModel = obj;
