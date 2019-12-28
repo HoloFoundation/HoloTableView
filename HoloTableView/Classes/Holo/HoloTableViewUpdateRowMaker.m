@@ -12,9 +12,16 @@
 ////////////////////////////////////////////////////////////
 @implementation HoloUpdateTableRowMaker
 
-- (HoloUpdateTableRowMaker * (^)(NSString *))cell {
+- (HoloUpdateTableRowMaker * (^)(NSString *))row {
     return ^id(id obj) {
-        self.row.cell = obj;
+        self.tableRow.cell = obj;
+        return self;
+    };
+}
+
+- (HoloUpdateTableRowMaker * (^)(Class))rowCls {
+    return ^id(Class cls) {
+        self.tableRow.cell = NSStringFromClass(cls);
         return self;
     };
 }
@@ -63,7 +70,7 @@
 - (HoloUpdateTableRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag) {
         HoloUpdateTableRowMaker *rowMaker = [HoloUpdateTableRowMaker new];
-        HoloTableRow *updateRow = rowMaker.row;
+        HoloTableRow *updateRow = rowMaker.tableRow;
         updateRow.tag = tag;
         
         NSString *dictKey = tag ?: kHoloRowTagNil;

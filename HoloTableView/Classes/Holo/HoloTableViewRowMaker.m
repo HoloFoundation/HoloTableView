@@ -39,192 +39,192 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _row = [HoloTableRow new];
+        _tableRow = [HoloTableRow new];
     }
     return self;
 }
 
 - (HoloTableRowMaker *(^)(id))model {
     return ^id(id obj) {
-        self.row.model = obj;
+        self.tableRow.model = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(CGFloat))height {
     return ^id(CGFloat f) {
-        self.row.height = f;
+        self.tableRow.height = f;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(CGFloat))estimatedHeight {
     return ^id(CGFloat f) {
-        self.row.estimatedHeight = f;
+        self.tableRow.estimatedHeight = f;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(NSString *))tag {
     return ^id(id obj) {
-        self.row.tag = obj;
+        self.tableRow.tag = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(SEL))configSEL {
     return ^id(SEL s) {
-        self.row.configSEL = s;
+        self.tableRow.configSEL = s;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(SEL))estimatedHeightSEL {
     return ^id(SEL s) {
-        self.row.estimatedHeightSEL = s;
+        self.tableRow.estimatedHeightSEL = s;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(SEL))heightSEL {
     return ^id(SEL s) {
-        self.row.heightSEL = s;
+        self.tableRow.heightSEL = s;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(BOOL))shouldHighlight {
     return ^id(BOOL b) {
-        self.row.shouldHighlight = b;
+        self.tableRow.shouldHighlight = b;
         return self;
     };
 }
 
 - (HoloTableRowMaker * (^)(void (^)(id)))willSelectHandler {
     return ^id(id obj) {
-        self.row.willSelectHandler = obj;
+        self.tableRow.willSelectHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker * (^)(void (^)(id)))willDeselectHandler {
     return ^id(id obj) {
-        self.row.willDeselectHandler = obj;
+        self.tableRow.willDeselectHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker * (^)(void (^)(id)))didDeselectHandler {
     return ^id(id obj) {
-        self.row.didDeselectHandler = obj;
+        self.tableRow.didDeselectHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker * (^)(void (^)(id)))didSelectHandler {
     return ^id(id obj) {
-        self.row.didSelectHandler = obj;
+        self.tableRow.didSelectHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(UITableViewCell *, id)))willDisplayHandler {
     return ^id(id obj) {
-        self.row.willDisplayHandler = obj;
+        self.tableRow.willDisplayHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(UITableViewCell *, id)))didEndDisplayingHandler {
     return ^id(id obj) {
-        self.row.didEndDisplayingHandler = obj;
+        self.tableRow.didEndDisplayingHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(id)))didHighlightHandler {
     return ^id(id obj) {
-        self.row.didHighlightHandler = obj;
+        self.tableRow.didHighlightHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(id)))didUnHighlightHandler {
     return ^id(id obj) {
-        self.row.didUnHighlightHandler = obj;
+        self.tableRow.didUnHighlightHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(id)))accessoryHandler {
     return ^id(id obj) {
-        self.row.accessoryHandler = obj;
+        self.tableRow.accessoryHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(BOOL))canEdit {
     return ^id(BOOL b) {
-        self.row.canEdit = b;
+        self.tableRow.canEdit = b;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(NSArray *))leadingSwipeActions {
     return ^id(NSArray *a) {
-        if (a.count > 0) self.row.canEdit = YES;
-        self.row.leadingSwipeActions = a;
+        if (a.count > 0) self.tableRow.canEdit = YES;
+        self.tableRow.leadingSwipeActions = a;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(NSArray *))trailingSwipeActions {
     return ^id(NSArray *a) {
-        if (a.count > 0) self.row.canEdit = YES;
-        self.row.trailingSwipeActions = a;
+        if (a.count > 0) self.tableRow.canEdit = YES;
+        self.tableRow.trailingSwipeActions = a;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))leadingSwipeHandler {
     return ^id(id obj) {
-        self.row.leadingSwipeHandler = obj;
+        self.tableRow.leadingSwipeHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))trailingSwipeHandler {
     return ^id(id obj) {
-        self.row.trailingSwipeHandler = obj;
+        self.tableRow.trailingSwipeHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(id)))willBeginSwipingHandler {
     return ^id(id obj) {
-        self.row.willBeginSwipingHandler = obj;
+        self.tableRow.willBeginSwipingHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(void (^)(id)))didEndSwipingHandler {
     return ^id(id obj) {
-        self.row.didEndSwipingHandler = obj;
+        self.tableRow.didEndSwipingHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(BOOL))canMove {
     return ^id(BOOL b) {
-        if (b) self.row.canEdit = YES;
-        self.row.canMove = b;
+        if (b) self.tableRow.canEdit = YES;
+        self.tableRow.canMove = b;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(NSIndexPath *(^)(NSIndexPath *, NSIndexPath *)))targetMoveHandler {
     return ^id(id obj) {
-        self.row.targetMoveHandler = obj;
+        self.tableRow.targetMoveHandler = obj;
         return self;
     };
 }
@@ -232,17 +232,17 @@
 - (HoloTableRowMaker *(^)(void (^)(NSIndexPath *, NSIndexPath *, void(^)(BOOL))))moveHandler {
     return ^id(id obj) {
         if (obj) {
-            self.row.canEdit = YES;
-            self.row.canMove = YES;
+            self.tableRow.canEdit = YES;
+            self.tableRow.canMove = YES;
         }
-        self.row.moveHandler = obj;
+        self.tableRow.moveHandler = obj;
         return self;
     };
 }
 
 - (HoloTableRowMaker *(^)(NSString *))editingDeleteTitle {
     return ^id(id obj) {
-        self.row.editingDeleteTitle = obj;
+        self.tableRow.editingDeleteTitle = obj;
         return self;
     };
 }
@@ -250,10 +250,10 @@
 - (HoloTableRowMaker * (^)(void (^)(id, void (^)(BOOL))))editingDeleteHandler {
     return ^id(id obj) {
         if (obj) {
-            self.row.canEdit = YES;
-            self.row.editingStyle = UITableViewCellEditingStyleDelete;
+            self.tableRow.canEdit = YES;
+            self.tableRow.editingStyle = UITableViewCellEditingStyleDelete;
         }
-        self.row.editingDeleteHandler = obj;
+        self.tableRow.editingDeleteHandler = obj;
         return self;
     };
 }
@@ -261,10 +261,10 @@
 - (HoloTableRowMaker *(^)(void (^)(id)))editingInsertHandler {
     return ^id(id obj) {
         if (obj) {
-            self.row.canEdit = YES;
-            self.row.editingStyle = UITableViewCellEditingStyleInsert;
+            self.tableRow.canEdit = YES;
+            self.tableRow.editingStyle = UITableViewCellEditingStyleInsert;
         }
-        self.row.editingInsertHandler = obj;
+        self.tableRow.editingInsertHandler = obj;
         return self;
     };
 }
@@ -283,8 +283,8 @@
 - (HoloTableRowMaker *(^)(NSString *))row {
     return ^id(id obj) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        rowMaker.row.cell = obj;
-        [self.holoRows addObject:rowMaker.row];
+        rowMaker.tableRow.cell = obj;
+        [self.holoRows addObject:rowMaker.tableRow];
         return rowMaker;
     };
 }
@@ -292,8 +292,8 @@
 - (HoloTableRowMaker * (^)(Class))rowCls {
     return ^id(Class cls) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        rowMaker.row.cell = NSStringFromClass(cls);
-        [self.holoRows addObject:rowMaker.row];
+        rowMaker.tableRow.cell = NSStringFromClass(cls);
+        [self.holoRows addObject:rowMaker.tableRow];
         return rowMaker;
     };
 }
