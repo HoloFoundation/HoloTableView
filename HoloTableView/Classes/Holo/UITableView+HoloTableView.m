@@ -71,6 +71,19 @@
         
         if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
         if (updateSection.footer) [self _registerHeaderFooter:updateSection.footer withHeaderFooterMap:headerFooterMap];
+        
+        // update cell-cls map and register class
+        NSMutableDictionary *cellClsMap = self.holo_proxy.holo_proxyData.holo_cellClsMap.mutableCopy;
+        for (HoloTableRow *row in updateSection.rows) {
+            Class class = NSClassFromString(row.cell);
+            if (!class) {
+                HoloLog(@"⚠️[HoloTableView] No found a cell class with the name: %@.", row.cell);
+            } else if (!cellClsMap[row.cell]) {
+                [self registerClass:class forCellReuseIdentifier:row.cell];
+                cellClsMap[row.cell] = class;
+            }
+        }
+        self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
     }
     self.holo_proxy.holo_proxyData.holo_headerFooterMap = headerFooterMap;
     
@@ -125,7 +138,6 @@
             if (t != ':') { // not SEL
                 const char *propertyName = property_getName(property);
                 NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-                if ([propertyNameStr isEqualToString:@"rows"]) continue;
                 
                 id value = [updateSection valueForKey:propertyNameStr];
                 if (value) {

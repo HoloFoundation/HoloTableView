@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloTableRow;
+@class HoloTableRow, HoloTableViewRowMaker;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -99,6 +99,8 @@ static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header, id model));
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer, id model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^makeRows)(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make));
 
 @end
 

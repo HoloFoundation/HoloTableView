@@ -8,6 +8,7 @@
 #import "HoloTableViewSectionMaker.h"
 #import <objc/runtime.h>
 #import "HoloTableViewMacro.h"
+#import "HoloTableViewRowMaker.h"
 
 ////////////////////////////////////////////////////////////
 @implementation HoloTableSection
@@ -187,6 +188,16 @@
     };
 }
 
+- (HoloTableSectionMaker * (^)(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *)))makeRows {
+    return ^id(void(^block)(HoloTableViewRowMaker *make)) {
+        HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
+        if (block) block(maker);
+        
+        [self.section holo_insertRows:[maker install] atIndex:NSIntegerMax];
+        return self;
+    };
+}
+
 @end
 
 ////////////////////////////////////////////////////////////
@@ -242,9 +253,10 @@
                 objc_property_t property = properties[i];
                 const char * propertyAttr = property_getAttributes(property);
                 char t = propertyAttr[1];
-                if (t == 'd' || t == 'B') { // CGFloat or BOOL
-                    const char *propertyName = property_getName(property);
-                    NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                const char *propertyName = property_getName(property);
+                NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
+                // CGFloat or BOOL or rows
+                if (t == 'd' || t == 'B' || [propertyNameStr isEqualToString:@"rows"]) {
                     id value = [targetSection valueForKey:propertyNameStr];
                     if (value) [updateSection setValue:value forKey:propertyNameStr];
                 }
