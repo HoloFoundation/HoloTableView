@@ -13,16 +13,15 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor cyanColor];
+        self.contentView.backgroundColor = [UIColor lightGrayColor];
         // self.textLabel.text will became nil when the footer is reused
         // self.textLabel.text = @"footer";
     }
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.textLabel.text = @"footer";
+- (void)holo_configureHeaderFooterWithModel:(NSDictionary *)model {
+    self.textLabel.text = model[@"title"];
 }
 
 @end

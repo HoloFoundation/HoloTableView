@@ -1,14 +1,14 @@
 //
-//  HoloExampleOneTableViewCell.m
+//  HoloExampleTableViewCell.m
 //  HoloTableView_Example
 //
 //  Created by 与佳期 on 2019/7/28.
 //  Copyright © 2019 gonghonglou. All rights reserved.
 //
 
-#import "HoloExampleOneTableViewCell.h"
+#import "HoloExampleTableViewCell.h"
 
-@implementation HoloExampleOneTableViewCell
+@implementation HoloExampleTableViewCell
 
 - (void)holo_configureCellWithModel:(NSDictionary *)model {
     self.backgroundColor = model[@"bgColor"];

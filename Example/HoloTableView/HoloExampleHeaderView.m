@@ -13,7 +13,7 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor greenColor];
+        self.contentView.backgroundColor = [UIColor lightGrayColor];
         self.textLabel.text = @"header";
     }
     return self;

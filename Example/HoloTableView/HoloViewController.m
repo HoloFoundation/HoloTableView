@@ -7,45 +7,83 @@
 //
 
 #import "HoloViewController.h"
-#import "HoloExampleOneViewController.h"
-#import "HoloExampleTwoViewController.h"
+#import <HoloTableView/HoloTableView.h>
 
 @interface HoloViewController ()
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
 @implementation HoloViewController
 
+- (void)dealloc {
+    NSLog(@"HoloExampleOneViewController dealloc");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view.
     
-    UIButton *oneButton = [self createButtonWithTitle:@"one vc"];
-    oneButton.frame = CGRectMake(40, 200, self.view.frame.size.width-40*2, 44);
-    [self.view addSubview:oneButton];
-    [oneButton addTarget:self action:@selector(presentOneVC) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *twoButton = [self createButtonWithTitle:@"two vc"];
-    twoButton.frame = CGRectMake(40, 300, self.view.frame.size.width-40*2, 44);
-    [self.view addSubview:twoButton];
-    [twoButton addTarget:self action:@selector(presentTwoVC) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (UIButton *)createButtonWithTitle:(NSString *)title {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.layer.cornerRadius = 4.0;
-    button.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    button.layer.borderWidth = 1.0;
-    [button setTitle:title forState:UIControlStateNormal];
-    return button;
+    button.frame = CGRectMake(50, 44, HOLO_SCREEN_WIDTH - 100, 44);
+    [button setTitle:@"add a cell" forState:UIControlStateNormal];
+    [self.view addSubview:button];
+    [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.tableView];
+    
+    [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
+        make.section(@"a")
+        .header(@"HoloExampleHeaderView")
+        .headerModel(@{@"title":@"header"})
+        .footer(@"HoloExampleFooterView")
+        .footerModel(@{@"title":@"footer"})
+        .footerHeight(100)
+        .makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
+            make.row(@"HoloExampleTableViewCell").model(@{@"bgColor": [UIColor cyanColor], @"text": @"cell", @"height": @44});
+        });
+    }];
+    
+    [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
+        for (NSDictionary *dict in [self _modelsFromOtherWay]) {
+            make.row(@"HoloExampleTableViewCell")
+            .model(dict)
+            .didSelectHandler(^(id  _Nonnull model) {
+                NSLog(@"did select model : %@", model);
+            });
+        }
+    }];
+    
+    [self.tableView reloadData];
 }
 
-- (void)presentOneVC {
-    [self presentViewController:[HoloExampleOneViewController new] animated:YES completion:nil];
+- (NSArray *)_modelsFromOtherWay {
+    return @[
+        @{@"bgColor": [UIColor yellowColor],   @"text": @"cell-1", @"height": @66},
+        @{@"bgColor": [UIColor cyanColor],     @"text": @"cell-2", @"height": @66},
+        @{@"bgColor": [UIColor orangeColor],   @"text": @"cell-3", @"height": @66},
+    ];
 }
 
-- (void)presentTwoVC {
-    [self presentViewController:[HoloExampleTwoViewController new] animated:YES completion:nil];
+#pragma mark - buttonAction
+- (void)buttonAction:(UIButton *)sender {
+    [self.tableView holo_insertRowsAtIndex:0 inSection:@"a" block:^(HoloTableViewRowMaker * _Nonnull make) {
+        make.row(@"HoloExampleTableViewCell").model(@{@"bgColor": [UIColor redColor], @"text": @"cell", @"height": @44});
+    } withReloadAnimation:UITableViewRowAnimationNone];
+}
+
+#pragma mark - getter
+- (UITableView *)tableView {
+    if (!_tableView) {
+        CGRect frame = CGRectMake(0, 100, HOLO_SCREEN_WIDTH, HOLO_SCREEN_HEIGHT-100);
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
+        _tableView.tableFooterView = [UIView new];
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+    }
+    return _tableView;
 }
 
 @end
