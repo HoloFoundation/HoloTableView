@@ -44,6 +44,20 @@
     return self;
 }
 
+- (HoloTableRowMaker *(^)(NSString *))row {
+    return ^id(id obj) {
+        self.tableRow.cell = obj;
+        return self;
+    };
+}
+
+- (HoloTableRowMaker * (^)(Class))rowCls {
+    return ^id(Class cls) {
+        self.tableRow.cell = NSStringFromClass(cls);
+        return self;
+    };
+}
+
 - (HoloTableRowMaker *(^)(id))model {
     return ^id(id obj) {
         self.tableRow.model = obj;

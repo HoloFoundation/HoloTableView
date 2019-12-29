@@ -6,8 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HoloTableViewRowMaker.h"
-@class HoloTableSection;
+@class HoloTableSection, HoloTableRowMaker;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,20 +15,10 @@ static NSString * const kHoloTargetIndexPath = @"holo_target_indexPath";
 static NSString * const kHoloUpdateRow = @"holo_update_row";
 static NSString * const kHoloRowTagNil = @"holo_row_tag_nil";
 
-
-////////////////////////////////////////////////////////////
-@interface HoloUpdateTableRowMaker : HoloTableRowMaker
-
-@property (nonatomic, copy, readonly) HoloUpdateTableRowMaker *(^row)(NSString *rowName);
-
-@property (nonatomic, copy, readonly) HoloUpdateTableRowMaker *(^rowCls)(Class rowCls);
-
-@end
-
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloUpdateTableRowMaker *(^tag)(NSString * _Nullable tag);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString * _Nullable tag);
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark;
 

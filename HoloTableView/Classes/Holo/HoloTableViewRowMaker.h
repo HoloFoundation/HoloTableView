@@ -84,6 +84,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) HoloTableRow *tableRow;
 
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(NSString *rowName);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowCls)(Class rowCls);
+
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^model)(id model);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^height)(CGFloat height);

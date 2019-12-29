@@ -7,26 +7,8 @@
 
 #import "HoloTableViewUpdateRowMaker.h"
 #import <objc/runtime.h>
+#import "HoloTableViewRowMaker.h"
 #import "HoloTableViewSectionMaker.h"
-
-////////////////////////////////////////////////////////////
-@implementation HoloUpdateTableRowMaker
-
-- (HoloUpdateTableRowMaker * (^)(NSString *))row {
-    return ^id(id obj) {
-        self.tableRow.cell = obj;
-        return self;
-    };
-}
-
-- (HoloUpdateTableRowMaker * (^)(Class))rowCls {
-    return ^id(Class cls) {
-        self.tableRow.cell = NSStringFromClass(cls);
-        return self;
-    };
-}
-
-@end
 
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker ()
@@ -67,9 +49,9 @@
     return self;
 }
 
-- (HoloUpdateTableRowMaker *(^)(NSString *))tag {
+- (HoloTableRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag) {
-        HoloUpdateTableRowMaker *rowMaker = [HoloUpdateTableRowMaker new];
+        HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
         HoloTableRow *updateRow = rowMaker.tableRow;
         updateRow.tag = tag;
         
