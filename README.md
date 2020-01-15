@@ -27,14 +27,14 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 
 [tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
    // one cell
-   make.row(@"OneTableViewCell").model(@{@"key":@"value1"});
-   make.row(@"OneTableViewCell").model(@{@"key":@"value2"});
+   make.row(OneTableViewCell.class).model(@{@"key":@"value1"});
+   make.row(OneTableViewCell.class).model(@{@"key":@"value2"});
    
    // two cell
-   make.row(@"TwoTableViewCell").model(@{@"key":@"value"}).height(44);
+   make.row(TwoTableViewCell.class).model(@{@"key":@"value"}).height(44);
    
    // three cell
-   make.row(@"ThreeTableViewCell").didSelectHandler(^(id  _Nonnull model) {
+   make.row(ThreeTableViewCell.class).didSelectHandler(^(id  _Nonnull model) {
        NSLog(@"did select row, model: %@", model);
    });
 }];
