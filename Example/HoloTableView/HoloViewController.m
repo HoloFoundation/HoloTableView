@@ -8,6 +8,9 @@
 
 #import "HoloViewController.h"
 #import <HoloTableView/HoloTableView.h>
+#import "HoloExampleHeaderView.h"
+#import "HoloExampleFooterView.h"
+#import "HoloExampleTableViewCell.h"
 
 @interface HoloViewController ()
 
@@ -35,19 +38,19 @@
     
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
         make.section(@"a")
-        .header(@"HoloExampleHeaderView")
+        .header(HoloExampleHeaderView.class)
         .headerModel(@{@"title":@"header"})
-        .footer(@"HoloExampleFooterView")
+        .footer(HoloExampleFooterView.class)
         .footerModel(@{@"title":@"footer"})
         .footerHeight(100)
         .makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
-            make.row(@"HoloExampleTableViewCell").model(@{@"bgColor": [UIColor cyanColor], @"text": @"cell", @"height": @44});
+            make.row(HoloExampleTableViewCell.class).model(@{@"bgColor": [UIColor cyanColor], @"text": @"cell", @"height": @44});
         });
     }];
     
     [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
         for (NSDictionary *dict in [self _modelsFromOtherWay]) {
-            make.row(@"HoloExampleTableViewCell")
+            make.row(HoloExampleTableViewCell.class)
             .model(dict)
             .didSelectHandler(^(id  _Nonnull model) {
                 NSLog(@"did select model : %@", model);
@@ -69,7 +72,7 @@
 #pragma mark - buttonAction
 - (void)buttonAction:(UIButton *)sender {
     [self.tableView holo_insertRowsAtIndex:0 inSection:@"a" block:^(HoloTableViewRowMaker * _Nonnull make) {
-        make.row(@"HoloExampleTableViewCell").model(@{@"bgColor": [UIColor redColor], @"text": @"cell", @"height": @44});
+        make.row(HoloExampleTableViewCell.class).model(@{@"bgColor": [UIColor redColor], @"text": @"cell", @"height": @44});
     } withReloadAnimation:UITableViewRowAnimationNone];
 }
 
