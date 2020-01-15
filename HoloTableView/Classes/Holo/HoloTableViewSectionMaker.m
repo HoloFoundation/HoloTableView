@@ -69,30 +69,30 @@
     return self;
 }
 
-- (HoloTableSectionMaker *(^)(NSString *))header {
-    return ^id(id obj) {
-        self.section.header = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(NSString *))footer {
-    return ^id(id obj) {
-        self.section.footer = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker * (^)(Class))headerCls {
+- (HoloTableSectionMaker * (^)(Class))header {
     return ^id(Class cls) {
         self.section.header = NSStringFromClass(cls);
         return self;
     };
 }
 
-- (HoloTableSectionMaker * (^)(Class))footerCls {
+- (HoloTableSectionMaker * (^)(Class))footer {
     return ^id(Class cls) {
         self.section.footer = NSStringFromClass(cls);
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(NSString *))headerS {
+    return ^id(id obj) {
+        self.section.header = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(NSString *))footerS {
+    return ^id(id obj) {
+        self.section.footer = obj;
         return self;
     };
 }

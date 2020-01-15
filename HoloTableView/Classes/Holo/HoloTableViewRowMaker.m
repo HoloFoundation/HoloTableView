@@ -44,16 +44,16 @@
     return self;
 }
 
-- (HoloTableRowMaker *(^)(NSString *))row {
-    return ^id(id obj) {
-        self.tableRow.cell = obj;
+- (HoloTableRowMaker * (^)(Class))row {
+    return ^id(Class cls) {
+        self.tableRow.cell = NSStringFromClass(cls);
         return self;
     };
 }
 
-- (HoloTableRowMaker * (^)(Class))rowCls {
-    return ^id(Class cls) {
-        self.tableRow.cell = NSStringFromClass(cls);
+- (HoloTableRowMaker *(^)(NSString *))rowS {
+    return ^id(id obj) {
+        self.tableRow.cell = obj;
         return self;
     };
 }
@@ -294,19 +294,19 @@
 
 @implementation HoloTableViewRowMaker
 
-- (HoloTableRowMaker *(^)(NSString *))row {
-    return ^id(id obj) {
+- (HoloTableRowMaker * (^)(Class))row {
+    return ^id(Class cls) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        rowMaker.tableRow.cell = obj;
+        rowMaker.tableRow.cell = NSStringFromClass(cls);
         [self.holoRows addObject:rowMaker.tableRow];
         return rowMaker;
     };
 }
 
-- (HoloTableRowMaker * (^)(Class))rowCls {
-    return ^id(Class cls) {
+- (HoloTableRowMaker *(^)(NSString *))rowS {
+    return ^id(id obj) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        rowMaker.tableRow.cell = NSStringFromClass(cls);
+        rowMaker.tableRow.cell = obj;
         [self.holoRows addObject:rowMaker.tableRow];
         return rowMaker;
     };
