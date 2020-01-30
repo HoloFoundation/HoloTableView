@@ -25,17 +25,6 @@
     
     // check cellClsMap
     NSDictionary *dict = [configer install];
-    NSMutableDictionary *cellClsMap = [NSMutableDictionary new];
-    [dict[kHoloCellClsMap] enumerateKeysAndObjectsUsingBlock:^(NSString *cell, NSString *cls, BOOL * _Nonnull stop) {
-        Class class = NSClassFromString(cls);
-        if (class) {
-            [self registerClass:class forCellReuseIdentifier:cls];
-            cellClsMap[cell] = class;
-        } else {
-            HoloLog(@"⚠️[HoloTableView] No found a class with the name: %@.", cls);
-        }
-    }];
-    self.holo_proxy.holo_proxyData.holo_cellClsMap = cellClsMap;
     self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = dict[kHoloSectionIndexTitles];
     self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[kHoloSectionForSectionIndexTitleHandler];
 }
