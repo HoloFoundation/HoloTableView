@@ -9,7 +9,7 @@
 #import <objc/runtime.h>
 #import "UITableView+HoloTableViewProxy.h"
 #import "HoloTableViewProxy.h"
-#import "HoloTableViewConfiger.h"
+#import "HoloTableViewMaker.h"
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowMaker.h"
 #import "HoloTableViewUpdateRowMaker.h"
@@ -18,13 +18,12 @@
 
 @implementation UITableView (HoloTableView)
 
-#pragma mark - configure cell class map
-- (void)holo_configureTableView:(void(NS_NOESCAPE ^)(HoloTableViewConfiger *configer))block  {
-    HoloTableViewConfiger *configer = [HoloTableViewConfiger new];
-    if (block) block(configer);
+#pragma mark - make TableView
+- (void)holo_makeTableView:(void (NS_NOESCAPE ^)(HoloTableViewMaker *))block {
+    HoloTableViewMaker *maker = [HoloTableViewMaker new];
+    if (block) block(maker);
     
-    // check cellClsMap
-    NSDictionary *dict = [configer install];
+    NSDictionary *dict = [maker install];
     self.holo_proxy.holo_proxyData.holo_sectionIndexTitles = dict[kHoloSectionIndexTitles];
     self.holo_proxy.holo_proxyData.holo_sectionForSectionIndexTitleHandler = dict[kHoloSectionForSectionIndexTitleHandler];
 }
