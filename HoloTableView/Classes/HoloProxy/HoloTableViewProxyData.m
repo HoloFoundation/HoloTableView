@@ -70,13 +70,17 @@
 - (NSArray<NSIndexPath *> *)holo_removeRows:(NSArray<NSString *> *)tags {
     NSMutableArray *array = [NSMutableArray new];
     for (HoloTableSection *section in self.holo_sections) {
+        NSMutableArray<HoloTableRow *> *rows = [NSMutableArray arrayWithArray:section.rows];
         for (HoloTableRow *row in section.rows) {
             if (row.tag && [tags containsObject:row.tag]) {
                 NSInteger sectionIndex = [self.holo_sections indexOfObject:section];
                 NSInteger rowIndex = [section.rows indexOfObject:row];
                 [array addObject:[NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex]];
-                [section holo_removeRow:row];
+                [rows addObject:row];
             }
+        }
+        for (HoloTableRow *row in rows) {
+            [section holo_removeRow:row];
         }
     }
     return [array copy];
