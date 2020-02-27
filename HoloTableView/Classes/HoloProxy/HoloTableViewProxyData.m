@@ -46,9 +46,7 @@
 
 - (HoloTableSection *)holo_sectionWithTag:(NSString *)tag {
     for (HoloTableSection *section in self.holo_sections) {
-        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
-            return section;
-        }
+        if ([section.tag isEqualToString:tag]) return section;
     }
     return nil;
 }
@@ -56,7 +54,7 @@
 - (NSArray<NSIndexPath *> *)holo_removeAllRowsInSection:(NSString *)tag {
     NSMutableArray *array = [NSMutableArray new];
     for (HoloTableSection *section in self.holo_sections) {
-        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+        if ([section.tag isEqualToString:tag]) {
             NSInteger sectionIndex = [self.holo_sections indexOfObject:section];
             for (NSInteger index = 0; index < section.rows.count; index++) {
                 [array addObject:[NSIndexPath indexPathForRow:index inSection:sectionIndex]];
