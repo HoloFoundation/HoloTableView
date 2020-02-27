@@ -26,13 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSIndexSet *)holo_removeAllSection;
 
-- (NSIndexSet *)holo_removeSection:(NSString *)tag;
+- (NSIndexSet *)holo_removeSections:(NSArray<NSString *> *)tags;
 
 - (HoloTableSection *)holo_sectionWithTag:(NSString * _Nullable)tag;
 
 - (NSArray<NSIndexPath *> *)holo_removeAllRowsInSection:(NSString *)tag;
 
-- (NSArray<NSIndexPath *> *)holo_removeRow:(NSString * _Nullable)tag;
+- (NSArray<NSIndexPath *> *)holo_removeRows:(NSArray<NSString *> *)tags;
 
 @end
 

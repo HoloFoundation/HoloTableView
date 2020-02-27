@@ -119,21 +119,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_removeAllSectionsWithReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
- *  Remove a section according to the tag.
+ *  Remove the sections according to the tags.
  *
- *  @param tag The tag of section which you wish to remove.
+ *  @param tags The tags of sections which you wish to remove.
  */
-- (void)holo_removeSection:(NSString *)tag;
+- (void)holo_removeSections:(NSArray<NSString *> *)tags;
 
 /**
- *  Remove a section according to the tag.
+ *  Remove the sections according to the tags.
  *
  *  Refresh current UITableView automatically.
  *
- *  @param tag The tag of section which you wish to remove.
+ *  @param tags The tags of sections which you wish to remove.
  *  @param animation A constant that either specifies the kind of animation to perform when deleting the section or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
-- (void)holo_removeSection:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_removeSections:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation;
 
 
 #pragma mark - row
@@ -287,21 +287,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_removeAllRowsInSection:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
- *  Remove a rows according to the tag in all sections.
+ *  Remove the rows according to these tags in all sections.
  *
- *  @param tag The tag of row which you wish to remove.
+ *  @param tags The tags of rows which you wish to remove.
  */
-- (void)holo_removeRow:(NSString *)tag;
+- (void)holo_removeRows:(NSArray<NSString *> *)tags;
 
 /**
- *  Remove a rows according to the tag in all sections.
+ *  Remove the rows according to these tags in all sections.
  *
  *  Refresh current UITableView automatically.
  *
- *  @param tag The tag of row which you wish to remove.
+ *  @param tags The tags of rows which you wish to remove.
  *  @param animation A constant that indicates how the deletion is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants.
  */
-- (void)holo_removeRow:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_removeRows:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation;
 
 @end
 

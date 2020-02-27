@@ -188,19 +188,19 @@
     }
 }
 
-// holo_removeSection
-- (void)holo_removeSection:(NSString *)tag {
-    [self _holo_removeSection:tag reload:NO withReloadAnimation:kNilOptions];
+// holo_removeSections
+- (void)holo_removeSections:(NSArray<NSString *> *)tags {
+    [self _holo_removeSections:tags reload:NO withReloadAnimation:kNilOptions];
 }
 
-- (void)holo_removeSection:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_removeSection:tag reload:YES withReloadAnimation:animation];
+- (void)holo_removeSections:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_removeSections:tags reload:YES withReloadAnimation:animation];
 }
 
-- (void)_holo_removeSection:(NSString *)tag reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
-    NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_removeSection:tag];
+- (void)_holo_removeSections:(NSArray<NSString *> *)tags reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+    NSIndexSet *indexSet = [self.holo_proxy.holo_proxyData holo_removeSections:tags];
     if (indexSet.count <= 0) {
-        HoloLog(@"⚠️[HoloTableView] No found a section with the tag: %@.", tag);
+        HoloLog(@"⚠️[HoloTableView] No found any section with these tags: %@.", tags);
         return;
     }
     if (reload) [self deleteSections:indexSet withRowAnimation:animation];
@@ -383,19 +383,19 @@
     }
 }
 
-// holo_removeRow
-- (void)holo_removeRow:(NSString *)tag {
-    [self _holo_removeRow:tag reload:NO withReloadAnimation:kNilOptions];
+// holo_removeRows
+- (void)holo_removeRows:(NSArray<NSString *> *)tags {
+    [self _holo_removeRows:tags reload:NO withReloadAnimation:kNilOptions];
 }
 
-- (void)holo_removeRow:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_removeRow:tag reload:YES withReloadAnimation:animation];
+- (void)holo_removeRows:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_removeRows:tags reload:NO withReloadAnimation:animation];
 }
 
-- (void)_holo_removeRow:(NSString *)tag reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
-    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_removeRow:tag];
+- (void)_holo_removeRows:(NSArray<NSString *> *)tags reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_removeRows:tags];
     if (indexPaths.count <= 0) {
-        HoloLog(@"⚠️[HoloTableView] No found a row with the tag: %@.", tag);
+        HoloLog(@"⚠️[HoloTableView] No found any row with these tags: %@.", tags);
         return;
     }
     if (reload) [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];

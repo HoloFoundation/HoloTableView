@@ -30,11 +30,11 @@
     return indexSet;
 }
 
-- (NSIndexSet *)holo_removeSection:(NSString *)tag {
+- (NSIndexSet *)holo_removeSections:(NSArray<NSString *> *)tags {
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
     for (HoloTableSection *section in self.holo_sections) {
-        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
+        if (section.tag && [tags containsObject:section.tag]) {
             [array removeObject:section];
             NSInteger index = [self.holo_sections indexOfObject:section];
             [indexSet addIndex:index];
@@ -67,11 +67,11 @@
     return [array copy];
 }
 
-- (NSArray<NSIndexPath *> *)holo_removeRow:(NSString *)tag {
+- (NSArray<NSIndexPath *> *)holo_removeRows:(NSArray<NSString *> *)tags {
     NSMutableArray *array = [NSMutableArray new];
     for (HoloTableSection *section in self.holo_sections) {
         for (HoloTableRow *row in section.rows) {
-            if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
+            if (row.tag && [tags containsObject:row.tag]) {
                 NSInteger sectionIndex = [self.holo_sections indexOfObject:section];
                 NSInteger rowIndex = [section.rows indexOfObject:row];
                 [array addObject:[NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex]];
