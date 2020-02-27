@@ -389,7 +389,7 @@
 }
 
 - (void)holo_removeRows:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_removeRows:tags reload:NO withReloadAnimation:animation];
+    [self _holo_removeRows:tags reload:YES withReloadAnimation:animation];
 }
 
 - (void)_holo_removeRows:(NSArray<NSString *> *)tags reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
