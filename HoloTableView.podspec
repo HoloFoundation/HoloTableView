@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HoloTableView'
-  s.version          = '1.4.0'
+  s.version          = '1.5.0'
   s.summary          = 'Harness the power of UITableView with a simplified, chainable and expressive syntax.'
 
 # This description is used to generate tags and improve search results.
