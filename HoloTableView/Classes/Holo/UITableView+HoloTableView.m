@@ -367,17 +367,17 @@
     }
 }
 
-// holo_removeAllRowsInSection
-- (void)holo_removeAllRowsInSection:(NSString *)tag {
-    [self _holo_removeAllRowsInSection:tag reload:NO withReloadAnimation:kNilOptions];
+// holo_removeAllRowsInSections
+- (void)holo_removeAllRowsInSections:(NSArray<NSString *> *)tags {
+    [self _holo_removeAllRowsInSections:tags reload:NO withReloadAnimation:kNilOptions];
 }
 
-- (void)holo_removeAllRowsInSection:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_removeAllRowsInSection:tag reload:YES withReloadAnimation:animation];
+- (void)holo_removeAllRowsInSections:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_removeAllRowsInSections:tags reload:YES withReloadAnimation:animation];
 }
 
-- (void)_holo_removeAllRowsInSection:(NSString *)tag reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
-    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_removeAllRowsInSection:tag];
+- (void)_holo_removeAllRowsInSections:(NSArray<NSString *> *)tags reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
+    NSArray *indexPaths = [self.holo_proxy.holo_proxyData holo_removeAllRowsInSections:tags];
     if (reload && indexPaths.count > 0) {
         [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
     }

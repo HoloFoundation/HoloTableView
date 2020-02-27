@@ -272,19 +272,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
- *  Remove all rows in a section according to the tag.
+ *  Remove all rows in the sections according to the tags.
  *
- *  @param tag The tag of section which you wish to remove all rows.
+ *  @param tags The tags of sections which you wish to remove all rows.
  */
-- (void)holo_removeAllRowsInSection:(NSString *)tag;
+- (void)holo_removeAllRowsInSections:(NSArray<NSString *> *)tags;
 
 /**
- *  Remove all rows in a section according to the tag.
+ *  Remove all rows in the sections according to the tags.
  *
- *  @param tag The tag of section which you wish to remove all rows.
+ *  @param tags The tags of sections which you wish to remove all rows.
  *  @param animation A constant that indicates how the deletion is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants.
  */
-- (void)holo_removeAllRowsInSection:(NSString *)tag withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_removeAllRowsInSections:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Remove the rows according to these tags in all sections.
