@@ -14,7 +14,4 @@
 #define HoloLog(...)
 #endif
 
-#define HOLO_SCREEN_WIDTH   [[UIScreen mainScreen] bounds].size.width
-#define HOLO_SCREEN_HEIGHT  [[UIScreen mainScreen] bounds].size.height
-
 #endif /* HoloTableViewMacro_h */
