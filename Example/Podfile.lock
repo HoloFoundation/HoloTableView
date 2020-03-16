@@ -1,5 +1,5 @@
 PODS:
-  - HoloTableView (1.5.0)
+  - HoloTableView (1.5.1)
 
 DEPENDENCIES:
   - HoloTableView (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HoloTableView: 8c5db3e50f761eec52f18e7e570f14c67a1e9481
+  HoloTableView: d88450ab2507dfbbc68d84bfded8b43c50b9595e
 
 PODFILE CHECKSUM: 4a04413c8d8cb6d0e0045bb58a41b9b63e9ba415
 
