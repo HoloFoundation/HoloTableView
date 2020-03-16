@@ -19,8 +19,8 @@
         _rows = [NSArray new];
         _headerHeight = CGFLOAT_MIN;
         _footerHeight = CGFLOAT_MIN;
-        _headerEstimatedHeight = HOLO_SCREEN_HEIGHT;
-        _footerEstimatedHeight = HOLO_SCREEN_HEIGHT;
+        _headerEstimatedHeight = CGFLOAT_MIN;
+        _footerEstimatedHeight = CGFLOAT_MIN;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         _headerFooterConfigSEL = @selector(holo_configureHeaderFooterWithModel:);

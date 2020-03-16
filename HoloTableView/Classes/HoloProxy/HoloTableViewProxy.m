@@ -174,14 +174,11 @@
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
     }
     
-    // Only on iOS12, when you slide the tableView to the bottom and out of one screen, then perform "reloadData" method, the tableView will flash.
-    // To solve this problem, return tableView:heightForRowAtIndexPath: value on iOS12.
-    NSString *version = [UIDevice currentDevice].systemVersion;
-    if (version.doubleValue >= 12.0 && version.doubleValue < 13.0) {
+    // If you don't plan to use the cell estimation function, you will default to the tableView:heightForRowAtIndexPath: method
+    if (holoRow.estimatedHeight == CGFLOAT_MIN) {
         return [self tableView:tableView heightForRowAtIndexPath:indexPath];
-    } else {
-        return holoRow.estimatedHeight;
     }
+    return holoRow.estimatedHeight;
 }
 
 - (CGFloat)_heightWithMethodSignatureCls:(Class)cls selector:(SEL)selector model:(id)model {
@@ -385,6 +382,11 @@
     if (holoSection.headerFooterEstimatedHeightSEL && [header respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:header selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.headerModel];
     }
+    
+    // If you don't plan to use the header estimation function, you will default to the tableView:heightForHeaderInSection: method
+    if (holoSection.headerEstimatedHeight == CGFLOAT_MIN) {
+        return [self tableView:tableView heightForHeaderInSection:section];
+    }
     return holoSection.headerEstimatedHeight;
 }
 
@@ -397,6 +399,11 @@
     Class footer = NSClassFromString(holoSection.footer);
     if (holoSection.headerFooterEstimatedHeightSEL && [footer respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:footer selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.footerModel];
+    }
+    
+    // If you don't plan to use the footer estimation function, you will default to the tableView:heightForFooterInSection: method
+    if (holoSection.footerEstimatedHeight == CGFLOAT_MIN) {
+        return [self tableView:tableView heightForFooterInSection:section];
     }
     return holoSection.footerEstimatedHeight;
 }

@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         _height = CGFLOAT_MIN;
-        _estimatedHeight = HOLO_SCREEN_HEIGHT;
+        _estimatedHeight = CGFLOAT_MIN;
         _shouldHighlight = YES;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
