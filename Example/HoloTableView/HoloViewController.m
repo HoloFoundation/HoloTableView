@@ -12,6 +12,9 @@
 #import "HoloExampleFooterView.h"
 #import "HoloExampleTableViewCell.h"
 
+#define HOLO_SCREEN_WIDTH   [[UIScreen mainScreen] bounds].size.width
+#define HOLO_SCREEN_HEIGHT  [[UIScreen mainScreen] bounds].size.height
+
 @interface HoloViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -79,7 +82,7 @@
 #pragma mark - getter
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect frame = CGRectMake(0, 100, HOLO_SCREEN_WIDTH, HOLO_SCREEN_HEIGHT-100);
+        CGRect frame = CGRectMake(0, 100, HOLO_SCREEN_WIDTH, HOLO_SCREEN_HEIGHT - 100);
         _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         _tableView.tableFooterView = [UIView new];
         _tableView.estimatedRowHeight = 0;
