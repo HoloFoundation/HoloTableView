@@ -173,7 +173,15 @@
     if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
     }
-    return holoRow.estimatedHeight;
+    
+    // Only on iOS12, when you slide the tableView to the bottom and out of one screen, then perform "reloadData" method, the tableView will flash.
+    // To solve this problem, return tableView:heightForRowAtIndexPath: value on iOS12.
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    if (version.doubleValue >= 12.0 && version.doubleValue < 13.0) {
+        return [self tableView:tableView heightForRowAtIndexPath:indexPath];
+    } else {
+        return holoRow.estimatedHeight;
+    }
 }
 
 - (CGFloat)_heightWithMethodSignatureCls:(Class)cls selector:(SEL)selector model:(id)model {
