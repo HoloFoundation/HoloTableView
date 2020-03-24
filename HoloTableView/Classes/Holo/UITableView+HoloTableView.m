@@ -271,7 +271,7 @@
         [self.holo_proxy.proxyData insertSections:@[targetSection] anIndex:NSIntegerMax];
         isNewOne = YES;
     }
-    NSIndexSet *indexSet = [targetSection holo_insertRows:rows atIndex:index];
+    NSIndexSet *indexSet = [targetSection insertRows:rows atIndex:index];
     NSInteger sectionIndex = [self.holo_proxy.proxyData.sections indexOfObject:targetSection];
     if (reload && isNewOne) {
         [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];

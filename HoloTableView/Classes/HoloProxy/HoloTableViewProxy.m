@@ -104,7 +104,7 @@
         if (holoRow.editingDeleteHandler) {
             holoRow.editingDeleteHandler(holoRow.model, ^(BOOL actionPerformed) {
                 // must remove the data before deleting the cell
-                [holoSection holo_removeRow:holoRow];
+                [holoSection removeRow:holoRow];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             });
         }
@@ -134,8 +134,8 @@
         sourceRow.moveHandler(sourceIndexPath, destinationIndexPath, ^(BOOL actionPerformed) {
             if (actionPerformed) {
                 HoloTableSection *destinationSection = self.holoSections[destinationIndexPath.section];
-                [sourceSection holo_removeRow:sourceRow];
-                [destinationSection holo_insertRows:@[sourceRow] atIndex:destinationIndexPath.row];
+                [sourceSection removeRow:sourceRow];
+                [destinationSection insertRows:@[sourceRow] atIndex:destinationIndexPath.row];
             }
         });
     }
@@ -497,7 +497,7 @@
                 handler(object, index, ^(BOOL actionPerformed) {
                     if (style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
                         // must remove the data before deleting the cell
-                        [holoSection holo_removeRow:holoRow];
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -506,7 +506,7 @@
                 holoRow.trailingSwipeHandler(object, index, ^(BOOL actionPerformed) {
                     if (style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
                         // must remove the data before deleting the cell
-                        [holoSection holo_removeRow:holoRow];
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -561,7 +561,7 @@
                 swipeActionHandler(object, index, ^(BOOL actionPerformed) {
                     completionHandler(actionPerformed);
                     if (style == UIContextualActionStyleDestructive && actionPerformed) {
-                        [holoSection holo_removeRow:holoRow];
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -570,7 +570,7 @@
                 swipeHandler(object, index, ^(BOOL actionPerformed) {
                     completionHandler(actionPerformed);
                     if (style == UIContextualActionStyleDestructive && actionPerformed) {
-                        [holoSection holo_removeRow:holoRow];
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });

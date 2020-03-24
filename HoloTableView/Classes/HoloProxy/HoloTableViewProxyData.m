@@ -59,7 +59,7 @@
             for (NSInteger index = 0; index < section.rows.count; index++) {
                 [array addObject:[NSIndexPath indexPathForRow:index inSection:sectionIndex]];
             }
-            [section holo_removeAllRows];
+            [section removeAllRows];
         }
     }
     return [array copy];
@@ -78,7 +78,7 @@
             }
         }
         for (HoloTableRow *row in rows) {
-            [section holo_removeRow:row];
+            [section removeRow:row];
         }
     }
     return [array copy];
