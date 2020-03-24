@@ -28,9 +28,9 @@ static char kHoloTableViewProxyKey;
             NSString *headerFooter = @"UITableViewHeaderFooterView";
             Class headerFooterCls = NSClassFromString(headerFooter);
             [self registerClass:headerFooterCls forHeaderFooterViewReuseIdentifier:headerFooter];
-            NSMutableDictionary *headerFooterMap = tableViewProxy.proxyData.holo_headerFooterMap.mutableCopy;
+            NSMutableDictionary *headerFooterMap = tableViewProxy.proxyData.headerFooterMap.mutableCopy;
             headerFooterMap[headerFooter] = headerFooterCls;
-            tableViewProxy.proxyData.holo_headerFooterMap = headerFooterMap;
+            tableViewProxy.proxyData.headerFooterMap = headerFooterMap;
         }
     }
     return tableViewProxy;

@@ -65,7 +65,7 @@
         return [self.dataSource sectionIndexTitlesForTableView:tableView];
     }
     
-    return self.proxyData.holo_sectionIndexTitles;
+    return self.proxyData.sectionIndexTitles;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -73,8 +73,8 @@
         return [self.dataSource tableView:tableView sectionForSectionIndexTitle:title atIndex:index];
     }
     
-    if (self.proxyData.holo_sectionForSectionIndexTitleHandler) {
-        return self.proxyData.holo_sectionForSectionIndexTitleHandler(title, index);
+    if (self.proxyData.sectionForSectionIndexTitleHandler) {
+        return self.proxyData.sectionForSectionIndexTitleHandler(title, index);
     }
     return index;
 }
@@ -785,11 +785,11 @@
 }
 
 - (NSArray<HoloTableSection *> *)holoSections {
-    return self.proxyData.holo_sections;
+    return self.proxyData.sections;
 }
 
 - (NSDictionary<NSString *, Class> *)holoCellClsMap {
-    return self.proxyData.holo_cellClsMap;
+    return self.proxyData.cellClsMap;
 }
 
 @end
