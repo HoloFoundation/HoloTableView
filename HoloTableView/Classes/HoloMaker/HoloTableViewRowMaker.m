@@ -22,6 +22,8 @@
         _configSEL = @selector(holo_configureCellWithModel:);
         _heightSEL = @selector(holo_heightForCellWithModel:);
         _estimatedHeightSEL = @selector(holo_estimatedHeightForCellWithModel:);
+        // support MGSwipeTableCell
+        _delegateSEL = @selector(setDelegate:);
 #pragma clang diagnostic pop
         _canEdit = NO;
         _canMove = NO;

@@ -57,6 +57,14 @@
         [cell performSelector:holoRow.configSEL withObject:holoRow.model];
 #pragma clang diagnostic pop
     }
+    
+    // support MGSwipeTableCell
+    if (holoRow.delegateSEL &&[cell respondsToSelector:holoRow.delegateSEL]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [cell performSelector:holoRow.delegateSEL withObject:holoRow.delegate];
+#pragma clang diagnostic pop
+    }
     return cell;
 }
 

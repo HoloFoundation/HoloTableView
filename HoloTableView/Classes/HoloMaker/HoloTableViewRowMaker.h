@@ -77,6 +77,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
 
+// support MGSwipeTableCell
+@property (nonatomic, assign) SEL delegateSEL;
+
+@property (nonatomic, weak) id delegate;
+
 @end
 
 ////////////////////////////////////////////////////////////
