@@ -31,7 +31,7 @@
     return self;
 }
 
-- (NSIndexSet *)holo_insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
+- (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
     if (rows.count <= 0) return nil;
     
     if (index < 0) index = 0;
@@ -44,7 +44,7 @@
     return indexSet;
 }
 
-- (void)holo_removeRow:(HoloTableRow *)row {
+- (void)removeRow:(HoloTableRow *)row {
     if (!row) return;
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
@@ -52,7 +52,7 @@
     self.rows = array;
 }
 
-- (void)holo_removeAllRows {
+- (void)removeAllRows {
     self.rows = [NSArray new];
 }
 
@@ -193,7 +193,7 @@
         HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
         if (block) block(maker);
         
-        [self.section holo_insertRows:[maker install] atIndex:NSIntegerMax];
+        [self.section insertRows:[maker install] atIndex:NSIntegerMax];
         return self;
     };
 }
