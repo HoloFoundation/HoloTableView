@@ -58,7 +58,7 @@
 #pragma clang diagnostic pop
     }
     
-    // support MGSwipeTableCell
+    // support set a delegate for cell
     if (holoRow.delegateSEL &&[cell respondsToSelector:holoRow.delegateSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
