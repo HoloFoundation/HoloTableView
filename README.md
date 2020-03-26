@@ -9,6 +9,12 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+
+## Integration with 3rd party libraries
+
+- [HoloTableViewMGPlugin](https://github.com/gonghonglou/HoloTableViewMGPlugin) - plugin to support [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell), add swip actions for cell.
+
+
 ## Requirements
 
 If you want to set the model to your UITableViewCell or change it's height according to the model, the UITableViewCell could conform to protocol: `HoloTableViewCellProtocol` and implement their selectors: 
