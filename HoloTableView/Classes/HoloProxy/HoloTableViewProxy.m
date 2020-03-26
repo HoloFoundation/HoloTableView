@@ -600,7 +600,7 @@
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.willBeginSwipingHandler) holoRow.willBeginSwipingHandler(holoRow.model);
+    if (holoRow.willBeginEditingHandler) holoRow.willBeginEditingHandler(holoRow.model);
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -612,7 +612,7 @@
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     if (indexPath.row >= holoSection.rows.count) return;
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
-    if (holoRow.didEndSwipingHandler) holoRow.didEndSwipingHandler(holoRow.model);
+    if (holoRow.didEndEditingHandler) holoRow.didEndEditingHandler(holoRow.model);
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {

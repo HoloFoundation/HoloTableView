@@ -63,9 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^trailingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
 
-@property (nonatomic, copy) void (^willBeginSwipingHandler)(id model);
+@property (nonatomic, copy) void (^willBeginEditingHandler)(id model);
 
-@property (nonatomic, copy) void (^didEndSwipingHandler)(id model);
+@property (nonatomic, copy) void (^didEndEditingHandler)(id model);
 
 @property (nonatomic, copy) NSIndexPath *(^targetMoveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
 
@@ -142,9 +142,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeHandler)(void(^)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willBeginSwipingHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willBeginEditingHandler)(void(^)(id model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndSwipingHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndEditingHandler)(void(^)(id model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^targetMoveHandler)(NSIndexPath *(^targetIndexPath)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath));
 

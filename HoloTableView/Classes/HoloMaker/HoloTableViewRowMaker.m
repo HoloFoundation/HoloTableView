@@ -216,16 +216,16 @@
     };
 }
 
-- (HoloTableRowMaker *(^)(void (^)(id)))willBeginSwipingHandler {
+- (HoloTableRowMaker *(^)(void (^)(id)))willBeginEditingHandler {
     return ^id(id obj) {
-        self.tableRow.willBeginSwipingHandler = obj;
+        self.tableRow.willBeginEditingHandler = obj;
         return self;
     };
 }
 
-- (HoloTableRowMaker *(^)(void (^)(id)))didEndSwipingHandler {
+- (HoloTableRowMaker *(^)(void (^)(id)))didEndEditingHandler {
     return ^id(id obj) {
-        self.tableRow.didEndSwipingHandler = obj;
+        self.tableRow.didEndEditingHandler = obj;
         return self;
     };
 }
