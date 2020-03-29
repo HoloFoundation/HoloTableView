@@ -59,6 +59,12 @@
 @end
 
 ////////////////////////////////////////////////////////////
+@interface HoloTableSectionMaker ()
+
+@property (nonatomic, strong) HoloTableSection *section;
+
+@end
+
 @implementation HoloTableSectionMaker
 
 - (instancetype)init {

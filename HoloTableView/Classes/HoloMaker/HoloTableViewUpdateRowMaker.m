@@ -52,7 +52,7 @@
 - (HoloTableRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        HoloTableRow *updateRow = rowMaker.tableRow;
+        HoloTableRow *updateRow = [rowMaker fetchTableRow];
         updateRow.tag = tag;
         
         NSString *dictKey = tag ?: kHoloRowTagNil;

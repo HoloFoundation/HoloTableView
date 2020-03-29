@@ -64,8 +64,6 @@ static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
 ////////////////////////////////////////////////////////////
 @interface HoloTableSectionMaker : NSObject
 
-@property (nonatomic, strong, readonly) HoloTableSection *section;
-
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^header)(Class header);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footer)(Class footer);

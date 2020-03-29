@@ -36,6 +36,12 @@
 @end
 
 ////////////////////////////////////////////////////////////
+@interface HoloTableRowMaker ()
+
+@property (nonatomic, strong) HoloTableRow *tableRow;
+
+@end
+
 @implementation HoloTableRowMaker
 
 - (instancetype)init {
@@ -283,6 +289,11 @@
         self.tableRow.editingInsertHandler = obj;
         return self;
     };
+}
+
+
+- (HoloTableRow *)fetchTableRow {
+    return self.tableRow;
 }
 
 @end

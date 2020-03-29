@@ -87,8 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 ////////////////////////////////////////////////////////////
 @interface HoloTableRowMaker : NSObject
 
-@property (nonatomic, strong, readonly) HoloTableRow *tableRow;
-
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
@@ -153,6 +151,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteHandler)(void(^)(id _Nullable model, void(^completionHandler)(BOOL actionPerformed)));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingInsertHandler)(void(^)(id _Nullable model));
+
+
+- (HoloTableRow *)fetchTableRow;
 
 @end
 
