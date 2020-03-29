@@ -56,7 +56,7 @@
             make.row(HoloExampleTableViewCell.class)
             .model(dict)
             .didSelectHandler(^(id  _Nullable model) {
-                NSLog(@"did select model : %@", model);
+                NSLog(@"did select row : %@", model);
             });
         }
     }];

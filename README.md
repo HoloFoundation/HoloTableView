@@ -39,7 +39,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
    for (NSObject *obj in NSArray.new) {
        make.row(TwoTableViewCell.class).model(obj)
        .didSelectHandler(^(id  _Nullable model) {
-           NSLog(@"did select model : %@", model);
+           NSLog(@"did select row : %@", model);
        });
    }
 }];
