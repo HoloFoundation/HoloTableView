@@ -41,39 +41,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *editingDeleteTitle;
 
-@property (nonatomic, copy) void (^willSelectHandler)(id model);
+@property (nonatomic, copy) void (^willSelectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^willDeselectHandler)(id model);
+@property (nonatomic, copy) void (^willDeselectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didDeselectHandler)(id model);
+@property (nonatomic, copy) void (^didDeselectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didSelectHandler)(id model);
+@property (nonatomic, copy) void (^didSelectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell, id model);
+@property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell, id _Nullable model);
 
-@property (nonatomic, copy) void (^didEndDisplayingHandler)(UITableViewCell *cell, id model);
+@property (nonatomic, copy) void (^didEndDisplayingHandler)(UITableViewCell *cell, id _Nullable model);
 
-@property (nonatomic, copy) void (^didHighlightHandler)(id model);
+@property (nonatomic, copy) void (^didHighlightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didUnHighlightHandler)(id model);
+@property (nonatomic, copy) void (^didUnHighlightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^accessoryHandler)(id model);
+@property (nonatomic, copy) void (^accessoryHandler)(id _Nullable model);
 
 @property (nonatomic, copy) void (^leadingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
 @property (nonatomic, copy) void (^trailingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
 
-@property (nonatomic, copy) void (^willBeginEditingHandler)(id model);
+@property (nonatomic, copy) void (^willBeginEditingHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didEndEditingHandler)(id model);
+@property (nonatomic, copy) void (^didEndEditingHandler)(id _Nullable model);
 
 @property (nonatomic, copy) NSIndexPath *(^targetMoveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
 
 @property (nonatomic, copy) void (^moveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath, void(^completionHandler)(BOOL actionPerformed));
 
-@property (nonatomic, copy) void (^editingDeleteHandler)(id model, void(^completionHandler)(BOOL actionPerformed));
+@property (nonatomic, copy) void (^editingDeleteHandler)(id _Nullable model, void(^completionHandler)(BOOL actionPerformed));
 
-@property (nonatomic, copy) void (^editingInsertHandler)(id model);
+@property (nonatomic, copy) void (^editingInsertHandler)(id _Nullable model);
 
 @property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
 
@@ -120,39 +120,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitle)(NSString *title);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willSelectHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willSelectHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDeselectHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDeselectHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didDeselectHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didDeselectHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didSelectHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didSelectHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell, id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell, id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndDisplayingHandler)(void(^)(UITableViewCell *cell, id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndDisplayingHandler)(void(^)(UITableViewCell *cell, id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didHighlightHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didHighlightHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didUnHighlightHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didUnHighlightHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessoryHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessoryHandler)(void(^)(id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeHandler)(void(^)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed))) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeHandler)(void(^)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willBeginEditingHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willBeginEditingHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndEditingHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndEditingHandler)(void(^)(id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^targetMoveHandler)(NSIndexPath *(^targetIndexPath)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^moveHandler)(void(^)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath, void(^completionHandler)(BOOL actionPerformed)));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteHandler)(void(^)(id model, void(^completionHandler)(BOOL actionPerformed)));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteHandler)(void(^)(id _Nullable model, void(^completionHandler)(BOOL actionPerformed)));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingInsertHandler)(void(^)(id model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingInsertHandler)(void(^)(id _Nullable model));
 
 @end
 
