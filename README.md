@@ -32,13 +32,12 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 [self.view addSubview:tableView];
 
 [tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
-   // one cell
-   make.row(OneTableViewCell.class).model(NSDictionary.new).height(44);
+   // make a cell
+   make.row(ExampleTableViewCell.class).model(NSDictionary.new).height(44);
    
-   // two cell
+   // make a list
    for (NSObject *obj in NSArray.new) {
-       make.row(TwoTableViewCell.class).model(obj)
-       .didSelectHandler(^(id  _Nullable model) {
+       make.row(ExampleTableViewCell.class).model(obj).didSelectHandler(^(id  _Nullable model) {
            NSLog(@"did select row : %@", model);
        });
    }
