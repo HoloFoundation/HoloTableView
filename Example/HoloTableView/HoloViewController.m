@@ -55,7 +55,7 @@
         for (NSDictionary *dict in [self _modelsFromOtherWay]) {
             make.row(HoloExampleTableViewCell.class)
             .model(dict)
-            .didSelectHandler(^(id  _Nonnull model) {
+            .didSelectHandler(^(id  _Nullable model) {
                 NSLog(@"did select model : %@", model);
             });
         }
