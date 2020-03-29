@@ -104,6 +104,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.dataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)]) {
         [self.dataSource tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -134,6 +135,7 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if ([self.dataSource respondsToSelector:@selector(tableView:moveRowAtIndexPath:toIndexPath:)]) {
         [self.dataSource tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+        return;
     }
     
     HoloTableSection *sourceSection = self.holoSections[sourceIndexPath.section];
@@ -205,6 +207,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)]) {
         [self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -215,6 +218,7 @@
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:didEndDisplayingCell:forRowAtIndexPath:)]) {
         [self.delegate tableView:tableView didEndDisplayingCell:cell forRowAtIndexPath:indexPath];
+        return;
     }
     
     if (indexPath.section >= self.holoSections.count) return;
@@ -250,6 +254,7 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)]) {
         [self.delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -260,6 +265,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
         [self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -280,6 +286,7 @@
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:didHighlightRowAtIndexPath:)]) {
         [self.delegate tableView:tableView didHighlightRowAtIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -290,6 +297,7 @@
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:didUnhighlightRowAtIndexPath:)]) {
         [self.delegate tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -419,6 +427,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)]) {
         [self.delegate tableView:tableView willDisplayHeaderView:view forSection:section];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
@@ -428,6 +437,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(tableView:willDisplayFooterView:forSection:)]) {
         [self.delegate tableView:tableView willDisplayFooterView:view forSection:section];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
@@ -437,6 +447,7 @@
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(tableView:didEndDisplayingHeaderView:forSection:)]) {
         [self.delegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
@@ -446,6 +457,7 @@
 - (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section {
     if ([self.delegate respondsToSelector:@selector(tableView:didEndDisplayingFooterView:forSection:)]) {
         [self.delegate tableView:tableView didEndDisplayingFooterView:view forSection:section];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
@@ -455,6 +467,7 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:accessoryButtonTappedForRowWithIndexPath:)]) {
         [self.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -596,6 +609,7 @@
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:willBeginEditingRowAtIndexPath:)]) {
         [self.delegate tableView:tableView willBeginEditingRowAtIndexPath:indexPath];
+        return;
     }
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
@@ -606,6 +620,7 @@
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]) {
         [self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
+        return;
     }
     
     if (indexPath.section >= self.holoSections.count) return;
@@ -660,6 +675,7 @@
 - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     if ([self.delegate respondsToSelector:@selector(tableView:performAction:forRowAtIndexPath:withSender:)]) {
         [self.delegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
+        return;
     }
 }
 
@@ -680,6 +696,7 @@
 - (void)tableView:(UITableView *)tableView didUpdateFocusInContext:(UITableViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator NS_AVAILABLE_IOS(9_0) {
     if ([self.delegate respondsToSelector:@selector(tableView:didUpdateFocusInContext:withAnimationCoordinator:)]) {
         [self.delegate tableView:tableView didUpdateFocusInContext:context withAnimationCoordinator:coordinator];
+        return;
     }
 }
 
@@ -701,48 +718,56 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [self.scrollDelegate scrollViewDidScroll:scrollView];
+        return;
     }
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidZoom:)]) {
         [self.scrollDelegate scrollViewDidZoom:scrollView];
+        return;
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
         [self.scrollDelegate scrollViewWillBeginDragging:scrollView];
+        return;
     }
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
         [self.scrollDelegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+        return;
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
         [self.scrollDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+        return;
     }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewWillBeginDecelerating:)]) {
         [self.scrollDelegate scrollViewWillBeginDecelerating:scrollView];
+        return;
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidEndDecelerating:)]) {
         [self.scrollDelegate scrollViewDidEndDecelerating:scrollView];
+        return;
     }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidEndScrollingAnimation:)]) {
         [self.scrollDelegate scrollViewDidEndScrollingAnimation:scrollView];
+        return;
     }
 }
 
@@ -756,12 +781,14 @@
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewWillBeginZooming:withView:)]) {
         [self.scrollDelegate scrollViewWillBeginZooming:scrollView withView:view];
+        return;
     }
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidEndZooming:withView:atScale:)]) {
         [self.scrollDelegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
+        return;
     }
 }
 
@@ -775,12 +802,14 @@
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidScrollToTop:)]) {
         [self.scrollDelegate scrollViewDidScrollToTop:scrollView];
+        return;
     }
 }
 
 - (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView API_AVAILABLE(ios(11.0), tvos(11.0)) {
     if ([self.scrollDelegate respondsToSelector:@selector(scrollViewDidChangeAdjustedContentInset:)]) {
         [self.scrollDelegate scrollViewDidChangeAdjustedContentInset:scrollView];
+        return;
     }
 }
 
