@@ -17,6 +17,7 @@
         _height = CGFLOAT_MIN;
         _estimatedHeight = CGFLOAT_MIN;
         _shouldHighlight = YES;
+        _style = UITableViewCellStyleDefault;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         _configSEL = @selector(holo_configureCellWithModel:);
@@ -83,6 +84,13 @@
 - (HoloTableRowMaker *(^)(CGFloat))estimatedHeight {
     return ^id(CGFloat f) {
         self.tableRow.estimatedHeight = f;
+        return self;
+    };
+}
+
+- (HoloTableRowMaker * (^)(UITableViewCellStyle))style {
+    return ^id(UITableViewCellStyle style) {
+        self.tableRow.style = style;
         return self;
     };
 }

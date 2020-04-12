@@ -66,8 +66,9 @@
             Class class = NSClassFromString(row.cell);
             if (!class) {
                 HoloLog(@"⚠️[HoloTableView] No found a cell class with the name: %@.", row.cell);
-            } else if (!cellClsMap[row.cell]) {
-                [self registerClass:class forCellReuseIdentifier:row.cell];
+            } else if (![class.new isKindOfClass:UITableViewCell.class]) {
+                HoloLog(@"⚠️[HoloTableView] The class: %@, neither UITableViewCell nor its subclasses.", row.cell);
+            }  else if (!cellClsMap[row.cell]) {
                 cellClsMap[row.cell] = class;
             }
         }
@@ -251,7 +252,6 @@
     for (HoloTableRow *row in [maker install]) {
         Class class = NSClassFromString(row.cell);
         if (!cellClsMap[row.cell] && class) {
-            [self registerClass:class forCellReuseIdentifier:row.cell];
             cellClsMap[row.cell] = class;
         }
         if (cellClsMap[row.cell]) {
@@ -333,7 +333,6 @@
                     if ([propertyNameStr isEqualToString:@"cell"]) {
                         Class class = NSClassFromString(updateRow.cell);
                         if (!cellClsMap[updateRow.cell] && class) {
-                            [self registerClass:class forCellReuseIdentifier:updateRow.cell];
                             cellClsMap[updateRow.cell] = class;
                         }
                         if (cellClsMap[updateRow.cell]) {

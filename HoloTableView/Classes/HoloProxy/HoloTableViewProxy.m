@@ -48,8 +48,12 @@
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
     
-    NSString *clsName = NSStringFromClass(self.holoCellClsMap[holoRow.cell]);
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:clsName forIndexPath:indexPath];
+    Class cls = self.holoCellClsMap[holoRow.cell];
+    NSString *clsName = NSStringFromClass(cls);
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:clsName];
+    if (!cell) {
+        cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:clsName];
+    }
     
     if (holoRow.configSEL && [cell respondsToSelector:holoRow.configSEL]) {
 #pragma clang diagnostic push
