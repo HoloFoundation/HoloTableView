@@ -8,6 +8,7 @@
 #import "UITableView+HoloTableView.h"
 #import <objc/runtime.h>
 #import "UITableView+HoloTableViewProxy.h"
+#import "HoloTableViewProxyMaker.h"
 #import "HoloTableViewProxy.h"
 #import "HoloTableViewMaker.h"
 #import "HoloTableViewSectionMaker.h"
@@ -17,6 +18,18 @@
 #import "HoloTableViewMacro.h"
 
 @implementation UITableView (HoloTableView)
+
+#pragma mark - make TableViewProxy
+- (void)holo_makeTableViewProxy:(void (^ NS_NOESCAPE)(HoloTableViewProxyMaker *))block {
+    HoloTableViewProxyMaker *maker = [HoloTableViewProxyMaker new];
+    if (block) block(maker);
+    
+    HoloTableViewProxyModel *proxyModel = [maker install];
+    if (proxyModel.delegate) self.holo_proxy.delegate = proxyModel.delegate;
+    if (proxyModel.dataSource) self.holo_proxy.dataSource = proxyModel.dataSource;
+    if (proxyModel.scrollDelegate) self.holo_proxy.scrollDelegate = proxyModel.scrollDelegate;
+}
+
 
 #pragma mark - make TableView
 - (void)holo_makeTableView:(void (NS_NOESCAPE ^)(HoloTableViewMaker *))block {

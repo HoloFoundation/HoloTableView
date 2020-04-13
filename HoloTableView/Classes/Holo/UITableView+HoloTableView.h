@@ -6,11 +6,21 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HoloTableViewMaker, HoloTableViewRowMaker, HoloTableViewSectionMaker, HoloTableViewUpdateRowMaker;
+@class HoloTableViewProxyMaker, HoloTableViewMaker, HoloTableViewRowMaker, HoloTableViewSectionMaker, HoloTableViewUpdateRowMaker;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (HoloTableView)
+
+#pragma mark - make TableViewProxy
+/**
+ *  Creates a HoloTableViewProxyMaker in the callee for current UITableView.
+ *  If you set your own delegate, dataSource or scrollDelegate, these methods will replace holo proxy's methods.
+ *
+ *  @param block Scope within which you can set your own delegate, dataSource or scrollDelegate which you wish to apply to current UITableView.
+ */
+- (void)holo_makeTableViewProxy:(void(NS_NOESCAPE ^)(HoloTableViewProxyMaker *make))block;
+
 
 #pragma mark - make TableView
 /**
