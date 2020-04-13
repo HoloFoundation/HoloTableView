@@ -49,10 +49,10 @@
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
     
     Class cls = self.holoCellClsMap[holoRow.cell];
-    NSString *clsName = NSStringFromClass(cls);
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:clsName];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.cell];
     if (!cell) {
-        cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:clsName];
+        if (!cls) cls = UITableViewCell.class;
+        cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.cell];
     }
     
     if (holoRow.configSEL && [cell respondsToSelector:holoRow.configSEL]) {
