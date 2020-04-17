@@ -10,14 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSInteger (^HoloSectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
+typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewModel : NSObject
 
 @property (nonatomic, copy) NSArray *indexTitles;
 
-@property (nonatomic, copy) HoloSectionForSectionIndexTitleHandler indexTitlesHandler;
+@property (nonatomic, copy) HoloTableViewSectionForSectionIndexTitleHandler indexTitlesHandler;
 
 @property (nonatomic, strong) id<HoloTableViewDelegate> delegate;
 

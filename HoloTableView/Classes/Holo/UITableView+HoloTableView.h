@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - tableView
 /**
- *  Creates a HoloTableViewConfiger in the callee for current UITableView.
+ *  Creates a HoloTableViewMaker in the callee for current UITableView.
  *
  *  @param block Scope within which you can configure the current UITableView.
  */
