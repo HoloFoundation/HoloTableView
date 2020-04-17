@@ -8,7 +8,6 @@
 #import "UITableView+HoloTableView.h"
 #import <objc/runtime.h>
 #import "UITableView+HoloTableViewProxy.h"
-#import "HoloTableViewProxyMaker.h"
 #import "HoloTableViewProxy.h"
 #import "HoloTableViewMaker.h"
 #import "HoloTableViewSectionMaker.h"
@@ -19,26 +18,18 @@
 
 @implementation UITableView (HoloTableView)
 
-#pragma mark - make TableViewProxy
-- (void)holo_makeTableViewProxy:(void (^ NS_NOESCAPE)(HoloTableViewProxyMaker *))block {
-    HoloTableViewProxyMaker *maker = [HoloTableViewProxyMaker new];
-    if (block) block(maker);
-    
-    HoloTableViewProxyModel *proxyModel = [maker install];
-    if (proxyModel.delegate) self.holo_proxy.delegate = proxyModel.delegate;
-    if (proxyModel.dataSource) self.holo_proxy.dataSource = proxyModel.dataSource;
-    if (proxyModel.scrollDelegate) self.holo_proxy.scrollDelegate = proxyModel.scrollDelegate;
-}
-
-
-#pragma mark - make TableView
+#pragma mark - tableView
 - (void)holo_makeTableView:(void (NS_NOESCAPE ^)(HoloTableViewMaker *))block {
     HoloTableViewMaker *maker = [HoloTableViewMaker new];
     if (block) block(maker);
     
-    NSDictionary *dict = [maker install];
-    self.holo_proxy.proxyData.sectionIndexTitles = dict[kHoloSectionIndexTitles];
-    self.holo_proxy.proxyData.sectionForSectionIndexTitleHandler = dict[kHoloSectionForSectionIndexTitleHandler];
+    HoloTableViewModel *tableViewModel = [maker install];
+    if (tableViewModel.indexTitles) self.holo_proxy.proxyData.sectionIndexTitles = tableViewModel.indexTitles;
+    if (tableViewModel.indexTitlesHandler) self.holo_proxy.proxyData.sectionForSectionIndexTitleHandler = tableViewModel.indexTitlesHandler;
+    
+    if (tableViewModel.delegate) self.holo_proxy.delegate = tableViewModel.delegate;
+    if (tableViewModel.dataSource) self.holo_proxy.dataSource = tableViewModel.dataSource;
+    if (tableViewModel.scrollDelegate) self.holo_proxy.scrollDelegate = tableViewModel.scrollDelegate;
 }
 
 #pragma mark - section
