@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) UITableViewCellStyle style;
 
+@property (nonatomic, copy) NSString *reuseId;
+
 @property (nonatomic, copy) NSString *tag;
 
 @property (nonatomic, assign) SEL configSEL;
@@ -100,6 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeight)(CGFloat estimatedHeight);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^style)(UITableViewCellStyle style);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^reuseId)(NSString *reuseId);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);
 

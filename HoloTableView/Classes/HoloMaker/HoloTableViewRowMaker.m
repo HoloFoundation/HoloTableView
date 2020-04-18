@@ -95,6 +95,13 @@
     };
 }
 
+- (HoloTableRowMaker * (^)(NSString *))reuseId {
+    return ^id(id obj) {
+        self.tableRow.reuseId = obj;
+        return self;
+    };
+}
+
 - (HoloTableRowMaker *(^)(NSString *))tag {
     return ^id(id obj) {
         self.tableRow.tag = obj;
@@ -319,6 +326,9 @@
     return ^id(Class cls) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
         rowMaker.tableRow.cell = NSStringFromClass(cls);
+        // reuseId is equal to cell by default
+        rowMaker.tableRow.reuseId = rowMaker.tableRow.cell;
+        
         [self.holoRows addObject:rowMaker.tableRow];
         return rowMaker;
     };
@@ -328,6 +338,9 @@
     return ^id(id obj) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
         rowMaker.tableRow.cell = obj;
+        // reuseId is equal to cell by default
+        rowMaker.tableRow.reuseId = rowMaker.tableRow.cell;
+        
         [self.holoRows addObject:rowMaker.tableRow];
         return rowMaker;
     };

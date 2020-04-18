@@ -48,11 +48,11 @@
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
     
-    Class cls = self.holoCellClsMap[holoRow.cell];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.cell];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.reuseId];
     if (!cell) {
+        Class cls = self.holoCellClsMap[holoRow.cell];
         if (!cls) cls = UITableViewCell.class;
-        cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.cell];
+        cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.reuseId];
     }
     
     if (holoRow.configSEL && [cell respondsToSelector:holoRow.configSEL]) {
