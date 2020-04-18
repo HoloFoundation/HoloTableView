@@ -8,6 +8,21 @@
 #import "HoloTableViewMaker.h"
 
 ////////////////////////////////////////////////////////////
+@implementation HoloTableViewRowMapMaker
+
+@end
+
+////////////////////////////////////////////////////////////
+@implementation HoloTableViewHeaderMapMaker
+
+@end
+
+////////////////////////////////////////////////////////////
+@implementation HoloTableViewFooterMapMaker
+
+@end
+
+////////////////////////////////////////////////////////////
 @implementation HoloTableViewModel
 
 @end
@@ -52,6 +67,36 @@
 - (HoloTableViewMaker * (^)(id<UIScrollViewDelegate>))scrollDelegate {
     return ^id(id obj) {
         self.tableViewModel.scrollDelegate = obj;
+        return self;
+    };
+}
+
+- (HoloTableViewMaker * (^)(void (NS_NOESCAPE ^)(HoloTableViewRowMapMaker *)))makeRowsMap {
+    return ^id(void(^block)(HoloTableViewRowMapMaker *make)) {
+        HoloTableViewRowMapMaker *maker = [HoloTableViewRowMapMaker new];
+        if (block) block(maker);
+        
+//        [self.section insertRows:[maker install] atIndex:NSIntegerMax];
+        return self;
+    };
+}
+
+- (HoloTableViewMaker * (^)(void (NS_NOESCAPE ^)(HoloTableViewHeaderMapMaker *)))makeHeadersMap {
+    return ^id(void(^block)(HoloTableViewHeaderMapMaker *make)) {
+        HoloTableViewHeaderMapMaker *maker = [HoloTableViewHeaderMapMaker new];
+        if (block) block(maker);
+        
+//        [self.section insertRows:[maker install] atIndex:NSIntegerMax];
+        return self;
+    };
+}
+
+- (HoloTableViewMaker * (^)(void (NS_NOESCAPE ^)(HoloTableViewFooterMapMaker *)))makeFootersMap {
+    return ^id(void(^block)(HoloTableViewFooterMapMaker *make)) {
+        HoloTableViewFooterMapMaker *maker = [HoloTableViewFooterMapMaker new];
+        if (block) block(maker);
+        
+//        [self.section insertRows:[maker install] atIndex:NSIntegerMax];
         return self;
     };
 }
