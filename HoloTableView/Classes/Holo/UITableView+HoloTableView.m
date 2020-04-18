@@ -65,9 +65,9 @@
         if (updateSection.footer) [self _registerHeaderFooter:updateSection.footer withHeaderFooterMap:headerFooterMap];
         
         // update cell-cls map
-        NSMutableDictionary *cellClsMap = self.holo_proxy.proxyData.cellClsMap.mutableCopy;
+        NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
         for (HoloTableRow *row in updateSection.rows) {
-            if (cellClsMap[row.cell]) continue;
+            if (rowsMap[row.cell]) continue;
             
             Class cls = NSClassFromString(row.cell);
             if (!cls) {
@@ -78,9 +78,9 @@
                 NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell];
                 NSAssert(NO, error);
             }
-            cellClsMap[row.cell] = cls;
+            rowsMap[row.cell] = cls;
         }
-        self.holo_proxy.proxyData.cellClsMap = cellClsMap;
+        self.holo_proxy.proxyData.rowsMap = rowsMap;
     }
     self.holo_proxy.proxyData.headerFooterMap = headerFooterMap;
     
@@ -257,10 +257,10 @@
     if (block) block(maker);
     
     // update cell-cls map
-    NSMutableDictionary *cellClsMap = self.holo_proxy.proxyData.cellClsMap.mutableCopy;
+    NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
     NSMutableArray *rows = [NSMutableArray new];
     for (HoloTableRow *row in [maker install]) {
-        if (cellClsMap[row.cell]) {
+        if (rowsMap[row.cell]) {
             [rows addObject:row];
             continue;
         }
@@ -274,10 +274,10 @@
             NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell];
             NSAssert(NO, error);
         }
-        cellClsMap[row.cell] = cls;
+        rowsMap[row.cell] = cls;
         [rows addObject:row];
     }
-    self.holo_proxy.proxyData.cellClsMap = cellClsMap;
+    self.holo_proxy.proxyData.rowsMap = rowsMap;
     
     // append rows and refresh view
     BOOL isNewOne = NO;
@@ -324,7 +324,7 @@
     if (block) block(maker);
     
     // update cell-cls map
-    NSMutableDictionary *cellClsMap = self.holo_proxy.proxyData.cellClsMap.mutableCopy;
+    NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
         HoloTableRow *targetRow = dict[kHoloTargetRow];
@@ -348,7 +348,7 @@
                 id value = [updateRow valueForKey:propertyNameStr];
                 if (value) {
                     if ([propertyNameStr isEqualToString:@"cell"]) {
-                        if (cellClsMap[updateRow.cell]) {
+                        if (rowsMap[updateRow.cell]) {
                             targetRow.cell = updateRow.cell;
                             continue;
                         }
@@ -362,7 +362,7 @@
                             NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", updateRow.cell];
                             NSAssert(NO, error);
                         }
-                        cellClsMap[updateRow.cell] = cls;
+                        rowsMap[updateRow.cell] = cls;
                         targetRow.cell = updateRow.cell;
                     } else {
                         [targetRow setValue:value forKey:propertyNameStr];
@@ -382,7 +382,7 @@
         targetRow.heightSEL = updateRow.heightSEL;
         targetRow.estimatedHeightSEL = updateRow.estimatedHeightSEL;
     }
-    self.holo_proxy.proxyData.cellClsMap = cellClsMap;
+    self.holo_proxy.proxyData.rowsMap = rowsMap;
     
     // refresh view
     if (reload && indexPaths.count > 0) {

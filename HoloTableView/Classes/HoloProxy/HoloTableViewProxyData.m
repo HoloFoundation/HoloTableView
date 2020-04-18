@@ -92,11 +92,11 @@
     return _sections;
 }
 
-- (NSDictionary<NSString *, Class> *)cellClsMap {
-    if (!_cellClsMap) {
-        _cellClsMap = [NSDictionary new];
+- (NSDictionary<NSString *,Class> *)rowsMap {
+    if (!_rowsMap) {
+        _rowsMap = [NSDictionary new];
     }
-    return _cellClsMap;
+    return _rowsMap;
 }
 
 - (NSDictionary<NSString *,Class> *)headerFooterMap {
