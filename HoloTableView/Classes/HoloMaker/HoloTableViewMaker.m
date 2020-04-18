@@ -23,14 +23,14 @@
 
 - (HoloTableViewMaker * (^)(NSArray<NSString *> *))sectionIndexTitles {
     return ^id(id obj) {
-        self.tableViewModel = obj;
+        self.tableViewModel.indexTitles = obj;
         return self;
     };
 }
 
 - (HoloTableViewMaker * (^)(NSInteger (^)(NSString *, NSInteger)))sectionForSectionIndexTitleHandler {
     return ^id(id obj) {
-        self.tableViewModel = obj;
+        self.tableViewModel.indexTitlesHandler = obj;
         return self;
     };
 }
