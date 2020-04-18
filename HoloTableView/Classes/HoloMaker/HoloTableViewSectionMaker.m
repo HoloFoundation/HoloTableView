@@ -67,14 +67,6 @@
 
 @implementation HoloTableSectionMaker
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _section = [HoloTableSection new];
-    }
-    return self;
-}
-
 - (HoloTableSectionMaker * (^)(Class))header {
     return ^id(Class cls) {
         self.section.header = NSStringFromClass(cls);
@@ -202,6 +194,14 @@
         [self.section insertRows:[maker install] atIndex:NSIntegerMax];
         return self;
     };
+}
+
+#pragma mark - getter
+- (HoloTableSection *)section {
+    if (!_section) {
+        _section = [HoloTableSection new];
+    }
+    return _section;
 }
 
 @end

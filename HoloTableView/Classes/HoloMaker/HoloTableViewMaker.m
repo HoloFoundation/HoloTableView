@@ -21,14 +21,6 @@
 
 @implementation HoloTableViewMaker
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _tableViewModel = [HoloTableViewModel new];
-    }
-    return self;
-}
-
 - (HoloTableViewMaker * (^)(NSArray<NSString *> *))sectionIndexTitles {
     return ^id(id obj) {
         self.tableViewModel = obj;
@@ -66,6 +58,14 @@
 
 - (HoloTableViewModel *)install {
     return self.tableViewModel;
+}
+
+#pragma mark - getter
+- (HoloTableViewModel *)tableViewModel {
+    if (!_tableViewModel) {
+        _tableViewModel = [HoloTableViewModel new];
+    }
+    return _tableViewModel;
 }
 
 @end

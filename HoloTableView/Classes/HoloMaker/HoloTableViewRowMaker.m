@@ -45,14 +45,6 @@
 
 @implementation HoloTableRowMaker
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _tableRow = [HoloTableRow new];
-    }
-    return self;
-}
-
 - (HoloTableRowMaker * (^)(Class))row {
     return ^id(Class cls) {
         self.tableRow.cell = NSStringFromClass(cls);
@@ -309,6 +301,14 @@
 
 - (HoloTableRow *)fetchTableRow {
     return self.tableRow;
+}
+
+#pragma mark - getter
+- (HoloTableRow *)tableRow {
+    if (!_tableRow) {
+        _tableRow = [HoloTableRow new];
+    }
+    return _tableRow;
 }
 
 @end
