@@ -18,7 +18,7 @@ static NSString * const kHoloRowTagNil = @"holo_row_tag_nil";
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString * _Nullable tag);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark;
 
