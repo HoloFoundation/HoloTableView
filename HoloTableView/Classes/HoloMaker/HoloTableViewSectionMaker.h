@@ -10,11 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const kHoloTargetSection = @"holo_target_section";
-static NSString * const kHoloTargetIndex = @"holo_target_index";
-static NSString * const kHoloUpdateSection = @"holo_update_section";
-static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
-
+typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
+    HoloTableViewSectionMakerTypeMake,
+    HoloTableViewSectionMakerTypeInsert,
+    HoloTableViewSectionMakerTypeUpdate,
+    HoloTableViewSectionMakerTypeRemake
+};
 
 ////////////////////////////////////////////////////////////
 @interface HoloTableSection : NSObject
@@ -102,14 +103,24 @@ static NSString * const kHoloSectionTagNil = @"holo_section_tag_nil";
 
 @end
 
+
+////////////////////////////////////////////////////////////
+@interface HoloTableViewSectionMakerModel : NSObject
+
+@property (nonatomic, strong) HoloTableSection *operateSection;
+
+@property (nonatomic, strong) NSNumber *operateIndex;
+
+@end
+
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewSectionMaker : NSObject
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^section)(NSString *tag);
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark;
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections makerType:(HoloTableViewSectionMakerType)makerType;
 
-- (NSArray<NSDictionary *> *)install;
+- (NSArray<HoloTableViewSectionMakerModel *> *)install;
 
 @end
 
