@@ -54,15 +54,16 @@
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
-    // update headerFootersMap
-    NSMutableDictionary *headerFootersMap = self.holo_proxy.proxyData.headerFootersMap.mutableCopy;
+    // update headersMap and footersMap
+    NSMutableDictionary *headersMap = self.holo_proxy.proxyData.headersMap.mutableCopy;
+    NSMutableDictionary *footersMap = self.holo_proxy.proxyData.footersMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
         HoloTableSection *updateSection = dict[kHoloUpdateSection];
         [array addObject:updateSection];
         
-        if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFootersMap:headerFootersMap];
-        if (updateSection.footer) [self _registerHeaderFooter:updateSection.footer withHeaderFootersMap:headerFootersMap];
+        if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFootersMap:headersMap];
+        if (updateSection.footer) [self _registerHeaderFooter:updateSection.footer withHeaderFootersMap:footersMap];
         
         // update cell-cls map
         NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
@@ -82,7 +83,8 @@
         }
         self.holo_proxy.proxyData.rowsMap = rowsMap;
     }
-    self.holo_proxy.proxyData.headerFootersMap = headerFootersMap;
+    self.holo_proxy.proxyData.headersMap = headersMap;
+    self.holo_proxy.proxyData.footersMap = footersMap;
     
     // append sections
     NSIndexSet *indexSet = [self.holo_proxy.proxyData insertSections:array anIndex:index];
@@ -113,8 +115,9 @@
     HoloTableViewSectionMaker *maker = [[HoloTableViewSectionMaker alloc] initWithProxyDataSections:self.holo_proxy.proxyData.sections isRemark:isRemark];
     if (block) block(maker);
     
-    // update targetSection and headerFootersMap
-    NSMutableDictionary *headerFootersMap = self.holo_proxy.proxyData.headerFootersMap.mutableCopy;
+    // update targetSection and headersMap/footersMap
+    NSMutableDictionary *headersMap = self.holo_proxy.proxyData.headersMap.mutableCopy;
+    NSMutableDictionary *footersMap = self.holo_proxy.proxyData.footersMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
         HoloTableSection *targetSection = dict[kHoloTargetSection];
@@ -140,10 +143,10 @@
                 if (value) {
                     if ([propertyNameStr isEqualToString:@"header"]) {
                         targetSection.header = updateSection.header;
-                        [self _registerHeaderFooter:targetSection.header withHeaderFootersMap:headerFootersMap];
+                        [self _registerHeaderFooter:targetSection.header withHeaderFootersMap:headersMap];
                     } else if ([propertyNameStr isEqualToString:@"footer"]) {
                         targetSection.footer = updateSection.footer;
-                        [self _registerHeaderFooter:targetSection.footer withHeaderFootersMap:headerFootersMap];
+                        [self _registerHeaderFooter:targetSection.footer withHeaderFootersMap:footersMap];
                     } else {
                         [targetSection setValue:value forKey:propertyNameStr];
                     }
@@ -158,7 +161,8 @@
         targetSection.headerFooterHeightSEL = updateSection.headerFooterHeightSEL;
         targetSection.headerFooterEstimatedHeightSEL = updateSection.headerFooterEstimatedHeightSEL;
     }
-    self.holo_proxy.proxyData.headerFootersMap = headerFootersMap;
+    self.holo_proxy.proxyData.headersMap = headersMap;
+    self.holo_proxy.proxyData.footersMap = footersMap;
     
     // refresh view
     if (reload && indexSet.count > 0) {
