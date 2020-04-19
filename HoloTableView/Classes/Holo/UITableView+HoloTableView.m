@@ -54,7 +54,7 @@
     HoloTableViewSectionMaker *maker = [HoloTableViewSectionMaker new];
     if (block) block(maker);
     
-    // update headerFooterMap
+    // update headerFootersMap
     NSMutableDictionary *headerFootersMap = self.holo_proxy.proxyData.headerFootersMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
@@ -113,7 +113,7 @@
     HoloTableViewSectionMaker *maker = [[HoloTableViewSectionMaker alloc] initWithProxyDataSections:self.holo_proxy.proxyData.sections isRemark:isRemark];
     if (block) block(maker);
     
-    // update targetSection and headerFooterMap
+    // update targetSection and headerFootersMap
     NSMutableDictionary *headerFootersMap = self.holo_proxy.proxyData.headerFootersMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
@@ -167,8 +167,8 @@
 }
 
 // _registerHeaderFooter
-- (void)_registerHeaderFooter:(NSString *)headerFooter withHeaderFootersMap:(NSMutableDictionary *)headerFooterMap {
-    if (headerFooterMap[headerFooter]) return;
+- (void)_registerHeaderFooter:(NSString *)headerFooter withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap {
+    if (headerFootersMap[headerFooter]) return;
     
     Class cls = NSClassFromString(headerFooter);
     if (!cls) {
@@ -179,7 +179,7 @@
         NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", headerFooter];
         NSAssert(NO, error);
     }
-    headerFooterMap[headerFooter] = cls;
+    headerFootersMap[headerFooter] = cls;
     [self registerClass:cls forHeaderFooterViewReuseIdentifier:headerFooter];
 }
 
