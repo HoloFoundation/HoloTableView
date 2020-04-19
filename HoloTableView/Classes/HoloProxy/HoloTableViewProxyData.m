@@ -99,11 +99,18 @@
     return _rowsMap;
 }
 
-- (NSDictionary<NSString *,Class> *)headerFootersMap {
-    if (!_headerFootersMap) {
-        _headerFootersMap = [NSDictionary new];
+- (NSDictionary<NSString *,Class> *)headersMap {
+    if (!_headersMap) {
+        _headersMap = [NSDictionary new];
     }
-    return _headerFootersMap;
+    return _headersMap;
+}
+
+- (NSDictionary<NSString *,Class> *)footersMap {
+    if (!_footersMap) {
+        _footersMap = [NSDictionary new];
+    }
+    return _footersMap;
 }
 
 @end
