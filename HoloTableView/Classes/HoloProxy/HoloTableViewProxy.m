@@ -15,7 +15,7 @@
 
 @property (nonatomic, copy, readonly) NSArray<HoloTableSection *> *holoSections;
 
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoCellClsMap;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoRowsMap;
 
 @end
 
@@ -50,7 +50,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.reuseId];
     if (!cell) {
-        Class cls = self.holoCellClsMap[holoRow.cell];
+        Class cls = self.holoRowsMap[holoRow.cell];
         if (!cls) cls = UITableViewCell.class;
         cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.reuseId];
     }
@@ -168,7 +168,7 @@
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
     
-    Class cls = self.holoCellClsMap[holoRow.cell];
+    Class cls = self.holoRowsMap[holoRow.cell];
     if (holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.heightSEL model:holoRow.model];
     }
@@ -183,7 +183,7 @@
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
 
-    Class cls = self.holoCellClsMap[holoRow.cell];
+    Class cls = self.holoRowsMap[holoRow.cell];
     if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
     }
@@ -829,8 +829,8 @@
     return self.proxyData.sections;
 }
 
-- (NSDictionary<NSString *, Class> *)holoCellClsMap {
-    return self.proxyData.cellClsMap;
+- (NSDictionary<NSString *, Class> *)holoRowsMap {
+    return self.proxyData.rowsMap;
 }
 
 @end
