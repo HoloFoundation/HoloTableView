@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSDictionary<NSString *, Class> *rowsMap;
 
-@property (nonatomic, copy) NSDictionary<NSString *, Class> *headerFooterMap;
+@property (nonatomic, copy) NSDictionary<NSString *, Class> *headerFootersMap;
 
 @property (nonatomic, copy) NSArray<NSString *> *sectionIndexTitles;
 

@@ -55,14 +55,14 @@
     if (block) block(maker);
     
     // update headerFooterMap
-    NSMutableDictionary *headerFooterMap = self.holo_proxy.proxyData.headerFooterMap.mutableCopy;
+    NSMutableDictionary *headerFootersMap = self.holo_proxy.proxyData.headerFootersMap.mutableCopy;
     NSMutableArray *array = [NSMutableArray new];
     for (NSDictionary *dict in [maker install]) {
         HoloTableSection *updateSection = dict[kHoloUpdateSection];
         [array addObject:updateSection];
         
-        if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFooterMap:headerFooterMap];
-        if (updateSection.footer) [self _registerHeaderFooter:updateSection.footer withHeaderFooterMap:headerFooterMap];
+        if (updateSection.header) [self _registerHeaderFooter:updateSection.header withHeaderFootersMap:headerFootersMap];
+        if (updateSection.footer) [self _registerHeaderFooter:updateSection.footer withHeaderFootersMap:headerFootersMap];
         
         // update cell-cls map
         NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
@@ -82,7 +82,7 @@
         }
         self.holo_proxy.proxyData.rowsMap = rowsMap;
     }
-    self.holo_proxy.proxyData.headerFooterMap = headerFooterMap;
+    self.holo_proxy.proxyData.headerFootersMap = headerFootersMap;
     
     // append sections
     NSIndexSet *indexSet = [self.holo_proxy.proxyData insertSections:array anIndex:index];
@@ -114,7 +114,7 @@
     if (block) block(maker);
     
     // update targetSection and headerFooterMap
-    NSMutableDictionary *headerFooterMap = self.holo_proxy.proxyData.headerFooterMap.mutableCopy;
+    NSMutableDictionary *headerFootersMap = self.holo_proxy.proxyData.headerFootersMap.mutableCopy;
     NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
     for (NSDictionary *dict in [maker install]) {
         HoloTableSection *targetSection = dict[kHoloTargetSection];
@@ -140,10 +140,10 @@
                 if (value) {
                     if ([propertyNameStr isEqualToString:@"header"]) {
                         targetSection.header = updateSection.header;
-                        [self _registerHeaderFooter:targetSection.header withHeaderFooterMap:headerFooterMap];
+                        [self _registerHeaderFooter:targetSection.header withHeaderFootersMap:headerFootersMap];
                     } else if ([propertyNameStr isEqualToString:@"footer"]) {
                         targetSection.footer = updateSection.footer;
-                        [self _registerHeaderFooter:targetSection.footer withHeaderFooterMap:headerFooterMap];
+                        [self _registerHeaderFooter:targetSection.footer withHeaderFootersMap:headerFootersMap];
                     } else {
                         [targetSection setValue:value forKey:propertyNameStr];
                     }
@@ -158,7 +158,7 @@
         targetSection.headerFooterHeightSEL = updateSection.headerFooterHeightSEL;
         targetSection.headerFooterEstimatedHeightSEL = updateSection.headerFooterEstimatedHeightSEL;
     }
-    self.holo_proxy.proxyData.headerFooterMap = headerFooterMap;
+    self.holo_proxy.proxyData.headerFootersMap = headerFootersMap;
     
     // refresh view
     if (reload && indexSet.count > 0) {
@@ -167,7 +167,7 @@
 }
 
 // _registerHeaderFooter
-- (void)_registerHeaderFooter:(NSString *)headerFooter withHeaderFooterMap:(NSMutableDictionary *)headerFooterMap {
+- (void)_registerHeaderFooter:(NSString *)headerFooter withHeaderFootersMap:(NSMutableDictionary *)headerFooterMap {
     if (headerFooterMap[headerFooter]) return;
     
     Class cls = NSClassFromString(headerFooter);
