@@ -263,8 +263,10 @@
     NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
     NSMutableArray *rows = [NSMutableArray new];
     for (HoloTableRow *row in [maker install]) {
+        [rows addObject:row];
+        
+        
         if (rowsMap[row.cell]) {
-            [rows addObject:row];
             continue;
         }
         
@@ -278,7 +280,6 @@
             NSAssert(NO, error);
         }
         rowsMap[row.cell] = cls;
-        [rows addObject:row];
     }
     self.holo_proxy.proxyData.rowsMap = rowsMap;
     
@@ -300,96 +301,113 @@
         [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
             [indePathArray addObject:[NSIndexPath indexPathForRow:idx inSection:sectionIndex]];
         }];
-        [self insertRowsAtIndexPaths:[indePathArray copy] withRowAnimation:animation];
+        [self insertRowsAtIndexPaths:indePathArray.copy withRowAnimation:animation];
     }
 }
 
 // holo_updateRows
 - (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block {
-    [self _holo_updateRows:block isRemark:NO reload:NO withReloadAnimation:kNilOptions];
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
+                                  block:block
+                                 reload:NO
+                              animation:kNilOptions];
 }
 
-- (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_updateRows:block isRemark:NO reload:YES withReloadAnimation:animation];
+- (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block
+    withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
+                                  block:block
+                                 reload:YES
+                              animation:animation];
 }
 
 // holo_remakeRows
 - (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block {
-    [self _holo_updateRows:block isRemark:YES reload:NO withReloadAnimation:kNilOptions];
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
+                                  block:block
+                                 reload:NO
+                              animation:kNilOptions];
 }
 
-- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation {
-    [self _holo_updateRows:block isRemark:YES reload:YES withReloadAnimation:animation];
+- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+    withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
+                                  block:block
+                                 reload:YES
+                              animation:animation];
 }
 
-- (void)_holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block isRemark:(BOOL)isRemark reload:(BOOL)reload withReloadAnimation:(UITableViewRowAnimation)animation {
-    HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.proxyData.sections isRemark:isRemark];
+
+- (void)_holo_updateRowsWithMakerType:(HoloTableViewUpdateRowMakerType)makerType
+                                block:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block
+                               reload:(BOOL)reload
+                            animation:(UITableViewRowAnimation)animation {
+    HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.proxyData.sections makerType:makerType];
     if (block) block(maker);
     
     // update cell-cls map
     NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
-    NSMutableArray *indexPaths = [NSMutableArray new];
-    for (NSDictionary *dict in [maker install]) {
-        HoloTableRow *targetRow = dict[kHoloTargetRow];
-        HoloTableRow *updateRow = dict[kHoloUpdateRow];
-        if (!targetRow) {
-            HoloLog(@"[HoloTableView] No found a row with the tag: %@.", updateRow.tag);
+    NSMutableArray *updateIndexPaths = [NSMutableArray new];
+    NSMutableArray *addArray = [NSMutableArray new];
+    NSMutableArray *updateArray = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
+    for (HoloTableViewUpdateRowMakerModel *makerModel in [maker install]) {
+        HoloTableRow *operateRow = makerModel.operateRow;
+        if (makerModel.operateIndexPath) {
+            // update || remake
+            [updateIndexPaths addObject:makerModel.operateIndexPath];
+            
+            NSMutableArray *updateRowsArray = [NSMutableArray arrayWithArray:updateArray[makerModel.operateIndexPath.section]];
+            [updateRowsArray replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
+            [updateArray replaceObjectAtIndex:makerModel.operateIndexPath.section withObject:updateRowsArray.copy];
+        } else {
+            // make || insert
+            [addArray addObject:operateRow];
+        }
+        
+        
+        if (rowsMap[operateRow.cell]) {
             continue;
         }
-        [indexPaths addObject:dict[kHoloTargetIndexPath]];
         
-        // set value to property which it's not kind of SEL
-        unsigned int outCount;
-        objc_property_t * properties = class_copyPropertyList([updateRow class], &outCount);
-        for (int i = 0; i < outCount; i++) {
-            objc_property_t property = properties[i];
-            const char * propertyAttr = property_getAttributes(property);
-            char t = propertyAttr[1];
-            if (t != ':') { // not SEL
-                const char *propertyName = property_getName(property);
-                NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-                id value = [updateRow valueForKey:propertyNameStr];
-                if (value) {
-                    if ([propertyNameStr isEqualToString:@"cell"]) {
-                        if (rowsMap[updateRow.cell]) {
-                            targetRow.cell = updateRow.cell;
-                            continue;
-                        }
-                        
-                        Class cls = NSClassFromString(updateRow.cell);
-                        if (!cls) {
-                            NSString *error = [NSString stringWithFormat:@"[HoloTableView] No found a cell class with the name: %@.", updateRow.cell];
-                            NSAssert(NO, error);
-                        }
-                        if (![cls.new isKindOfClass:UITableViewCell.class]) {
-                            NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", updateRow.cell];
-                            NSAssert(NO, error);
-                        }
-                        rowsMap[updateRow.cell] = cls;
-                        targetRow.cell = updateRow.cell;
-                    } else {
-                        [targetRow setValue:value forKey:propertyNameStr];
-                    }
-                } else if (isRemark) {
-                    if ([propertyNameStr isEqualToString:@"cell"]) {
-                        HoloLog(@"[HoloTableView] No update the cell of the row which you wish to ramark with the tag: %@.", updateRow.tag);
-                    } else {
-                        [targetRow setValue:NULL forKey:propertyNameStr];
-                    }
-                }
-            }
+        Class cls = NSClassFromString(operateRow.cell);
+        if (!cls) {
+            NSString *error = [NSString stringWithFormat:@"[HoloTableView] No found a cell class with the name: %@.", operateRow.cell];
+            NSAssert(NO, error);
         }
-        
-        // set value of SEL
-        targetRow.configSEL = updateRow.configSEL;
-        targetRow.heightSEL = updateRow.heightSEL;
-        targetRow.estimatedHeightSEL = updateRow.estimatedHeightSEL;
+        if (![cls.new isKindOfClass:UITableViewCell.class]) {
+            NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", operateRow.cell];
+            NSAssert(NO, error);
+        }
+        rowsMap[operateRow.cell] = cls;
     }
     self.holo_proxy.proxyData.rowsMap = rowsMap;
+    self.holo_proxy.proxyData.sections = updateArray.copy;
     
-    // refresh view
-    if (reload && indexPaths.count > 0) {
-        [self reloadRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+    // refresh rows
+    if (reload && updateIndexPaths.count > 0) {
+        [self reloadRowsAtIndexPaths:updateIndexPaths withRowAnimation:animation];
+    }
+    // append rows
+    if (reload && addArray.count > 0) {
+        BOOL isNewOne = NO;
+        HoloTableSection *targetSection = [self.holo_proxy.proxyData sectionWithTag:nil];
+        if (!targetSection) {
+            targetSection = [HoloTableSection new];
+//            targetSection.tag = tag;
+            [self.holo_proxy.proxyData insertSections:@[targetSection] anIndex:NSIntegerMax];
+            isNewOne = YES;
+        }
+        NSIndexSet *indexSet = [targetSection insertRows:addArray atIndex:NSIntegerMax];
+        NSInteger sectionIndex = [self.holo_proxy.proxyData.sections indexOfObject:targetSection];
+        if (isNewOne) {
+            [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
+        } else {
+            NSMutableArray *indePathArray = [NSMutableArray new];
+            [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                [indePathArray addObject:[NSIndexPath indexPathForRow:idx inSection:sectionIndex]];
+            }];
+            [self insertRowsAtIndexPaths:indePathArray.copy withRowAnimation:animation];
+        }
     }
 }
 

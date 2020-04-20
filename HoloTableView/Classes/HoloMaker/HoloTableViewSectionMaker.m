@@ -6,8 +6,6 @@
 //
 
 #import "HoloTableViewSectionMaker.h"
-#import <objc/runtime.h>
-#import "HoloTableViewMacro.h"
 #import "HoloTableViewRowMaker.h"
 
 ////////////////////////////////////////////////////////////

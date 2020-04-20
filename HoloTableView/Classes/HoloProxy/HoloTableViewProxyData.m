@@ -46,7 +46,7 @@
 
 - (HoloTableSection *)sectionWithTag:(NSString *)tag {
     for (HoloTableSection *section in self.sections) {
-        if ([section.tag isEqualToString:tag]) return section;
+        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) return section;
     }
     return nil;
 }

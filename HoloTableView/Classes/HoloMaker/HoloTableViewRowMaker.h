@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloTableViewRowSwipeAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -91,10 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
 ////////////////////////////////////////////////////////////
 @interface HoloTableRowMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
-
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^model)(id model);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^height)(CGFloat height);
@@ -162,6 +157,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (HoloTableRow *)fetchTableRow;
+
+- (void)giveTableRow:(HoloTableRow *)tableRow;
 
 @end
 

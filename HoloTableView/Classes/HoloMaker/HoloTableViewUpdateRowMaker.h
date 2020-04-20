@@ -6,23 +6,44 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloTableSection, HoloTableRowMaker;
+#import "HoloTableViewRowMaker.h"
+@class HoloTableSection;
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const kHoloTargetRow = @"holo_target_row";
-static NSString * const kHoloTargetIndexPath = @"holo_target_indexPath";
-static NSString * const kHoloUpdateRow = @"holo_update_row";
-static NSString * const kHoloRowTagNil = @"holo_row_tag_nil";
+typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
+    HoloTableViewUpdateRowMakerTypeMake,
+    HoloTableViewUpdateRowMakerTypeInsert,
+    HoloTableViewUpdateRowMakerTypeUpdate,
+    HoloTableViewUpdateRowMakerTypeRemake
+};
+
+////////////////////////////////////////////////////////////
+@interface HoloTableUpdateRowMaker : HoloTableRowMaker
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
+
+@end
+
+////////////////////////////////////////////////////////////
+@interface HoloTableViewUpdateRowMakerModel : NSObject
+
+@property (nonatomic, strong) HoloTableRow *operateRow;
+
+@property (nonatomic, strong) NSIndexPath *operateIndexPath;
+
+@end
 
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);
+@property (nonatomic, copy, readonly) HoloTableUpdateRowMaker *(^tag)(NSString *tag);
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark;
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections makerType:(HoloTableViewUpdateRowMakerType)makerType;
 
-- (NSArray<NSDictionary *> *)install;
+- (NSArray<HoloTableViewUpdateRowMakerModel *> *)install;
 
 @end
 
