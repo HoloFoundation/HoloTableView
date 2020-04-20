@@ -16,12 +16,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self _init];
-    }
-    return self;
-}
-
-- (void)_init {
         _rows = [NSArray new];
         _headerHeight = CGFLOAT_MIN;
         _footerHeight = CGFLOAT_MIN;
@@ -33,26 +27,7 @@
         _headerFooterHeightSEL = @selector(holo_heightForHeaderFooterWithModel:);
         _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
 #pragma clang diagnostic pop
-}
-
-- (instancetype)reinit {
-    // clear
-    unsigned int outCount;
-    objc_property_t * properties = class_copyPropertyList(self.class, &outCount);
-    for (int i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        const char * propertyAttr = property_getAttributes(property);
-        char t = propertyAttr[1];
-        // https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html
-        if (t == '@') {
-            const char *propertyName = property_getName(property);
-            NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-            [self setValue:NULL forKey:propertyNameStr];
-        }
     }
-    // default
-    [self _init];
-    
     return self;
 }
 
@@ -265,27 +240,18 @@
         
         __block HoloTableSection *targetSection;
         __block NSNumber *operateIndex;
-        switch (self.makerType) {
-            case HoloTableViewSectionMakerTypeMake:
-            case HoloTableViewSectionMakerTypeInsert:
-//                sectionMaker.section.tag = tag;
-                break;
-            case HoloTableViewSectionMakerTypeUpdate:
-            case HoloTableViewSectionMakerTypeRemake:
-                [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.tag isEqualToString:tag] || (!obj.tag && !tag)) {
-                        targetSection = obj;
-                        operateIndex = @(idx);
-                        *stop = YES;
-                    }
-                }];
-                break;
+        if (self.makerType == HoloTableViewSectionMakerTypeUpdate || self.makerType == HoloTableViewSectionMakerTypeRemake) {
+            [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.tag isEqualToString:tag] || (!obj.tag && !tag)) {
+                    targetSection = obj;
+                    operateIndex = @(idx);
+                    *stop = YES;
+                }
+            }];
         }
         
         if (targetSection && self.makerType == HoloTableViewSectionMakerTypeUpdate) {
             sectionMaker.section = targetSection;
-        } else if (targetSection && self.makerType == HoloTableViewSectionMakerTypeRemake) {
-            sectionMaker.section = [targetSection reinit];
         }
         
         HoloTableViewSectionMakerModel *makerModel = [HoloTableViewSectionMakerModel new];
