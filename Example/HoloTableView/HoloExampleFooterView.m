@@ -20,7 +20,7 @@
     return self;
 }
 
-- (void)holo_configureHeaderFooterWithModel:(NSDictionary *)model {
+- (void)holo_configureFooterWithModel:(NSDictionary *)model {
     self.textLabel.text = model[@"title"];
 }
 

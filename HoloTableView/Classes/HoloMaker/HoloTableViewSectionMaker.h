@@ -40,10 +40,20 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @property (nonatomic, assign) CGFloat footerEstimatedHeight;
 
+@property (nonatomic, assign) SEL headerConfigSEL;
+
+@property (nonatomic, assign) SEL footerConfigSEL;
+
+@property (nonatomic, assign) SEL headerHeightSEL;
+
+@property (nonatomic, assign) SEL footerHeightSEL;
+
+@property (nonatomic, assign) SEL headerEstimatedHeightSEL;
+
+@property (nonatomic, assign) SEL footerEstimatedHeightSEL;
+
 @property (nonatomic, assign) SEL headerFooterConfigSEL;
-
 @property (nonatomic, assign) SEL headerFooterHeightSEL;
-
 @property (nonatomic, assign) SEL headerFooterEstimatedHeightSEL;
 
 @property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header, id _Nullable model);
@@ -85,11 +95,21 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerEstimatedHeight)(CGFloat footerEstimatedHeight);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterConfigSEL)(SEL headerConfigSEL);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerConfigSEL)(SEL headerConfigSEL);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterHeightSEL)(SEL headerHeightSEL);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerConfigSEL)(SEL footerConfigSEL);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterEstimatedHeightSEL)(SEL headerEstimatedHeightSEL);
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerHeightSEL)(SEL headerHeightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerHeightSEL)(SEL footerHeightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerEstimatedHeightSEL)(SEL headerEstimatedHeightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerEstimatedHeightSEL)(SEL footerEstimatedHeightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterConfigSEL)(SEL headerFooterConfigSEL) DEPRECATED_MSG_ATTRIBUTE("Please use `headerConfigSEL` or `footerConfigSEL` api instead.");
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterHeightSEL)(SEL headerFooterHeightSEL) DEPRECATED_MSG_ATTRIBUTE("Please use `headerHeightSEL` or `footerHeightSEL` api instead.");
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterEstimatedHeightSEL)(SEL headerFooterEstimatedHeightSEL) DEPRECATED_MSG_ATTRIBUTE("Please use `headerEstimatedHeightSEL` or `footerEstimatedHeightSEL` api instead.");
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header, id _Nullable model));
 

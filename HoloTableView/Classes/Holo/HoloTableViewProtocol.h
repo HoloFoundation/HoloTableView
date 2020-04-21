@@ -23,23 +23,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 ////////////////////////////////////////////////////////////
-@protocol HoloTableViewHeaderFooterProtocol <NSObject>
+@protocol HoloTableViewHeaderProtocol <NSObject>
 
 @optional
 
-- (void)holo_configureHeaderFooterWithModel:(id)model;
+- (void)holo_configureHeaderWithModel:(id)model;
 
-+ (CGFloat)holo_heightForHeaderFooterWithModel:(id)model;
++ (CGFloat)holo_heightForHeaderWithModel:(id)model;
 
-+ (CGFloat)holo_estimatedHeightForHeaderFooterWithModel:(id)model;
++ (CGFloat)holo_estimatedHeightForHeaderWithModel:(id)model;
 
 @end
 
 ////////////////////////////////////////////////////////////
-@protocol HoloTableViewDelegate <UITableViewDelegate>
+@protocol HoloTableViewFooterProtocol <NSObject>
 
+@optional
+
+- (void)holo_configureFooterWithModel:(id)model;
+
++ (CGFloat)holo_heightForFooterWithModel:(id)model;
+
++ (CGFloat)holo_estimatedHeightForFooterWithModel:(id)model;
+
+@end
+
+////////////////////////////////////////////////////////////
+@protocol HoloTableViewHeaderFooterProtocol <NSObject>
+@optional
+- (void)holo_configureHeaderFooterWithModel:(id)model;
++ (CGFloat)holo_heightForHeaderFooterWithModel:(id)model;
++ (CGFloat)holo_estimatedHeightForHeaderFooterWithModel:(id)model;
+@end
+
+////////////////////////////////////////////////////////////
+@protocol HoloTableViewDelegate <UITableViewDelegate>
 
 @end
 

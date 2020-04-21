@@ -19,11 +19,11 @@
     return self;
 }
 
-- (void)holo_configureHeaderFooterWithModel:(NSDictionary *)model {
+- (void)holo_configureHeaderWithModel:(NSDictionary *)model {
     self.textLabel.text = model[@"title"];
 }
 
-+ (CGFloat)holo_heightForHeaderFooterWithModel:(id)model {
++ (CGFloat)holo_heightForHeaderWithModel:(id)model {
     return 100;
 }
 

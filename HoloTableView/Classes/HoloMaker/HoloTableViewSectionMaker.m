@@ -21,6 +21,13 @@
         _footerEstimatedHeight = CGFLOAT_MIN;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+        _headerConfigSEL = @selector(holo_configureHeaderWithModel:);
+        _footerConfigSEL = @selector(holo_configureFooterWithModel:);
+        _headerHeightSEL = @selector(holo_heightForHeaderWithModel:);
+        _footerHeightSEL = @selector(holo_heightForFooterWithModel:);
+        _headerEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderWithModel:);
+        _footerEstimatedHeightSEL = @selector(holo_estimatedHeightForFooterWithModel:);
+        
         _headerFooterConfigSEL = @selector(holo_configureHeaderFooterWithModel:);
         _headerFooterHeightSEL = @selector(holo_heightForHeaderFooterWithModel:);
         _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
@@ -142,13 +149,53 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(SEL))headerConfigSEL {
+    return ^id(SEL s) {
+        self.section.headerConfigSEL = s;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(SEL))footerConfigSEL {
+    return ^id(SEL s) {
+        self.section.footerConfigSEL = s;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(SEL))headerHeightSEL {
+    return ^id(SEL s) {
+        self.section.headerHeightSEL = s;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(SEL))footerHeightSEL {
+    return ^id(SEL s) {
+        self.section.footerHeightSEL = s;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(SEL))headerEstimatedHeightSEL {
+    return ^id(SEL s) {
+        self.section.headerEstimatedHeightSEL = s;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(SEL))footerEstimatedHeightSEL {
+    return ^id(SEL s) {
+        self.section.footerEstimatedHeightSEL = s;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))headerFooterHeightSEL {
     return ^id(SEL s) {
         self.section.headerFooterHeightSEL = s;
         return self;
     };
 }
-
 - (HoloTableSectionMaker *(^)(SEL))headerFooterEstimatedHeightSEL {
     return ^id(SEL s) {
         self.section.headerFooterEstimatedHeightSEL = s;
