@@ -6,8 +6,6 @@
 //
 
 #import "HoloTableViewSectionMaker.h"
-#import <objc/runtime.h>
-#import "HoloTableViewMacro.h"
 #import "HoloTableViewRowMaker.h"
 
 ////////////////////////////////////////////////////////////
@@ -207,34 +205,28 @@
 @end
 
 ////////////////////////////////////////////////////////////
+@implementation HoloTableViewSectionMakerModel
+
+@end
+
+////////////////////////////////////////////////////////////
 @interface HoloTableViewSectionMaker ()
 
-@property (nonatomic, copy) NSArray<HoloTableSection *> *targetSections;
+@property (nonatomic, copy) NSArray<HoloTableSection *> *dataSections;
 
-@property (nonatomic, assign) BOOL isRemark;
+@property (nonatomic, assign) HoloTableViewSectionMakerType makerType;
 
-@property (nonatomic, strong) NSMutableArray<NSDictionary *> *holoUpdateSections;
-
-@property (nonatomic, strong) NSMutableDictionary *sectionIndexsDict;
+@property (nonatomic, strong) NSMutableArray<HoloTableViewSectionMakerModel *> *makerModels;
 
 @end
 
 @implementation HoloTableViewSectionMaker
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections isRemark:(BOOL)isRemark {
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections makerType:(HoloTableViewSectionMakerType)makerType {
     self = [super init];
     if (self) {
-        _targetSections = sections;
-        _isRemark = isRemark;
-        
-        for (HoloTableSection *section in self.targetSections) {
-            NSString *dictKey = section.tag ?: kHoloSectionTagNil;
-            if (self.sectionIndexsDict[dictKey]) continue;
-            
-            NSMutableDictionary *dict = @{kHoloTargetSection : section}.mutableCopy;
-            dict[kHoloTargetIndex] = @([self.targetSections indexOfObject:section]);
-            self.sectionIndexsDict[dictKey] = [dict copy];
-        }
+        _dataSections = sections;
+        _makerType = makerType;
     }
     return self;
 }
@@ -242,68 +234,43 @@
 - (HoloTableSectionMaker *(^)(NSString *))section {
     return ^id(NSString *tag) {
         HoloTableSectionMaker *sectionMaker = [HoloTableSectionMaker new];
-        HoloTableSection *updateSection = sectionMaker.section;
-        updateSection.tag = tag;
+        sectionMaker.section.tag = tag;
         
-        NSString *dictKey = tag ?: kHoloSectionTagNil;
-        NSDictionary *sectionIndexDict = self.sectionIndexsDict[dictKey];
-
-        HoloTableSection *targetSection = sectionIndexDict[kHoloTargetSection];
-        NSNumber *targetIndex = sectionIndexDict[kHoloTargetIndex];
-        
-        if (!self.isRemark && targetSection) {
-            // set value of CGFloat and BOOL
-            unsigned int outCount;
-            objc_property_t * properties = class_copyPropertyList([targetSection class], &outCount);
-            for (int i = 0; i < outCount; i++) {
-                objc_property_t property = properties[i];
-                const char * propertyAttr = property_getAttributes(property);
-                char t = propertyAttr[1];
-                const char *propertyName = property_getName(property);
-                NSString *propertyNameStr = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-                // CGFloat or BOOL or rows
-                if (t == 'd' || t == 'B' || [propertyNameStr isEqualToString:@"rows"]) {
-                    id value = [targetSection valueForKey:propertyNameStr];
-                    if (value) [updateSection setValue:value forKey:propertyNameStr];
+        __block HoloTableSection *targetSection;
+        __block NSNumber *operateIndex;
+        if (self.makerType == HoloTableViewSectionMakerTypeUpdate || self.makerType == HoloTableViewSectionMakerTypeRemake) {
+            [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.tag isEqualToString:tag] || (!obj.tag && !tag)) {
+                    targetSection = obj;
+                    operateIndex = @(idx);
+                    *stop = YES;
                 }
-            }
-            
-            // set value of SEL
-            updateSection.headerFooterConfigSEL = targetSection.headerFooterConfigSEL;
-            updateSection.headerFooterHeightSEL = targetSection.headerFooterHeightSEL;
-            updateSection.headerFooterEstimatedHeightSEL = targetSection.headerFooterEstimatedHeightSEL;
+            }];
         }
         
-        NSMutableDictionary *dict = [NSMutableDictionary new];
-        if (targetSection) {
-            dict[kHoloTargetSection] = targetSection;
-            dict[kHoloTargetIndex] = targetIndex;
+        if (targetSection && self.makerType == HoloTableViewSectionMakerTypeUpdate) {
+            sectionMaker.section = targetSection;
         }
-        dict[kHoloUpdateSection] = updateSection;
-        [self.holoUpdateSections addObject:dict];
+        
+        HoloTableViewSectionMakerModel *makerModel = [HoloTableViewSectionMakerModel new];
+        makerModel.operateSection = sectionMaker.section;
+        makerModel.operateIndex = operateIndex;
+        [self.makerModels addObject:makerModel];
         
         return sectionMaker;
     };
 }
 
-- (NSArray<NSDictionary *> *)install {
-    return [self.holoUpdateSections copy];
+- (NSArray<HoloTableViewSectionMakerModel *> *)install {
+    return self.makerModels.copy;
 }
 
 #pragma mark - getter
-- (NSMutableArray<NSDictionary *> *)holoUpdateSections {
-    if (!_holoUpdateSections) {
-        _holoUpdateSections = [NSMutableArray new];
+- (NSMutableArray<HoloTableViewSectionMakerModel *> *)makerModels {
+    if (!_makerModels) {
+        _makerModels = [NSMutableArray new];
     }
-    return _holoUpdateSections;
+    return _makerModels;
 }
-
-- (NSMutableDictionary *)sectionIndexsDict {
-    if (!_sectionIndexsDict) {
-        _sectionIndexsDict = [NSMutableDictionary new];
-    }
-    return _sectionIndexsDict;
-}
-
 
 @end

@@ -6,7 +6,6 @@
 //
 
 #import "HoloTableViewRowMaker.h"
-#import "HoloTableViewMacro.h"
 
 ////////////////////////////////////////////////////////////
 @implementation HoloTableRow
@@ -301,6 +300,10 @@
 
 - (HoloTableRow *)fetchTableRow {
     return self.tableRow;
+}
+
+- (void)giveTableRow:(HoloTableRow *)tableRow {
+    self.tableRow = tableRow;
 }
 
 #pragma mark - getter
