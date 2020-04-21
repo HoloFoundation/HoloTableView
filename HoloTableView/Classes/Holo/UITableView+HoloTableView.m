@@ -117,7 +117,7 @@
                                         makerType:makerType];
     if (block) block(maker);
     
-    // update headersMap and footersMap
+    // update data and map
     NSMutableDictionary *headersMap = self.holo_proxy.proxyData.headersMap.mutableCopy;
     NSMutableDictionary *footersMap = self.holo_proxy.proxyData.footersMap.mutableCopy;
     NSMutableArray *updateArray = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
@@ -125,6 +125,11 @@
     NSMutableIndexSet *updateIndexSet = [NSMutableIndexSet new];
     for (HoloTableViewSectionMakerModel *makerModel in [maker install]) {
         HoloTableSection *operateSection = makerModel.operateSection;
+        if (!makerModel.operateIndex && (makerType == HoloTableViewSectionMakerTypeUpdate || makerType == HoloTableViewSectionMakerTypeRemake)) {
+            HoloLog(@"[HoloTableView] No found a section with the tag: %@.", operateSection.tag);
+            continue;
+        }
+        
         if (makerModel.operateIndex) {
             // update || remake
             [updateIndexSet addIndex:makerModel.operateIndex.integerValue];
@@ -137,7 +142,7 @@
         if (operateSection.header) [self _holo_registerHeaderFooter:operateSection.header withHeaderFootersMap:headersMap];
         if (operateSection.footer) [self _holo_registerHeaderFooter:operateSection.footer withHeaderFootersMap:footersMap];
         
-        // update cell-cls map
+        // update map
         NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
         for (HoloTableRow *row in operateSection.rows) {
             if (rowsMap[row.cell]) continue;
@@ -259,17 +264,13 @@
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
-    // update cell-cls map
+    // update data and map
     NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
     NSMutableArray *rows = [NSMutableArray new];
     for (HoloTableRow *row in [maker install]) {
         [rows addObject:row];
         
-        
-        if (rowsMap[row.cell]) {
-            continue;
-        }
-        
+        if (rowsMap[row.cell]) continue;
         Class cls = NSClassFromString(row.cell);
         if (!cls) {
             NSString *error = [NSString stringWithFormat:@"[HoloTableView] No found a cell class with the name: %@.", row.cell];
@@ -283,7 +284,8 @@
     }
     self.holo_proxy.proxyData.rowsMap = rowsMap;
     
-    // append rows and refresh view
+    // append rows
+    if (rows.count <= 0) return;
     BOOL isNewOne = NO;
     HoloTableSection *targetSection = [self.holo_proxy.proxyData sectionWithTag:tag];
     if (!targetSection) {
@@ -294,14 +296,18 @@
     }
     NSIndexSet *indexSet = [targetSection insertRows:rows atIndex:index];
     NSInteger sectionIndex = [self.holo_proxy.proxyData.sections indexOfObject:targetSection];
-    if (reload && isNewOne) {
-        [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-    } else if (reload) {
-        NSMutableArray *indePathArray = [NSMutableArray new];
-        [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-            [indePathArray addObject:[NSIndexPath indexPathForRow:idx inSection:sectionIndex]];
-        }];
-        [self insertRowsAtIndexPaths:indePathArray.copy withRowAnimation:animation];
+    
+    // refresh rows
+    if (reload) {
+        if (isNewOne) {
+            [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
+        } else {
+            NSMutableArray *indePathArray = [NSMutableArray new];
+            [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                [indePathArray addObject:[NSIndexPath indexPathForRow:idx inSection:sectionIndex]];
+            }];
+            [self insertRowsAtIndexPaths:indePathArray.copy withRowAnimation:animation];
+        }
     }
 }
 
@@ -345,29 +351,26 @@
     HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.proxyData.sections makerType:makerType];
     if (block) block(maker);
     
-    // update cell-cls map
+    // update data and map
     NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
     NSMutableArray *updateIndexPaths = [NSMutableArray new];
-    NSMutableArray *addArray = [NSMutableArray new];
     NSMutableArray *updateArray = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
     for (HoloTableViewUpdateRowMakerModel *makerModel in [maker install]) {
         HoloTableRow *operateRow = makerModel.operateRow;
-        if (makerModel.operateIndexPath) {
-            // update || remake
-            [updateIndexPaths addObject:makerModel.operateIndexPath];
-            
-            NSMutableArray *updateRowsArray = [NSMutableArray arrayWithArray:updateArray[makerModel.operateIndexPath.section]];
-            [updateRowsArray replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
-            [updateArray replaceObjectAtIndex:makerModel.operateIndexPath.section withObject:updateRowsArray.copy];
-        } else {
-            // make || insert
-            [addArray addObject:operateRow];
-        }
-        
-        
-        if (rowsMap[operateRow.cell]) {
+        // HoloTableViewUpdateRowMakerTypeUpdate || HoloTableViewUpdateRowMakerTypeRemake
+        if (!makerModel.operateIndexPath) {
+            HoloLog(@"[HoloTableView] No found a row with the tag: %@.", operateRow.tag);
             continue;
         }
+        
+        // update || remake
+        [updateIndexPaths addObject:makerModel.operateIndexPath];
+        
+        NSMutableArray *updateRowsArray = [NSMutableArray arrayWithArray:updateArray[makerModel.operateIndexPath.section]];
+        [updateRowsArray replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
+        [updateArray replaceObjectAtIndex:makerModel.operateIndexPath.section withObject:updateRowsArray.copy];
+        
+        if (rowsMap[operateRow.cell]) continue;
         
         Class cls = NSClassFromString(operateRow.cell);
         if (!cls) {
@@ -386,28 +389,6 @@
     // refresh rows
     if (reload && updateIndexPaths.count > 0) {
         [self reloadRowsAtIndexPaths:updateIndexPaths withRowAnimation:animation];
-    }
-    // append rows
-    if (reload && addArray.count > 0) {
-        BOOL isNewOne = NO;
-        HoloTableSection *targetSection = [self.holo_proxy.proxyData sectionWithTag:nil];
-        if (!targetSection) {
-            targetSection = [HoloTableSection new];
-//            targetSection.tag = tag;
-            [self.holo_proxy.proxyData insertSections:@[targetSection] anIndex:NSIntegerMax];
-            isNewOne = YES;
-        }
-        NSIndexSet *indexSet = [targetSection insertRows:addArray atIndex:NSIntegerMax];
-        NSInteger sectionIndex = [self.holo_proxy.proxyData.sections indexOfObject:targetSection];
-        if (isNewOne) {
-            [self insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:animation];
-        } else {
-            NSMutableArray *indePathArray = [NSMutableArray new];
-            [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                [indePathArray addObject:[NSIndexPath indexPathForRow:idx inSection:sectionIndex]];
-            }];
-            [self insertRowsAtIndexPaths:indePathArray.copy withRowAnimation:animation];
-        }
     }
 }
 

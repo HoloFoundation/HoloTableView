@@ -69,18 +69,16 @@
         
         __block HoloTableRow *targetRow;
         __block NSIndexPath *operateIndexPath;
-        if (self.makerType == HoloTableViewUpdateRowMakerTypeUpdate || self.makerType == HoloTableViewUpdateRowMakerTypeRemake) {
-            [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull section, NSUInteger sectionIdx, BOOL * _Nonnull sectionStop) {
-                [section.rows enumerateObjectsUsingBlock:^(HoloTableRow * _Nonnull row, NSUInteger rowIdx, BOOL * _Nonnull rowStop) {
-                    if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
-                        targetRow = row;
-                        operateIndexPath = [NSIndexPath indexPathForRow:rowIdx inSection:sectionIdx];
-                        *rowStop = YES;
-                        *sectionStop = YES;
-                    }
-                }];
+        [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull section, NSUInteger sectionIdx, BOOL * _Nonnull sectionStop) {
+            [section.rows enumerateObjectsUsingBlock:^(HoloTableRow * _Nonnull row, NSUInteger rowIdx, BOOL * _Nonnull rowStop) {
+                if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
+                    targetRow = row;
+                    operateIndexPath = [NSIndexPath indexPathForRow:rowIdx inSection:sectionIdx];
+                    *rowStop = YES;
+                    *sectionStop = YES;
+                }
             }];
-        }
+        }];
         
         if (targetRow && self.makerType == HoloTableViewUpdateRowMakerTypeUpdate) {
             [rowMaker giveTableRow:targetRow];
