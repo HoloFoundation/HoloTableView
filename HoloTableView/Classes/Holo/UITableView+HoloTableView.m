@@ -369,9 +369,10 @@
         [updateIndexPaths addObject:makerModel.operateIndexPath];
         
         if (makerType == HoloTableViewUpdateRowMakerTypeRemake) {
-            NSMutableArray *updateRowsArray = [NSMutableArray arrayWithArray:updateArray[makerModel.operateIndexPath.section]];
-            [updateRowsArray replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
-            [updateArray replaceObjectAtIndex:makerModel.operateIndexPath.section withObject:updateRowsArray.copy];
+            HoloTableSection *section = updateArray[makerModel.operateIndexPath.section];
+            NSMutableArray *rows = [NSMutableArray arrayWithArray:section.rows];
+            [rows replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
+            section.rows = rows;
         }
         
         if (rowsMap[operateRow.cell]) continue;
