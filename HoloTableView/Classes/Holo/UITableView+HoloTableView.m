@@ -133,7 +133,9 @@
         if (makerModel.operateIndex) {
             // update || remake
             [updateIndexSet addIndex:makerModel.operateIndex.integerValue];
-            [updateArray replaceObjectAtIndex:makerModel.operateIndex.integerValue withObject:operateSection];
+            if (makerType == HoloTableViewSectionMakerTypeRemake) {
+                [updateArray replaceObjectAtIndex:makerModel.operateIndex.integerValue withObject:operateSection];
+            }
         } else {
             // make || insert
             [addArray addObject:operateSection];
@@ -366,9 +368,11 @@
         // update || remake
         [updateIndexPaths addObject:makerModel.operateIndexPath];
         
-        NSMutableArray *updateRowsArray = [NSMutableArray arrayWithArray:updateArray[makerModel.operateIndexPath.section]];
-        [updateRowsArray replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
-        [updateArray replaceObjectAtIndex:makerModel.operateIndexPath.section withObject:updateRowsArray.copy];
+        if (makerType == HoloTableViewUpdateRowMakerTypeRemake) {
+            NSMutableArray *updateRowsArray = [NSMutableArray arrayWithArray:updateArray[makerModel.operateIndexPath.section]];
+            [updateRowsArray replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
+            [updateArray replaceObjectAtIndex:makerModel.operateIndexPath.section withObject:updateRowsArray.copy];
+        }
         
         if (rowsMap[operateRow.cell]) continue;
         
