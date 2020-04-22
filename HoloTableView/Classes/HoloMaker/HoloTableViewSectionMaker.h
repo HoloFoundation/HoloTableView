@@ -138,7 +138,8 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^section)(NSString *tag);
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections makerType:(HoloTableViewSectionMakerType)makerType;
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections
+                                makerType:(HoloTableViewSectionMakerType)makerType;
 
 - (NSArray<HoloTableViewSectionMakerModel *> *)install;
 

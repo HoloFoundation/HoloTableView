@@ -39,7 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the insertion is to be animated, for example, fade in or slide in from the left. See UITableViewRowAnimation for descriptions of these constants.
  */
-- (void)holo_makeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_makeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block
+      withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
@@ -48,7 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param index The index in the array at which to insert sections. If this value is less than 0, insert an first index; if this value is greater than the count of elements in the array, insert an last index.
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
  */
-- (void)holo_insertSectionsAtIndex:(NSInteger)index block:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block;
+- (void)holo_insertSectionsAtIndex:(NSInteger)index
+                             block:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block;
 
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
@@ -60,7 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the insertion is to be animated, for example, fade in or slide in from the left. See UITableViewRowAnimation for descriptions of these constants.
  */
-- (void)holo_insertSectionsAtIndex:(NSInteger)index block:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_insertSectionsAtIndex:(NSInteger)index
+                             block:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block
+               withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
@@ -81,7 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new section rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
  */
-- (void)holo_updateSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_updateSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block
+        withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewSectionMaker in the callee for current UITableView.
@@ -102,7 +107,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some sections which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new section rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
  */
-- (void)holo_remakeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_remakeSections:(void(NS_NOESCAPE ^)(HoloTableViewSectionMaker *make))block
+        withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Remove all sections.
@@ -133,7 +139,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param tags The tags of sections which you wish to remove.
  *  @param animation A constant that either specifies the kind of animation to perform when deleting the section or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
-- (void)holo_removeSections:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_removeSections:(NSArray<NSString *> *)tags
+        withReloadAnimation:(UITableViewRowAnimation)animation;
 
 
 #pragma mark - row
@@ -156,7 +163,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that either specifies the kind of animation to perform when inserting the cell or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
-- (void)holo_makeRows:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_makeRows:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block
+  withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
@@ -166,7 +174,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param tag The tag of section which you wish to append rows.
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  */
-- (void)holo_makeRowsInSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
+- (void)holo_makeRowsInSection:(NSString *)tag
+                         block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
 
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
@@ -179,7 +188,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that either specifies the kind of animation to perform when inserting the cell or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
-- (void)holo_makeRowsInSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_makeRowsInSection:(NSString *)tag
+                         block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block
+           withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
@@ -189,7 +200,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param index The index in the array at which to insert rows. If this value is less than 0, insert an first index; if this value is greater than the count of elements in the array, insert an last index.
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  */
-- (void)holo_insertRowsAtIndex:(NSInteger)index block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
+- (void)holo_insertRowsAtIndex:(NSInteger)index
+                         block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
 
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
@@ -202,7 +214,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that either specifies the kind of animation to perform when inserting the cell or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
-- (void)holo_insertRowsAtIndex:(NSInteger)index block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_insertRowsAtIndex:(NSInteger)index
+                         block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block
+           withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
@@ -213,7 +227,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param tag The tag of section which you wish to append rows.
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  */
-- (void)holo_insertRowsAtIndex:(NSInteger)index inSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
+- (void)holo_insertRowsAtIndex:(NSInteger)index
+                     inSection:(NSString *)tag
+                         block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block;
 
 /**
  *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
@@ -227,7 +243,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that either specifies the kind of animation to perform when inserting the cell or requests no animation. See UITableViewRowAnimation for descriptions of the constants.
  */
-- (void)holo_insertRowsAtIndex:(NSInteger)index inSection:(NSString *)tag block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_insertRowsAtIndex:(NSInteger)index
+                     inSection:(NSString *)tag
+                         block:(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make))block
+           withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
@@ -248,7 +267,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
  */
-- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+    withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
@@ -269,7 +289,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
  *  @param animation A constant that indicates how the reloading is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants. The animation constant affects the direction in which both the old and the new rows slide. For example, if the animation constant is UITableViewRowAnimationRight, the old rows slide out to the right and the new cells slide in from the right.
  */
-- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+    withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Remove all rows in the sections according to the tags.
@@ -284,7 +305,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param tags The tags of sections which you wish to remove all rows.
  *  @param animation A constant that indicates how the deletion is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants.
  */
-- (void)holo_removeAllRowsInSections:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_removeAllRowsInSections:(NSArray<NSString *> *)tags
+                 withReloadAnimation:(UITableViewRowAnimation)animation;
 
 /**
  *  Remove the rows according to these tags in all sections.
@@ -301,7 +323,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param tags The tags of rows which you wish to remove.
  *  @param animation A constant that indicates how the deletion is to be animated, for example, fade out or slide out from the bottom. See UITableViewRowAnimation for descriptions of these constants.
  */
-- (void)holo_removeRows:(NSArray<NSString *> *)tags withReloadAnimation:(UITableViewRowAnimation)animation;
+- (void)holo_removeRows:(NSArray<NSString *> *)tags
+    withReloadAnimation:(UITableViewRowAnimation)animation;
 
 @end
 

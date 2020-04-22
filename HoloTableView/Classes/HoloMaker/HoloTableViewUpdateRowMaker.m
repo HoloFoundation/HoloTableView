@@ -52,7 +52,8 @@
 
 @implementation HoloTableViewUpdateRowMaker
 
-- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections makerType:(HoloTableViewUpdateRowMakerType)makerType {
+- (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections
+                                makerType:(HoloTableViewUpdateRowMakerType)makerType {
     self = [super init];
     if (self) {
         _dataSections = sections;

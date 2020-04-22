@@ -40,7 +40,7 @@
     [self.view addSubview:self.tableView];
     
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"a")
+        make.section(TAG)
         .header(HoloExampleHeaderView.class)
         .headerModel(@{@"title":@"header"})
         .footer(HoloExampleFooterView.class)
@@ -74,7 +74,7 @@
 
 #pragma mark - buttonAction
 - (void)buttonAction:(UIButton *)sender {
-    [self.tableView holo_insertRowsAtIndex:0 inSection:@"a" block:^(HoloTableViewRowMaker * _Nonnull make) {
+    [self.tableView holo_insertRowsAtIndex:0 inSection:TAG block:^(HoloTableViewRowMaker * _Nonnull make) {
         make.row(HoloExampleTableViewCell.class).model(@{@"bgColor": [UIColor redColor], @"text": @"cell", @"height": @44});
     } withReloadAnimation:UITableViewRowAnimationNone];
 }
