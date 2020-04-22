@@ -15,16 +15,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - [HoloTableViewMGPlugin](https://github.com/gonghonglou/HoloTableViewMGPlugin) - plugin to support [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell), add swip actions for cell.
 
 
-## Requirements
-
-If you want to set the model to your UITableViewCell or change it's height according to the model, the UITableViewCell could conform to protocol: `HoloTableViewCellProtocol` and implement their selectors: 
-
-```objective-c
-- (void)holo_configureCellWithModel:(id)model;
-
-+ (CGFloat)holo_heightForCellWithModel:(id)model;
-```
-
 ## Usage
 
 ```objective-c
@@ -47,6 +37,16 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 
 // etc...
 ```
+
+If you want to set the model to your UITableViewCell or change it's height according to the model, the UITableViewCell could conform to protocol: `HoloTableViewCellProtocol` and implement their selectors: 
+
+```objective-c
+- (void)holo_configureCellWithModel:(id)model;
+
++ (CGFloat)holo_heightForCellWithModel:(id)model;
+```
+
+Also, you can make `configSEL` or `heightSEL` to set yourself selector for cell.
 
 ## Installation
 
