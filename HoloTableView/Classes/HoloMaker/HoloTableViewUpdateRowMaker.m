@@ -9,32 +9,6 @@
 #import "HoloTableViewSectionMaker.h"
 
 ////////////////////////////////////////////////////////////
-@interface HoloTableUpdateRowMaker ()
-
-// super class: tableRow
-@property (nonatomic, strong) HoloTableRow *tableRow;
-
-@end
-
-@implementation HoloTableUpdateRowMaker
-
-- (HoloTableRowMaker * (^)(Class))row {
-    return ^id(Class cls) {
-        self.tableRow.cell = NSStringFromClass(cls);
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(NSString *))rowS {
-    return ^id(id obj) {
-        self.tableRow.cell = obj;
-        return self;
-    };
-}
-
-@end
-
-////////////////////////////////////////////////////////////
 @implementation HoloTableViewUpdateRowMakerModel
 
 @end
@@ -62,7 +36,7 @@
     return self;
 }
 
-- (HoloTableUpdateRowMaker *(^)(NSString *))tag {
+- (HoloTableRowMaker *(^)(NSString *))tag {
     return ^id(NSString *tag) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
         HoloTableRow *updateRow = [rowMaker fetchTableRow];

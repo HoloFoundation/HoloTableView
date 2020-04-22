@@ -17,15 +17,6 @@ typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
 };
 
 ////////////////////////////////////////////////////////////
-@interface HoloTableUpdateRowMaker : HoloTableRowMaker
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
-
-@end
-
-////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMakerModel : NSObject
 
 @property (nonatomic, strong) HoloTableRow *operateRow;
@@ -37,7 +28,7 @@ typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
 ////////////////////////////////////////////////////////////
 @interface HoloTableViewUpdateRowMaker : NSObject
 
-@property (nonatomic, copy, readonly) HoloTableUpdateRowMaker *(^tag)(NSString *tag);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections
                                 makerType:(HoloTableViewUpdateRowMakerType)makerType;
