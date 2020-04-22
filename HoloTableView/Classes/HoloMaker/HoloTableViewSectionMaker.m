@@ -142,13 +142,6 @@
     };
 }
 
-- (HoloTableSectionMaker *(^)(SEL))headerFooterConfigSEL {
-    return ^id(SEL s) {
-        self.section.headerFooterConfigSEL = s;
-        return self;
-    };
-}
-
 - (HoloTableSectionMaker *(^)(SEL))headerConfigSEL {
     return ^id(SEL s) {
         self.section.headerConfigSEL = s;
@@ -187,6 +180,13 @@
 - (HoloTableSectionMaker *(^)(SEL))footerEstimatedHeightSEL {
     return ^id(SEL s) {
         self.section.footerEstimatedHeightSEL = s;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(SEL))headerFooterConfigSEL {
+    return ^id(SEL s) {
+        self.section.headerFooterConfigSEL = s;
         return self;
     };
 }
