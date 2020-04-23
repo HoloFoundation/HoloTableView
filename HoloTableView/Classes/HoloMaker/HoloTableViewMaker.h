@@ -13,29 +13,35 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
 ////////////////////////////////////////////////////////////
-@interface HoloTableViewRowMapMaker : NSObject
+@interface HoloTableViewRHFMap : NSObject // RHFMap: RowHeaderFooterMap
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMapMaker *(^row)(NSString *row);
-
-@property (nonatomic, copy, readonly) HoloTableViewRowMapMaker *(^map)(Class cls);
+@property (nonatomic, copy, readonly) void (^map)(Class cls);
 
 @end
 
 ////////////////////////////////////////////////////////////
-@interface HoloTableViewHeaderMapMaker : NSObject
-
-@property (nonatomic, copy, readonly) HoloTableViewRowMapMaker *(^header)(NSString *header);
-
-@property (nonatomic, copy, readonly) HoloTableViewRowMapMaker *(^map)(Class cls);
+@interface HoloTableViewRHFMapMaker : NSObject // RHFMapMaker: RowHeaderFooterMaker
 
 @end
 
 ////////////////////////////////////////////////////////////
-@interface HoloTableViewFooterMapMaker : NSObject
+@interface HoloTableViewRowMapMaker : HoloTableViewRHFMapMaker
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMapMaker *(^footer)(NSString *footer);
+@property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^row)(NSString *row);
 
-@property (nonatomic, copy, readonly) HoloTableViewRowMapMaker *(^map)(Class cls);
+@end
+
+////////////////////////////////////////////////////////////
+@interface HoloTableViewHeaderMapMaker : HoloTableViewRHFMapMaker
+
+@property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^header)(NSString *header);
+
+@end
+
+////////////////////////////////////////////////////////////
+@interface HoloTableViewFooterMapMaker : HoloTableViewRHFMapMaker
+
+@property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^footer)(NSString *footer);
 
 @end
 
@@ -52,11 +58,11 @@ typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *t
 
 @property (nonatomic, strong) id<UIScrollViewDelegate> scrollDelegate;
 
-@property (nonatomic, copy) NSArray<NSDictionary<NSString *, Class> *> *rowsMap;
+@property (nonatomic, copy) NSDictionary<NSString *, Class> *rowsMap;
 
-@property (nonatomic, copy) NSArray<NSDictionary<NSString *, Class> *> *headersMap;
+@property (nonatomic, copy) NSDictionary<NSString *, Class> *headersMap;
 
-@property (nonatomic, copy) NSArray<NSDictionary<NSString *, Class> *> *footersMap;
+@property (nonatomic, copy) NSDictionary<NSString *, Class> *footersMap;
 
 @end
 

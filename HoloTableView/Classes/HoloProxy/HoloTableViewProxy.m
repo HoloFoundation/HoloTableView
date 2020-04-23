@@ -17,6 +17,10 @@
 
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoRowsMap;
 
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoHeadersMap;
+
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoFootersMap;
+
 @end
 
 @implementation HoloTableViewProxy
@@ -377,7 +381,7 @@
     if (section >= self.holoSections.count) return CGFLOAT_MIN;
     
     HoloTableSection *holoSection = self.holoSections[section];
-    Class header = NSClassFromString(holoSection.header);
+    Class header = self.holoHeadersMap[holoSection.header];
     if (holoSection.headerHeightSEL && [header respondsToSelector:holoSection.headerHeightSEL]) {
         return [self _heightWithMethodSignatureCls:header selector:holoSection.headerHeightSEL model:holoSection.headerModel];
     } else if (holoSection.headerFooterHeightSEL && [header respondsToSelector:holoSection.headerFooterHeightSEL]) {
@@ -396,7 +400,7 @@
     if (section >= self.holoSections.count) return CGFLOAT_MIN;
     
     HoloTableSection *holoSection = self.holoSections[section];
-    Class footer = NSClassFromString(holoSection.footer);
+    Class footer = self.holoFootersMap[holoSection.footer];
     if (holoSection.footerHeightSEL && [footer respondsToSelector:holoSection.footerHeightSEL]) {
         return [self _heightWithMethodSignatureCls:footer selector:holoSection.footerHeightSEL model:holoSection.footerModel];
     } else if (holoSection.headerFooterHeightSEL && [footer respondsToSelector:holoSection.headerFooterHeightSEL]) {
@@ -414,7 +418,7 @@
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
-    Class header = NSClassFromString(holoSection.header);
+    Class header = self.holoHeadersMap[holoSection.header];
     if (holoSection.headerEstimatedHeightSEL && [header respondsToSelector:holoSection.headerEstimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:header selector:holoSection.headerEstimatedHeightSEL model:holoSection.headerModel];
     } else if (holoSection.headerFooterEstimatedHeightSEL && [header respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
@@ -434,7 +438,7 @@
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
-    Class footer = NSClassFromString(holoSection.footer);
+    Class footer = self.holoFootersMap[holoSection.footer];
     if (holoSection.footerEstimatedHeightSEL && [footer respondsToSelector:holoSection.footerEstimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:footer selector:holoSection.footerEstimatedHeightSEL model:holoSection.footerModel];
     } else if (holoSection.headerFooterEstimatedHeightSEL && [footer respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
@@ -851,6 +855,14 @@
 
 - (NSDictionary<NSString *, Class> *)holoRowsMap {
     return self.proxyData.rowsMap;
+}
+
+- (NSDictionary<NSString *,Class> *)holoHeadersMap {
+    return self.proxyData.headersMap;
+}
+
+- (NSDictionary<NSString *,Class> *)holoFootersMap {
+    return self.proxyData.footersMap;
 }
 
 @end
