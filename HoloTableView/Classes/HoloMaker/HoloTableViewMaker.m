@@ -38,7 +38,7 @@
 - (NSDictionary<NSString *, Class> *)install {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     [self.mapArray enumerateObjectsUsingBlock:^(HoloTableViewRHFMap * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dict[obj.key] = obj.cls;
+        if (obj.key) dict[obj.key] = obj.cls;
     }];
     return dict.copy;
 }
