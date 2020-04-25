@@ -6,8 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HoloTableViewRowMaker.h"
-@class HoloTableSection;
+@class HoloTableSection, HoloTableRowMaker, HoloTableRow;
 
 NS_ASSUME_NONNULL_BEGIN
 
