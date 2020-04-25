@@ -52,11 +52,11 @@ typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *t
 
 @property (nonatomic, copy) HoloTableViewSectionForSectionIndexTitleHandler indexTitlesHandler;
 
-@property (nonatomic, strong) id<HoloTableViewDelegate> delegate;
+@property (nonatomic, weak) id<HoloTableViewDelegate> delegate;
 
-@property (nonatomic, strong) id<HoloTableViewDataSource> dataSource;
+@property (nonatomic, weak) id<HoloTableViewDataSource> dataSource;
 
-@property (nonatomic, strong) id<UIScrollViewDelegate> scrollDelegate;
+@property (nonatomic, weak) id<UIScrollViewDelegate> scrollDelegate;
 
 @property (nonatomic, copy) NSDictionary<NSString *, Class> *rowsMap;
 
