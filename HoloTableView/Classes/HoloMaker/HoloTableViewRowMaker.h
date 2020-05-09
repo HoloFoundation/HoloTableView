@@ -16,10 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) id model;
 
-@property (nonatomic, assign) CGFloat height;
-
-@property (nonatomic, assign) CGFloat estimatedHeight;
-
 @property (nonatomic, assign) UITableViewCellStyle style;
 
 @property (nonatomic, copy) NSString *reuseId;
@@ -28,21 +24,50 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) SEL configSEL;
 
+/// priority low
+@property (nonatomic, assign) CGFloat height;
+/// priority middle (if row has the block)
+@property (nonatomic, copy) CGFloat (^heightHandler)(id _Nullable model);
+/// priority high (if cell implement the selector)
 @property (nonatomic, assign) SEL heightSEL;
 
+/// priority low
+@property (nonatomic, assign) CGFloat estimatedHeight;
+/// priority middle (if row has the block)
+@property (nonatomic, copy) CGFloat (^estimatedHeightHandler)(id _Nullable model);
+/// priority high (if cell implement the selector)
 @property (nonatomic, assign) SEL estimatedHeightSEL;
 
+/// priority low
 @property (nonatomic, assign) BOOL shouldHighlight;
+/// priority high (if row has the block)
+@property (nonatomic, copy) BOOL (^shouldHighlightHandler)(id _Nullable model);
 
+/// priority low
 @property (nonatomic, assign) BOOL canEdit;
+/// priority high (if row has the block)
+@property (nonatomic, copy) BOOL (^canEditHandler)(id _Nullable model);
 
+/// priority low
 @property (nonatomic, assign) BOOL canMove;
+/// priority high (if row has the block)
+@property (nonatomic, copy) BOOL (^canMoveHandler)(id _Nullable model);
 
+/// priority low
 @property (nonatomic, copy) NSArray *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+/// priority high (if row has the block)
+@property (nonatomic, copy) NSArray *(^leadingSwipeActionsHandler)(id _Nullable model) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
+/// priority low
 @property (nonatomic, copy) NSArray *trailingSwipeActions;
+/// priority high (if row has the block)
+@property (nonatomic, copy) NSArray *(^trailingSwipeActionsHandler)(id _Nullable model);
 
+/// priority low
 @property (nonatomic, copy) NSString *editingDeleteTitle;
+/// priority high (if row has the block)
+@property (nonatomic, copy) NSArray *(^editingDeleteTitleHandler)(id _Nullable model);
+
 
 @property (nonatomic, copy) void (^willSelectHandler)(id _Nullable model);
 
@@ -96,10 +121,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^model)(id model);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^height)(CGFloat height);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeight)(CGFloat estimatedHeight);
-
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^style)(UITableViewCellStyle style);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^reuseId)(NSString *reuseId);
@@ -108,22 +129,51 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^configSEL)(SEL configSEL);
 
+/// priority low
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^height)(CGFloat height);
+/// priority middle (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightHandler)(CGFloat (^)(id _Nullable model));
+/// priority high (if cell implement the selector)
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightSEL)(SEL heightSEL);
 
+/// priority low
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeight)(CGFloat estimatedHeight);
+/// priority middle (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightHandler)(CGFloat (^)(id _Nullable model));
+/// priority high (if cell implement the selector)
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL);
 
+/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^shouldHighlight)(BOOL shouldHighlight);
+/// priority high (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^shouldHighlightHandler)(BOOL (^)(id _Nullable model));
 
+/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEdit)(BOOL canEdit);
+/// priority high (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEditHandler)(BOOL (^)(id _Nullable model));
 
+/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMove)(BOOL canMove);
+/// priority high (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMoveHandler)(BOOL (^)(id _Nullable model));
 
 /// HoloTableViewRowSwipeAction or NSDictionary
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+/// priority low
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(10)) API_UNAVAILABLE(tvos);
+/// priority high (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActionsHandler)(NSArray *(^)(id _Nullable model)) API_AVAILABLE(ios(10)) API_UNAVAILABLE(tvos);
 
+/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActions)(NSArray *trailingSwipeActions);
+/// priority high (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActionsHandler)(NSArray *(^)(id _Nullable model));
 
+/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitle)(NSString *title);
+/// priority high (if row has the block)
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleHandler)(BOOL (^)(id _Nullable model));
+
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willSelectHandler)(void(^)(id _Nullable model));
 

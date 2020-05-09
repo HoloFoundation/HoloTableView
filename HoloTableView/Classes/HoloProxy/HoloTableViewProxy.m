@@ -105,6 +105,9 @@
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     if (indexPath.row >= holoSection.rows.count) return NO;
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.canEditHandler) {
+        return holoRow.canEditHandler(holoRow.model);
+    }
     return holoRow.canEdit;
 }
 
@@ -137,6 +140,9 @@
 
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.canMoveHandler) {
+        return holoRow.canMoveHandler(holoRow.model);
+    }
     return holoRow.canMove;
 }
 
@@ -175,6 +181,8 @@
     Class cls = self.holoRowsMap[holoRow.cell];
     if (holoRow.heightSEL && [cls respondsToSelector:holoRow.heightSEL]) {
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.heightSEL model:holoRow.model];
+    } else if (holoRow.heightHandler) {
+        return holoRow.heightHandler(holoRow.model);
     }
     return holoRow.height;
 }
@@ -190,6 +198,8 @@
     Class cls = self.holoRowsMap[holoRow.cell];
     if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
         return [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
+    } else if (holoRow.estimatedHeightHandler) {
+        return holoRow.estimatedHeightHandler(holoRow.model);
     }
     
     // If you don't plan to use the cell estimation function, you will default to the tableView:heightForRowAtIndexPath: method
@@ -288,6 +298,9 @@
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
+    if (holoRow.shouldHighlightHandler) {
+        return holoRow.shouldHighlightHandler(holoRow.model);
+    }
     return holoRow.shouldHighlight;
 }
 
@@ -576,7 +589,14 @@
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
-    return [self _tableView:tableView swipeActionsConfigurationWithIndexPath:indexPath swipeActions:holoRow.leadingSwipeActions swipeHandler:holoRow.leadingSwipeHandler];
+    
+    NSArray *leadingSwipeActions;
+    if (holoRow.leadingSwipeActionsHandler) {
+        leadingSwipeActions = holoRow.leadingSwipeActionsHandler(holoRow.model);
+    } else {
+        leadingSwipeActions = holoRow.leadingSwipeActions;
+    }
+    return [self _tableView:tableView swipeActionsConfigurationWithIndexPath:indexPath swipeActions:leadingSwipeActions swipeHandler:holoRow.leadingSwipeHandler];
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos) {
@@ -586,7 +606,14 @@
     
     HoloTableSection *holoSection = self.holoSections[indexPath.section];
     HoloTableRow *holoRow = holoSection.rows[indexPath.row];
-    return [self _tableView:tableView swipeActionsConfigurationWithIndexPath:indexPath swipeActions:holoRow.trailingSwipeActions swipeHandler:holoRow.trailingSwipeHandler];
+    
+    NSArray *trailingSwipeActions;
+    if (holoRow.trailingSwipeActionsHandler) {
+        trailingSwipeActions = holoRow.trailingSwipeActionsHandler(holoRow.model);
+    } else {
+        trailingSwipeActions = holoRow.trailingSwipeActions;
+    }
+    return [self _tableView:tableView swipeActionsConfigurationWithIndexPath:indexPath swipeActions:trailingSwipeActions swipeHandler:holoRow.trailingSwipeHandler];
 }
 
 - (UISwipeActionsConfiguration *)_tableView:(UITableView *)tableView swipeActionsConfigurationWithIndexPath:(NSIndexPath *)indexPath swipeActions:(NSArray *)swipeActions swipeHandler:(HoloTableViewRowSwipeActionHandler)swipeHandler API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos) {
