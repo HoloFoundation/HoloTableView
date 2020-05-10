@@ -26,16 +26,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// priority low
 @property (nonatomic, assign) CGFloat height;
-/// priority middle (if row has the block)
+
 @property (nonatomic, copy) CGFloat (^heightHandler)(id _Nullable model);
-/// priority high (if cell implement the selector)
+
 @property (nonatomic, assign) SEL heightSEL;
 
 /// priority low
 @property (nonatomic, assign) CGFloat estimatedHeight;
-/// priority middle (if row has the block)
+
 @property (nonatomic, copy) CGFloat (^estimatedHeightHandler)(id _Nullable model);
-/// priority high (if cell implement the selector)
+
 @property (nonatomic, assign) SEL estimatedHeightSEL;
 
 /// priority low
@@ -119,6 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
 
+#pragma mark - priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^model)(id model);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^style)(UITableViewCellStyle style);
@@ -127,51 +128,45 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^configSEL)(SEL configSEL);
-
-/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^height)(CGFloat height);
-/// priority middle (if row has the block)
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightHandler)(CGFloat (^)(id _Nullable model));
-/// priority high (if cell implement the selector)
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightSEL)(SEL heightSEL);
 
-/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeight)(CGFloat estimatedHeight);
-/// priority middle (if row has the block)
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightHandler)(CGFloat (^)(id _Nullable model));
-/// priority high (if cell implement the selector)
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL);
 
-/// priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^shouldHighlight)(BOOL shouldHighlight);
-/// priority high (if row has the block)
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEdit)(BOOL canEdit);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMove)(BOOL canMove);
+/// HoloTableViewRowSwipeAction or NSDictionary
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActions)(NSArray *trailingSwipeActions);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitle)(NSString *title);
+
+#pragma mark - priority middle
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^modelHandler)(id (^)(void));
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^styleHandler)(UITableViewCellStyle (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^reuseIdHandler)(NSString *(^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tagHandler)(NSString *(^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightHandler)(CGFloat (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightHandler)(CGFloat (^)(id _Nullable model));
+
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^shouldHighlightHandler)(BOOL (^)(id _Nullable model));
 
-/// priority low
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEdit)(BOOL canEdit);
-/// priority high (if row has the block)
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEditHandler)(BOOL (^)(id _Nullable model));
 
-/// priority low
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMove)(BOOL canMove);
-/// priority high (if row has the block)
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMoveHandler)(BOOL (^)(id _Nullable model));
 
-/// HoloTableViewRowSwipeAction or NSDictionary
-/// priority low
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(10)) API_UNAVAILABLE(tvos);
-/// priority high (if row has the block)
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActionsHandler)(NSArray *(^)(id _Nullable model)) API_AVAILABLE(ios(10)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActionsHandler)(NSArray *(^)(id _Nullable model)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-/// priority low
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActions)(NSArray *trailingSwipeActions);
-/// priority high (if row has the block)
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActionsHandler)(NSArray *(^)(id _Nullable model));
 
-/// priority low
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitle)(NSString *title);
-/// priority high (if row has the block)
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleHandler)(BOOL (^)(id _Nullable model));
 
 
@@ -208,6 +203,66 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteHandler)(void(^)(id _Nullable model, void(^completionHandler)(BOOL actionPerformed)));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingInsertHandler)(void(^)(id _Nullable model));
+
+#pragma mark - priority high
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^configSEL)(SEL configSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^styleSEL)(SEL styleSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^reuseIdSEL)(SEL reuseIdSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tagSEL)(SEL tagSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightSEL)(SEL heightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^shouldHighlightSEL)(SEL shouldHighlightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEditSEL)(SEL canEditSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMoveSEL)(SEL canMoveSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActionsSEL)(SEL leadingSwipeActionsSEL) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActionsSEL)(SEL trailingSwipeActionsSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleSEL)(SEL editingDeleteTitleSEL);
+
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willSelectSEL)(SEL willSelectSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDeselectSEL)(SEL willDeselectSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didDeselectSEL)(SEL didDeselectSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didSelectSEL)(SEL didSelectSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDisplaySEL)(SEL willDisplaySEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndDisplayingSEL)(SEL didEndDisplayingSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didHighlightSEL)(SEL didHighlightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didUnHighlightSEL)(SEL didUnHighlightSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessorySEL)(SEL accessorySEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeSEL)(SEL leadingSwipeSEL) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeSEL)(SEL trailingSwipeSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^willBeginEditingSEL)(SEL willBeginEditingSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndEditingSEL)(SEL didEndEditingSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^targetMoveSEL)(SEL targetMoveSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^moveSEL)(SEL moveSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteSEL)(SEL editingDeleteSEL);
+
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingInsertSEL)(SEL editingInsertSEL);
 
 
 - (HoloTableRow *)fetchTableRow;
