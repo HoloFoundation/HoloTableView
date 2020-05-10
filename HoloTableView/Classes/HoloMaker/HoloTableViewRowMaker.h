@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *cell;
 
+#pragma mark - priority low
 @property (nonatomic, strong) id model;
 
 @property (nonatomic, assign) UITableViewCellStyle style;
@@ -22,52 +23,53 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *tag;
 
-@property (nonatomic, assign) SEL configSEL;
-
-/// priority low
 @property (nonatomic, assign) CGFloat height;
+
+@property (nonatomic, assign) CGFloat estimatedHeight;
+
+@property (nonatomic, assign) BOOL shouldHighlight;
+
+@property (nonatomic, assign) BOOL canEdit;
+
+@property (nonatomic, assign) BOOL canMove;
+
+@property (nonatomic, copy) NSArray *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, copy) NSArray *trailingSwipeActions;
+
+@property (nonatomic, copy) NSString *editingDeleteTitle;
+
+@property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
+
+// support set a delegate for cell
+@property (nonatomic, assign) SEL delegateSEL;
+
+@property (nonatomic, weak) id delegate;
+
+#pragma mark - priority middle
+@property (nonatomic, copy) id (^modelHandler)(void);
+
+@property (nonatomic, copy) UITableViewCellStyle (^styleHandler)(id _Nullable model);
+
+@property (nonatomic, copy) NSString *(^reuseIdHandler)(id _Nullable model);
+
+@property (nonatomic, copy) NSString *(^tagHandler)(id _Nullable model);
 
 @property (nonatomic, copy) CGFloat (^heightHandler)(id _Nullable model);
 
-@property (nonatomic, assign) SEL heightSEL;
-
-/// priority low
-@property (nonatomic, assign) CGFloat estimatedHeight;
-
 @property (nonatomic, copy) CGFloat (^estimatedHeightHandler)(id _Nullable model);
 
-@property (nonatomic, assign) SEL estimatedHeightSEL;
-
-/// priority low
-@property (nonatomic, assign) BOOL shouldHighlight;
-/// priority high (if row has the block)
 @property (nonatomic, copy) BOOL (^shouldHighlightHandler)(id _Nullable model);
 
-/// priority low
-@property (nonatomic, assign) BOOL canEdit;
-/// priority high (if row has the block)
 @property (nonatomic, copy) BOOL (^canEditHandler)(id _Nullable model);
 
-/// priority low
-@property (nonatomic, assign) BOOL canMove;
-/// priority high (if row has the block)
 @property (nonatomic, copy) BOOL (^canMoveHandler)(id _Nullable model);
 
-/// priority low
-@property (nonatomic, copy) NSArray *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
-/// priority high (if row has the block)
 @property (nonatomic, copy) NSArray *(^leadingSwipeActionsHandler)(id _Nullable model) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-/// priority low
-@property (nonatomic, copy) NSArray *trailingSwipeActions;
-/// priority high (if row has the block)
 @property (nonatomic, copy) NSArray *(^trailingSwipeActionsHandler)(id _Nullable model);
 
-/// priority low
-@property (nonatomic, copy) NSString *editingDeleteTitle;
-/// priority high (if row has the block)
 @property (nonatomic, copy) NSArray *(^editingDeleteTitleHandler)(id _Nullable model);
-
 
 @property (nonatomic, copy) void (^willSelectHandler)(id _Nullable model);
 
@@ -103,12 +105,65 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^editingInsertHandler)(id _Nullable model);
 
-@property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
+#pragma mark - priority high
+@property (nonatomic, assign) SEL configSEL;
 
-// support set a delegate for cell
-@property (nonatomic, assign) SEL delegateSEL;
+@property (nonatomic, assign) SEL styleSEL;
 
-@property (nonatomic, weak) id delegate;
+@property (nonatomic, assign) SEL reuseIdSEL;
+
+@property (nonatomic, assign) SEL tagSEL;
+
+@property (nonatomic, assign) SEL heightSEL;
+
+@property (nonatomic, assign) SEL estimatedHeightSEL;
+
+@property (nonatomic, assign) SEL shouldHighlightSEL;
+
+@property (nonatomic, assign) SEL canEditSEL;
+
+@property (nonatomic, assign) SEL canMoveSEL;
+
+@property (nonatomic, assign) SEL leadingSwipeActionsSEL;
+
+@property (nonatomic, assign) SEL trailingSwipeActionsSEL;
+
+@property (nonatomic, assign) SEL editingDeleteTitleSEL;
+
+
+@property (nonatomic, assign) SEL willSelectSEL;
+
+@property (nonatomic, assign) SEL willDeselectSEL;
+
+@property (nonatomic, assign) SEL didDeselectSEL;
+
+@property (nonatomic, assign) SEL didSelectSEL;
+
+@property (nonatomic, assign) SEL willDisplaySEL;
+
+@property (nonatomic, assign) SEL didEndDisplayingSEL;
+
+@property (nonatomic, assign) SEL didHighlightSEL;
+
+@property (nonatomic, assign) SEL didUnHighlightSEL;
+
+@property (nonatomic, assign) SEL accessorySEL;
+
+@property (nonatomic, assign) SEL leadingSwipeSEL API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+@property (nonatomic, assign) SEL trailingSwipeSEL;
+
+@property (nonatomic, assign) SEL willBeginEditingSEL;
+
+@property (nonatomic, assign) SEL didEndEditingSEL;
+
+@property (nonatomic, assign) SEL targetMoveSEL;
+
+@property (nonatomic, assign) SEL moveSEL;
+
+@property (nonatomic, assign) SEL editingDeleteSEL;
+
+@property (nonatomic, assign) SEL editingInsertSEL;
 
 @end
 
