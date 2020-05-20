@@ -53,8 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *(^reuseIdHandler)(id _Nullable model);
 
-@property (nonatomic, copy) NSString *(^tagHandler)(id _Nullable model);
-
 @property (nonatomic, copy) CGFloat (^heightHandler)(id _Nullable model);
 
 @property (nonatomic, copy) CGFloat (^estimatedHeightHandler)(id _Nullable model);
@@ -69,7 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSArray *(^trailingSwipeActionsHandler)(id _Nullable model);
 
-@property (nonatomic, copy) NSArray *(^editingDeleteTitleHandler)(id _Nullable model);
+@property (nonatomic, copy) NSString *(^editingDeleteTitleHandler)(id _Nullable model);
+
+@property (nonatomic, copy) UITableViewCellEditingStyle(^editingStyleHandler)(id _Nullable model);
 
 @property (nonatomic, copy) void (^willSelectHandler)(id _Nullable model);
 
@@ -108,12 +108,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - priority high
 @property (nonatomic, assign) SEL configSEL;
 
-@property (nonatomic, assign) SEL styleSEL;
-
-@property (nonatomic, assign) SEL reuseIdSEL;
-
-@property (nonatomic, assign) SEL tagSEL;
-
 @property (nonatomic, assign) SEL heightSEL;
 
 @property (nonatomic, assign) SEL estimatedHeightSEL;
@@ -130,6 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) SEL editingDeleteTitleSEL;
 
+@property (nonatomic, assign) SEL editingStyleSEL;
 
 @property (nonatomic, assign) SEL willSelectSEL;
 
@@ -149,21 +144,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) SEL accessorySEL;
 
-@property (nonatomic, assign) SEL leadingSwipeSEL API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
-
-@property (nonatomic, assign) SEL trailingSwipeSEL;
+//@property (nonatomic, assign) SEL leadingSwipeSEL API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+//
+//@property (nonatomic, assign) SEL trailingSwipeSEL;
 
 @property (nonatomic, assign) SEL willBeginEditingSEL;
 
 @property (nonatomic, assign) SEL didEndEditingSEL;
 
-@property (nonatomic, assign) SEL targetMoveSEL;
-
-@property (nonatomic, assign) SEL moveSEL;
-
-@property (nonatomic, assign) SEL editingDeleteSEL;
-
-@property (nonatomic, assign) SEL editingInsertSEL;
+//@property (nonatomic, assign) SEL targetMoveSEL;
+//
+//@property (nonatomic, assign) SEL moveSEL;
+//
+//@property (nonatomic, assign) SEL editingDeleteSEL;
+//
+//@property (nonatomic, assign) SEL editingInsertSEL;
 
 @end
 
@@ -206,8 +201,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^reuseIdHandler)(NSString *(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tagHandler)(NSString *(^)(id _Nullable model));
-
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightHandler)(CGFloat (^)(id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightHandler)(CGFloat (^)(id _Nullable model));
@@ -222,8 +215,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActionsHandler)(NSArray *(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleHandler)(BOOL (^)(id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleHandler)(NSString *(^)(id _Nullable model));
 
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingStyleHandler)(UITableViewCellEditingStyle(^)(id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willSelectHandler)(void(^)(id _Nullable model));
 
@@ -262,12 +256,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - priority high
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^configSEL)(SEL configSEL);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^styleSEL)(SEL styleSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^reuseIdSEL)(SEL reuseIdSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^tagSEL)(SEL tagSEL);
-
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^heightSEL)(SEL heightSEL);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL);
@@ -284,6 +272,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleSEL)(SEL editingDeleteTitleSEL);
 
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingStyleSEL)(SEL editingStyleSEL);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willSelectSEL)(SEL willSelectSEL);
 
@@ -303,21 +292,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessorySEL)(SEL accessorySEL);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeSEL)(SEL leadingSwipeSEL) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeSEL)(SEL trailingSwipeSEL);
-
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willBeginEditingSEL)(SEL willBeginEditingSEL);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndEditingSEL)(SEL didEndEditingSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^targetMoveSEL)(SEL targetMoveSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^moveSEL)(SEL moveSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteSEL)(SEL editingDeleteSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingInsertSEL)(SEL editingInsertSEL);
 
 
 - (HoloTableRow *)fetchTableRow;

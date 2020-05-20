@@ -21,6 +21,43 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForCellWithModel:(id)model;
 
+
++ (BOOL)holo_shouldHighlightForCellWithModel:(id)model;
+
++ (BOOL)holo_canEditForCellWithModel:(id)model;
+
++ (BOOL)holo_canMoveForCellWithModel:(id)model;
+
++ (NSArray *)holo_leadingSwipeActionsForCellWithModel:(id)model;
+
++ (NSArray *)holo_trailingSwipeActionsForCellWithModel:(id)model;
+
++ (NSString *)holo_editingDeleteTitleForCellWithModel:(id)model;
+
++ (NSString *)holo_editingStyleForCellWithModel:(id)model;
+
++ (CGFloat)holo_willSelectForCellWithModel:(id)model;
+
++ (CGFloat)holo_willDeselectForCellWithModel:(id)model;
+
++ (CGFloat)holo_didDeselectForCellWithModel:(id)model;
+
++ (CGFloat)holo_didSelectForCellWithModel:(id)model;
+
++ (CGFloat)holo_willDisplayForCellWithModel:(id)model;
+
++ (CGFloat)holo_didEndDisplayingForCellWithModel:(id)model;
+
++ (CGFloat)holo_didHighlightForCellWithModel:(id)model;
+
++ (CGFloat)holo_didUnHighlightForCellWithModel:(id)model;
+
++ (CGFloat)holo_accessoryForCellWithModel:(id)model;
+
++ (CGFloat)holo_willBeginEditingForCellWithModel:(id)model;
+
++ (CGFloat)holo_didEndEditingForCellWithModel:(id)model;
+
 @end
 
 ////////////////////////////////////////////////////////////
