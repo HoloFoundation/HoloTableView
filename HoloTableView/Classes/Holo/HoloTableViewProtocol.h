@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForCellWithModel:(id)model;
 
-
 + (BOOL)holo_shouldHighlightForCellWithModel:(id)model;
 
 + (BOOL)holo_canEditForCellWithModel:(id)model;
@@ -44,9 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_didSelectForCellWithModel:(id)model;
 
-+ (CGFloat)holo_willDisplayForCellWithModel:(id)model;
++ (CGFloat)holo_willDisplayForCell:(UITableViewCell *)cell withModel:(id)model;
 
-+ (CGFloat)holo_didEndDisplayingForCellWithModel:(id)model;
++ (CGFloat)holo_didEndDisplayingForCell:(UITableViewCell *)cell withModel:(id)model;
 
 + (CGFloat)holo_didHighlightForCellWithModel:(id)model;
 

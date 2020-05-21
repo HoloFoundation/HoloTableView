@@ -127,7 +127,7 @@ static void HoloProxyAPIPerformWithCell(HoloTableRow *row, SEL sel, void (^handl
     if (sel && [cls respondsToSelector:sel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [cls performSelector:sel withObject:row.model];
+        [cls performSelector:sel withObject:cell withObject:row.model];
 #pragma clang diagnostic pop
     } else if (row.willDisplayHandler) {
         handler(cell, row.model);

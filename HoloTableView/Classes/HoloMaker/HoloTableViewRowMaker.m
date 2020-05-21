@@ -33,8 +33,8 @@
         _willDeselectSEL        = @selector(holo_willDeselectForCellWithModel:);
         _didDeselectSEL         = @selector(holo_didDeselectForCellWithModel:);
         _didSelectSEL           = @selector(holo_didSelectForCellWithModel:);
-        _willDisplaySEL         = @selector(holo_willDisplayForCellWithModel:);
-        _didEndDisplayingSEL    = @selector(holo_didEndDisplayingForCellWithModel:);
+        _willDisplaySEL         = @selector(holo_willDisplayForCell:withModel:);
+        _didEndDisplayingSEL    = @selector(holo_didEndDisplayingForCell:withModel:);
         _didHighlightSEL        = @selector(holo_didHighlightForCellWithModel:);
         _didUnHighlightSEL      = @selector(holo_didUnHighlightForCellWithModel:);
         _accessorySEL           = @selector(holo_accessoryForCellWithModel:);
