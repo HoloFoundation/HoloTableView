@@ -42,9 +42,9 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 @property (nonatomic, assign) CGFloat footerEstimatedHeight;
 
 #pragma mark - priority middle
-@property (nonatomic, copy) id (^headerModelHandler)(id _Nullable model);
+@property (nonatomic, copy) id (^headerModelHandler)(void);
 
-@property (nonatomic, copy) id (^footerModelHandler)(id _Nullable model);
+@property (nonatomic, copy) id (^footerModelHandler)(void);
 
 @property (nonatomic, copy) CGFloat (^headerHeightHandler)(id _Nullable model);
 
