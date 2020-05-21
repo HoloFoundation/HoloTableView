@@ -35,59 +35,35 @@ static HoloTableViewProxy *kProxySelf;
     return self;
 }
 
-static CGFloat HoloProxyAPIFloatResultWithMethodSignatureCls(Class cls, SEL selector, id model) {
-    NSMethodSignature *signature = [cls methodSignatureForSelector:selector];
+static NSInvocation *HoloProxyAPIInvocationWithCls(Class cls, SEL sel, id model) {
+    NSMethodSignature *signature = [cls methodSignatureForSelector:sel];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     invocation.target = cls;
-    invocation.selector = selector;
+    invocation.selector = sel;
     [invocation setArgument:&model atIndex:2];
     [invocation invoke];
-    
+    return invocation;
+}
+
+static CGFloat HoloProxyAPIFloatResultWithMethodSignatureCls(Class cls, SEL sel, id model) {
+    NSInvocation *invocation = HoloProxyAPIInvocationWithCls(cls, sel, model);
     CGFloat retLoc;
     [invocation getReturnValue:&retLoc];
     return retLoc;
-}
-
-static BOOL HoloProxyAPIBOOLResultWithMethodSignatureCls(Class cls, SEL selector, id model) {
-    NSMethodSignature *signature = [cls methodSignatureForSelector:selector];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    invocation.target = cls;
-    invocation.selector = selector;
-    [invocation setArgument:&model atIndex:2];
-    [invocation invoke];
-    
-    BOOL retLoc;
-    [invocation getReturnValue:&retLoc];
-    return retLoc;
-}
-
-static UITableViewCellEditingStyle HoloProxyAPIEditingStyleResultWithMethodSignatureCls(Class cls, SEL selector, id model) {
-    NSMethodSignature *signature = [cls methodSignatureForSelector:selector];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    invocation.target = cls;
-    invocation.selector = selector;
-    [invocation setArgument:&model atIndex:2];
-    [invocation invoke];
-    
-    UITableViewCellEditingStyle retLoc;
-    [invocation getReturnValue:&retLoc];
-    return retLoc;
-}
-
-static HoloTableRow *HoloTableRowWithIndexPath(NSIndexPath *indexPath) {
-    if (indexPath.section >= kProxySelf.proxyData.sections.count) return nil;
-    HoloTableSection *holoSection = kProxySelf.proxyData.sections[indexPath.section];
-    
-    if (indexPath.row >= holoSection.rows.count) return nil;
-    HoloTableRow *holoRow = holoSection.rows[indexPath.row];
-    
-    return holoRow;
 }
 
 static HoloTableSection *HoloTableSectionWithIndex(NSInteger section) {
     if (section >= kProxySelf.proxyData.sections.count) return nil;
     HoloTableSection *holoSection = kProxySelf.proxyData.sections[section];
     return holoSection;
+}
+
+static HoloTableRow *HoloTableRowWithIndexPath(NSIndexPath *indexPath) {
+    HoloTableSection *holoSection = HoloTableSectionWithIndex(indexPath.section);
+    if (indexPath.row >= holoSection.rows.count) return nil;
+    
+    HoloTableRow *holoRow = holoSection.rows[indexPath.row];
+    return holoRow;
 }
 
 static CGFloat HoloProxyAPIFloatResult(HoloTableRow *row, SEL sel, CGFloat (^handler)(id), CGFloat height) {
@@ -107,7 +83,10 @@ static BOOL HoloProxyAPIBOOLResult(HoloTableRow *row, SEL sel, BOOL (^handler)(i
     
     Class cls = kProxySelf.proxyData.rowsMap[row.cell];
     if (sel && [cls respondsToSelector:sel]) {
-        return HoloProxyAPIBOOLResultWithMethodSignatureCls(cls, sel, row.model);
+        NSInvocation *invocation = HoloProxyAPIInvocationWithCls(cls, sel, row.model);
+        BOOL retLoc;
+        [invocation getReturnValue:&retLoc];
+        return retLoc;
     } else if (handler) {
         return handler(row.model);
     }
@@ -119,25 +98,14 @@ static UITableViewCellEditingStyle HoloProxyAPIEditingStyleResult(HoloTableRow *
     
     Class cls = kProxySelf.proxyData.rowsMap[row.cell];
     if (sel && [cls respondsToSelector:sel]) {
-        return HoloProxyAPIEditingStyleResultWithMethodSignatureCls(cls, sel, row.model);
+        NSInvocation *invocation = HoloProxyAPIInvocationWithCls(cls, sel, row.model);
+        UITableViewCellEditingStyle retLoc;
+        [invocation getReturnValue:&retLoc];
+        return retLoc;
     } else if (handler) {
         return handler(row.model);
     }
     return editingStyle;
-}
-
-static void HoloProxyAPIRowPerformWithCell(HoloTableRow *row, SEL sel, void (^handler)(UITableViewCell *, id), UITableViewCell *cell) {
-    if (!row) return;
-    
-    Class cls = kProxySelf.proxyData.rowsMap[row.cell];
-    if (sel && [cls respondsToSelector:sel]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [cls performSelector:sel withObject:cell withObject:row.model];
-#pragma clang diagnostic pop
-    } else if (handler) {
-        handler(cell, row.model);
-    }
 }
 
 static void HoloProxyAPIHeaderPerformWithCell(HoloTableSection *section, SEL sel, void (^handler)(UIView *, id), UIView *view) {
@@ -165,6 +133,20 @@ static void HoloProxyAPIFooterPerformWithCell(HoloTableSection *section, SEL sel
 #pragma clang diagnostic pop
     } else if (handler) {
         handler(view, section.footerModel);
+    }
+}
+
+static void HoloProxyAPIRowPerformWithCell(HoloTableRow *row, SEL sel, void (^handler)(UITableViewCell *, id), UITableViewCell *cell) {
+    if (!row) return;
+    
+    Class cls = kProxySelf.proxyData.rowsMap[row.cell];
+    if (sel && [cls respondsToSelector:sel]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [cls performSelector:sel withObject:cell withObject:row.model];
+#pragma clang diagnostic pop
+    } else if (handler) {
+        handler(cell, row.model);
     }
 }
 
