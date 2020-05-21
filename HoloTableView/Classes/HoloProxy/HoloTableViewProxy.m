@@ -162,23 +162,31 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height;
     if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)]) {
-        return [self.holo_delegate tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
-    }
-    
-    HoloTableSection *holoSection = self.holoSections[indexPath.section];
-    HoloTableRow *holoRow = holoSection.rows[indexPath.row];
+        height = [self.holo_delegate tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
+    } else {
+        HoloTableSection *holoSection = self.holoSections[indexPath.section];
+        HoloTableRow *holoRow = holoSection.rows[indexPath.row];
 
-    Class cls = self.holoCellClsMap[holoRow.cell];
-    if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
-        return [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
+        Class cls = self.holoCellClsMap[holoRow.cell];
+        if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
+            height = [self _heightWithMethodSignatureCls:cls selector:holoRow.estimatedHeightSEL model:holoRow.model];
+        } else if (holoRow.estimatedHeight == CGFLOAT_MIN) {
+            // If you don't plan to use the cell estimation function, you will default to the tableView:heightForRowAtIndexPath: method
+            height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
+        } else {
+            height = holoRow.estimatedHeight;
+        }
     }
     
-    // If you don't plan to use the cell estimation function, you will default to the tableView:heightForRowAtIndexPath: method
-    if (holoRow.estimatedHeight == CGFLOAT_MIN) {
-        return [self tableView:tableView heightForRowAtIndexPath:indexPath];
+    if (@available(iOS 11.0, *)) {
+    } else {
+        // Fix: Terminating app due to uncaught exception 'NSInternalInconsistencyException',\
+        reason: 'section header height must not be negative - provided height for section 1 is -0.000000'
+        if (height > 0 && height <= 1) height = 0;
     }
-    return holoRow.estimatedHeight;
+    return height;
 }
 
 - (CGFloat)_heightWithMethodSignatureCls:(Class)cls selector:(SEL)selector model:(id)model {
@@ -373,39 +381,55 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    CGFloat height;
     if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)]) {
-        return [self.holo_delegate tableView:tableView estimatedHeightForHeaderInSection:section];
+        height = [self.holo_delegate tableView:tableView estimatedHeightForHeaderInSection:section];
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
     Class header = NSClassFromString(holoSection.header);
     if (holoSection.headerFooterEstimatedHeightSEL && [header respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
-        return [self _heightWithMethodSignatureCls:header selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.headerModel];
+        height = [self _heightWithMethodSignatureCls:header selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.headerModel];
+    } else if (holoSection.headerEstimatedHeight == CGFLOAT_MIN) {
+        // If you don't plan to use the header estimation function, you will default to the tableView:heightForHeaderInSection: method
+        height = [self tableView:tableView heightForHeaderInSection:section];
+    } else {
+        height = holoSection.headerEstimatedHeight;
     }
     
-    // If you don't plan to use the header estimation function, you will default to the tableView:heightForHeaderInSection: method
-    if (holoSection.headerEstimatedHeight == CGFLOAT_MIN) {
-        return [self tableView:tableView heightForHeaderInSection:section];
+    if (@available(iOS 11.0, *)) {
+    } else {
+        // Fix: Terminating app due to uncaught exception 'NSInternalInconsistencyException',\
+        reason: 'section header height must not be negative - provided height for section 1 is -0.000000'
+        if (height > 0 && height < 1) height = 0;
     }
-    return holoSection.headerEstimatedHeight;
+    return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
+    CGFloat height;
     if ([self.holo_delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)]) {
-        return [self.holo_delegate tableView:tableView estimatedHeightForFooterInSection:section];
+        height = [self.holo_delegate tableView:tableView estimatedHeightForFooterInSection:section];
     }
     
     HoloTableSection *holoSection = self.holoSections[section];
     Class footer = NSClassFromString(holoSection.footer);
     if (holoSection.headerFooterEstimatedHeightSEL && [footer respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
-        return [self _heightWithMethodSignatureCls:footer selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.footerModel];
+        height = [self _heightWithMethodSignatureCls:footer selector:holoSection.headerFooterEstimatedHeightSEL model:holoSection.footerModel];
+    } else if (holoSection.footerEstimatedHeight == CGFLOAT_MIN) {
+        // If you don't plan to use the footer estimation function, you will default to the tableView:heightForFooterInSection: method
+        height = [self tableView:tableView heightForFooterInSection:section];
+    } else {
+        height = holoSection.footerEstimatedHeight;
     }
     
-    // If you don't plan to use the footer estimation function, you will default to the tableView:heightForFooterInSection: method
-    if (holoSection.footerEstimatedHeight == CGFLOAT_MIN) {
-        return [self tableView:tableView heightForFooterInSection:section];
+    if (@available(iOS 11.0, *)) {
+    } else {
+        // Fix: Terminating app due to uncaught exception 'NSInternalInconsistencyException',\
+        reason: 'section header height must not be negative - provided height for section 1 is -0.000000'
+        if (height > 0 && height < 1) height = 0;
     }
-    return holoSection.footerEstimatedHeight;
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
