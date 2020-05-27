@@ -35,27 +35,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)holo_editingStyleForCellWithModel:(id)model;
 
-+ (CGFloat)holo_willSelectForCellWithModel:(id)model;
++ (void)holo_willSelectForCellWithModel:(id)model;
 
-+ (CGFloat)holo_willDeselectForCellWithModel:(id)model;
++ (void)holo_willDeselectForCellWithModel:(id)model;
 
-+ (CGFloat)holo_didDeselectForCellWithModel:(id)model;
++ (void)holo_didDeselectForCellWithModel:(id)model;
 
-+ (CGFloat)holo_didSelectForCellWithModel:(id)model;
++ (void)holo_didSelectForCellWithModel:(id)model;
 
-+ (CGFloat)holo_willDisplayForCell:(UITableViewCell *)cell withModel:(id)model;
++ (void)holo_willDisplayForCell:(UITableViewCell *)cell withModel:(id)model;
 
-+ (CGFloat)holo_didEndDisplayingForCell:(UITableViewCell *)cell withModel:(id)model;
++ (void)holo_didEndDisplayingForCell:(UITableViewCell *)cell withModel:(id)model;
 
-+ (CGFloat)holo_didHighlightForCellWithModel:(id)model;
++ (void)holo_didHighlightForCellWithModel:(id)model;
 
-+ (CGFloat)holo_didUnHighlightForCellWithModel:(id)model;
++ (void)holo_didUnHighlightForCellWithModel:(id)model;
 
-+ (CGFloat)holo_accessoryForCellWithModel:(id)model;
++ (void)holo_accessoryForCellWithModel:(id)model;
 
-+ (CGFloat)holo_willBeginEditingForCellWithModel:(id)model;
++ (void)holo_willBeginEditingForCellWithModel:(id)model;
 
-+ (CGFloat)holo_didEndEditingForCellWithModel:(id)model;
++ (void)holo_didEndEditingForCellWithModel:(id)model;
 
 @end
 
@@ -70,6 +70,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForHeaderWithModel:(id)model;
 
++ (void)holo_willDisplayForHeader:(UIView *)view withModel:(id)model;
+
++ (void)holo_didEndDisplayingForHeader:(UIView *)view withModel:(id)model;
+
 @end
 
 ////////////////////////////////////////////////////////////
@@ -82,6 +86,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)holo_heightForFooterWithModel:(id)model;
 
 + (CGFloat)holo_estimatedHeightForFooterWithModel:(id)model;
+
++ (void)holo_willDisplayForFooter:(UIView *)view withModel:(id)model;
+
++ (void)holo_didEndDisplayingForFooter:(UIView *)view withModel:(id)model;
 
 @end
 
