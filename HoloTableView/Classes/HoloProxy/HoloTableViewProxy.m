@@ -649,7 +649,7 @@ static NSString *HoloProxyAPIStringPerform(UITableViewCell *cell, SEL sel, NSStr
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(indexPath);
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    HoloProxyAPIPerform(cell, holoRow.accessorySEL, holoRow.accessoryHandler, holoRow.model);
+    HoloProxyAPIPerform(cell, holoRow.accessoryButtonTappedSEL, holoRow.accessoryButtonTappedHandler, holoRow.model);
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

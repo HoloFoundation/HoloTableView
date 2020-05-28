@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)holo_didUnHighlightCellWithModel:(id)model;
 
-- (void)holo_accessoryCellWithModel:(id)model;
+- (void)holo_accessoryButtonTappedCellWithModel:(id)model;
 
 - (void)holo_willBeginEditingCellWithModel:(id)model;
 

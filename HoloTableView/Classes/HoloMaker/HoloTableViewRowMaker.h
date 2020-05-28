@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^didUnHighlightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^accessoryHandler)(id _Nullable model);
+@property (nonatomic, copy) void (^accessoryButtonTappedHandler)(id _Nullable model);
 
 @property (nonatomic, copy) void (^leadingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) SEL didUnHighlightSEL;
 
-@property (nonatomic, assign) SEL accessorySEL;
+@property (nonatomic, assign) SEL accessoryButtonTappedSEL;
 
 //@property (nonatomic, assign) SEL leadingSwipeSEL API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 //
@@ -235,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^didUnHighlightHandler)(void(^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessoryHandler)(void(^)(id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessoryButtonTappedHandler)(void(^)(id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeHandler)(void(^)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed))) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
@@ -290,7 +290,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^didUnHighlightSEL)(SEL didUnHighlightSEL);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessorySEL)(SEL accessorySEL);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^accessoryButtonTappedSEL)(SEL accessoryButtonTappedSEL);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willBeginEditingSEL)(SEL willBeginEditingSEL);
 

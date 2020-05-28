@@ -37,7 +37,7 @@
         _didEndDisplayingSEL    = @selector(holo_didEndDisplayingCellWithModel:);
         _didHighlightSEL        = @selector(holo_didHighlightCellWithModel:);
         _didUnHighlightSEL      = @selector(holo_didUnHighlightCellWithModel:);
-        _accessorySEL           = @selector(holo_accessoryCellWithModel:);
+        _accessoryButtonTappedSEL   = @selector(holo_accessoryButtonTappedCellWithModel:);
         _willBeginEditingSEL    = @selector(holo_willBeginEditingCellWithModel:);
         _didEndEditingSEL       = @selector(holo_didEndEditingCellWithModel:);
         
@@ -310,9 +310,9 @@
     };
 }
 
-- (HoloTableRowMaker *(^)(void (^)(id)))accessoryHandler {
+- (HoloTableRowMaker *(^)(void (^)(id)))accessoryButtonTappedHandler {
     return ^id(id obj) {
-        self.tableRow.accessoryHandler = obj;
+        self.tableRow.accessoryButtonTappedHandler = obj;
         return self;
     };
 }
@@ -512,9 +512,9 @@
     };
 }
 
-- (HoloTableRowMaker *(^)(SEL))accessorySEL {
+- (HoloTableRowMaker *(^)(SEL))accessoryButtonTappedSEL {
     return ^id(SEL s) {
-        self.tableRow.accessorySEL = s;
+        self.tableRow.accessoryButtonTappedSEL = s;
         return self;
     };
 }
