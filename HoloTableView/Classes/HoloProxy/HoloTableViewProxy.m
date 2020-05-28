@@ -66,14 +66,14 @@ static HoloTableRow *HoloTableRowWithIndexPath(NSIndexPath *indexPath) {
     return holoRow;
 }
 
-static CGFloat HoloProxyAPIFloatResult(HoloTableRow *row, SEL sel, CGFloat (^handler)(id), CGFloat height) {
-    if (!row) return CGFLOAT_MIN;
+static CGFloat HoloProxyAPIFloatResult(Class cls, SEL sel, CGFloat (^handler)(id), id model, CGFloat height) {
+    if (!cls) return CGFLOAT_MIN;
     
-    Class cls = kProxySelf.proxyData.rowsMap[row.cell];
+//    Class cls = kProxySelf.proxyData.rowsMap[row.cell];
     if (sel && [cls respondsToSelector:sel]) {
-        return HoloProxyAPIFloatResultWithMethodSignatureCls(cls, sel, row.model);
+        return HoloProxyAPIFloatResultWithMethodSignatureCls(cls, sel, model);
     } else if (handler) {
-        return handler(row.model);
+        return handler(model);
     }
     return height;
 }
@@ -304,7 +304,8 @@ static NSString *HoloProxyAPIStringPerform(UITableViewCell *cell, SEL sel, NSStr
     }
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(indexPath);
-    return HoloProxyAPIFloatResult(holoRow, holoRow.heightSEL, holoRow.heightHandler, holoRow.height);
+    Class cls = self.holoRowsMap[holoRow.cell];
+    return HoloProxyAPIFloatResult(cls, holoRow.heightSEL, holoRow.heightHandler, holoRow.model, holoRow.height);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
