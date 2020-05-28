@@ -69,7 +69,6 @@ static HoloTableRow *HoloTableRowWithIndexPath(NSIndexPath *indexPath) {
 static CGFloat HoloProxyAPIFloatResult(Class cls, SEL sel, CGFloat (^handler)(id), id model, CGFloat height) {
     if (!cls) return CGFLOAT_MIN;
     
-//    Class cls = kProxySelf.proxyData.rowsMap[row.cell];
     if (sel && [cls respondsToSelector:sel]) {
         return HoloProxyAPIFloatResultWithMethodSignatureCls(cls, sel, model);
     } else if (handler) {
