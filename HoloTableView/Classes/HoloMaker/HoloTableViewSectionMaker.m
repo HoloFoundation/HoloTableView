@@ -32,10 +32,10 @@
         _headerFooterHeightSEL = @selector(holo_heightForHeaderFooterWithModel:);
         _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
         
-        _willDisplayHeaderSEL = @selector(holo_willDisplayForHeader:withModel:);
-        _willDisplayFooterSEL = @selector(holo_willDisplayForFooter:withModel:);
-        _didEndDisplayingHeaderSEL = @selector(holo_didEndDisplayingForHeader:withModel:);
-        _didEndDisplayingFooterSEL = @selector(holo_didEndDisplayingForFooter:withModel:);
+        _willDisplayHeaderSEL = @selector(holo_willDisplayHeaderWithModel:);
+        _willDisplayFooterSEL = @selector(holo_willDisplayFooterWithModel:);
+        _didEndDisplayingHeaderSEL = @selector(holo_didEndDisplayingHeaderWithModel:);
+        _didEndDisplayingFooterSEL = @selector(holo_didEndDisplayingFooterWithModel:);
 #pragma clang diagnostic pop
     }
     return self;

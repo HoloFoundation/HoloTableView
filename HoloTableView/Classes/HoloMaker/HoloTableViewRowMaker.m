@@ -29,17 +29,17 @@
         _trailingSwipeActionsSEL    = @selector(holo_trailingSwipeActionsForCellWithModel:);
         _editingDeleteTitleSEL      = @selector(holo_editingDeleteTitleForCellWithModel:);
         _editingStyleSEL        = @selector(holo_editingStyleForCellWithModel:);
-        _willSelectSEL          = @selector(holo_willSelectForCellWithModel:);
-        _willDeselectSEL        = @selector(holo_willDeselectForCellWithModel:);
-        _didDeselectSEL         = @selector(holo_didDeselectForCellWithModel:);
-        _didSelectSEL           = @selector(holo_didSelectForCellWithModel:);
-        _willDisplaySEL         = @selector(holo_willDisplayForCellWithModel:);
-        _didEndDisplayingSEL    = @selector(holo_didEndDisplayingForCellWithModel:);
-        _didHighlightSEL        = @selector(holo_didHighlightForCellWithModel:);
-        _didUnHighlightSEL      = @selector(holo_didUnHighlightForCellWithModel:);
-        _accessorySEL           = @selector(holo_accessoryForCellWithModel:);
-        _willBeginEditingSEL    = @selector(holo_willBeginEditingForCellWithModel:);
-        _didEndEditingSEL       = @selector(holo_didEndEditingForCellWithModel:);
+        _willSelectSEL          = @selector(holo_willSelectCellWithModel:);
+        _willDeselectSEL        = @selector(holo_willDeselectCellWithModel:);
+        _didDeselectSEL         = @selector(holo_didDeselectCellWithModel:);
+        _didSelectSEL           = @selector(holo_didSelectCellWithModel:);
+        _willDisplaySEL         = @selector(holo_willDisplayCellWithModel:);
+        _didEndDisplayingSEL    = @selector(holo_didEndDisplayingCellWithModel:);
+        _didHighlightSEL        = @selector(holo_didHighlightCellWithModel:);
+        _didUnHighlightSEL      = @selector(holo_didUnHighlightCellWithModel:);
+        _accessorySEL           = @selector(holo_accessoryCellWithModel:);
+        _willBeginEditingSEL    = @selector(holo_willBeginEditingCellWithModel:);
+        _didEndEditingSEL       = @selector(holo_didEndEditingCellWithModel:);
         
         // support set a delegate for cell
         _delegateSEL = @selector(holo_configureCellDelegate:);

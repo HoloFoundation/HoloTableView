@@ -35,27 +35,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)holo_editingStyleForCellWithModel:(id)model;
 
-- (void)holo_willSelectForCellWithModel:(id)model;
+- (void)holo_willSelectCellWithModel:(id)model;
 
-- (void)holo_willDeselectForCellWithModel:(id)model;
+- (void)holo_willDeselectCellWithModel:(id)model;
 
-- (void)holo_didDeselectForCellWithModel:(id)model;
+- (void)holo_didDeselectCellWithModel:(id)model;
 
-- (void)holo_didSelectForCellWithModel:(id)model;
+- (void)holo_didSelectCellWithModel:(id)model;
 
-- (void)holo_willDisplayForCellWithModel:(id)model;
+- (void)holo_willDisplayCellWithModel:(id)model;
 
-- (void)holo_didEndDisplayingForCellWithModel:(id)model;
+- (void)holo_didEndDisplayingCellWithModel:(id)model;
 
-- (void)holo_didHighlightForCellWithModel:(id)model;
+- (void)holo_didHighlightCellWithModel:(id)model;
 
-- (void)holo_didUnHighlightForCellWithModel:(id)model;
+- (void)holo_didUnHighlightCellWithModel:(id)model;
 
-- (void)holo_accessoryForCellWithModel:(id)model;
+- (void)holo_accessoryCellWithModel:(id)model;
 
-- (void)holo_willBeginEditingForCellWithModel:(id)model;
+- (void)holo_willBeginEditingCellWithModel:(id)model;
 
-- (void)holo_didEndEditingForCellWithModel:(id)model;
+- (void)holo_didEndEditingCellWithModel:(id)model;
 
 @end
 
@@ -70,9 +70,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForHeaderWithModel:(id)model;
 
-+ (void)holo_willDisplayForHeader:(UIView *)view withModel:(id)model;
+- (void)holo_willDisplayHeaderWithModel:(id)model;
 
-+ (void)holo_didEndDisplayingForHeader:(UIView *)view withModel:(id)model;
+- (void)holo_didEndDisplayingHeaderWithModel:(id)model;
 
 @end
 
@@ -87,9 +87,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForFooterWithModel:(id)model;
 
-+ (void)holo_willDisplayForFooter:(UIView *)view withModel:(id)model;
+- (void)holo_willDisplayFooterWithModel:(id)model;
 
-+ (void)holo_didEndDisplayingForFooter:(UIView *)view withModel:(id)model;
+- (void)holo_didEndDisplayingFooterWithModel:(id)model;
 
 @end
 
