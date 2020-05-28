@@ -21,41 +21,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForCellWithModel:(id)model;
 
-+ (BOOL)holo_shouldHighlightForCellWithModel:(id)model;
+- (BOOL)holo_shouldHighlightForCellWithModel:(id)model;
 
-+ (BOOL)holo_canEditForCellWithModel:(id)model;
+- (BOOL)holo_canEditForCellWithModel:(id)model;
 
-+ (BOOL)holo_canMoveForCellWithModel:(id)model;
+- (BOOL)holo_canMoveForCellWithModel:(id)model;
 
-+ (NSArray *)holo_leadingSwipeActionsForCellWithModel:(id)model;
+- (NSArray *)holo_leadingSwipeActionsForCellWithModel:(id)model;
 
-+ (NSArray *)holo_trailingSwipeActionsForCellWithModel:(id)model;
+- (NSArray *)holo_trailingSwipeActionsForCellWithModel:(id)model;
 
-+ (NSString *)holo_editingDeleteTitleForCellWithModel:(id)model;
+- (NSString *)holo_editingDeleteTitleForCellWithModel:(id)model;
 
-+ (NSString *)holo_editingStyleForCellWithModel:(id)model;
+- (NSString *)holo_editingStyleForCellWithModel:(id)model;
 
-+ (void)holo_willSelectForCellWithModel:(id)model;
+- (void)holo_willSelectForCellWithModel:(id)model;
 
-+ (void)holo_willDeselectForCellWithModel:(id)model;
+- (void)holo_willDeselectForCellWithModel:(id)model;
 
-+ (void)holo_didDeselectForCellWithModel:(id)model;
+- (void)holo_didDeselectForCellWithModel:(id)model;
 
-+ (void)holo_didSelectForCellWithModel:(id)model;
+- (void)holo_didSelectForCellWithModel:(id)model;
 
-+ (void)holo_willDisplayForCell:(UITableViewCell *)cell withModel:(id)model;
+- (void)holo_willDisplayForCellWithModel:(id)model;
 
-+ (void)holo_didEndDisplayingForCell:(UITableViewCell *)cell withModel:(id)model;
+- (void)holo_didEndDisplayingForCellWithModel:(id)model;
 
-+ (void)holo_didHighlightForCellWithModel:(id)model;
+- (void)holo_didHighlightForCellWithModel:(id)model;
 
-+ (void)holo_didUnHighlightForCellWithModel:(id)model;
+- (void)holo_didUnHighlightForCellWithModel:(id)model;
 
-+ (void)holo_accessoryForCellWithModel:(id)model;
+- (void)holo_accessoryForCellWithModel:(id)model;
 
-+ (void)holo_willBeginEditingForCellWithModel:(id)model;
+- (void)holo_willBeginEditingForCellWithModel:(id)model;
 
-+ (void)holo_didEndEditingForCellWithModel:(id)model;
+- (void)holo_didEndEditingForCellWithModel:(id)model;
 
 @end
 
