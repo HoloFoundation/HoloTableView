@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @property (nonatomic, copy) NSString *footer;
 
+#pragma mark - priority low
 @property (nonatomic, strong) id headerModel;
 
 @property (nonatomic, strong) id footerModel;
@@ -40,6 +41,28 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @property (nonatomic, assign) CGFloat footerEstimatedHeight;
 
+#pragma mark - priority middle
+@property (nonatomic, copy) id (^headerModelHandler)(void);
+
+@property (nonatomic, copy) id (^footerModelHandler)(void);
+
+@property (nonatomic, copy) CGFloat (^headerHeightHandler)(id _Nullable model);
+
+@property (nonatomic, copy) CGFloat (^footerHeightHandler)(id _Nullable model);
+
+@property (nonatomic, copy) CGFloat (^headerEstimatedHeightHandler)(id _Nullable model);
+
+@property (nonatomic, copy) CGFloat (^footerEstimatedHeightHandler)(id _Nullable model);
+
+@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header, id _Nullable model);
+
+@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer, id _Nullable model);
+
+@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header, id _Nullable model);
+
+@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer, id _Nullable model);
+
+#pragma mark - priority high
 @property (nonatomic, assign) SEL headerConfigSEL;
 
 @property (nonatomic, assign) SEL footerConfigSEL;
@@ -56,13 +79,14 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 @property (nonatomic, assign) SEL headerFooterHeightSEL;
 @property (nonatomic, assign) SEL headerFooterEstimatedHeightSEL;
 
-@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header, id _Nullable model);
+@property (nonatomic, assign) SEL willDisplayHeaderSEL;
 
-@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer, id _Nullable model);
+@property (nonatomic, assign) SEL willDisplayFooterSEL;
 
-@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header, id _Nullable model);
+@property (nonatomic, assign) SEL didEndDisplayingHeaderSEL;
 
-@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer, id _Nullable model);
+@property (nonatomic, assign) SEL didEndDisplayingFooterSEL;
+
 
 - (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index;
 
@@ -83,6 +107,7 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 // footer string
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerS)(NSString *footerS);
 
+#pragma mark - priority low
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModel)(id headerModel);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModel)(id footerModel);
@@ -95,6 +120,28 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerEstimatedHeight)(CGFloat footerEstimatedHeight);
 
+#pragma mark - priority middle
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModelHandler)(id (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModelHandler)(id (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerHeightHandler)(CGFloat (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerHeightHandler)(CGFloat (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerEstimatedHeightHandler)(CGFloat (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerEstimatedHeightHandler)(CGFloat (^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header, id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer, id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header, id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer, id _Nullable model));
+
+#pragma mark - priority high
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerConfigSEL)(SEL headerConfigSEL);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerConfigSEL)(SEL footerConfigSEL);
@@ -111,13 +158,13 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterHeightSEL)(SEL headerFooterHeightSEL) DEPRECATED_MSG_ATTRIBUTE("Please use `headerHeightSEL` or `footerHeightSEL` api instead.");
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerFooterEstimatedHeightSEL)(SEL headerFooterEstimatedHeightSEL) DEPRECATED_MSG_ATTRIBUTE("Please use `headerEstimatedHeightSEL` or `footerEstimatedHeightSEL` api instead.");
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayHeaderHandler)(void(^)(UIView *header, id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayHeaderSEL)(SEL willDisplayHeaderSEL);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayFooterHandler)(void(^)(UIView *footer, id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^willDisplayFooterSEL)(SEL willDisplayFooterSEL);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingHeaderHandler)(void(^)(UIView *header, id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingHeaderSEL)(SEL didEndDisplayingHeaderSEL);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer, id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterSEL)(SEL didEndDisplayingFooterSEL);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^makeRows)(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make));
 

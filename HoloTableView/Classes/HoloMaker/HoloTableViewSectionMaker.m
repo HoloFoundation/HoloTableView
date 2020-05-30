@@ -31,6 +31,11 @@
         _headerFooterConfigSEL = @selector(holo_configureHeaderFooterWithModel:);
         _headerFooterHeightSEL = @selector(holo_heightForHeaderFooterWithModel:);
         _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
+        
+        _willDisplayHeaderSEL = @selector(holo_willDisplayHeaderWithModel:);
+        _willDisplayFooterSEL = @selector(holo_willDisplayFooterWithModel:);
+        _didEndDisplayingHeaderSEL = @selector(holo_didEndDisplayingHeaderWithModel:);
+        _didEndDisplayingFooterSEL = @selector(holo_didEndDisplayingFooterWithModel:);
 #pragma clang diagnostic pop
     }
     return self;
@@ -100,6 +105,7 @@
     };
 }
 
+#pragma mark - priority low
 - (HoloTableSectionMaker * (^)(id))headerModel {
     return ^id(id obj) {
         self.section.headerModel = obj;
@@ -142,6 +148,78 @@
     };
 }
 
+#pragma mark - priority middle
+- (HoloTableSectionMaker * (^)(id (^)(id)))headerModelHandler {
+    return ^id(id obj) {
+        self.section.headerModelHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(id (^)(id)))footerModelHandler {
+    return ^id(id obj) {
+        self.section.footerModelHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))headerHeightHandler {
+    return ^id(id obj) {
+        self.section.headerHeightHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))footerHeightHandler {
+    return ^id(id obj) {
+        self.section.footerHeightHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))headerEstimatedHeightHandler {
+    return ^id(id obj) {
+        self.section.headerEstimatedHeightHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))footerEstimatedHeightHandler {
+    return ^id(id obj) {
+        self.section.footerEstimatedHeightHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayHeaderHandler {
+    return ^id(id obj) {
+        self.section.willDisplayHeaderHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayFooterHandler {
+    return ^id(id obj) {
+        self.section.willDisplayFooterHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingHeaderHandler {
+    return ^id(id obj) {
+        self.section.didEndDisplayingHeaderHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingFooterHandler {
+    return ^id(id obj) {
+        self.section.didEndDisplayingFooterHandler = obj;
+        return self;
+    };
+}
+
+#pragma mark - priority high
 - (HoloTableSectionMaker *(^)(SEL))headerConfigSEL {
     return ^id(SEL s) {
         self.section.headerConfigSEL = s;
@@ -203,33 +281,34 @@
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayHeaderHandler {
-    return ^id(id obj) {
-        self.section.willDisplayHeaderHandler = obj;
+- (HoloTableSectionMaker *(^)(SEL))willDisplayHeaderSEL {
+    return ^id(SEL s) {
+        self.section.willDisplayHeaderSEL = s;
         return self;
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayFooterHandler {
-    return ^id(id obj) {
-        self.section.willDisplayFooterHandler = obj;
+- (HoloTableSectionMaker *(^)(SEL))willDisplayFooterSEL {
+    return ^id(SEL s) {
+        self.section.willDisplayFooterSEL = s;
         return self;
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingHeaderHandler {
-    return ^id(id obj) {
-        self.section.didEndDisplayingHeaderHandler = obj;
+- (HoloTableSectionMaker *(^)(SEL))didEndDisplayingHeaderSEL {
+    return ^id(SEL s) {
+        self.section.didEndDisplayingHeaderSEL = s;
         return self;
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingFooterHandler {
-    return ^id(id obj) {
-        self.section.didEndDisplayingFooterHandler = obj;
+- (HoloTableSectionMaker *(^)(SEL))didEndDisplayingFooterSEL {
+    return ^id(SEL s) {
+        self.section.didEndDisplayingFooterSEL = s;
         return self;
     };
 }
+
 
 - (HoloTableSectionMaker * (^)(void (NS_NOESCAPE ^)(HoloTableViewRowMaker *)))makeRows {
     return ^id(void(^block)(HoloTableViewRowMaker *make)) {
