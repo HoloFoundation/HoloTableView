@@ -54,6 +54,7 @@ static CGFloat HoloProxyMethodSignatureFloatResult(Class cls, SEL sel, id model)
 
 static HoloTableSection *HoloTableSectionWithIndex(NSInteger section) {
     if (section >= kProxySelf.proxyData.sections.count) return nil;
+    
     HoloTableSection *holoSection = kProxySelf.proxyData.sections[section];
     return holoSection;
 }
@@ -156,6 +157,20 @@ static NSString *HoloProxyCellPerformWithString(UITableViewCell *cell, SEL sel, 
         return handler(model);
     }
     return string;
+}
+
+static NSArray *HoloProxyCellPerformWithArray(UITableViewCell *cell, SEL sel, NSArray *(^handler)(id), id model, NSArray *array) {
+    if (!cell) return nil;
+    
+    if (sel && [cell respondsToSelector:sel]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        return [cell performSelector:sel withObject:model];
+#pragma clang diagnostic pop
+    } else if (handler) {
+        return handler(model);
+    }
+    return array;
 }
 
 #pragma mark - UITableViewDataSource
@@ -724,19 +739,8 @@ static NSString *HoloProxyCellPerformWithString(UITableViewCell *cell, SEL sel, 
     }
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(indexPath);
-
-    NSArray *leadingSwipeActions;
-    Class cls = self.holoRowsMap[holoRow.cell];
-    if (holoRow.leadingSwipeActionsSEL && [cls respondsToSelector:holoRow.leadingSwipeActionsSEL]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        leadingSwipeActions = [cls performSelector:holoRow.leadingSwipeActionsSEL withObject:holoRow.model];
-#pragma clang diagnostic pop
-    } else if (holoRow.leadingSwipeActionsHandler) {
-        leadingSwipeActions = holoRow.leadingSwipeActionsHandler(holoRow.model);
-    } else {
-        leadingSwipeActions = holoRow.leadingSwipeActions;
-    }
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSArray *leadingSwipeActions = HoloProxyCellPerformWithArray(cell, holoRow.leadingSwipeActionsSEL, holoRow.leadingSwipeActionsHandler, holoRow.model, holoRow.leadingSwipeActions);
     return [self _tableView:tableView swipeActionsConfigurationWithIndexPath:indexPath swipeActions:leadingSwipeActions swipeHandler:holoRow.leadingSwipeHandler];
 }
 
@@ -746,19 +750,8 @@ static NSString *HoloProxyCellPerformWithString(UITableViewCell *cell, SEL sel, 
     }
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(indexPath);
-    
-    NSArray *trailingSwipeActions;
-    Class cls = self.holoRowsMap[holoRow.cell];
-    if (holoRow.trailingSwipeActionsSEL && [cls respondsToSelector:holoRow.trailingSwipeActionsSEL]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        trailingSwipeActions = [cls performSelector:holoRow.trailingSwipeActionsSEL withObject:holoRow.model];
-#pragma clang diagnostic pop
-    } else if (holoRow.trailingSwipeActionsHandler) {
-        trailingSwipeActions = holoRow.trailingSwipeActionsHandler(holoRow.model);
-    } else {
-        trailingSwipeActions = holoRow.trailingSwipeActions;
-    }
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSArray *trailingSwipeActions = HoloProxyCellPerformWithArray(cell, holoRow.trailingSwipeActionsSEL, holoRow.trailingSwipeActionsHandler, holoRow.model, holoRow.trailingSwipeActions);
     return [self _tableView:tableView swipeActionsConfigurationWithIndexPath:indexPath swipeActions:trailingSwipeActions swipeHandler:holoRow.trailingSwipeHandler];
 }
 
@@ -766,7 +759,6 @@ static NSString *HoloProxyCellPerformWithString(UITableViewCell *cell, SEL sel, 
      swipeActionsConfigurationWithIndexPath:(NSIndexPath *)indexPath
                                swipeActions:(NSArray *)swipeActions
                                swipeHandler:(HoloTableViewRowSwipeActionHandler)swipeHandler API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos) {
-    
     if (swipeActions.count <= 0) return nil;
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(indexPath.section);
