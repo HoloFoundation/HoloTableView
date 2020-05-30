@@ -496,8 +496,7 @@ static NSArray *HoloProxyCellPerformWithArray(UITableViewCell *cell, SEL sel, NS
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [holoFooterView performSelector:holoSection.footerConfigSEL withObject:holoSection.footerModel];
 #pragma clang diagnostic pop
-    }
-    if (holoSection.headerFooterConfigSEL && [holoFooterView respondsToSelector:holoSection.headerFooterConfigSEL]) {
+    } else if (holoSection.headerFooterConfigSEL && [holoFooterView respondsToSelector:holoSection.headerFooterConfigSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [holoFooterView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.footerModel];
