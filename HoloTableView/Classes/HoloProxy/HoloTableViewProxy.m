@@ -105,7 +105,7 @@ static UITableViewCellEditingStyle HoloProxyEditingStyleResult(UITableViewCell *
     return editingStyle;
 }
 
-static void HoloProxyViewPerform(UIView *view, SEL sel, void (^handler)(UIView *, id), id model) {
+static void HoloProxyViewPerformWithView(UIView *view, SEL sel, void (^handler)(UIView *, id), id model) {
     if (!view) return;
     
     if (sel && [view respondsToSelector:sel]) {
@@ -144,7 +144,7 @@ static void HoloProxyCellPerform(UITableViewCell *cell, SEL sel, void (^handler)
     }
 }
 
-static NSString *HoloProxyCellPerformString(UITableViewCell *cell, SEL sel, NSString *(^handler)(id), id model, NSString *string) {
+static NSString *HoloProxyCellPerformWithString(UITableViewCell *cell, SEL sel, NSString *(^handler)(id), id model, NSString *string) {
     if (!cell) return nil;
     
     if (sel && [cell respondsToSelector:sel]) {
@@ -608,7 +608,7 @@ static NSString *HoloProxyCellPerformString(UITableViewCell *cell, SEL sel, NSSt
     }
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(section);
-    HoloProxyViewPerform(view, holoSection.willDisplayHeaderSEL, holoSection.willDisplayHeaderHandler, holoSection.headerModel);
+    HoloProxyViewPerformWithView(view, holoSection.willDisplayHeaderSEL, holoSection.willDisplayHeaderHandler, holoSection.headerModel);
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
@@ -618,7 +618,7 @@ static NSString *HoloProxyCellPerformString(UITableViewCell *cell, SEL sel, NSSt
     }
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(section);
-    HoloProxyViewPerform(view, holoSection.willDisplayFooterSEL, holoSection.willDisplayFooterHandler, holoSection.footerModel);
+    HoloProxyViewPerformWithView(view, holoSection.willDisplayFooterSEL, holoSection.willDisplayFooterHandler, holoSection.footerModel);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -628,7 +628,7 @@ static NSString *HoloProxyCellPerformString(UITableViewCell *cell, SEL sel, NSSt
     }
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(section);
-    HoloProxyViewPerform(view, holoSection.didEndDisplayingHeaderSEL, holoSection.didEndDisplayingHeaderHandler, holoSection.headerModel);
+    HoloProxyViewPerformWithView(view, holoSection.didEndDisplayingHeaderSEL, holoSection.didEndDisplayingHeaderHandler, holoSection.headerModel);
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section {
@@ -638,7 +638,7 @@ static NSString *HoloProxyCellPerformString(UITableViewCell *cell, SEL sel, NSSt
     }
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(section);
-    HoloProxyViewPerform(view, holoSection.didEndDisplayingFooterSEL, holoSection.didEndDisplayingFooterHandler, holoSection.footerModel);
+    HoloProxyViewPerformWithView(view, holoSection.didEndDisplayingFooterSEL, holoSection.didEndDisplayingFooterHandler, holoSection.footerModel);
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -669,7 +669,7 @@ static NSString *HoloProxyCellPerformString(UITableViewCell *cell, SEL sel, NSSt
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(indexPath);
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    return HoloProxyCellPerformString(cell, holoRow.editingDeleteTitleSEL, holoRow.editingDeleteTitleHandler, holoRow.model, holoRow.editingDeleteTitle);
+    return HoloProxyCellPerformWithString(cell, holoRow.editingDeleteTitleSEL, holoRow.editingDeleteTitleHandler, holoRow.model, holoRow.editingDeleteTitle);
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
