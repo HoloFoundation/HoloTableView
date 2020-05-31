@@ -177,16 +177,12 @@
             [addArray addObject:operateSection];
         }
         
-        if (operateSection.header) {
-            [self _holo_registerHeaderFooter:operateSection.header
-                        withHeaderFootersMap:headersMap
-                                  forReuseId:operateSection.headerReuseId];
-        }
-        if (operateSection.footer) {
-            [self _holo_registerHeaderFooter:operateSection.footer
-                        withHeaderFootersMap:footersMap
-                                  forReuseId:operateSection.footerReuseId];
-        }
+        if (operateSection.header) [self _holo_registerHeaderFooter:operateSection.header
+                                               withHeaderFootersMap:headersMap
+                                                            reuseId:operateSection.headerReuseId];
+        if (operateSection.footer) [self _holo_registerHeaderFooter:operateSection.footer
+                                               withHeaderFootersMap:footersMap
+                                                            reuseId:operateSection.footerReuseId];
         
         // update map
         NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
@@ -223,7 +219,7 @@
 
 - (void)_holo_registerHeaderFooter:(NSString *)headerFooter
               withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap
-                        forReuseId:(NSString *)reuseId {
+                           reuseId:(NSString *)reuseId {
     if (headerFootersMap[headerFooter]) return;
     
     Class cls = NSClassFromString(headerFooter);
