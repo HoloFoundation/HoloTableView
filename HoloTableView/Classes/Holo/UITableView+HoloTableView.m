@@ -177,8 +177,16 @@
             [addArray addObject:operateSection];
         }
         
-        if (operateSection.header) [self _holo_registerHeaderFooter:operateSection.header withHeaderFootersMap:headersMap];
-        if (operateSection.footer) [self _holo_registerHeaderFooter:operateSection.footer withHeaderFootersMap:footersMap];
+        if (operateSection.header) {
+            [self _holo_registerHeaderFooter:operateSection.header
+                        withHeaderFootersMap:headersMap
+                                  forReuseId:operateSection.headerReuseId];
+        }
+        if (operateSection.footer) {
+            [self _holo_registerHeaderFooter:operateSection.footer
+                        withHeaderFootersMap:footersMap
+                                  forReuseId:operateSection.footerReuseId];
+        }
         
         // update map
         NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
@@ -214,7 +222,8 @@
 }
 
 - (void)_holo_registerHeaderFooter:(NSString *)headerFooter
-              withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap {
+              withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap
+                        forReuseId:(NSString *)reuseId {
     if (headerFootersMap[headerFooter]) return;
     
     Class cls = NSClassFromString(headerFooter);
@@ -227,7 +236,7 @@
         NSAssert(NO, error);
     }
     headerFootersMap[headerFooter] = cls;
-    [self registerClass:cls forHeaderFooterViewReuseIdentifier:headerFooter];
+    [self registerClass:cls forHeaderFooterViewReuseIdentifier:reuseId];
 }
 
 // holo_removeAllSections

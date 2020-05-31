@@ -33,6 +33,10 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @property (nonatomic, strong) id footerModel;
 
+@property (nonatomic, copy) NSString *headerReuseId;
+
+@property (nonatomic, copy) NSString *footerReuseId;
+
 @property (nonatomic, assign) CGFloat headerHeight;
 
 @property (nonatomic, assign) CGFloat footerHeight;
@@ -111,6 +115,10 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModel)(id headerModel);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModel)(id footerModel);
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerReuseId)(NSString *headerReuseId);
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerReuseId)(NSString *footerReuseId);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerHeight)(CGFloat headerHeight);
 

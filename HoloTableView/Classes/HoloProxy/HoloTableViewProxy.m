@@ -473,7 +473,7 @@ static NSArray *HoloProxyCellPerformWithArray(UITableViewCell *cell, SEL sel, NS
     }
     if (!holoHeaderView && [self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
         NSString *title = [self.dataSource tableView:tableView titleForHeaderInSection:section];
-        UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"UITableViewHeaderFooterView"];
+        UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
         headerView.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
         headerView.textLabel.textColor = [UIColor colorWithRed:0.14 green:0.14 blue:0.14 alpha:1];
         headerView.textLabel.text = title;
@@ -504,7 +504,7 @@ static NSArray *HoloProxyCellPerformWithArray(UITableViewCell *cell, SEL sel, NS
     }
     if (!holoFooterView && [self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
         NSString *title = [self.dataSource tableView:tableView titleForFooterInSection:section];
-        UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"UITableViewHeaderFooterView"];
+        UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
         footerView.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
         footerView.textLabel.textColor = [UIColor colorWithRed:0.14 green:0.14 blue:0.14 alpha:1];
         footerView.textLabel.text = title;
