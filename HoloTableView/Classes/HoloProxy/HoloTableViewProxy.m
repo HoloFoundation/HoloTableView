@@ -458,7 +458,7 @@ static NSArray *HoloProxyCellPerformWithArray(UITableViewCell *cell, SEL sel, NS
     HoloTableSection *holoSection = HoloTableSectionWithIndex(section);
     if (holoSection.headerModelHandler) holoSection.headerModel = holoSection.headerModelHandler();
     
-    UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.header];
+    UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.headerReuseId];
     
     if (holoSection.headerConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerConfigSEL]) {
 #pragma clang diagnostic push
@@ -490,7 +490,7 @@ static NSArray *HoloProxyCellPerformWithArray(UITableViewCell *cell, SEL sel, NS
     HoloTableSection *holoSection = HoloTableSectionWithIndex(section);
     if (holoSection.footerModelHandler) holoSection.footerModel = holoSection.footerModelHandler();
     
-    UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footer];
+    UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footerReuseId];
     if (holoSection.footerConfigSEL && [holoFooterView respondsToSelector:holoSection.footerConfigSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
