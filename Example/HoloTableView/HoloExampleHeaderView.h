@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <HoloTableView/HoloTableViewProtocol.h>
+#import <HoloTableView/HoloTableViewHeaderFooterProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

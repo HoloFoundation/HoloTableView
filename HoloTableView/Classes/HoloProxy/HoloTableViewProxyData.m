@@ -6,8 +6,8 @@
 //
 
 #import "HoloTableViewProxyData.h"
-#import "HoloTableViewSectionMaker.h"
-#import "HoloTableViewRowMaker.h"
+#import "HoloTableRow.h"
+#import "HoloTableSection.h"
 
 @implementation HoloTableViewProxyData
 

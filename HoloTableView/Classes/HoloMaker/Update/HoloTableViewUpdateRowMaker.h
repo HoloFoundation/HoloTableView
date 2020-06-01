@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloTableSection, HoloTableRowMaker, HoloTableRow;
+@class HoloTableRow, HoloTableRowMaker, HoloTableSection;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
     HoloTableViewUpdateRowMakerTypeRemake
 };
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewUpdateRowMakerModel : NSObject
 
 @property (nonatomic, strong) HoloTableRow *operateRow;
@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewUpdateRowMaker : NSObject
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);

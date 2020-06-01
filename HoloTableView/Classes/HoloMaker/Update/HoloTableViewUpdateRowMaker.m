@@ -6,15 +6,15 @@
 //
 
 #import "HoloTableViewUpdateRowMaker.h"
-#import "HoloTableViewSectionMaker.h"
-#import "HoloTableViewRowMaker.h"
+#import "HoloTableRow.h"
+#import "HoloTableRowMaker.h"
+#import "HoloTableSection.h"
 
-////////////////////////////////////////////////////////////
 @implementation HoloTableViewUpdateRowMakerModel
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewUpdateRowMaker ()
 
 @property (nonatomic, copy) NSArray<HoloTableSection *> *dataSections;

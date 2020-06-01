@@ -7,7 +7,6 @@
 
 #import "HoloTableViewMaker.h"
 
-////////////////////////////////////////////////////////////
 @interface HoloTableViewRHFMap ()
 
 @property (nonatomic, copy) NSString *key;
@@ -26,7 +25,7 @@
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewRHFMapMaker ()
 
 @property (nonatomic, strong) NSMutableArray<HoloTableViewRHFMap *> *mapArray;
@@ -53,7 +52,7 @@
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @implementation HoloTableViewRowMapMaker
 
 - (HoloTableViewRHFMap * (^)(NSString *))row {
@@ -67,7 +66,7 @@
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @implementation HoloTableViewHeaderMapMaker
 
 - (HoloTableViewRHFMap * (^)(NSString *))header {
@@ -81,7 +80,7 @@
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @implementation HoloTableViewFooterMapMaker
 
 - (HoloTableViewRHFMap * (^)(NSString *))footer {
@@ -95,12 +94,12 @@
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @implementation HoloTableViewModel
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewMaker ()
 
 @property (nonatomic, strong) HoloTableViewModel *tableViewModel;

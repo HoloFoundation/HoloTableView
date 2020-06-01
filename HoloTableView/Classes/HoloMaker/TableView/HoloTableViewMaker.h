@@ -6,46 +6,46 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HoloTableViewProxy.h"
+#import "HoloTableViewProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
-////////////////////////////////////////////////////////////
-@interface HoloTableViewRHFMap : NSObject // RHFMap: RowHeaderFooterMap
+/// RHFMap: RowHeaderFooterMap
+@interface HoloTableViewRHFMap : NSObject
 
 @property (nonatomic, copy, readonly) void (^map)(Class cls);
 
 @end
 
-////////////////////////////////////////////////////////////
-@interface HoloTableViewRHFMapMaker : NSObject // RHFMapMaker: RowHeaderFooterMaker
+/// RHFMapMaker: RowHeaderFooterMaker
+@interface HoloTableViewRHFMapMaker : NSObject
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewRowMapMaker : HoloTableViewRHFMapMaker
 
 @property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^row)(NSString *row);
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewHeaderMapMaker : HoloTableViewRHFMapMaker
 
 @property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^header)(NSString *header);
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewFooterMapMaker : HoloTableViewRHFMapMaker
 
 @property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^footer)(NSString *footer);
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewModel : NSObject
 
 @property (nonatomic, copy) NSArray *indexTitles;
@@ -66,7 +66,7 @@ typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *t
 
 @end
 
-////////////////////////////////////////////////////////////
+
 @interface HoloTableViewMaker : NSObject
 
 @property (nonatomic, copy, readonly) HoloTableViewMaker *(^sectionIndexTitles)(NSArray<NSString *> *sectionIndexTitles);

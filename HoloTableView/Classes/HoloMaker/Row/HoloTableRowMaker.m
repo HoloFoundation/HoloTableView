@@ -1,60 +1,13 @@
 //
-//  HoloTableViewRowMaker.m
+//  HoloTableRowMaker.m
 //  HoloTableView
 //
-//  Created by 与佳期 on 2019/7/28.
+//  Created by 与佳期 on 2020/6/1.
 //
 
-#import "HoloTableViewRowMaker.h"
+#import "HoloTableRowMaker.h"
+#import "HoloTableRow.h"
 
-////////////////////////////////////////////////////////////
-@implementation HoloTableRow
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _height = CGFLOAT_MIN;
-        _estimatedHeight = CGFLOAT_MIN;
-        _shouldHighlight = YES;
-        _style = UITableViewCellStyleDefault;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-        _configSEL              = @selector(holo_configureCellWithModel:);
-        _heightSEL              = @selector(holo_heightForCellWithModel:);
-        _estimatedHeightSEL     = @selector(holo_estimatedHeightForCellWithModel:);
-        _shouldHighlightSEL     = @selector(holo_shouldHighlightForCellWithModel:);
-        _canEditSEL             = @selector(holo_canEditForCellWithModel:);
-        _canMoveSEL             = @selector(holo_canMoveForCellWithModel:);
-        _leadingSwipeActionsSEL     = @selector(holo_leadingSwipeActionsForCellWithModel:);
-        _trailingSwipeActionsSEL    = @selector(holo_trailingSwipeActionsForCellWithModel:);
-        _editingDeleteTitleSEL      = @selector(holo_editingDeleteTitleForCellWithModel:);
-        _editingStyleSEL        = @selector(holo_editingStyleForCellWithModel:);
-        _willSelectSEL          = @selector(holo_willSelectCellWithModel:);
-        _willDeselectSEL        = @selector(holo_willDeselectCellWithModel:);
-        _didDeselectSEL         = @selector(holo_didDeselectCellWithModel:);
-        _didSelectSEL           = @selector(holo_didSelectCellWithModel:);
-        _willDisplaySEL         = @selector(holo_willDisplayCellWithModel:);
-        _didEndDisplayingSEL    = @selector(holo_didEndDisplayingCellWithModel:);
-        _didHighlightSEL        = @selector(holo_didHighlightCellWithModel:);
-        _didUnHighlightSEL      = @selector(holo_didUnHighlightCellWithModel:);
-        _accessoryButtonTappedSEL   = @selector(holo_accessoryButtonTappedCellWithModel:);
-        _willBeginEditingSEL    = @selector(holo_willBeginEditingCellWithModel:);
-        _didEndEditingSEL       = @selector(holo_didEndEditingCellWithModel:);
-        
-        // support set a delegate for cell
-        _delegateSEL = @selector(holo_configureCellDelegate:);
-#pragma clang diagnostic pop
-        _canEdit = NO;
-        _canMove = NO;
-        _editingStyle = UITableViewCellEditingStyleNone;
-    }
-    
-    return self;
-}
-
-@end
-
-////////////////////////////////////////////////////////////
 @interface HoloTableRowMaker ()
 
 @property (nonatomic, strong) HoloTableRow *tableRow;
@@ -552,49 +505,3 @@
 
 @end
 
-////////////////////////////////////////////////////////////
-@interface HoloTableViewRowMaker ()
-
-@property (nonatomic, strong) NSMutableArray<HoloTableRow *> *holoRows;
-
-@end
-
-@implementation HoloTableViewRowMaker
-
-- (HoloTableRowMaker * (^)(Class))row {
-    return ^id(Class cls) {
-        HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        rowMaker.tableRow.cell = NSStringFromClass(cls);
-        // reuseId is equal to cell by default
-        rowMaker.tableRow.reuseId = rowMaker.tableRow.cell;
-        
-        [self.holoRows addObject:rowMaker.tableRow];
-        return rowMaker;
-    };
-}
-
-- (HoloTableRowMaker *(^)(NSString *))rowS {
-    return ^id(id obj) {
-        HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        rowMaker.tableRow.cell = obj;
-        // reuseId is equal to cell by default
-        rowMaker.tableRow.reuseId = rowMaker.tableRow.cell;
-        
-        [self.holoRows addObject:rowMaker.tableRow];
-        return rowMaker;
-    };
-}
-
-- (NSArray<HoloTableRow *> *)install {
-    return self.holoRows;
-}
-
-#pragma mark - getter
-- (NSMutableArray<HoloTableRow *> *)holoRows {
-    if (!_holoRows) {
-        _holoRows = [NSMutableArray new];
-    }
-    return _holoRows;
-}
-
-@end

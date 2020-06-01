@@ -7,7 +7,9 @@
 
 #import "HoloTableViewProxy.h"
 #import "HoloTableViewProxyData.h"
+#import "HoloTableRow.h"
 #import "HoloTableViewRowMaker.h"
+#import "HoloTableSection.h"
 #import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowSwipeAction.h"
 
