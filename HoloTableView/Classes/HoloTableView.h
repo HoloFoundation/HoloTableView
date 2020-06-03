@@ -30,7 +30,7 @@
 // HoloMaker (TableView)
 #import "HoloTableViewMaker.h"
 
-// HoloMaker (TableView)
+// HoloMaker (Update)
 #import "HoloTableViewUpdateRowMaker.h"
 
 // HoloProxy

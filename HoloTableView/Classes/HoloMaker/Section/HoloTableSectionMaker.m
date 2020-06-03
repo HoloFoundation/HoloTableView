@@ -288,8 +288,8 @@
     return self.section;
 }
 
-- (void)giveTableRow:(HoloTableSection *)tableSection {
-    self.section = tableSection;
+- (void)giveTableSection:(HoloTableSection *)section {
+    self.section = section;
 }
 
 #pragma mark - getter

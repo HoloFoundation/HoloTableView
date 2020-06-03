@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (HoloTableSection *)fetchTableSection;
 
-- (void)giveTableRow:(HoloTableSection *)tableSection;
+- (void)giveTableSection:(HoloTableSection *)section;
 
 @end
 
