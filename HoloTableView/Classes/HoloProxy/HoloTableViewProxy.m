@@ -437,6 +437,8 @@
         [self.holo_delegate tableView:tableView willDisplayHeaderView:view forSection:section];
     }
     
+    if (section >= self.holoSections.count) return;
+    
     HoloTableSection *holoSection = self.holoSections[section];
     if (holoSection.willDisplayHeaderHandler) holoSection.willDisplayHeaderHandler(view, holoSection.headerModel);
 }
@@ -445,6 +447,8 @@
     if ([self.holo_delegate respondsToSelector:@selector(tableView:willDisplayFooterView:forSection:)]) {
         [self.holo_delegate tableView:tableView willDisplayFooterView:view forSection:section];
     }
+    
+    if (section >= self.holoSections.count) return;
     
     HoloTableSection *holoSection = self.holoSections[section];
     if (holoSection.willDisplayFooterHandler) holoSection.willDisplayFooterHandler(view, holoSection.footerModel);
@@ -455,6 +459,8 @@
         [self.holo_delegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
     }
     
+    if (section >= self.holoSections.count) return;
+    
     HoloTableSection *holoSection = self.holoSections[section];
     if (holoSection.didEndDisplayingHeaderHandler) holoSection.didEndDisplayingHeaderHandler(view, holoSection.headerModel);
 }
@@ -463,6 +469,8 @@
     if ([self.holo_delegate respondsToSelector:@selector(tableView:didEndDisplayingFooterView:forSection:)]) {
         [self.holo_delegate tableView:tableView didEndDisplayingFooterView:view forSection:section];
     }
+    
+    if (section >= self.holoSections.count) return;
     
     HoloTableSection *holoSection = self.holoSections[section];
     if (holoSection.didEndDisplayingFooterHandler) holoSection.didEndDisplayingFooterHandler(view, holoSection.footerModel);
