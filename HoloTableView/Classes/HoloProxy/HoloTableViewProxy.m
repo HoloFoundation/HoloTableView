@@ -94,6 +94,20 @@ static BOOL HoloProxyBOOLResult(UITableViewCell *cell, SEL sel, BOOL (^handler)(
     return can;
 }
 
+static BOOL HoloProxyBOOLClassResult(Class cls, SEL sel, BOOL (^handler)(id), id model, BOOL can) {
+    if (!cls) return NO;
+    
+    if (sel && [cls respondsToSelector:sel]) {
+        NSInvocation *invocation = HoloProxyInvocation(cls, sel, model);
+        BOOL retLoc;
+        [invocation getReturnValue:&retLoc];
+        return retLoc;
+    } else if (handler) {
+        return handler(model);
+    }
+    return can;
+}
+
 static UITableViewCellEditingStyle HoloProxyEditingStyleResult(UITableViewCell *cell, SEL sel, UITableViewCellEditingStyle (^handler)(id), id model, UITableViewCellEditingStyle editingStyle) {
     if (!cell) return UITableViewCellEditingStyleNone;
     
@@ -254,8 +268,13 @@ static NSArray *HoloProxyCellPerformWithArray(UITableViewCell *cell, SEL sel, NS
     }
         
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(indexPath);
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    return HoloProxyBOOLResult(cell, holoRow.canEditSEL, holoRow.canEditHandler, holoRow.model, holoRow.canEdit);
+    /*
+     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+     
+     [Assert] Attempted to call -cellForRowAtIndexPath: on the table view while it was in the process of updating its visible cells, which is not allowed. Make a symbolic breakpoint at UITableViewAlertForCellForRowAtIndexPathAccessDuringUpdate to catch this in the debugger and see what caused this to occur. Perhaps you are trying to ask the table view for a cell from inside a table view callback about a specific row? Table view: <UITableView: 0x7fdce984f800; frame = (0 100; 375 712); clipsToBounds = YES; gestureRecognizers = <NSArray: 0x60000034cae0>; layer = <CALayer: 0x600000d68200>; contentOffset: {0, 0}; contentSize: {375, 3020}; adjustedContentInset: {0, 0, 34, 0}; dataSource: <HoloTableViewProxy: 0x60000034daa0>>
+     */
+    Class cls = self.holoRowsMap[holoRow.cell];
+    return HoloProxyBOOLClassResult(cls, holoRow.canEditSEL, holoRow.canEditHandler, holoRow.model, holoRow.canEdit);
 }
 
 /// Editing: delete/insert

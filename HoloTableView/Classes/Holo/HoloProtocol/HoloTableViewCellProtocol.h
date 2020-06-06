@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)holo_shouldHighlightForCellWithModel:(id)model;
 
-- (BOOL)holo_canEditForCellWithModel:(id)model;
++ (BOOL)holo_canEditForCellWithModel:(id)model;
 
 - (BOOL)holo_canMoveForCellWithModel:(id)model;
 
