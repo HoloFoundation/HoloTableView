@@ -11,9 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HoloTableViewHeaderFooterProtocol <NSObject>
 
-@optional
+@required
 
 - (void)holo_configureHeaderFooterWithModel:(id)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerConfigSEL` or `footerConfigSEL` api instead.");
+
+
+@optional
 
 + (CGFloat)holo_heightForHeaderFooterWithModel:(id)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerHeightSEL` or `footerHeightSEL` api instead.");
 

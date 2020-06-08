@@ -11,9 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HoloTableViewHeaderProtocol <NSObject>
 
-@optional
+@required;
 
 - (void)holo_configureHeaderWithModel:(id)model;
+
+
+@optional
 
 + (CGFloat)holo_heightForHeaderWithModel:(id)model;
 
