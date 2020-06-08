@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)holo_editingDeleteTitleForCellWithModel:(id)model;
 
-- (NSString *)holo_editingStyleForCellWithModel:(id)model;
+- (UITableViewCellEditingStyle)holo_editingStyleForCellWithModel:(id)model;
 
 - (void)holo_willSelectCellWithModel:(id)model;
 
