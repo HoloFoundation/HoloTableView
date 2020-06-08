@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <HoloTableView/HoloTableViewHeaderFooterProtocol.h>
+#import <HoloTableView/HoloTableViewHeaderProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloExampleHeaderView : UITableViewHeaderFooterView <HoloTableViewHeaderFooterProtocol>
+@interface HoloExampleHeaderView : UITableViewHeaderFooterView <HoloTableViewHeaderProtocol>
 
 @end
 
