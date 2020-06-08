@@ -107,20 +107,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^estimatedHeightSEL)(SEL estimatedHeightSEL);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^shouldHighlightSEL)(SEL shouldHighlightSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEditSEL)(SEL canEditSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMoveSEL)(SEL canMoveSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActionsSEL)(SEL leadingSwipeActionsSEL) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActionsSEL)(SEL trailingSwipeActionsSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleSEL)(SEL editingDeleteTitleSEL);
-
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingStyleSEL)(SEL editingStyleSEL);
-
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willSelectSEL)(SEL willSelectSEL);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDeselectSEL)(SEL willDeselectSEL);

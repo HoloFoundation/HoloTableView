@@ -19,21 +19,21 @@
         _footerEstimatedHeight = CGFLOAT_MIN;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        _headerConfigSEL = @selector(holo_configureHeaderWithModel:);
-        _footerConfigSEL = @selector(holo_configureFooterWithModel:);
-        _headerHeightSEL = @selector(holo_heightForHeaderWithModel:);
-        _footerHeightSEL = @selector(holo_heightForFooterWithModel:);
-        _headerEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderWithModel:);
-        _footerEstimatedHeightSEL = @selector(holo_estimatedHeightForFooterWithModel:);
+        _headerConfigSEL                = @selector(holo_configureHeaderWithModel:);
+        _footerConfigSEL                = @selector(holo_configureFooterWithModel:);
+        _headerHeightSEL                = @selector(holo_heightForHeaderWithModel:);
+        _footerHeightSEL                = @selector(holo_heightForFooterWithModel:);
+        _headerEstimatedHeightSEL       = @selector(holo_estimatedHeightForHeaderWithModel:);
+        _footerEstimatedHeightSEL       = @selector(holo_estimatedHeightForFooterWithModel:);
         
-        _headerFooterConfigSEL = @selector(holo_configureHeaderFooterWithModel:);
-        _headerFooterHeightSEL = @selector(holo_heightForHeaderFooterWithModel:);
+        _headerFooterConfigSEL          = @selector(holo_configureHeaderFooterWithModel:);
+        _headerFooterHeightSEL          = @selector(holo_heightForHeaderFooterWithModel:);
         _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
         
-        _willDisplayHeaderSEL = @selector(holo_willDisplayHeaderWithModel:);
-        _willDisplayFooterSEL = @selector(holo_willDisplayFooterWithModel:);
-        _didEndDisplayingHeaderSEL = @selector(holo_didEndDisplayingHeaderWithModel:);
-        _didEndDisplayingFooterSEL = @selector(holo_didEndDisplayingFooterWithModel:);
+        _willDisplayHeaderSEL           = @selector(holo_willDisplayHeaderWithModel:);
+        _willDisplayFooterSEL           = @selector(holo_willDisplayFooterWithModel:);
+        _didEndDisplayingHeaderSEL      = @selector(holo_didEndDisplayingHeaderWithModel:);
+        _didEndDisplayingFooterSEL      = @selector(holo_didEndDisplayingFooterWithModel:);
 #pragma clang diagnostic pop
     }
     return self;

@@ -18,30 +18,23 @@
         _style = UITableViewCellStyleDefault;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        _configSEL              = @selector(holo_configureCellWithModel:);
-        _heightSEL              = @selector(holo_heightForCellWithModel:);
-        _estimatedHeightSEL     = @selector(holo_estimatedHeightForCellWithModel:);
-        _shouldHighlightSEL     = @selector(holo_shouldHighlightForCellWithModel:);
-        _canEditSEL             = @selector(holo_canEditForCellWithModel:);
-        _canMoveSEL             = @selector(holo_canMoveForCellWithModel:);
-        _leadingSwipeActionsSEL     = @selector(holo_leadingSwipeActionsForCellWithModel:);
-        _trailingSwipeActionsSEL    = @selector(holo_trailingSwipeActionsForCellWithModel:);
-        _editingDeleteTitleSEL      = @selector(holo_editingDeleteTitleForCellWithModel:);
-        _editingStyleSEL        = @selector(holo_editingStyleForCellWithModel:);
-        _willSelectSEL          = @selector(holo_willSelectCellWithModel:);
-        _willDeselectSEL        = @selector(holo_willDeselectCellWithModel:);
-        _didDeselectSEL         = @selector(holo_didDeselectCellWithModel:);
-        _didSelectSEL           = @selector(holo_didSelectCellWithModel:);
-        _willDisplaySEL         = @selector(holo_willDisplayCellWithModel:);
-        _didEndDisplayingSEL    = @selector(holo_didEndDisplayingCellWithModel:);
-        _didHighlightSEL        = @selector(holo_didHighlightCellWithModel:);
-        _didUnHighlightSEL      = @selector(holo_didUnHighlightCellWithModel:);
+        _configSEL                  = @selector(holo_configureCellWithModel:);
+        _heightSEL                  = @selector(holo_heightForCellWithModel:);
+        _estimatedHeightSEL         = @selector(holo_estimatedHeightForCellWithModel:);
+        _willSelectSEL              = @selector(holo_willSelectCellWithModel:);
+        _willDeselectSEL            = @selector(holo_willDeselectCellWithModel:);
+        _didDeselectSEL             = @selector(holo_didDeselectCellWithModel:);
+        _didSelectSEL               = @selector(holo_didSelectCellWithModel:);
+        _willDisplaySEL             = @selector(holo_willDisplayCellWithModel:);
+        _didEndDisplayingSEL        = @selector(holo_didEndDisplayingCellWithModel:);
+        _didHighlightSEL            = @selector(holo_didHighlightCellWithModel:);
+        _didUnHighlightSEL          = @selector(holo_didUnHighlightCellWithModel:);
         _accessoryButtonTappedSEL   = @selector(holo_accessoryButtonTappedCellWithModel:);
-        _willBeginEditingSEL    = @selector(holo_willBeginEditingCellWithModel:);
-        _didEndEditingSEL       = @selector(holo_didEndEditingCellWithModel:);
+        _willBeginEditingSEL        = @selector(holo_willBeginEditingCellWithModel:);
+        _didEndEditingSEL           = @selector(holo_didEndEditingCellWithModel:);
         
         // support set a delegate for cell
-        _delegateSEL = @selector(holo_configureCellDelegate:);
+        _delegateSEL                = @selector(holo_configureCellDelegate:);
 #pragma clang diagnostic pop
         _canEdit = NO;
         _canMove = NO;

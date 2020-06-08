@@ -22,20 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForCellWithModel:(id)model;
 
-- (BOOL)holo_shouldHighlightForCellWithModel:(id)model;
-
-+ (BOOL)holo_canEditForCellWithModel:(id)model;
-
-- (BOOL)holo_canMoveForCellWithModel:(id)model;
-
-- (NSArray *)holo_leadingSwipeActionsForCellWithModel:(id)model;
-
-- (NSArray *)holo_trailingSwipeActionsForCellWithModel:(id)model;
-
-- (NSString *)holo_editingDeleteTitleForCellWithModel:(id)model;
-
-- (UITableViewCellEditingStyle)holo_editingStyleForCellWithModel:(id)model;
-
 - (void)holo_willSelectCellWithModel:(id)model;
 
 - (void)holo_willDeselectCellWithModel:(id)model;

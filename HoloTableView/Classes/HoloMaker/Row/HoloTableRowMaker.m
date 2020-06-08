@@ -360,55 +360,6 @@
     };
 }
 
-- (HoloTableRowMaker *(^)(SEL))shouldHighlightSEL {
-    return ^id(SEL s) {
-        self.tableRow.shouldHighlightSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))canEditSEL {
-    return ^id(SEL s) {
-        self.tableRow.canEditSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))canMoveSEL {
-    return ^id(SEL s) {
-        self.tableRow.canMoveSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))leadingSwipeActionsSEL {
-    return ^id(SEL s) {
-        self.tableRow.leadingSwipeActionsSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))trailingSwipeActionsSEL {
-    return ^id(SEL s) {
-        self.tableRow.trailingSwipeActionsSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))editingDeleteTitleSEL {
-    return ^id(SEL s) {
-        self.tableRow.editingDeleteTitleSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(SEL))editingStyleSEL {
-    return ^id(SEL s) {
-        self.tableRow.editingStyleSEL = s;
-        return self;
-    };
-}
-
 - (HoloTableRowMaker *(^)(SEL))willSelectSEL {
     return ^id(SEL s) {
         self.tableRow.willSelectSEL = s;
