@@ -360,6 +360,13 @@
     };
 }
 
+- (HoloTableRowMaker *(^)(SEL))shouldHighlightSEL {
+    return ^id(SEL s) {
+        self.tableRow.shouldHighlightSEL = s;
+        return self;
+    };
+}
+
 - (HoloTableRowMaker *(^)(SEL))willSelectSEL {
     return ^id(SEL s) {
         self.tableRow.willSelectSEL = s;

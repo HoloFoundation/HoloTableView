@@ -111,8 +111,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) SEL estimatedHeightSEL;
 
-//@property (nonatomic, assign) SEL shouldHighlightSEL;
-//
+@property (nonatomic, assign) SEL shouldHighlightSEL;
+
 //@property (nonatomic, assign) SEL canEditSEL;
 //
 //@property (nonatomic, assign) SEL canMoveSEL;

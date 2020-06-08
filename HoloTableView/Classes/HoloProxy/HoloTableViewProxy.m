@@ -79,6 +79,20 @@ static BOOL HoloProxyBOOLResult(BOOL (^handler)(id), id model, BOOL can) {
     }
 }
 
+static BOOL HoloProxyBOOLResultWithCell(UITableViewCell *cell, SEL sel, BOOL (^handler)(id), id model, BOOL can) {
+    if (!cell) return NO;
+    
+    if (sel && [cell respondsToSelector:sel]) {
+        NSInvocation *invocation = HoloProxyInvocation(cell, sel, model);
+        BOOL retLoc;
+        [invocation getReturnValue:&retLoc];
+        return retLoc;
+    } else if (handler) {
+        return handler(model);
+    }
+    return can;
+}
+
 static NSArray *HoloProxyArrayResult(NSArray *(^handler)(id), id model, NSArray *array) {
     if (handler) {
         return handler(model);
@@ -400,7 +414,8 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(self, indexPath);
-    return HoloProxyBOOLResult(holoRow.shouldHighlightHandler, holoRow.model, holoRow.shouldHighlight);
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    return HoloProxyBOOLResultWithCell(cell, holoRow.shouldHighlightSEL, holoRow.shouldHighlightHandler, holoRow.model, holoRow.shouldHighlight);
 }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {

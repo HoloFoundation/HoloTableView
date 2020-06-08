@@ -21,6 +21,7 @@
         _configSEL                  = @selector(holo_configureCellWithModel:);
         _heightSEL                  = @selector(holo_heightForCellWithModel:);
         _estimatedHeightSEL         = @selector(holo_estimatedHeightForCellWithModel:);
+        _shouldHighlightSEL         = @selector(holo_shouldHighlightForCellWithModel:);
         _willSelectSEL              = @selector(holo_willSelectCellWithModel:);
         _willDeselectSEL            = @selector(holo_willDeselectCellWithModel:);
         _didDeselectSEL             = @selector(holo_didDeselectCellWithModel:);

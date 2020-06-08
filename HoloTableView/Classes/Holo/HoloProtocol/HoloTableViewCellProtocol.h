@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGFloat)holo_estimatedHeightForCellWithModel:(id)model;
 
+- (BOOL)holo_shouldHighlightForCellWithModel:(id)model;
+
 - (void)holo_willSelectCellWithModel:(id)model;
 
 - (void)holo_willDeselectCellWithModel:(id)model;
