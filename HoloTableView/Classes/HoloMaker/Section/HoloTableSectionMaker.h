@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModelHandler)(id (^)(id _Nullable model));
 
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerReuseIdHandler)(NSString *(^)(id _Nullable model));
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerReuseIdHandler)(NSString *(^)(id _Nullable model));
+
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerHeightHandler)(CGFloat (^)(id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerHeightHandler)(CGFloat (^)(id _Nullable model));

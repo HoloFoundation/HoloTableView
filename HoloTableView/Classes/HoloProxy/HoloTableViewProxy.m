@@ -448,6 +448,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
     if (holoSection.headerModelHandler) holoSection.headerModel = holoSection.headerModelHandler();
+    if (holoSection.headerReuseIdHandler) holoSection.headerReuseId = holoSection.headerReuseIdHandler(holoSection.headerModel);
     
     UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.headerReuseId];
     
@@ -480,6 +481,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
     if (holoSection.footerModelHandler) holoSection.footerModel = holoSection.footerModelHandler();
+    if (holoSection.footerReuseIdHandler) holoSection.footerReuseId = holoSection.footerReuseIdHandler(holoSection.footerModel);
     
     UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footerReuseId];
     if (holoSection.footerConfigSEL && [holoFooterView respondsToSelector:holoSection.footerConfigSEL]) {

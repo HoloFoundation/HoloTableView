@@ -125,6 +125,20 @@
     };
 }
 
+- (HoloTableSectionMaker * (^)(NSString * (^)(id)))headerReuseIdHandler {
+    return ^id(id obj) {
+        self.section.headerReuseIdHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(NSString * (^)(id)))footerReuseIdHandler {
+    return ^id(id obj) {
+        self.section.footerReuseIdHandler = obj;
+        return self;
+    };
+}
+
 - (HoloTableSectionMaker * (^)(CGFloat (^)(id)))headerHeightHandler {
     return ^id(id obj) {
         self.section.headerHeightHandler = obj;
