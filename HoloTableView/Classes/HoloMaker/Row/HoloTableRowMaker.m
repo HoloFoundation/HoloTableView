@@ -120,6 +120,13 @@
     };
 }
 
+- (HoloTableRowMaker * (^)(UITableViewCellEditingStyle))editingStyle {
+    return ^id(UITableViewCellEditingStyle editingStyle) {
+        self.tableRow.editingStyle = editingStyle;
+        return self;
+    };
+}
+
 #pragma mark - priority middle
 - (HoloTableRowMaker * (^)(id (^)(void)))modelHandler {
     return ^id(id obj) {

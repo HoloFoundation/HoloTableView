@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitle)(NSString *title);
 
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingStyle)(UITableViewCellEditingStyle editingStyle);
+
 #pragma mark - priority middle
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^modelHandler)(id (^)(void));
 
