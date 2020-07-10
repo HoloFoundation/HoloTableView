@@ -47,7 +47,6 @@
     NSMutableDictionary *headersMap = self.holo_proxy.proxyData.headersMap.mutableCopy;
     [tableViewModel.headersMap enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, Class  _Nonnull obj, BOOL * _Nonnull stop) {
         headersMap[key] = obj;
-        [self registerClass:obj forHeaderFooterViewReuseIdentifier:key];
         
         if (![obj.new isKindOfClass:UITableViewHeaderFooterView.class]) {
             NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj)];
@@ -59,7 +58,6 @@
     NSMutableDictionary *footersMap = self.holo_proxy.proxyData.footersMap.mutableCopy;
     [tableViewModel.footersMap enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, Class  _Nonnull obj, BOOL * _Nonnull stop) {
         footersMap[key] = obj;
-        [self registerClass:obj forHeaderFooterViewReuseIdentifier:key];
         
         if (![obj.new isKindOfClass:UITableViewHeaderFooterView.class]) {
             NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj)];
@@ -178,12 +176,8 @@
             [addArray addObject:operateSection];
         }
         
-        if (operateSection.header) [self _holo_registerHeaderFooter:operateSection.header
-                                               withHeaderFootersMap:headersMap
-                                                            reuseId:operateSection.headerReuseId];
-        if (operateSection.footer) [self _holo_registerHeaderFooter:operateSection.footer
-                                               withHeaderFootersMap:footersMap
-                                                            reuseId:operateSection.footerReuseId];
+        if (operateSection.header) [self _holo_registerHeaderFooter:operateSection.header withHeaderFootersMap:headersMap];
+        if (operateSection.footer) [self _holo_registerHeaderFooter:operateSection.footer withHeaderFootersMap:footersMap];
         
         // update map
         NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
@@ -218,9 +212,7 @@
     }
 }
 
-- (void)_holo_registerHeaderFooter:(NSString *)headerFooter
-              withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap
-                           reuseId:(NSString *)reuseId {
+- (void)_holo_registerHeaderFooter:(NSString *)headerFooter withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap {
     if (headerFootersMap[headerFooter]) return;
     
     Class cls = NSClassFromString(headerFooter);
@@ -233,7 +225,6 @@
         NSAssert(NO, error);
     }
     headerFootersMap[headerFooter] = cls;
-    [self registerClass:cls forHeaderFooterViewReuseIdentifier:reuseId];
 }
 
 // holo_removeAllSections

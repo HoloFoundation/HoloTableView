@@ -22,8 +22,6 @@
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
         HoloTableRow *tableRow = [rowMaker fetchTableRow];
         tableRow.cell = NSStringFromClass(cls);
-        // reuseId is equal to cell by default
-        tableRow.reuseId = tableRow.cell;
         
         [self.holoRows addObject:tableRow];
         return rowMaker;
@@ -35,8 +33,6 @@
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
         HoloTableRow *tableRow = [rowMaker fetchTableRow];
         tableRow.cell = obj;
-        // reuseId is equal to cell by default
-        tableRow.reuseId = tableRow.cell;
         
         [self.holoRows addObject:tableRow];
         return rowMaker;

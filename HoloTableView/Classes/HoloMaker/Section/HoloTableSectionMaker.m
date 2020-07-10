@@ -20,8 +20,6 @@
 - (HoloTableSectionMaker * (^)(Class))header {
     return ^id(Class cls) {
         self.section.header = NSStringFromClass(cls);
-        // headerReuseId is equal to header by default
-        if (self.section.headerReuseId.length <= 0) self.section.headerReuseId = self.section.header;
         return self;
     };
 }
@@ -29,8 +27,6 @@
 - (HoloTableSectionMaker * (^)(Class))footer {
     return ^id(Class cls) {
         self.section.footer = NSStringFromClass(cls);
-        // footerReuseId is equal to footer by default
-        if (self.section.footerReuseId.length <= 0) self.section.footerReuseId = self.section.footer;
         return self;
     };
 }
@@ -38,8 +34,6 @@
 - (HoloTableSectionMaker *(^)(NSString *))headerS {
     return ^id(id obj) {
         self.section.header = obj;
-        // headerReuseId is equal to header by default
-        if (self.section.headerReuseId.length <= 0) self.section.headerReuseId = self.section.header;
         return self;
     };
 }
@@ -47,8 +41,6 @@
 - (HoloTableSectionMaker *(^)(NSString *))footerS {
     return ^id(id obj) {
         self.section.footer = obj;
-        // footerReuseId is equal to footer by default
-        if (self.section.footerReuseId.length <= 0) self.section.footerReuseId = self.section.footer;
         return self;
     };
 }

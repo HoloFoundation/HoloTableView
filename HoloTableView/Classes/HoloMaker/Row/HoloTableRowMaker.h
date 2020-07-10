@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableRowMaker : NSObject
 
+/// will change 'reuseId' value immediately
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
 
+/// will change 'reuseId' value immediately
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
 
 #pragma mark - priority low
@@ -34,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canEdit)(BOOL canEdit);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMove)(BOOL canMove);
+
 /// HoloTableViewRowSwipeAction or NSDictionary
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 

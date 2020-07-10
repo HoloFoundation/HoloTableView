@@ -183,6 +183,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     
     if (holoRow.modelHandler) holoRow.model = holoRow.modelHandler();
     if (holoRow.reuseIdHandler) holoRow.reuseId = holoRow.reuseIdHandler(holoRow.model);
+    if (!holoRow.reuseId) holoRow.reuseId = holoRow.cell;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.reuseId];
     if (!cell) {
@@ -449,8 +450,14 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
     if (holoSection.headerModelHandler) holoSection.headerModel = holoSection.headerModelHandler();
     if (holoSection.headerReuseIdHandler) holoSection.headerReuseId = holoSection.headerReuseIdHandler(holoSection.headerModel);
+    if (!holoSection.headerReuseId) holoSection.headerReuseId = holoSection.header;
     
     UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.headerReuseId];
+    if (!holoHeaderView) {
+        Class cls = self.holoHeadersMap[holoSection.header];
+        if (!cls) cls = UITableViewHeaderFooterView.class;
+        holoHeaderView = [[cls alloc] initWithReuseIdentifier:holoSection.headerReuseId];
+    }
     
     if (holoSection.headerConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerConfigSEL]) {
 #pragma clang diagnostic push
@@ -482,8 +489,15 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
     if (holoSection.footerModelHandler) holoSection.footerModel = holoSection.footerModelHandler();
     if (holoSection.footerReuseIdHandler) holoSection.footerReuseId = holoSection.footerReuseIdHandler(holoSection.footerModel);
+    if (!holoSection.footerReuseId) holoSection.footerReuseId = holoSection.footer;
     
     UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footerReuseId];
+    if (!holoFooterView) {
+        Class cls = self.holoFootersMap[holoSection.footer];
+        if (!cls) cls = UITableViewHeaderFooterView.class;
+        holoFooterView = [[cls alloc] initWithReuseIdentifier:holoSection.footerReuseId];
+    }
+    
     if (holoSection.footerConfigSEL && [holoFooterView respondsToSelector:holoSection.footerConfigSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"

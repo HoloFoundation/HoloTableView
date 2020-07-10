@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableViewRowMaker : NSObject
 
+/// will change 'reuseId' value immediately
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
 
+/// will change 'reuseId' value immediately
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
 
 - (NSArray<HoloTableRow *> *)install;
