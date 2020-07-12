@@ -103,14 +103,14 @@
 }
 
 #pragma mark - priority middle
-- (HoloTableSectionMaker * (^)(id (^)(id)))headerModelHandler {
+- (HoloTableSectionMaker * (^)(id (^)(void)))headerModelHandler {
     return ^id(id obj) {
         self.section.headerModelHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker * (^)(id (^)(id)))footerModelHandler {
+- (HoloTableSectionMaker * (^)(id (^)(void)))footerModelHandler {
     return ^id(id obj) {
         self.section.footerModelHandler = obj;
         return self;

@@ -38,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerEstimatedHeight)(CGFloat footerEstimatedHeight);
 
 #pragma mark - priority middle
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModelHandler)(id (^)(id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModelHandler)(id (^)(void));
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModelHandler)(id (^)(id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModelHandler)(id (^)(void));
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerReuseIdHandler)(NSString *(^)(id _Nullable model));
 
