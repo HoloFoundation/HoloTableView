@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HoloTableViewFooterProtocol <NSObject>
 
-@required;
+@required
 
 - (void)holo_configureFooterWithModel:(id)model;
 
