@@ -479,6 +479,8 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     NSString *headerTitle;
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
         headerTitle = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+    } else if (holoSection.headerTitleHandler) {
+        headerTitle = holoSection.headerTitleHandler();
     } else {
         headerTitle = holoSection.headerTitle;
     }
@@ -522,6 +524,8 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     NSString *footerTitle;
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
         footerTitle = [self.dataSource tableView:tableView titleForFooterInSection:section];
+    } else if (holoSection.footerTitleHandler) {
+        footerTitle = holoSection.footerTitleHandler();
     } else {
         footerTitle = holoSection.footerTitle;
     }
@@ -547,7 +551,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
     
     if ((holoSection.headerHeight == CGFLOAT_MIN) &&
-        ([self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)] || holoSection.headerTitle)) {
+        ([self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)] || holoSection.headerTitleHandler || holoSection.headerTitle)) {
         return 28.0;
     }
     return holoSection.headerHeight;
@@ -569,7 +573,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         return holoSection.footerHeightHandler(holoSection.footerModel);
     }
     if ((holoSection.footerHeight == CGFLOAT_MIN) &&
-        ([self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)] || holoSection.footerTitle)) {
+        ([self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)] || holoSection.footerTitleHandler || holoSection.footerTitle)) {
         return 28.0;
     }
     return holoSection.footerHeight;

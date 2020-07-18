@@ -117,6 +117,20 @@
 }
 
 #pragma mark - priority middle
+- (HoloTableSectionMaker * (^)(NSString * (^)(void)))headerTitleHandler {
+    return ^id(id obj) {
+        self.section.headerTitleHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(NSString * (^)(void)))footerTitleHandler {
+    return ^id(id obj) {
+        self.section.footerTitleHandler = obj;
+        return self;
+    };
+}
+
 - (HoloTableSectionMaker * (^)(id (^)(void)))headerModelHandler {
     return ^id(id obj) {
         self.section.headerModelHandler = obj;

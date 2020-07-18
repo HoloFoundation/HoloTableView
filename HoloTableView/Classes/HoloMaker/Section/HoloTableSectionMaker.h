@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableSectionMaker : NSObject
 
+/// If you set 'header' or 'headerS', the property will be invalid.
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerTitle)(NSString *headerTitle);
 
+/// If you set 'footer' or 'footerS', the property will be invalid.
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerTitle)(NSString *footerTitle);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^header)(Class header);
@@ -42,6 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerEstimatedHeight)(CGFloat footerEstimatedHeight);
 
 #pragma mark - priority middle
+/// If you set 'header' or 'headerS', the property will be invalid.
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerTitleHandler)(NSString *(^)(void));
+
+/// If you set 'footer' or 'footerS', the property will be invalid.
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerTitleHandler)(NSString *(^)(void));
+
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModelHandler)(id (^)(void));
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerModelHandler)(id (^)(void));

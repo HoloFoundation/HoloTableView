@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat footerEstimatedHeight;
 
 #pragma mark - priority middle
+@property (nonatomic, copy) NSString *(^headerTitleHandler)(void);
+
+@property (nonatomic, copy) NSString *(^footerTitleHandler)(void);
+
 @property (nonatomic, copy) id (^headerModelHandler)(void);
 
 @property (nonatomic, copy) id (^footerModelHandler)(void);
