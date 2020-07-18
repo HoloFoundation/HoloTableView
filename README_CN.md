@@ -226,6 +226,8 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     make.section(TAG)
     
     // #2、配置 header
+    // header 标题，如果设置了 header 或者 headerS 的话，这个属性将会失效
+    .headerTitile(@"header")
     // header 类
     .header(ExampleHeaderView.class)
     // header model 数据
@@ -236,6 +238,10 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     .headerHeight(101)
     // header 估算高度
     .headerEstimatedHeight(100)
+    // 返回 header 标题，如果设置了 header 或者 headerS 的话，这个属性将会失效
+    .headerTitileHandler(^NSString * _Nonnull{
+        return @"header";
+    })
     // 返回 header model，实现该 block 的话，优先于 headerModel 属性
     .headerModelHandler(^id _Nonnull{
         return NSObject.new;
@@ -273,6 +279,8 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     .didEndDisplayingHeaderSEL(@selector(holo_didEndDisplayingHeaderWithModel:))
     
     // #3、配置 footer
+    // footer 标题，如果设置了 footer 或者 footerS 的话，这个属性将会失效
+    .footerTitile(@"footer")
     // footer 类
     .footer(ExampleFooterView.class)
     // footer model 数据
@@ -283,6 +291,10 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     .footerHeight(101)
     // footer 估算高度
     .footerEstimatedHeight(100)
+    // 返回 footer 标题，如果设置了 footer 或者 footerS 的话，这个属性将会失效
+    .footerTitileHandler(^NSString * _Nonnull{
+        return @"footer";
+    })
     // 返回 footer model，实现该 block 的话，优先于 footerModel 属性
     .footerModelHandler(^id _Nonnull{
         return NSObject.new;
