@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *tag;
 
+@property (nonatomic, copy) NSString *headerTitle;
+
+@property (nonatomic, copy) NSString *footerTitle;
+
 @property (nonatomic, copy) NSString *header;
 
 @property (nonatomic, copy) NSString *footer;

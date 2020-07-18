@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableSectionMaker : NSObject
 
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerTitle)(NSString *headerTitle);
+
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerTitle)(NSString *footerTitle);
+
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^header)(Class header);
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footer)(Class footer);

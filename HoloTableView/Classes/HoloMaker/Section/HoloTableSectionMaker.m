@@ -17,6 +17,20 @@
 
 @implementation HoloTableSectionMaker
 
+- (HoloTableSectionMaker *(^)(NSString *))headerTitle {
+    return ^id(id obj) {
+        self.section.headerTitle = obj;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker *(^)(NSString *))footerTitle {
+    return ^id(id obj) {
+        self.section.footerTitle = obj;
+        return self;
+    };
+}
+
 - (HoloTableSectionMaker * (^)(Class))header {
     return ^id(Class cls) {
         self.section.header = NSStringFromClass(cls);

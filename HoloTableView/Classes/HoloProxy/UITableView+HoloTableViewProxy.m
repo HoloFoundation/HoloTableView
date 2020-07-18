@@ -36,7 +36,6 @@ static char kHoloTableViewProxyKey;
             NSMutableDictionary *footersMap = tableViewProxy.proxyData.footersMap.mutableCopy;
             footersMap[headerFooter] = headerFooterCls;
             tableViewProxy.proxyData.footersMap = footersMap;
-
         }
     }
     return tableViewProxy;

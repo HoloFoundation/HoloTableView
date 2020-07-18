@@ -450,37 +450,41 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
-    if (holoSection.headerModelHandler) holoSection.headerModel = holoSection.headerModelHandler();
-    if (holoSection.headerReuseIdHandler) holoSection.headerReuseId = holoSection.headerReuseIdHandler(holoSection.headerModel);
-    if (!holoSection.headerReuseId) holoSection.headerReuseId = holoSection.header;
-    
-    UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.headerReuseId];
-    if (!holoHeaderView) {
-        Class cls = self.holoHeadersMap[holoSection.header];
-        if (!cls) cls = UITableViewHeaderFooterView.class;
-        holoHeaderView = [[cls alloc] initWithReuseIdentifier:holoSection.headerReuseId];
-    }
-    
-    if (holoSection.headerConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerConfigSEL]) {
+    if (holoSection.header) {
+        if (holoSection.headerModelHandler) holoSection.headerModel = holoSection.headerModelHandler();
+        if (holoSection.headerReuseIdHandler) holoSection.headerReuseId = holoSection.headerReuseIdHandler(holoSection.headerModel);
+        if (!holoSection.headerReuseId) holoSection.headerReuseId = holoSection.header;
+        
+        UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.headerReuseId];
+        if (!holoHeaderView) {
+            Class cls = self.holoHeadersMap[holoSection.header];
+            if (!cls) cls = UITableViewHeaderFooterView.class;
+            holoHeaderView = [[cls alloc] initWithReuseIdentifier:holoSection.headerReuseId];
+        }
+        
+        if (holoSection.headerConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerConfigSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [holoHeaderView performSelector:holoSection.headerConfigSEL withObject:holoSection.headerModel];
+            [holoHeaderView performSelector:holoSection.headerConfigSEL withObject:holoSection.headerModel];
 #pragma clang diagnostic pop
-    } else if (holoSection.headerFooterConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerFooterConfigSEL]) {
+        } else if (holoSection.headerFooterConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerFooterConfigSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [holoHeaderView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.headerModel];
+            [holoHeaderView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.headerModel];
 #pragma clang diagnostic pop
+        }
+        return holoHeaderView;
     }
-    if (!holoHeaderView && [self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
-        NSString *title = [self.dataSource tableView:tableView titleForHeaderInSection:section];
-        UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
-        headerView.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
-        headerView.textLabel.textColor = [UIColor colorWithRed:0.14 green:0.14 blue:0.14 alpha:1];
-        headerView.textLabel.text = title;
-        return headerView;
+    
+    NSString *headerTitle;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        headerTitle = [self.dataSource tableView:tableView titleForHeaderInSection:section];
+    } else {
+        headerTitle = holoSection.headerTitle;
     }
-    return holoHeaderView;
+    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+    headerView.textLabel.text = headerTitle;
+    return headerView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -489,37 +493,41 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
-    if (holoSection.footerModelHandler) holoSection.footerModel = holoSection.footerModelHandler();
-    if (holoSection.footerReuseIdHandler) holoSection.footerReuseId = holoSection.footerReuseIdHandler(holoSection.footerModel);
-    if (!holoSection.footerReuseId) holoSection.footerReuseId = holoSection.footer;
-    
-    UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footerReuseId];
-    if (!holoFooterView) {
-        Class cls = self.holoFootersMap[holoSection.footer];
-        if (!cls) cls = UITableViewHeaderFooterView.class;
-        holoFooterView = [[cls alloc] initWithReuseIdentifier:holoSection.footerReuseId];
-    }
-    
-    if (holoSection.footerConfigSEL && [holoFooterView respondsToSelector:holoSection.footerConfigSEL]) {
+    if (holoSection.footer) {
+        if (holoSection.footerModelHandler) holoSection.footerModel = holoSection.footerModelHandler();
+        if (holoSection.footerReuseIdHandler) holoSection.footerReuseId = holoSection.footerReuseIdHandler(holoSection.footerModel);
+        if (!holoSection.footerReuseId) holoSection.footerReuseId = holoSection.footer;
+        
+        UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footerReuseId];
+        if (!holoFooterView) {
+            Class cls = self.holoFootersMap[holoSection.footer];
+            if (!cls) cls = UITableViewHeaderFooterView.class;
+            holoFooterView = [[cls alloc] initWithReuseIdentifier:holoSection.footerReuseId];
+        }
+        
+        if (holoSection.footerConfigSEL && [holoFooterView respondsToSelector:holoSection.footerConfigSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [holoFooterView performSelector:holoSection.footerConfigSEL withObject:holoSection.footerModel];
+            [holoFooterView performSelector:holoSection.footerConfigSEL withObject:holoSection.footerModel];
 #pragma clang diagnostic pop
-    } else if (holoSection.headerFooterConfigSEL && [holoFooterView respondsToSelector:holoSection.headerFooterConfigSEL]) {
+        } else if (holoSection.headerFooterConfigSEL && [holoFooterView respondsToSelector:holoSection.headerFooterConfigSEL]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [holoFooterView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.footerModel];
+            [holoFooterView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.footerModel];
 #pragma clang diagnostic pop
+        }
+        return holoFooterView;
     }
-    if (!holoFooterView && [self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
-        NSString *title = [self.dataSource tableView:tableView titleForFooterInSection:section];
-        UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
-        footerView.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
-        footerView.textLabel.textColor = [UIColor colorWithRed:0.14 green:0.14 blue:0.14 alpha:1];
-        footerView.textLabel.text = title;
-        return footerView;
+    
+    NSString *footerTitle;
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
+        footerTitle = [self.dataSource tableView:tableView titleForFooterInSection:section];
+    } else {
+        footerTitle = holoSection.footerTitle;
     }
-    return holoFooterView;
+    UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+    footerView.textLabel.text = footerTitle;
+    return footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -537,7 +545,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else if (holoSection.headerHeightHandler) {
         return holoSection.headerHeightHandler(holoSection.headerModel);
     }
-    if ((holoSection.headerHeight == CGFLOAT_MIN) && [self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+    
+    if ((holoSection.headerHeight == CGFLOAT_MIN) &&
+        ([self.dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)] || holoSection.headerTitle)) {
         return 28.0;
     }
     return holoSection.headerHeight;
@@ -558,7 +568,8 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else if (holoSection.footerHeightHandler) {
         return holoSection.footerHeightHandler(holoSection.footerModel);
     }
-    if ((holoSection.footerHeight == CGFLOAT_MIN) && [self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)]) {
+    if ((holoSection.footerHeight == CGFLOAT_MIN) &&
+        ([self.dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)] || holoSection.footerTitle)) {
         return 28.0;
     }
     return holoSection.footerHeight;
