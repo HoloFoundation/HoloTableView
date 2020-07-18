@@ -256,13 +256,13 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         return;
     }
     
-    HoloTableSection *holoSection = HoloTableSectionWithIndex(self, indexPath.section);
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(self, indexPath);
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (holoRow.editingDeleteHandler) {
             holoRow.editingDeleteHandler(holoRow.model, ^(BOOL actionPerformed) {
-                if (actionPerformed) {
+                if (actionPerformed && self.holoSections.count > indexPath.section) {
                     // must remove the data before deleting the cell
+                    HoloTableSection *holoSection = self.holoSections[indexPath.section];
                     [holoSection removeRow:holoRow];
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
@@ -292,7 +292,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     HoloTableRow *sourceRow = HoloTableRowWithIndexPath(self, sourceIndexPath);
     if (sourceRow.moveHandler) {
         sourceRow.moveHandler(sourceIndexPath, destinationIndexPath, ^(BOOL actionPerformed) {
-            if (actionPerformed) {
+            if (actionPerformed && self.holoSections.count > destinationIndexPath.section) {
                 HoloTableSection *destinationSection = self.holoSections[destinationIndexPath.section];
                 [sourceSection removeRow:sourceRow];
                 [destinationSection insertRows:@[sourceRow] atIndex:destinationIndexPath.row];
