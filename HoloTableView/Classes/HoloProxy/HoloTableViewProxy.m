@@ -261,9 +261,11 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (holoRow.editingDeleteHandler) {
             holoRow.editingDeleteHandler(holoRow.model, ^(BOOL actionPerformed) {
-                // must remove the data before deleting the cell
-                [holoSection removeRow:holoRow];
-                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                if (actionPerformed) {
+                    // must remove the data before deleting the cell
+                    [holoSection removeRow:holoRow];
+                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                }
             });
         }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
