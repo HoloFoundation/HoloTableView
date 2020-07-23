@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HoloTableView'
-  s.version          = '1.7.0'
+  s.version          = '2.0.0'
   s.summary          = 'Harness the power of UITableView with a simplified, chainable and expressive syntax.'
 
 # This description is used to generate tags and improve search results.
@@ -19,11 +19,11 @@ Pod::Spec.new do |s|
 
   s.description      = 'HoloTableView is a light-weight extension for UITableView. Harness the power of UITableView with a simplified, chainable and expressive syntax.'
 
-  s.homepage         = 'https://github.com/gonghonglou/HoloTableView'
+  s.homepage         = 'https://github.com/HoloFoundation/HoloTableView'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'gonghonglou' => 'gonghonglou@icloud.com' }
-  s.source           = { :git => 'https://github.com/gonghonglou/HoloTableView.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/HoloFoundation/HoloTableView.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
