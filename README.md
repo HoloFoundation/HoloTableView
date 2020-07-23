@@ -6,7 +6,20 @@
 [![Platform](https://img.shields.io/cocoapods/p/HoloTableView.svg?style=flat)](https://cocoapods.org/pods/HoloTableView)
 
 
-[中文介绍](https://github.com/HoloFoundation/HoloTableView/blob/master/README_CN.md)
+`HoloTableView` provides chained syntax calls that encapsulate delegate methods for `UITableView`. The delegate methods for `UITableView` are distributed to each `cell`, each `cell` having its own method for setting Class, model, height, and click event, etc.
+
+
+## Features
+
+- [x] Provide section and row maker to handle proxy events of `UITableVIew`.
+- [x] Provide protocols, implemented in cells, headers and footers to handle proxy events of `UITableVIew`.
+- [x] Provide left-slide and right-slide actions for `cell`.
+- [x] Passing events through the responder chain.
+- [x] Support to regist maps (key-Class) for row, header and footer.
+- [x] [HoloTableViewMGPlugin](https://github.com/HoloFoundation/HoloTableViewMGPlugin) to support `MGSwipeTableCell`, add swip actions for `cell`.
+- [ ] Diff reload data.
+- [ ] Modern Objective-C and better Swift support.
+
 
 ## Example
 
@@ -15,11 +28,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Integration with 3rd party libraries
 
-- [HoloTableViewMGPlugin](https://github.com/HoloFoundation/HoloTableViewMGPlugin) - plugin to support [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell), add swip actions for cell.
+- [HoloTableViewMGPlugin](https://github.com/HoloFoundation/HoloTableViewMGPlugin) - plugin to support [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell), add swip actions for `cell`.
 
-## Usage
+## Usage 
 
-`HoloTableView` provides chained syntax calls that encapsulate delegate methods for `UITableView`. The delegate methods for `UITableView` is distributed to each `cell`, each `cell` having its own method for setting Class, model, height, and click event, etc.
+[中文介绍](https://github.com/HoloFoundation/HoloTableView/blob/master/README_CN.md)
 
 ### 1. Make a simple cell list
 
@@ -44,7 +57,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 // etc.
 ```
 
-The `holo_makeRows:` method is used to create a list of `rows`. Each `row` is a `cell`. **More properties provided for row see: [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableViewRowMaker.h) and [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableRowMaker.h)**
+The `holo_makeRows:` method is used to create a list of rows. Each `row` is a `cell`. **More properties provided for row see: [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableViewRowMaker.h) and [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableRowMaker.h)**
 
 
 #### Requirements for cell
@@ -230,7 +243,7 @@ Like `cell`, properties that contain `SEL` also have a priority.
 [self.tableView reloadData];
 ```
 
-`UITableView+HoloTableView.h` provides a series of methods for manipulating `rows`, including adding, inserting, updating, resetting, deleting, etc.
+`UITableView+HoloTableView.h` provides a series of methods for manipulating rows, including adding, inserting, updating, resetting, deleting, etc.
 **More methods provided for row see: [UITableView+HoloTableView.h (about row)](https://github.com/HoloFoundation/HoloTableView/blob/faf89c1dc5d6403b02b9d9d80604622c703d98cf/HoloTableView/Classes/Holo/UITableView%2BHoloTableView.h#L146-L328)**
 
 
