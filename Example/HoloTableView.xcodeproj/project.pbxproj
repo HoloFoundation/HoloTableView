@@ -23,6 +23,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		702194ABD9DB6ABBA0DC177F /* libPods-HoloTableView_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 129654FF2310C4375D8F441C /* libPods-HoloTableView_Tests.a */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		7500B92124C9EA2400A1876B /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 7500B92024C9EA2300A1876B /* CHANGELOG.md */; };
 		75C81EC122ED6C5100C337A6 /* HoloExampleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C81EC022ED6C5100C337A6 /* HoloExampleTableViewCell.m */; };
 		75D667B222F5DFD600677569 /* HoloExampleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B122F5DFD600677569 /* HoloExampleFooterView.m */; };
 		75D667B522F5DFE100677569 /* HoloExampleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B422F5DFE100677569 /* HoloExampleHeaderView.m */; };
@@ -64,6 +65,7 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7500B92024C9EA2300A1876B /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		75C81EBF22ED6C5100C337A6 /* HoloExampleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleTableViewCell.h; sourceTree = "<group>"; };
 		75C81EC022ED6C5100C337A6 /* HoloExampleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleTableViewCell.m; sourceTree = "<group>"; };
 		75D667B022F5DFD600677569 /* HoloExampleFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleFooterView.h; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				C4C75D7F86437A4AB3699E86 /* HoloTableView.podspec */,
 				F81FB2CD5100A7FD93F4F0A2 /* README.md */,
 				A52574C424B80E4A00372FA7 /* README_CN.md */,
+				7500B92024C9EA2300A1876B /* CHANGELOG.md */,
 				5E123CB4DFB4D89C73F64388 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
+				7500B92124C9EA2400A1876B /* CHANGELOG.md in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				A52574C524B80E4B00372FA7 /* README_CN.md in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
