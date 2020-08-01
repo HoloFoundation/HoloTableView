@@ -38,8 +38,7 @@
         rowsMap[key] = obj;
         
         if (![obj.new isKindOfClass:UITableViewCell.class]) {
-            NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", NSStringFromClass(obj)];
-            NSAssert(NO, error);
+            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", NSStringFromClass(obj));
         }
     }];
     self.holo_proxy.proxyData.rowsMap = rowsMap;
@@ -49,8 +48,7 @@
         headersMap[key] = obj;
         
         if (![obj.new isKindOfClass:UITableViewHeaderFooterView.class]) {
-            NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj)];
-            NSAssert(NO, error);
+            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj));
         }
     }];
     self.holo_proxy.proxyData.headersMap = headersMap;
@@ -60,8 +58,7 @@
         footersMap[key] = obj;
         
         if (![obj.new isKindOfClass:UITableViewHeaderFooterView.class]) {
-            NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj)];
-            NSAssert(NO, error);
+            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj));
         }
     }];
     self.holo_proxy.proxyData.footersMap = footersMap;
@@ -186,12 +183,10 @@
             
             Class cls = NSClassFromString(row.cell);
             if (!cls) {
-                NSString *error = [NSString stringWithFormat:@"[HoloTableView] No found a cell class with the name: %@.", row.cell];
-                NSAssert(NO, error);
+                NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", row.cell);
             }
             if (![cls.new isKindOfClass:UITableViewCell.class]) {
-                NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell];
-                NSAssert(NO, error);
+                NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell);
             }
             rowsMap[row.cell] = cls;
         }
@@ -217,12 +212,10 @@
     
     Class cls = NSClassFromString(headerFooter);
     if (!cls) {
-        NSString *error = [NSString stringWithFormat:@"[HoloTableView] No found a headerFooter class with the name: %@.", headerFooter];
-        NSAssert(NO, error);
+        NSAssert(NO, @"[HoloTableView] No found a headerFooter class with the name: %@.", headerFooter);
     }
     if (![cls.new isKindOfClass:UITableViewHeaderFooterView.class]) {
-        NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", headerFooter];
-        NSAssert(NO, error);
+        NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", headerFooter);
     }
     headerFootersMap[headerFooter] = cls;
 }
@@ -358,12 +351,10 @@
         if (rowsMap[row.cell]) continue;
         Class cls = NSClassFromString(row.cell);
         if (!cls) {
-            NSString *error = [NSString stringWithFormat:@"[HoloTableView] No found a cell class with the name: %@.", row.cell];
-            NSAssert(NO, error);
+            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", row.cell);
         }
         if (![cls.new isKindOfClass:UITableViewCell.class]) {
-            NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell];
-            NSAssert(NO, error);
+            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell);
         }
         rowsMap[row.cell] = cls;
     }
@@ -462,12 +453,10 @@
         
         Class cls = NSClassFromString(operateRow.cell);
         if (!cls) {
-            NSString *error = [NSString stringWithFormat:@"[HoloTableView] No found a cell class with the name: %@.", operateRow.cell];
-            NSAssert(NO, error);
+            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", operateRow.cell);
         }
         if (![cls.new isKindOfClass:UITableViewCell.class]) {
-            NSString *error = [NSString stringWithFormat:@"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", operateRow.cell];
-            NSAssert(NO, error);
+            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", operateRow.cell);
         }
         rowsMap[operateRow.cell] = cls;
     }
