@@ -13,14 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-- (void)holo_configureHeaderFooterWithModel:(id)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerConfigSEL` or `footerConfigSEL` api instead.");
+- (void)holo_configureHeaderFooterWithModel:(id _Nullable)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerConfigSEL` or `footerConfigSEL` api instead.");
 
 
 @optional
 
-+ (CGFloat)holo_heightForHeaderFooterWithModel:(id)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerHeightSEL` or `footerHeightSEL` api instead.");
++ (CGFloat)holo_heightForHeaderFooterWithModel:(id _Nullable)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerHeightSEL` or `footerHeightSEL` api instead.");
 
-+ (CGFloat)holo_estimatedHeightForHeaderFooterWithModel:(id)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerEstimatedHeightSEL` or `footerEstimatedHeightSEL` api instead.");
++ (CGFloat)holo_estimatedHeightForHeaderFooterWithModel:(id _Nullable)model DEPRECATED_MSG_ATTRIBUTE("Please use `headerEstimatedHeightSEL` or `footerEstimatedHeightSEL` api instead.");
 
 @end
 

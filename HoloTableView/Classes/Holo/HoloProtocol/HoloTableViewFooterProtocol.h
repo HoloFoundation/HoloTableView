@@ -13,18 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-- (void)holo_configureFooterWithModel:(id)model;
+- (void)holo_configureFooterWithModel:(id _Nullable)model;
 
 
 @optional
 
-+ (CGFloat)holo_heightForFooterWithModel:(id)model;
++ (CGFloat)holo_heightForFooterWithModel:(id _Nullable)model;
 
-+ (CGFloat)holo_estimatedHeightForFooterWithModel:(id)model;
++ (CGFloat)holo_estimatedHeightForFooterWithModel:(id _Nullable)model;
 
-- (void)holo_willDisplayFooterWithModel:(id)model;
+- (void)holo_willDisplayFooterWithModel:(id _Nullable)model;
 
-- (void)holo_didEndDisplayingFooterWithModel:(id)model;
+- (void)holo_didEndDisplayingFooterWithModel:(id _Nullable)model;
 
 @end
 
