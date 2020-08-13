@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 
+## 2.1.0 (13/08/2020)
+
+- Add `_Nullable` to method parameters in cell protocol, header protocol and footer protocol.
+
 ## 2.0.0 (23/07/2020)
 
 - Refactor the update, remake and insert methods for `UITableView` and optimize the code logic.
