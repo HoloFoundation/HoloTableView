@@ -32,7 +32,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Usage 
 
-[中文介绍](https://github.com/HoloFoundation/HoloTableView/blob/master/README_CN.md)
+[中文介绍](https://github.com/HoloFoundation/HoloTableView/blob/master/README_CN.md)、[文章介绍](http://gonghonglou.com/2020/08/10/HoloTableView-HoloCollectionView/)
 
 ### 1. Make a simple cell list
 
