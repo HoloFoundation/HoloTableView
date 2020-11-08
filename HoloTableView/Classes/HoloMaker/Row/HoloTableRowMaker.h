@@ -77,6 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^didSelectHandler)(void(^)(id _Nullable model));
 
+// Performed before `configSEL`, you can catch cell and configure its properties in this handler
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^cellForRowHandler)(void(^)(UITableViewCell *cell, id _Nullable model));
+
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^willDisplayHandler)(void(^)(UITableViewCell *cell, id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^didEndDisplayingHandler)(void(^)(UITableViewCell *cell, id _Nullable model));

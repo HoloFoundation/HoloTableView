@@ -242,6 +242,13 @@
     };
 }
 
+- (HoloTableRowMaker * (^)(void (^)(UITableViewCell *, id)))cellForRowHandler {
+    return ^id(id obj) {
+        self.tableRow.cellForRowHandler = obj;
+        return self;
+    };
+}
+
 - (HoloTableRowMaker *(^)(void (^)(UITableViewCell *, id)))willDisplayHandler {
     return ^id(id obj) {
         self.tableRow.willDisplayHandler = obj;

@@ -78,6 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^didSelectHandler)(id _Nullable model);
 
+@property (nonatomic, copy) void (^cellForRowHandler)(UITableViewCell *cell, id _Nullable model);
+
 @property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell, id _Nullable model);
 
 @property (nonatomic, copy) void (^didEndDisplayingHandler)(UITableViewCell *cell, id _Nullable model);
