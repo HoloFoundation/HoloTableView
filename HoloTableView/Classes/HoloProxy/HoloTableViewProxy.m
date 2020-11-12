@@ -193,9 +193,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.reuseId];
     }
     
-    // Performed before `configSEL`, you can catch cell and configure its properties in this handler
-    if (holoRow.cellForRowHandler) {
-        holoRow.cellForRowHandler(cell, holoRow.model);
+    // Performed before `configSEL`
+    if (holoRow.beforeConfigureHandler) {
+        holoRow.beforeConfigureHandler(cell, holoRow.model);
     }
     
     if (holoRow.configSEL && [cell respondsToSelector:holoRow.configSEL]) {
@@ -203,6 +203,11 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [cell performSelector:holoRow.configSEL withObject:holoRow.model];
 #pragma clang diagnostic pop
+    }
+    
+    // Performed after `configSEL`
+    if (holoRow.afterConfigureHandler) {
+        holoRow.afterConfigureHandler(cell, holoRow.model);
     }
     
     // support set a delegate for cell
