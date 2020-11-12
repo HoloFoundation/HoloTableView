@@ -3,9 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 
+## 2.2.0 (12/11/2020)
+
+- Add `beforeConfigureHandler` and `afterConfigureHandler`, performed before and after `configSEL`.
+
+
 ## 2.1.0 (13/08/2020)
 
 - Add `_Nullable` to method parameters in cell protocol, header protocol and footer protocol.
+
 
 ## 2.0.0 (23/07/2020)
 
@@ -14,6 +20,7 @@ All notable changes to this project will be documented in this file.
 - Provide more protocols, implemented in cells, headers and footers to handle proxy events of `UITableVIew`.
 - Support to regist maps (key-Class) for row, header and footer.
 - Check the index in `HoloTableViewProxy` for safety.
+
 
 ## 1.x (2019 ~ 2020)
 

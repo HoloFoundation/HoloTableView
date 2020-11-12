@@ -441,6 +441,14 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     .didSelectHandler(^(id  _Nullable model) {
         
     })
+    // configSEL 执行之前被调用
+    .beforeConfigureHandler(^(UITableViewCell * _Nonnull cell, id  _Nullable model) {
+        
+    })
+    // configSEL 执行之后被调用
+    .afterConfigureHandler(^(UITableViewCell * _Nonnull cell, id  _Nullable model) {
+        
+    })
     // cell 即将出现
     .willDisplayHandler(^(UITableViewCell * _Nonnull cell, id  _Nullable model) {
         
