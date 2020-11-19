@@ -24,13 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSInteger (^sectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
-- (NSIndexSet *)insertSections:(NSArray<HoloTableSection *> *)sections anIndex:(NSInteger)index;
+- (NSIndexSet * _Nullable)insertSections:(NSArray<HoloTableSection *> *)sections anIndex:(NSInteger)index;
 
 - (NSIndexSet *)removeAllSection;
 
 - (NSIndexSet *)removeSections:(NSArray<NSString *> *)tags;
 
-- (HoloTableSection *)sectionWithTag:(NSString * _Nullable)tag;
+- (HoloTableSection * _Nullable)sectionWithTag:(NSString * _Nullable)tag;
 
 - (NSArray<NSIndexPath *> *)removeAllRowsInSections:(NSArray<NSString *> *)tags;
 
