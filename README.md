@@ -17,7 +17,7 @@
 - [x] Passing events through the responder chain.
 - [x] Support to regist maps (key-Class) for row, header and footer.
 - [x] [HoloTableViewMGPlugin](https://github.com/HoloFoundation/HoloTableViewMGPlugin) to support `MGSwipeTableCell`, add swip actions for `cell`.
-- [ ] Diff reload data.
+- [x] Diff reload data. [HoloTableViewDiffPlugin](https://github.com/HoloFoundation/HoloTableViewDiffPlugin) to support `DeepDiff`
 - [ ] Modern Objective-C and better Swift support.
 
 
