@@ -28,7 +28,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Integration with 3rd party libraries
 
-- [HoloTableViewMGPlugin](https://github.com/HoloFoundation/HoloTableViewMGPlugin) - plugin to support [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell), add swip actions for `cell`.
+- [HoloTableViewMGPlugin](https://github.com/HoloFoundation/HoloTableViewMGPlugin) - plugin to support [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell), add swip actions for `cell`. `MGSwipeTableCell` is an easy to use `UITableViewCell` subclass that allows to display swipeable buttons with a variety of transitions.
+- [HoloTableViewDiffPlugin](https://github.com/HoloFoundation/HoloTableViewDiffPlugin) - plugin to support [DeepDiff](https://github.com/onmyway133/DeepDiff), diff reload a section of `UITableView`. `DeepDiff` tells the difference between 2 collections and the changes as edit steps.
 
 ## Usage 
 
