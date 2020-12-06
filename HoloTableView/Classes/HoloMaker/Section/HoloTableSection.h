@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableSection : NSObject
 
-@property (nonatomic, copy, nullable) NSArray<HoloTableRow *> *rows;
+@property (nonatomic, copy) NSArray<HoloTableRow *> *rows;
 
 @property (nonatomic, copy, nullable) NSString *tag;
 
