@@ -15,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) HoloTableViewProxyData *proxyData;
 
-@property (nonatomic, weak) id<UIScrollViewDelegate> scrollDelegate;
+@property (nonatomic, weak, nullable) id<UIScrollViewDelegate> scrollDelegate;
 
-@property (nonatomic, weak) id<HoloTableViewDataSource> dataSource;
+@property (nonatomic, weak, nullable) id<HoloTableViewDataSource> dataSource;
 
-@property (nonatomic, weak) id<HoloTableViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<HoloTableViewDelegate> delegate;
 
 @end
 

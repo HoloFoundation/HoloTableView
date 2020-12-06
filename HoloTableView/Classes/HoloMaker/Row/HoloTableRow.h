@@ -11,16 +11,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableRow : NSObject
 
-@property (nonatomic, copy) NSString *cell;
+@property (nonatomic, copy, nullable) NSString *cell;
 
 #pragma mark - priority low
-@property (nonatomic, strong) id model;
+@property (nonatomic, strong, nullable) id model;
 
 @property (nonatomic, assign) UITableViewCellStyle style;
 
-@property (nonatomic, copy) NSString *reuseId;
+@property (nonatomic, copy, nullable) NSString *reuseId;
 
-@property (nonatomic, copy) NSString *tag;
+@property (nonatomic, copy, nullable) NSString *tag;
 
 @property (nonatomic, assign) CGFloat height;
 
@@ -32,81 +32,81 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL canMove;
 
-@property (nonatomic, copy) NSArray *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, nullable) NSArray *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy) NSArray *trailingSwipeActions;
+@property (nonatomic, copy, nullable) NSArray *trailingSwipeActions;
 
-@property (nonatomic, copy) NSString *editingDeleteTitle;
+@property (nonatomic, copy, nullable) NSString *editingDeleteTitle;
 
 @property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
 
 // support set a delegate for cell
 @property (nonatomic, assign) SEL delegateSEL;
 
-@property (nonatomic, weak) id delegate;
+@property (nonatomic, weak, nullable) id delegate;
 
 #pragma mark - priority middle
-@property (nonatomic, copy) id (^modelHandler)(void);
+@property (nonatomic, copy, nullable) id (^modelHandler)(void);
 
-@property (nonatomic, copy) UITableViewCellStyle (^styleHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) UITableViewCellStyle (^styleHandler)(id _Nullable model);
 
-@property (nonatomic, copy) NSString *(^reuseIdHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) NSString *(^reuseIdHandler)(id _Nullable model);
 
-@property (nonatomic, copy) CGFloat (^heightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) CGFloat (^heightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) CGFloat (^estimatedHeightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) CGFloat (^estimatedHeightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) BOOL (^shouldHighlightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) BOOL (^shouldHighlightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) BOOL (^canEditHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) BOOL (^canEditHandler)(id _Nullable model);
 
-@property (nonatomic, copy) BOOL (^canMoveHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) BOOL (^canMoveHandler)(id _Nullable model);
 
-@property (nonatomic, copy) NSArray *(^leadingSwipeActionsHandler)(id _Nullable model) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, nullable) NSArray *(^leadingSwipeActionsHandler)(id _Nullable model) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy) NSArray *(^trailingSwipeActionsHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) NSArray *(^trailingSwipeActionsHandler)(id _Nullable model);
 
-@property (nonatomic, copy) NSString *(^editingDeleteTitleHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) NSString *(^editingDeleteTitleHandler)(id _Nullable model);
 
-@property (nonatomic, copy) UITableViewCellEditingStyle(^editingStyleHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) UITableViewCellEditingStyle(^editingStyleHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^willSelectHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^willSelectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^willDeselectHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^willDeselectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didDeselectHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didDeselectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didSelectHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didSelectHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^beforeConfigureHandler)(UITableViewCell *cell, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^beforeConfigureHandler)(UITableViewCell *cell, id _Nullable model);
 
-@property (nonatomic, copy) void (^afterConfigureHandler)(UITableViewCell *cell, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^afterConfigureHandler)(UITableViewCell *cell, id _Nullable model);
 
-@property (nonatomic, copy) void (^willDisplayHandler)(UITableViewCell *cell, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^willDisplayHandler)(UITableViewCell *cell, id _Nullable model);
 
-@property (nonatomic, copy) void (^didEndDisplayingHandler)(UITableViewCell *cell, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didEndDisplayingHandler)(UITableViewCell *cell, id _Nullable model);
 
-@property (nonatomic, copy) void (^didHighlightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didHighlightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didUnHighlightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didUnHighlightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^accessoryButtonTappedHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^accessoryButtonTappedHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^leadingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, nullable) void (^leadingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy) void (^trailingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
+@property (nonatomic, copy, nullable) void (^trailingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
 
-@property (nonatomic, copy) void (^willBeginEditingHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^willBeginEditingHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^didEndEditingHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didEndEditingHandler)(id _Nullable model);
 
-@property (nonatomic, copy) NSIndexPath *(^targetMoveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
+@property (nonatomic, copy, nullable) NSIndexPath *(^targetMoveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath);
 
-@property (nonatomic, copy) void (^moveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath, void(^completionHandler)(BOOL actionPerformed));
+@property (nonatomic, copy, nullable) void (^moveHandler)(NSIndexPath *atIndexPath, NSIndexPath *toIndexPath, void(^completionHandler)(BOOL actionPerformed));
 
-@property (nonatomic, copy) void (^editingDeleteHandler)(id _Nullable model, void(^completionHandler)(BOOL actionPerformed));
+@property (nonatomic, copy, nullable) void (^editingDeleteHandler)(id _Nullable model, void(^completionHandler)(BOOL actionPerformed));
 
-@property (nonatomic, copy) void (^editingInsertHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) void (^editingInsertHandler)(id _Nullable model);
 
 #pragma mark - priority high
 @property (nonatomic, assign) SEL configSEL;

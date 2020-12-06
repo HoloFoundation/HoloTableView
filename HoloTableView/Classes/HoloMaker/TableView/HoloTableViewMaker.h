@@ -48,21 +48,21 @@ typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *t
 
 @interface HoloTableViewModel : NSObject
 
-@property (nonatomic, copy) NSArray *indexTitles;
+@property (nonatomic, copy, nullable) NSArray *indexTitles;
 
-@property (nonatomic, copy) HoloTableViewSectionForSectionIndexTitleHandler indexTitlesHandler;
+@property (nonatomic, copy, nullable) HoloTableViewSectionForSectionIndexTitleHandler indexTitlesHandler;
 
-@property (nonatomic, weak) id<HoloTableViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<HoloTableViewDelegate> delegate;
 
-@property (nonatomic, weak) id<HoloTableViewDataSource> dataSource;
+@property (nonatomic, weak, nullable) id<HoloTableViewDataSource> dataSource;
 
-@property (nonatomic, weak) id<UIScrollViewDelegate> scrollDelegate;
+@property (nonatomic, weak, nullable) id<UIScrollViewDelegate> scrollDelegate;
 
-@property (nonatomic, copy) NSDictionary<NSString *, Class> *rowsMap;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, Class> *rowsMap;
 
-@property (nonatomic, copy) NSDictionary<NSString *, Class> *headersMap;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, Class> *headersMap;
 
-@property (nonatomic, copy) NSDictionary<NSString *, Class> *footersMap;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, Class> *footersMap;
 
 @end
 

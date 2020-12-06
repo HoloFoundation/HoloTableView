@@ -18,9 +18,9 @@ typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
 
 @interface HoloTableViewUpdateRowMakerModel : NSObject
 
-@property (nonatomic, strong) HoloTableRow *operateRow;
+@property (nonatomic, strong, nullable) HoloTableRow *operateRow;
 
-@property (nonatomic, strong) NSIndexPath *operateIndexPath;
+@property (nonatomic, strong, nullable) NSIndexPath *operateIndexPath;
 
 @end
 

@@ -20,9 +20,9 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @interface HoloTableViewSectionMakerModel : NSObject
 
-@property (nonatomic, strong) HoloTableSection *operateSection;
+@property (nonatomic, strong, nullable) HoloTableSection *operateSection;
 
-@property (nonatomic, strong) NSNumber *operateIndex;
+@property (nonatomic, strong, nullable) NSNumber *operateIndex;
 
 @end
 

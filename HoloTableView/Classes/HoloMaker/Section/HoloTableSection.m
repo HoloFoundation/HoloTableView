@@ -40,7 +40,7 @@
 }
 
 - (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
-    if (rows.count <= 0) return nil;
+    if (rows.count <= 0) return [NSIndexSet new];
     
     if (index < 0) index = 0;
     if (index > self.rows.count) index = self.rows.count;

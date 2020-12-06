@@ -14,24 +14,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) NSArray<HoloTableRow *> *rows;
 
-@property (nonatomic, copy) NSString *tag;
+@property (nonatomic, copy, nullable) NSString *tag;
 
-@property (nonatomic, copy) NSString *headerTitle;
+@property (nonatomic, copy, nullable) NSString *headerTitle;
 
-@property (nonatomic, copy) NSString *footerTitle;
+@property (nonatomic, copy, nullable) NSString *footerTitle;
 
-@property (nonatomic, copy) NSString *header;
+@property (nonatomic, copy, nullable) NSString *header;
 
-@property (nonatomic, copy) NSString *footer;
+@property (nonatomic, copy, nullable) NSString *footer;
 
 #pragma mark - priority low
-@property (nonatomic, strong) id headerModel;
+@property (nonatomic, strong, nullable) id headerModel;
 
-@property (nonatomic, strong) id footerModel;
+@property (nonatomic, strong, nullable) id footerModel;
 
-@property (nonatomic, copy) NSString *headerReuseId;
+@property (nonatomic, copy, nullable) NSString *headerReuseId;
 
-@property (nonatomic, copy) NSString *footerReuseId;
+@property (nonatomic, copy, nullable) NSString *footerReuseId;
 
 @property (nonatomic, assign) CGFloat headerHeight;
 
@@ -42,33 +42,33 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat footerEstimatedHeight;
 
 #pragma mark - priority middle
-@property (nonatomic, copy) NSString *(^headerTitleHandler)(void);
+@property (nonatomic, copy, nullable) NSString *(^headerTitleHandler)(void);
 
-@property (nonatomic, copy) NSString *(^footerTitleHandler)(void);
+@property (nonatomic, copy, nullable) NSString *(^footerTitleHandler)(void);
 
-@property (nonatomic, copy) id (^headerModelHandler)(void);
+@property (nonatomic, copy, nullable) id (^headerModelHandler)(void);
 
-@property (nonatomic, copy) id (^footerModelHandler)(void);
+@property (nonatomic, copy, nullable) id (^footerModelHandler)(void);
 
-@property (nonatomic, copy) NSString *(^headerReuseIdHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) NSString *(^headerReuseIdHandler)(id _Nullable model);
 
-@property (nonatomic, copy) NSString *(^footerReuseIdHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) NSString *(^footerReuseIdHandler)(id _Nullable model);
 
-@property (nonatomic, copy) CGFloat (^headerHeightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) CGFloat (^headerHeightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) CGFloat (^footerHeightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) CGFloat (^footerHeightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) CGFloat (^headerEstimatedHeightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) CGFloat (^headerEstimatedHeightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) CGFloat (^footerEstimatedHeightHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) CGFloat (^footerEstimatedHeightHandler)(id _Nullable model);
 
-@property (nonatomic, copy) void (^willDisplayHeaderHandler)(UIView *header, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^willDisplayHeaderHandler)(UIView *header, id _Nullable model);
 
-@property (nonatomic, copy) void (^willDisplayFooterHandler)(UIView *footer, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^willDisplayFooterHandler)(UIView *footer, id _Nullable model);
 
-@property (nonatomic, copy) void (^didEndDisplayingHeaderHandler)(UIView *header, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didEndDisplayingHeaderHandler)(UIView *header, id _Nullable model);
 
-@property (nonatomic, copy) void (^didEndDisplayingFooterHandler)(UIView *footer, id _Nullable model);
+@property (nonatomic, copy, nullable) void (^didEndDisplayingFooterHandler)(UIView *footer, id _Nullable model);
 
 #pragma mark - priority high
 @property (nonatomic, assign) SEL headerConfigSEL;

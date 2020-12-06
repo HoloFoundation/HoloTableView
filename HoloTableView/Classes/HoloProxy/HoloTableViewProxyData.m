@@ -12,7 +12,7 @@
 @implementation HoloTableViewProxyData
 
 - (NSIndexSet *)insertSections:(NSArray<HoloTableSection *> *)sections anIndex:(NSInteger)index {
-    if (sections.count <= 0) return nil;
+    if (sections.count <= 0) return [NSIndexSet new];
     
     if (index < 0) index = 0;
     if (index > self.sections.count) index = self.sections.count;
