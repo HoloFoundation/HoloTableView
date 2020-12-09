@@ -361,7 +361,6 @@
     self.holo_proxy.proxyData.rowsMap = rowsMap;
     
     // append rows
-    if (rows.count <= 0) return;
     BOOL isNewOne = NO;
     HoloTableSection *targetSection = [self.holo_proxy.proxyData sectionWithTag:tag];
     if (!targetSection) {
