@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 
+## 2.3.0 (09/12/2020)
+
+- Add `nullable` to property.
+- Delete the judgment that rows of section are greater than 0, in order to get the right section data.
+
 ## 2.2.0 (12/11/2020)
 
 - Add `beforeConfigureHandler` and `afterConfigureHandler`, performed before and after `configSEL`.
