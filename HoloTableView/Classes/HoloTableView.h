@@ -9,36 +9,36 @@
 #define HoloTableView_h
 
 // Holo
-#import "HoloTableViewMacro.h"
-#import "HoloTableViewProtocol.h"
-#import "HoloTableViewCellProtocol.h"
-#import "HoloTableViewHeaderProtocol.h"
-#import "HoloTableViewFooterProtocol.h"
-#import "HoloTableViewRowSwipeAction.h"
-#import "UITableView+HoloTableView.h"
+#import <HoloTableView/HoloTableViewMacro.h>
+#import <HoloTableView/HoloTableViewProtocol.h>
+#import <HoloTableView/HoloTableViewCellProtocol.h>
+#import <HoloTableView/HoloTableViewHeaderProtocol.h>
+#import <HoloTableView/HoloTableViewFooterProtocol.h>
+#import <HoloTableView/HoloTableViewRowSwipeAction.h>
+#import <HoloTableView/UITableView+HoloTableView.h>
 
 // HoloMaker (Row)
-#import "HoloTableView.h"
-#import "HoloTableRowMaker.h"
-#import "HoloTableViewRowMaker.h"
+#import <HoloTableView/HoloTableRow.h>
+#import <HoloTableView/HoloTableRowMaker.h>
+#import <HoloTableView/HoloTableViewRowMaker.h>
 
 // HoloMaker (Section)
-#import "HoloTableSection.h"
-#import "HoloTableSectionMaker.h"
-#import "HoloTableViewSectionMaker.h"
+#import <HoloTableView/HoloTableSection.h>
+#import <HoloTableView/HoloTableSectionMaker.h>
+#import <HoloTableView/HoloTableViewSectionMaker.h>
 
 // HoloMaker (TableView)
-#import "HoloTableViewMaker.h"
+#import <HoloTableView/HoloTableViewMaker.h>
 
 // HoloMaker (Update)
-#import "HoloTableViewUpdateRowMaker.h"
+#import <HoloTableView/HoloTableViewUpdateRowMaker.h>
 
 // HoloProxy
-#import "HoloTableViewProxy.h"
-#import "HoloTableViewProxyData.h"
-#import "UITableView+HoloTableViewProxy.h"
+#import <HoloTableView/HoloTableViewProxy.h>
+#import <HoloTableView/HoloTableViewProxyData.h>
+#import <HoloTableView/UITableView+HoloTableViewProxy.h>
 
 // Responder Event
-#import "UIResponder+HoloEvent.h"
+#import <HoloTableView/UIResponder+HoloEvent.h>
 
 #endif /* HoloTableView_h */
