@@ -370,9 +370,9 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     // 是否可移动
     .canMove(NO)
     // 右滑控件
-    .leadingSwipeActions(NSArray.new)
+    .leadingSwipeActions(@[HoloTableViewRowSwipeAction])
     // 左滑控件
-    .trailingSwipeActions(NSArray.new)
+    .trailingSwipeActions(@[HoloTableViewRowSwipeAction])
     // 编辑标题
     .editingDeleteTitle(@"Delete")
     // 编辑样式
@@ -410,12 +410,12 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
         return NO;
     })
     // 返回右滑控件，实现该 block 的话，优先于 leadingSwipeActions 属性
-    .leadingSwipeActionsHandler(^NSArray * _Nonnull(id  _Nullable model) {
-        return NSArray.new;
+    .leadingSwipeActionsHandler(^NSArray<HoloTableViewRowSwipeAction *> * _Nonnull(id  _Nullable model) {
+        return @[HoloTableViewRowSwipeAction];
     })
     // 返回左滑控件，实现该 block 的话，优先于 trailingSwipeActions 属性
-    .trailingSwipeActionsHandler(^NSArray * _Nonnull(id  _Nullable model) {
-        return NSArray.new;
+    .trailingSwipeActionsHandler(^NSArray<HoloTableViewRowSwipeAction *> * _Nonnull(id  _Nullable model) {
+        return @[HoloTableViewRowSwipeAction];
     })
     // 返回编辑标题，实现该 block 的话，优先于 editingDeleteTitle 属性
     .editingDeleteTitleHandler(^NSString * _Nonnull(id  _Nullable model) {

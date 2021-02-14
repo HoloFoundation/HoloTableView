@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloTableRow;
+@class HoloTableRow, HoloTableViewRowSwipeAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,10 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMove)(BOOL canMove);
 
-/// HoloTableViewRowSwipeAction or NSDictionary
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActions)(NSArray *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActions)(NSArray<HoloTableViewRowSwipeAction *> *leadingSwipeActions) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActions)(NSArray *trailingSwipeActions);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActions)(NSArray<HoloTableViewRowSwipeAction *> *trailingSwipeActions);
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitle)(NSString *title);
 
@@ -61,9 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^canMoveHandler)(BOOL (^)(id _Nullable model));
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActionsHandler)(NSArray *(^)(id _Nullable model)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^leadingSwipeActionsHandler)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id _Nullable model)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActionsHandler)(NSArray *(^)(id _Nullable model));
+@property (nonatomic, copy, readonly) HoloTableRowMaker *(^trailingSwipeActionsHandler)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id _Nullable model));
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^editingDeleteTitleHandler)(NSString *(^)(id _Nullable model));
 

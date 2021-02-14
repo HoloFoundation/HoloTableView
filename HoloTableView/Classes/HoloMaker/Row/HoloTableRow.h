@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class HoloTableViewRowSwipeAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,9 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL canMove;
 
-@property (nonatomic, copy, nullable) NSArray *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, nullable) NSArray<HoloTableViewRowSwipeAction *> *leadingSwipeActions API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy, nullable) NSArray *trailingSwipeActions;
+@property (nonatomic, copy, nullable) NSArray<HoloTableViewRowSwipeAction *> *trailingSwipeActions;
 
 @property (nonatomic, copy, nullable) NSString *editingDeleteTitle;
 
@@ -62,9 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) BOOL (^canMoveHandler)(id _Nullable model);
 
-@property (nonatomic, copy, nullable) NSArray *(^leadingSwipeActionsHandler)(id _Nullable model) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+@property (nonatomic, copy, nullable) NSArray<HoloTableViewRowSwipeAction *> *(^leadingSwipeActionsHandler)(id _Nullable model) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 
-@property (nonatomic, copy, nullable) NSArray *(^trailingSwipeActionsHandler)(id _Nullable model);
+@property (nonatomic, copy, nullable) NSArray<HoloTableViewRowSwipeAction *> *(^trailingSwipeActionsHandler)(id _Nullable model);
 
 @property (nonatomic, copy, nullable) NSString *(^editingDeleteTitleHandler)(id _Nullable model);
 

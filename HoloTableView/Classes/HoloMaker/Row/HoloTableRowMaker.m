@@ -7,6 +7,7 @@
 
 #import "HoloTableRowMaker.h"
 #import "HoloTableRow.h"
+#import "HoloTableViewRowSwipeAction.h"
 
 @interface HoloTableRowMaker ()
 
@@ -95,7 +96,7 @@
     };
 }
 
-- (HoloTableRowMaker *(^)(NSArray *))leadingSwipeActions {
+- (HoloTableRowMaker *(^)(NSArray<HoloTableViewRowSwipeAction *> *))leadingSwipeActions {
     return ^id(NSArray *a) {
         if (a.count > 0) self.tableRow.canEdit = YES;
         if (@available(iOS 11.0, *)) {
@@ -105,7 +106,7 @@
     };
 }
 
-- (HoloTableRowMaker *(^)(NSArray *))trailingSwipeActions {
+- (HoloTableRowMaker *(^)(NSArray<HoloTableViewRowSwipeAction *> *))trailingSwipeActions {
     return ^id(NSArray *a) {
         if (a.count > 0) self.tableRow.canEdit = YES;
         self.tableRow.trailingSwipeActions = a;
@@ -184,7 +185,7 @@
     };
 }
 
-- (HoloTableRowMaker * (^)(NSArray *(^)(id)))leadingSwipeActionsHandler {
+- (HoloTableRowMaker * (^)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id)))leadingSwipeActionsHandler {
     return ^id(id obj) {
         if (@available(iOS 11.0, *)) {
             self.tableRow.leadingSwipeActionsHandler = obj;
@@ -193,7 +194,7 @@
     };
 }
 
-- (HoloTableRowMaker * (^)(NSArray *(^)(id)))trailingSwipeActionsHandler {
+- (HoloTableRowMaker * (^)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id)))trailingSwipeActionsHandler {
     return ^id(id obj) {
         self.tableRow.trailingSwipeActionsHandler = obj;
         return self;
