@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## 2.4.0 (16/02/2021)
+
+- Update `HoloTableView.h`, use angle-bracketed instead of double-quoted.
+- Update `HoloTableViewMacro`, add `#if !defined()`.
+- Update `leadingSwipeActions` and `trailingSwipeActions`, only accept `HoloTableViewRowSwipeAction` type.
+
 ## 2.3.0 (09/12/2020)
 
 - Add `nullable` to property.
