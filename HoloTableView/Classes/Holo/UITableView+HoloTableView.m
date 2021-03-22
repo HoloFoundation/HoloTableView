@@ -31,37 +31,6 @@
     if (tableViewModel.delegate) self.holo_proxy.delegate = tableViewModel.delegate;
     if (tableViewModel.dataSource) self.holo_proxy.dataSource = tableViewModel.dataSource;
     if (tableViewModel.scrollDelegate) self.holo_proxy.scrollDelegate = tableViewModel.scrollDelegate;
-    
-    // rowsMap
-    NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
-    [tableViewModel.rowsMap enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, Class  _Nonnull obj, BOOL * _Nonnull stop) {
-        rowsMap[key] = obj;
-        
-        if (![obj.new isKindOfClass:UITableViewCell.class]) {
-            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", NSStringFromClass(obj));
-        }
-    }];
-    self.holo_proxy.proxyData.rowsMap = rowsMap;
-    // headersMap
-    NSMutableDictionary *headersMap = self.holo_proxy.proxyData.headersMap.mutableCopy;
-    [tableViewModel.headersMap enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, Class  _Nonnull obj, BOOL * _Nonnull stop) {
-        headersMap[key] = obj;
-        
-        if (![obj.new isKindOfClass:UITableViewHeaderFooterView.class]) {
-            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj));
-        }
-    }];
-    self.holo_proxy.proxyData.headersMap = headersMap;
-    // footersMap
-    NSMutableDictionary *footersMap = self.holo_proxy.proxyData.footersMap.mutableCopy;
-    [tableViewModel.footersMap enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, Class  _Nonnull obj, BOOL * _Nonnull stop) {
-        footersMap[key] = obj;
-        
-        if (![obj.new isKindOfClass:UITableViewHeaderFooterView.class]) {
-            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", NSStringFromClass(obj));
-        }
-    }];
-    self.holo_proxy.proxyData.footersMap = footersMap;
 }
 
 #pragma mark - section

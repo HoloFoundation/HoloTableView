@@ -226,7 +226,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     make.section(TAG)
     
     // #2、配置 header
-    // header 标题，如果设置了 header 或者 headerS 的话，这个属性将会失效
+    // header 标题，如果设置了 header 的话，这个属性将会失效
     .headerTitile(@"header")
     // header 类
     .header(ExampleHeaderView.class)
@@ -238,7 +238,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     .headerHeight(101)
     // header 估算高度
     .headerEstimatedHeight(100)
-    // 返回 header 标题，如果设置了 header 或者 headerS 的话，这个属性将会失效
+    // 返回 header 标题，如果设置了 header 的话，这个属性将会失效
     .headerTitileHandler(^NSString * _Nonnull{
         return @"header";
     })
@@ -279,7 +279,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     .didEndDisplayingHeaderSEL(@selector(holo_didEndDisplayingHeaderWithModel:))
     
     // #3、配置 footer
-    // footer 标题，如果设置了 footer 或者 footerS 的话，这个属性将会失效
+    // footer 标题，如果设置了 footer 的话，这个属性将会失效
     .footerTitile(@"footer")
     // footer 类
     .footer(ExampleFooterView.class)
@@ -291,7 +291,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
     .footerHeight(101)
     // footer 估算高度
     .footerEstimatedHeight(100)
-    // 返回 footer 标题，如果设置了 footer 或者 footerS 的话，这个属性将会失效
+    // 返回 footer 标题，如果设置了 footer 的话，这个属性将会失效
     .footerTitileHandler(^NSString * _Nonnull{
         return @"footer";
     })
@@ -554,59 +554,3 @@ self.tableView.holo_proxy.scrollDelegate = self;
 ```
 
 一旦你设置了 `dataSource`、`delegate`、`scrollDelegate` 并实现了其中某个方法，`HoloTableView` 将优先使用你的方法及返回值。具体逻辑参见：[HoloTableViewProxy.m](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloProxy/HoloTableViewProxy.m)
-
-
-## 8、注册 key-Class 映射
-
-`HoloTableView` 支持提前为 header、footer、row 注册 `key-Class` 映射。用法如下：
-
-```objc
-// 提前注册
-[self.tableView holo_makeTableView:^(HoloTableViewMaker * _Nonnull make) {
-    make
-    .makeHeadersMap(^(HoloTableViewHeaderMapMaker * _Nonnull make) {
-        make.header(@"header1").map(ExampleHeaderView1.class);
-        make.header(@"header2").map(ExampleHeaderView2.class);
-        // ...
-    })
-    .makeFootersMap(^(HoloTableViewFooterMapMaker * _Nonnull make) {
-        make.footer(@"footer1").map(ExampleFooterView1.class);
-        make.footer(@"footer2").map(ExampleFooterView2.class);
-        // ...
-    })
-    .makeRowsMap(^(HoloTableViewRowMapMaker * _Nonnull make) {
-        make.row(@"cell1").map(ExampleTableViewCell1.class);
-        make.row(@"cell2").map(ExampleTableViewCell2.class);
-        // ...
-    });
-}];
-
-
-// 使用 key 值
-[self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-    // section 1
-    make.section(TAG1)
-    .headerS(@"header1")
-    .footerS(@"footer1")
-    .makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
-        make.rowS(@"cell1");
-        make.rowS(@"cell2");
-    });
-    
-    // section 2
-    make.section(TAG2)
-    .headerS(@"header2")
-    .footerS(@"footer2")
-    .makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
-        make.rowS(@"cell1");
-        make.rowS(@"cell2");
-    });
-    
-    // ...
-}];
-```
-
-若提前注册过  `key-Class` 映射，则 `headerS`、`footerS`、`rowS` 根据注册的映射关系取 `Class` 使用
-
-若未注册过，则 `headerS`、`footerS`、`rowS` 直接将传入的字符串通过 `NSClassFromString(NSString * _Nonnull aClassName)` 方法转化为 `Class` 使用。
-

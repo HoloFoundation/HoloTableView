@@ -12,39 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
-/// RHFMap: RowHeaderFooterMap
-@interface HoloTableViewRHFMap : NSObject
-
-@property (nonatomic, copy, readonly) void (^map)(Class cls);
-
-@end
-
-/// RHFMapMaker: RowHeaderFooterMaker
-@interface HoloTableViewRHFMapMaker : NSObject
-
-@end
-
-
-@interface HoloTableViewRowMapMaker : HoloTableViewRHFMapMaker
-
-@property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^row)(NSString *row);
-
-@end
-
-
-@interface HoloTableViewHeaderMapMaker : HoloTableViewRHFMapMaker
-
-@property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^header)(NSString *header);
-
-@end
-
-
-@interface HoloTableViewFooterMapMaker : HoloTableViewRHFMapMaker
-
-@property (nonatomic, copy, readonly) HoloTableViewRHFMap *(^footer)(NSString *footer);
-
-@end
-
 
 @interface HoloTableViewModel : NSObject
 
@@ -57,12 +24,6 @@ typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *t
 @property (nonatomic, weak, nullable) id<HoloTableViewDataSource> dataSource;
 
 @property (nonatomic, weak, nullable) id<UIScrollViewDelegate> scrollDelegate;
-
-@property (nonatomic, copy, nullable) NSDictionary<NSString *, Class> *rowsMap;
-
-@property (nonatomic, copy, nullable) NSDictionary<NSString *, Class> *headersMap;
-
-@property (nonatomic, copy, nullable) NSDictionary<NSString *, Class> *footersMap;
 
 @end
 
@@ -78,12 +39,6 @@ typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *t
 @property (nonatomic, copy, readonly) HoloTableViewMaker *(^dataSource)(id<HoloTableViewDataSource> dataSource);
 
 @property (nonatomic, copy, readonly) HoloTableViewMaker *(^scrollDelegate)(id<UIScrollViewDelegate> scrollDelegate);
-
-@property (nonatomic, copy, readonly) HoloTableViewMaker *(^makeRowsMap)(void(NS_NOESCAPE ^)(HoloTableViewRowMapMaker *make));
-
-@property (nonatomic, copy, readonly) HoloTableViewMaker *(^makeHeadersMap)(void(NS_NOESCAPE ^)(HoloTableViewHeaderMapMaker *make));
-
-@property (nonatomic, copy, readonly) HoloTableViewMaker *(^makeFootersMap)(void(NS_NOESCAPE ^)(HoloTableViewFooterMapMaker *make));
 
 - (HoloTableViewModel *)install;
 

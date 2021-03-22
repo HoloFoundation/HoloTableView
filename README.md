@@ -267,61 +267,6 @@ self.tableView.holo_proxy.scrollDelegate = self;
 Once you set up `dataSource`, `delegate`, `scrollDelegate` and implement some of their methods, `HoloTableView` will use your methods and return values first. For specific logic, please refer to: [HoloTableViewProxy.m](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloProxy/HoloTableViewProxy.m)
 
 
-### 6. Regist key-Class map
-
-`HoloTableView` supports key value mappings for headers, footers, and rows in advance. For example:
-
-```objc
-// regist key-Class map
-[self.tableView holo_makeTableView:^(HoloTableViewMaker * _Nonnull make) {
-    make
-    .makeHeadersMap(^(HoloTableViewHeaderMapMaker * _Nonnull make) {
-        make.header(@"header1").map(ExampleHeaderView1.class);
-        make.header(@"header2").map(ExampleHeaderView2.class);
-        // ...
-    })
-    .makeFootersMap(^(HoloTableViewFooterMapMaker * _Nonnull make) {
-        make.footer(@"footer1").map(ExampleFooterView1.class);
-        make.footer(@"footer2").map(ExampleFooterView2.class);
-        // ...
-    })
-    .makeRowsMap(^(HoloTableViewRowMapMaker * _Nonnull make) {
-        make.row(@"cell1").map(ExampleTableViewCell1.class);
-        make.row(@"cell2").map(ExampleTableViewCell2.class);
-        // ...
-    });
-}];
-
-
-// use the key value
-[self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-    // section 1
-    make.section(TAG1)
-    .headerS(@"header1")
-    .footerS(@"footer1")
-    .makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
-        make.rowS(@"cell1");
-        make.rowS(@"cell2");
-    });
-    
-    // section 2
-    make.section(TAG2)
-    .headerS(@"header2")
-    .footerS(@"footer2")
-    .makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
-        make.rowS(@"cell1");
-        make.rowS(@"cell2");
-    });
-    
-    // ...
-}];
-```
-
-If you have registered `key-class` mapping in advance, `headerS`, `footerS` and `rowS` are used to fetch `Class` according to the registered mapping
-
-If you are not registered, `headerS`, `footerS`, `rowS` directly convert the string passed in to `Class` using the `NSClassFromString(NSString * _Nonnull aClassName)` method.
-
-
 ## Installation
 
 HoloTableView is available through [CocoaPods](https://cocoapods.org). To install
