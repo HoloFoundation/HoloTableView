@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableRow : NSObject
 
-@property (nonatomic, copy, nullable) NSString *cell;
+@property (nonatomic, assign, nullable) Class cell;
 
 #pragma mark - priority low
 @property (nonatomic, strong, nullable) id model;

@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
-
 #pragma mark - priority low
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^model)(id model);
 

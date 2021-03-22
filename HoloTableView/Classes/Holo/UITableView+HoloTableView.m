@@ -179,16 +179,18 @@
         // update map
         NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
         for (HoloTableRow *row in operateSection.rows) {
-            if (rowsMap[row.cell]) continue;
+            Class cls = row.cell;
+            NSString *key = NSStringFromClass(cls);
+            if (rowsMap[key]) continue;
             
-            Class cls = NSClassFromString(row.cell);
             if (!cls) {
-                NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", row.cell);
+                NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", key);
             }
+            
             if (![cls.new isKindOfClass:UITableViewCell.class]) {
-                NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell);
+                NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", key);
             }
-            rowsMap[row.cell] = cls;
+            rowsMap[key] = cls;
         }
         self.holo_proxy.proxyData.rowsMap = rowsMap;
     }
@@ -348,15 +350,17 @@
     for (HoloTableRow *row in [maker install]) {
         [rows addObject:row];
         
-        if (rowsMap[row.cell]) continue;
-        Class cls = NSClassFromString(row.cell);
+        Class cls = row.cell;
+        NSString *key = NSStringFromClass(cls);
+        if (rowsMap[key]) continue;
+        
         if (!cls) {
-            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", row.cell);
+            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", key);
         }
         if (![cls.new isKindOfClass:UITableViewCell.class]) {
-            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", row.cell);
+            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", key);
         }
-        rowsMap[row.cell] = cls;
+        rowsMap[key] = cls;
     }
     self.holo_proxy.proxyData.rowsMap = rowsMap;
     
@@ -448,16 +452,17 @@
             section.rows = rows;
         }
         
-        if (rowsMap[operateRow.cell]) continue;
+        Class cls = operateRow.cell;
+        NSString *key = NSStringFromClass(cls);
+        if (rowsMap[key]) continue;
         
-        Class cls = NSClassFromString(operateRow.cell);
         if (!cls) {
-            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", operateRow.cell);
+            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", key);
         }
         if (![cls.new isKindOfClass:UITableViewCell.class]) {
-            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", operateRow.cell);
+            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", key);
         }
-        rowsMap[operateRow.cell] = cls;
+        rowsMap[key] = cls;
     }
     self.holo_proxy.proxyData.rowsMap = rowsMap;
     self.holo_proxy.proxyData.sections = updateArray.copy;

@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
 
-@property (nonatomic, copy, readonly) HoloTableRowMaker *(^rowS)(NSString *rowString);
-
 - (NSArray<HoloTableRow *> *)install;
 
 @end

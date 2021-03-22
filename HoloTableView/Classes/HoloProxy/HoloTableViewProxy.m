@@ -17,8 +17,6 @@
 
 @property (nonatomic, copy, readonly) NSArray<HoloTableSection *> *holoSections;
 
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoRowsMap;
-
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoHeadersMap;
 
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoFootersMap;
@@ -183,11 +181,11 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     
     if (holoRow.modelHandler) holoRow.model = holoRow.modelHandler();
     if (holoRow.reuseIdHandler) holoRow.reuseId = holoRow.reuseIdHandler(holoRow.model);
-    if (!holoRow.reuseId) holoRow.reuseId = holoRow.cell;
+    if (!holoRow.reuseId) holoRow.reuseId = NSStringFromClass(holoRow.cell);
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.reuseId];
     if (!cell) {
-        Class cls = self.holoRowsMap[holoRow.cell];
+        Class cls = holoRow.cell;
         if (!cls) cls = UITableViewCell.class;
         if (holoRow.styleHandler) holoRow.style = holoRow.styleHandler(holoRow.model);
         cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.reuseId];
@@ -253,7 +251,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
      [Assert] Attempted to call -cellForRowAtIndexPath: on the table view while it was in the process of updating its visible cells, which is not allowed. Make a symbolic breakpoint at UITableViewAlertForCellForRowAtIndexPathAccessDuringUpdate to catch this in the debugger and see what caused this to occur. Perhaps you are trying to ask the table view for a cell from inside a table view callback about a specific row? Table view: <UITableView: 0x7fdce984f800; frame = (0 100; 375 712); clipsToBounds = YES; gestureRecognizers = <NSArray: 0x60000034cae0>; layer = <CALayer: 0x600000d68200>; contentOffset: {0, 0}; contentSize: {375, 3020}; adjustedContentInset: {0, 0, 34, 0}; dataSource: <HoloTableViewProxy: 0x60000034daa0>>
      
      TO:
-     Class cls = self.holoRowsMap[holoRow.cell];
+     Class cls = holoRow.cell;
      [cls respondsToSelector:sel];
      */
     return HoloProxyBOOLResult(holoRow.canEditHandler, holoRow.model, holoRow.canEdit);
@@ -322,7 +320,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(self, indexPath);
-    Class cls = self.holoRowsMap[holoRow.cell];
+    Class cls = holoRow.cell;
     return HoloProxyFloatResult(cls, holoRow.heightSEL, holoRow.heightHandler, holoRow.model, holoRow.height);
 }
 
@@ -333,7 +331,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else {
         HoloTableRow *holoRow = HoloTableRowWithIndexPath(self, indexPath);
         
-        Class cls = self.holoRowsMap[holoRow.cell];
+        Class cls = holoRow.cell;
         if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
             height = HoloProxyMethodSignatureFloatResult(cls, holoRow.estimatedHeightSEL, holoRow.model);
         } else if (holoRow.estimatedHeightHandler) {
@@ -1038,10 +1036,6 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
 
 - (NSArray<HoloTableSection *> *)holoSections {
     return self.proxyData.sections;
-}
-
-- (NSDictionary<NSString *, Class> *)holoRowsMap {
-    return self.proxyData.rowsMap;
 }
 
 - (NSDictionary<NSString *,Class> *)holoHeadersMap {
