@@ -20,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) NSString *footerTitle;
 
-@property (nonatomic, copy, nullable) NSString *header;
+@property (nonatomic, assign, nullable) Class header;
 
-@property (nonatomic, copy, nullable) NSString *footer;
+@property (nonatomic, assign, nullable) Class footer;
 
 #pragma mark - priority low
 @property (nonatomic, strong, nullable) id headerModel;

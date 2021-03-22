@@ -209,17 +209,18 @@
     }
 }
 
-- (void)_holo_registerHeaderFooter:(NSString *)headerFooter withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap {
-    if (headerFootersMap[headerFooter]) return;
+- (void)_holo_registerHeaderFooter:(Class)headerFooter withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap {
+    Class cls = headerFooter;
+    NSString *key = NSStringFromClass(cls);
+    if (headerFootersMap[key]) return;
     
-    Class cls = NSClassFromString(headerFooter);
     if (!cls) {
-        NSAssert(NO, @"[HoloTableView] No found a headerFooter class with the name: %@.", headerFooter);
+        NSAssert(NO, @"[HoloTableView] No found a headerFooter class with the name: %@.", key);
     }
     if (![cls.new isKindOfClass:UITableViewHeaderFooterView.class]) {
-        NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", headerFooter);
+        NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", key);
     }
-    headerFootersMap[headerFooter] = cls;
+    headerFootersMap[key] = cls;
 }
 
 // holo_removeAllSections

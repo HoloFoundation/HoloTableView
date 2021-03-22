@@ -33,28 +33,14 @@
 
 - (HoloTableSectionMaker * (^)(Class))header {
     return ^id(Class cls) {
-        self.section.header = NSStringFromClass(cls);
+        self.section.header = cls;
         return self;
     };
 }
 
 - (HoloTableSectionMaker * (^)(Class))footer {
     return ^id(Class cls) {
-        self.section.footer = NSStringFromClass(cls);
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(NSString *))headerS {
-    return ^id(id obj) {
-        self.section.header = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(NSString *))footerS {
-    return ^id(id obj) {
-        self.section.footer = obj;
+        self.section.footer = cls;
         return self;
     };
 }

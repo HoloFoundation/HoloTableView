@@ -22,10 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footer)(Class footer);
 
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerS)(NSString *headerS);
-
-@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^footerS)(NSString *footerS);
-
 #pragma mark - priority low
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^headerModel)(id headerModel);
 
