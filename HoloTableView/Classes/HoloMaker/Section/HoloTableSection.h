@@ -183,11 +183,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) SEL headerFooterEstimatedHeightSEL;
 
 
-- (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index;
+- (void)addRow:(HoloTableRow *)row;
 
 - (void)removeRow:(HoloTableRow *)row;
 
 - (void)removeAllRows;
+
+- (void)insertRow:(HoloTableRow*)row atIndex:(NSInteger)index;
+
+- (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index;
 
 @end
 

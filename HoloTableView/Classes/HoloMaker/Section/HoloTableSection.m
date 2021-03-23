@@ -39,17 +39,13 @@
     return self;
 }
 
-- (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
-    if (rows.count <= 0) return [NSIndexSet new];
+
+- (void)addRow:(HoloTableRow *)row {
+    if (!row) return;
     
-    if (index < 0) index = 0;
-    if (index > self.rows.count) index = self.rows.count;
-    
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, rows.count)];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array insertObjects:rows atIndexes:indexSet];
+    [array addObject:row];
     self.rows = array;
-    return indexSet;
 }
 
 - (void)removeRow:(HoloTableRow *)row {
@@ -62,6 +58,30 @@
 
 - (void)removeAllRows {
     self.rows = [NSArray new];
+}
+
+- (void)insertRow:(HoloTableRow*)row atIndex:(NSInteger)index {
+    if (!row) return;
+    
+    if (index < 0) index = 0;
+    if (index > self.rows.count) index = self.rows.count;
+    
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
+    [array insertObject:row atIndex:index];
+    self.rows = array;
+}
+
+- (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
+    if (rows.count <= 0) return [NSIndexSet new];
+    
+    if (index < 0) index = 0;
+    if (index > self.rows.count) index = self.rows.count;
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, rows.count)];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
+    [array insertObjects:rows atIndexes:indexSet];
+    self.rows = array;
+    return indexSet;
 }
 
 @end
