@@ -488,9 +488,15 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else {
         headerTitle = holoSection.headerTitle;
     }
-    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
-    headerView.textLabel.text = headerTitle;
-    return headerView;
+    if (headerTitle) {
+        UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        if (!headerView) {
+            headerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        }
+        headerView.textLabel.text = headerTitle;
+        return headerView;
+    }
+    return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -533,9 +539,15 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else {
         footerTitle = holoSection.footerTitle;
     }
-    UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
-    footerView.textLabel.text = footerTitle;
-    return footerView;
+    if (footerTitle) {
+        UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        if (!footerView) {
+            footerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        }
+        footerView.textLabel.text = footerTitle;
+        return footerView;
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
