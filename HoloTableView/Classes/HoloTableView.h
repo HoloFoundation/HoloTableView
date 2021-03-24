@@ -8,15 +8,8 @@
 #ifndef HoloTableView_h
 #define HoloTableView_h
 
-// Holo
-#import <HoloTableView/HoloTableViewMacro.h>
+// Maker
 #import <HoloTableView/UITableView+HoloTableView.h>
-
-// Protocol
-#import <HoloTableView/HoloTableViewProtocol.h>
-#import <HoloTableView/HoloTableViewCellProtocol.h>
-#import <HoloTableView/HoloTableViewHeaderProtocol.h>
-#import <HoloTableView/HoloTableViewFooterProtocol.h>
 
 // Maker (Row)
 #import <HoloTableView/HoloTableRowMaker.h>
@@ -36,15 +29,24 @@
 #import <HoloTableView/HoloTableRow.h>
 #import <HoloTableView/HoloTableSection.h>
 
+// Object (Protocol)
+#import <HoloTableView/HoloTableViewCellProtocol.h>
+#import <HoloTableView/HoloTableViewHeaderProtocol.h>
+#import <HoloTableView/HoloTableViewFooterProtocol.h>
+
 // Core
+#import <HoloTableView/HoloTableViewProtocol.h>
 #import <HoloTableView/HoloTableRowProtocol.h>
 #import <HoloTableView/HoloTableSectionProtocol.h>
 #import <HoloTableView/HoloTableViewProxy.h>
 #import <HoloTableView/HoloTableViewProxyData.h>
 #import <HoloTableView/UITableView+HoloTableViewProxy.h>
 
-// Swipe
+// Core (Swipe)
 #import <HoloTableView/HoloTableViewRowSwipeAction.h>
+
+// Macro
+#import <HoloTableView/HoloTableViewMacro.h>
 
 // Responder Event
 #import <HoloTableView/UIResponder+HoloEvent.h>
