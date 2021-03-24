@@ -6,7 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HoloTableViewProxy, HoloTableSection;
+#import "HoloTableSectionProtocol.h"
+@class HoloTableViewProxy;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,13 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) HoloTableViewProxy *holo_proxy;
 
-@property (nonatomic, copy) NSArray<HoloTableSection *> *holo_sections;
+@property (nonatomic, copy) NSArray<HoloTableSectionProtocol> *holo_sections;
 
-- (void)holo_addSection:(HoloTableSection *)section;
+- (void)holo_addSection:(id<HoloTableSectionProtocol>)section;
 
-- (void)holo_removeSection:(HoloTableSection *)section;
+- (void)holo_removeSection:(id<HoloTableSectionProtocol>)section;
 
-- (void)holo_insertSection:(HoloTableSection *)section atIndex:(NSInteger)index;
+- (void)holo_insertSection:(id<HoloTableSectionProtocol>)section atIndex:(NSInteger)index;
 
 @end
 

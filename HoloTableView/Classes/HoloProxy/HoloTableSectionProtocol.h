@@ -1,22 +1,26 @@
 //
-//  HoloTableSection.h
+//  HoloTableSectionProtocol.h
 //  HoloTableView
 //
-//  Created by 与佳期 on 2020/6/2.
+//  Created by 与佳期 on 2021/3/23.
 //
 
 #import <Foundation/Foundation.h>
 #import "HoloTableRowProtocol.h"
-#import "HoloTableSectionProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloTableSection : NSObject <HoloTableSectionProtocol>
+@protocol HoloTableSectionProtocol <NSObject>
+
+@required
 
 /**
  *  Set the rows for the section using the `rows` property.
  */
 @property (nonatomic, copy) NSArray<HoloTableRowProtocol> *rows;
+
+
+@optional
 
 /**
  *  Set the tag for the section using the `tag` property.
@@ -183,16 +187,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) SEL headerFooterEstimatedHeightSEL;
 
-
-- (void)addRow:(id<HoloTableRowProtocol>)row;
-
-- (void)removeRow:(id<HoloTableRowProtocol>)row;
-
-- (void)removeAllRows;
-
-- (void)insertRow:(id<HoloTableRowProtocol>)row atIndex:(NSInteger)index;
-
 @end
-
 
 NS_ASSUME_NONNULL_END

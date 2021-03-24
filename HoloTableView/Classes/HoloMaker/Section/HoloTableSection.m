@@ -12,7 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _rows = [NSArray new];
+        _rows = [NSArray<HoloTableRowProtocol> new];
         _headerHeight = CGFLOAT_MIN;
         _footerHeight = CGFLOAT_MIN;
         _headerEstimatedHeight = CGFLOAT_MIN;
@@ -40,27 +40,27 @@
 }
 
 
-- (void)addRow:(HoloTableRow *)row {
+- (void)addRow:(id<HoloTableRowProtocol>)row {
     if (!row) return;
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     [array addObject:row];
-    self.rows = array;
+    self.rows = array.copy;
 }
 
-- (void)removeRow:(HoloTableRow *)row {
+- (void)removeRow:(id<HoloTableRowProtocol>)row {
     if (!row) return;
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     [array removeObject:row];
-    self.rows = array;
+    self.rows = array.copy;
 }
 
 - (void)removeAllRows {
-    self.rows = [NSArray new];
+    self.rows = [NSArray<HoloTableRowProtocol> new];
 }
 
-- (void)insertRow:(HoloTableRow*)row atIndex:(NSInteger)index {
+- (void)insertRow:(id<HoloTableRowProtocol>)row atIndex:(NSInteger)index {
     if (!row) return;
     
     if (index < 0) index = 0;
@@ -68,20 +68,7 @@
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     [array insertObject:row atIndex:index];
-    self.rows = array;
-}
-
-- (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
-    if (rows.count <= 0) return [NSIndexSet new];
-    
-    if (index < 0) index = 0;
-    if (index > self.rows.count) index = self.rows.count;
-    
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, rows.count)];
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array insertObjects:rows atIndexes:indexSet];
-    self.rows = array;
-    return indexSet;
+    self.rows = array.copy;
 }
 
 @end

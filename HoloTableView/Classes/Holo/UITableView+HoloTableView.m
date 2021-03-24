@@ -172,7 +172,7 @@
         [self reloadSections:updateIndexSet withRowAnimation:animation];
     }
     // append sections
-    NSIndexSet *addIndexSet = [self.holo_proxy.proxyData insertSections:addArray anIndex:atIndex];
+    NSIndexSet *addIndexSet = [self _holo_insertSections:addArray anIndex:atIndex];
     if (reload && addIndexSet.count > 0) {
         [self insertSections:addIndexSet withRowAnimation:animation];
     }
@@ -203,7 +203,7 @@
 
 - (void)_holo_removeAllSectionsWithReload:(BOOL)reload
                       withReloadAnimation:(UITableViewRowAnimation)animation {
-    NSIndexSet *indexSet = [self.holo_proxy.proxyData removeAllSection];
+    NSIndexSet *indexSet = [self _holo_removeAllSection];
     if (reload && indexSet.count > 0) {
         [self deleteSections:indexSet withRowAnimation:animation];
     }
@@ -222,7 +222,7 @@
 - (void)_holo_removeSections:(NSArray<NSString *> *)tags
                       reload:(BOOL)reload
          withReloadAnimation:(UITableViewRowAnimation)animation {
-    NSIndexSet *indexSet = [self.holo_proxy.proxyData removeSections:tags];
+    NSIndexSet *indexSet = [self _holo_removeSections:tags];
     if (indexSet.count <= 0) {
         HoloLog(@"[HoloTableView] No found any section with these tags: %@.", tags);
         return;
@@ -336,14 +336,14 @@
     
     // append rows
     BOOL isNewOne = NO;
-    HoloTableSection *targetSection = [self.holo_proxy.proxyData sectionWithTag:tag];
+    HoloTableSection *targetSection = [self _holo_sectionWithTag:tag];
     if (!targetSection) {
         targetSection = [HoloTableSection new];
         targetSection.tag = tag;
-        [self.holo_proxy.proxyData insertSections:@[targetSection] anIndex:NSIntegerMax];
+        [self _holo_insertSections:@[targetSection] anIndex:NSIntegerMax];
         isNewOne = YES;
     }
-    NSIndexSet *indexSet = [targetSection insertRows:rows atIndex:index];
+    NSIndexSet *indexSet = [self _holo_section:targetSection insertRows:rows atIndex:index];
     NSInteger sectionIndex = [self.holo_proxy.proxyData.sections indexOfObject:targetSection];
     
     // refresh rows
@@ -419,7 +419,7 @@
             HoloTableSection *section = updateArray[makerModel.operateIndexPath.section];
             NSMutableArray *rows = [NSMutableArray arrayWithArray:section.rows];
             [rows replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
-            section.rows = rows;
+            section.rows = rows.copy;
         }
         
         Class cls = operateRow.cell;
@@ -460,7 +460,7 @@
 - (void)_holo_removeAllRowsInSections:(NSArray<NSString *> *)tags
                                reload:(BOOL)reload
                   withReloadAnimation:(UITableViewRowAnimation)animation {
-    NSArray *indexPaths = [self.holo_proxy.proxyData removeAllRowsInSections:tags];
+    NSArray *indexPaths = [self _holo_removeAllRowsInSections:tags];
     if (reload && indexPaths.count > 0) {
         [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
     }
@@ -481,12 +481,101 @@
 - (void)_holo_removeRows:(NSArray<NSString *> *)tags
                   reload:(BOOL)reload
      withReloadAnimation:(UITableViewRowAnimation)animation {
-    NSArray *indexPaths = [self.holo_proxy.proxyData removeRows:tags];
+    NSArray *indexPaths = [self _holo_removeRows:tags];
     if (indexPaths.count <= 0) {
         HoloLog(@"[HoloTableView] No found any row with these tags: %@.", tags);
         return;
     }
     if (reload) [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+}
+
+
+#pragma mark - data
+
+- (NSIndexSet *)_holo_insertSections:(NSArray<HoloTableSection *> *)sections anIndex:(NSInteger)index {
+    if (sections.count <= 0) return [NSIndexSet new];
+    
+    if (index < 0) index = 0;
+    if (index > self.holo_proxy.proxyData.sections.count) index = self.holo_proxy.proxyData.sections.count;
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, sections.count)];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
+    [array insertObjects:sections atIndexes:indexSet];
+    self.holo_proxy.proxyData.sections = array.copy;
+    return indexSet;
+}
+
+- (NSIndexSet *)_holo_removeAllSection {
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.holo_proxy.proxyData.sections.count)];
+    self.holo_proxy.proxyData.sections = [NSArray<HoloTableSectionProtocol> new];
+    return indexSet;
+}
+
+- (NSIndexSet *)_holo_removeSections:(NSArray<NSString *> *)tags {
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet new];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
+    for (HoloTableSection *section in self.holo_proxy.proxyData.sections) {
+        if (section.tag && [tags containsObject:section.tag]) {
+            [array removeObject:section];
+            NSInteger index = [self.holo_proxy.proxyData.sections indexOfObject:section];
+            [indexSet addIndex:index];
+        }
+    }
+    self.holo_proxy.proxyData.sections = array.copy;
+    return [indexSet copy];
+}
+
+- (HoloTableSection *)_holo_sectionWithTag:(NSString *)tag {
+    for (HoloTableSection *section in self.holo_proxy.proxyData.sections) {
+        if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) return section;
+    }
+    return nil;
+}
+
+- (NSArray<NSIndexPath *> *)_holo_removeAllRowsInSections:(NSArray<NSString *> *)tags {
+    NSMutableArray *array = [NSMutableArray new];
+    for (HoloTableSection *section in self.holo_proxy.proxyData.sections) {
+        if (section.tag && [tags containsObject:section.tag]) {
+            NSInteger sectionIndex = [self.holo_proxy.proxyData.sections indexOfObject:section];
+            for (NSInteger index = 0; index < section.rows.count; index++) {
+                [array addObject:[NSIndexPath indexPathForRow:index inSection:sectionIndex]];
+            }
+            [section removeAllRows];
+        }
+    }
+    return [array copy];
+}
+
+- (NSArray<NSIndexPath *> *)_holo_removeRows:(NSArray<NSString *> *)tags {
+    NSMutableArray *array = [NSMutableArray new];
+    for (HoloTableSection *section in self.holo_proxy.proxyData.sections) {
+        NSMutableArray<HoloTableRow *> *rows = [NSMutableArray new];
+        for (HoloTableRow *row in section.rows) {
+            if (row.tag && [tags containsObject:row.tag]) {
+                NSInteger sectionIndex = [self.holo_proxy.proxyData.sections indexOfObject:section];
+                NSInteger rowIndex = [section.rows indexOfObject:row];
+                [array addObject:[NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex]];
+                [rows addObject:row];
+            }
+        }
+        for (HoloTableRow *row in rows) {
+            [section removeRow:row];
+        }
+    }
+    return [array copy];
+}
+
+- (NSIndexSet *)_holo_section:(HoloTableSection *)section insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
+    if (rows.count <= 0) return [NSIndexSet new];
+    
+    if (index < 0) index = 0;
+    if (index > section.rows.count) index = section.rows.count;
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, rows.count)];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:section.rows];
+    [array insertObjects:rows atIndexes:indexSet];
+    section.rows = array.copy;
+    return indexSet;
 }
 
 @end

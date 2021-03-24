@@ -1,22 +1,26 @@
 //
-//  HoloTableRow.h
+//  HoloTableRowProtocol.h
 //  HoloTableView
 //
-//  Created by 与佳期 on 2020/6/1.
+//  Created by 与佳期 on 2021/3/23.
 //
 
 #import <Foundation/Foundation.h>
-#import "HoloTableRowProtocol.h"
 @class HoloTableViewRowSwipeAction;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HoloTableRow : NSObject <HoloTableRowProtocol>
+@protocol HoloTableRowProtocol <NSObject>
+
+@required
 
 /**
  *  cell class.
  */
 @property (nonatomic, assign) Class cell;
+
+
+@optional
 
 /**
  *  Set the data for the cell using the `model` property.

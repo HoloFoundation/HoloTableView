@@ -6,35 +6,24 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloTableSection;
+#import "HoloTableSectionProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableViewProxyData : NSObject
 
-@property (nonatomic, copy) NSArray<HoloTableSection *> *sections;
+@property (nonatomic, copy) NSArray<HoloTableSectionProtocol> *sections;
+
+@property (nonatomic, copy, nullable) NSArray<NSString *> *sectionIndexTitles;
+
+@property (nonatomic, copy, nullable) NSInteger (^sectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
+
 
 @property (nonatomic, copy) NSDictionary<NSString *, Class> *rowsMap;
 
 @property (nonatomic, copy) NSDictionary<NSString *, Class> *headersMap;
 
 @property (nonatomic, copy) NSDictionary<NSString *, Class> *footersMap;
-
-@property (nonatomic, copy, nullable) NSArray<NSString *> *sectionIndexTitles;
-
-@property (nonatomic, copy, nullable) NSInteger (^sectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
-
-- (NSIndexSet *)insertSections:(NSArray<HoloTableSection *> *)sections anIndex:(NSInteger)index;
-
-- (NSIndexSet *)removeAllSection;
-
-- (NSIndexSet *)removeSections:(NSArray<NSString *> *)tags;
-
-- (HoloTableSection * _Nullable)sectionWithTag:(NSString * _Nullable)tag;
-
-- (NSArray<NSIndexPath *> *)removeAllRowsInSections:(NSArray<NSString *> *)tags;
-
-- (NSArray<NSIndexPath *> *)removeRows:(NSArray<NSString *> *)tags;
 
 @end
 

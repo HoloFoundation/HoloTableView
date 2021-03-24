@@ -31,31 +31,31 @@ static char kHoloTableViewProxyKey;
     self.delegate = tableViewProxy;
 }
 
-- (NSArray *)holo_sections {
+- (NSArray<HoloTableSectionProtocol> *)holo_sections {
     return self.holo_proxy.proxyData.sections;
 }
 
-- (void)setHolo_sections:(NSArray *)sections {
-    self.holo_proxy.proxyData.sections = sections;
+- (void)setHolo_sections:(NSArray<HoloTableSectionProtocol> *)holo_sections {
+    self.holo_proxy.proxyData.sections = holo_sections;
 }
 
-- (void)holo_addSection:(HoloTableSection *)section {
+- (void)holo_addSection:(id<HoloTableSectionProtocol>)section {
     if (!section) return;
     
-    NSMutableArray *sections = [NSMutableArray arrayWithArray:self.holo_sections];
-    [sections addObject:section];
-    self.holo_sections = sections;
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
+    [array addObject:section];
+    self.holo_sections = array.copy;
 }
 
-- (void)holo_removeSection:(HoloTableSection *)section {
+- (void)holo_removeSection:(id<HoloTableSectionProtocol>)section {
     if (!section) return;
     
-    NSMutableArray *sections = [NSMutableArray arrayWithArray:self.holo_sections];
-    [sections removeObject:section];
-    self.holo_sections = sections;
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
+    [array removeObject:section];
+    self.holo_sections = array.copy;
 }
 
-- (void)holo_insertSection:(HoloTableSection *)section atIndex:(NSInteger)index {
+- (void)holo_insertSection:(id<HoloTableSectionProtocol>)section atIndex:(NSInteger)index {
     if (!section) return;
     
     if (index < 0) index = 0;
@@ -63,7 +63,7 @@ static char kHoloTableViewProxyKey;
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.holo_sections];
     [array insertObject:section atIndex:index];
-    self.holo_sections = array;
+    self.holo_sections = array.copy;
 }
 
 @end
