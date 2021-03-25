@@ -26,10 +26,6 @@
         _headerEstimatedHeightSEL       = @selector(holo_estimatedHeightForHeaderWithModel:);
         _footerEstimatedHeightSEL       = @selector(holo_estimatedHeightForFooterWithModel:);
         
-        _headerFooterConfigSEL          = @selector(holo_configureHeaderFooterWithModel:);
-        _headerFooterHeightSEL          = @selector(holo_heightForHeaderFooterWithModel:);
-        _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
-        
         _willDisplayHeaderSEL           = @selector(holo_willDisplayHeaderWithModel:);
         _willDisplayFooterSEL           = @selector(holo_willDisplayFooterWithModel:);
         _didEndDisplayingHeaderSEL      = @selector(holo_didEndDisplayingHeaderWithModel:);

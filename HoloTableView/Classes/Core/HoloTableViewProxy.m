@@ -484,11 +484,6 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [holoHeaderView performSelector:holoSection.headerConfigSEL withObject:holoSection.headerModel];
 #pragma clang diagnostic pop
-        } else if (holoSection.headerFooterConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerFooterConfigSEL]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [holoHeaderView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.headerModel];
-#pragma clang diagnostic pop
         }
         return holoHeaderView;
     }
@@ -535,11 +530,6 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [holoFooterView performSelector:holoSection.footerConfigSEL withObject:holoSection.footerModel];
 #pragma clang diagnostic pop
-        } else if (holoSection.headerFooterConfigSEL && [holoFooterView respondsToSelector:holoSection.headerFooterConfigSEL]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [holoFooterView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.footerModel];
-#pragma clang diagnostic pop
         }
         return holoFooterView;
     }
@@ -573,8 +563,6 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
     Class header = holoSection.header;
     if (holoSection.headerHeightSEL && [header respondsToSelector:holoSection.headerHeightSEL]) {
         return HoloProxyMethodSignatureFloatResult(header, holoSection.headerHeightSEL, holoSection.headerModel);
-    } else if (holoSection.headerFooterHeightSEL && [header respondsToSelector:holoSection.headerFooterHeightSEL]) {
-        return HoloProxyMethodSignatureFloatResult(header, holoSection.headerFooterHeightSEL, holoSection.headerModel);
     } else if (holoSection.headerHeightHandler) {
         return holoSection.headerHeightHandler(holoSection.headerModel);
     }
@@ -596,8 +584,6 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
     Class footer = holoSection.footer;
     if (holoSection.footerHeightSEL && [footer respondsToSelector:holoSection.footerHeightSEL]) {
         return HoloProxyMethodSignatureFloatResult(footer, holoSection.footerHeightSEL, holoSection.footerModel);
-    } else if (holoSection.headerFooterHeightSEL && [footer respondsToSelector:holoSection.headerFooterHeightSEL]) {
-        return HoloProxyMethodSignatureFloatResult(footer, holoSection.headerFooterHeightSEL, holoSection.footerModel);
     } else if (holoSection.footerHeightHandler) {
         return holoSection.footerHeightHandler(holoSection.footerModel);
     }
@@ -617,8 +603,6 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
         Class header = holoSection.header;
         if (holoSection.headerEstimatedHeightSEL && [header respondsToSelector:holoSection.headerEstimatedHeightSEL]) {
             height = HoloProxyMethodSignatureFloatResult(header, holoSection.headerEstimatedHeightSEL, holoSection.headerModel);
-        } else if (holoSection.headerFooterEstimatedHeightSEL && [header respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
-            height = HoloProxyMethodSignatureFloatResult(header, holoSection.headerFooterEstimatedHeightSEL, holoSection.headerModel);
         } else if (holoSection.headerEstimatedHeightHandler) {
             height = holoSection.headerEstimatedHeightHandler(holoSection.headerModel);
         } else if (holoSection.headerEstimatedHeight == CGFLOAT_MIN) {
@@ -647,8 +631,6 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
         Class footer = holoSection.footer;
         if (holoSection.footerEstimatedHeightSEL && [footer respondsToSelector:holoSection.footerEstimatedHeightSEL]) {
             height = HoloProxyMethodSignatureFloatResult(footer, holoSection.footerEstimatedHeightSEL, holoSection.footerModel);
-        } else if (holoSection.headerFooterEstimatedHeightSEL && [footer respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
-            height = HoloProxyMethodSignatureFloatResult(footer, holoSection.headerFooterEstimatedHeightSEL, holoSection.footerModel);
         } else if (holoSection.footerEstimatedHeightHandler) {
             height = holoSection.footerEstimatedHeightHandler(holoSection.footerModel);
         }  else if (holoSection.footerEstimatedHeight == CGFLOAT_MIN) {

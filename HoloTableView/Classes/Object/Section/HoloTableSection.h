@@ -168,22 +168,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) SEL didEndDisplayingFooterSEL;
 
 
-/**
- *  DEPRECATED_MSG_ATTRIBUTE("Please use `headerConfigSEL` or `footerConfigSEL` api instead.")
- */
-@property (nonatomic, assign) SEL headerFooterConfigSEL;
-
-/**
- *  DEPRECATED_MSG_ATTRIBUTE("Please use `headerHeightSEL` or `footerHeightSEL` api instead.")
- */
-@property (nonatomic, assign) SEL headerFooterHeightSEL;
-
-/**
- *  DEPRECATED_MSG_ATTRIBUTE("Please use `headerEstimatedHeightSEL` or `footerEstimatedHeightSEL` api instead.")
- */
-@property (nonatomic, assign) SEL headerFooterEstimatedHeightSEL;
-
-
 - (void)addRow:(id<HoloTableRowProtocol>)row;
 
 - (void)removeRow:(id<HoloTableRowProtocol>)row;

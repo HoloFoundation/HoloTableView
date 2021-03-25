@@ -244,25 +244,6 @@
     };
 }
 
-- (HoloTableSectionMaker *(^)(SEL))headerFooterConfigSEL {
-    return ^id(SEL s) {
-        self.section.headerFooterConfigSEL = s;
-        return self;
-    };
-}
-- (HoloTableSectionMaker *(^)(SEL))headerFooterHeightSEL {
-    return ^id(SEL s) {
-        self.section.headerFooterHeightSEL = s;
-        return self;
-    };
-}
-- (HoloTableSectionMaker *(^)(SEL))headerFooterEstimatedHeightSEL {
-    return ^id(SEL s) {
-        self.section.headerFooterEstimatedHeightSEL = s;
-        return self;
-    };
-}
-
 - (HoloTableSectionMaker *(^)(SEL))willDisplayHeaderSEL {
     return ^id(SEL s) {
         self.section.willDisplayHeaderSEL = s;
