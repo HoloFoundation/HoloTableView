@@ -9,18 +9,12 @@
 #import "HoloTableViewProxyData.h"
 #import "HoloTableViewRowSwipeAction.h"
 
-@interface HoloTableViewProxy ()
-
-@property (nonatomic, copy, readonly) NSArray<HoloTableSectionProtocol> *holoSections;
-
-@end
-
 @implementation HoloTableViewProxy
 
 static id<HoloTableSectionProtocol> HoloTableSectionWithIndex(HoloTableViewProxy *holoProxy, NSInteger section) {
-    if (section >= holoProxy.holoSections.count) return nil;
+    if (section >= holoProxy.proxyData.sections.count) return nil;
     
-    id<HoloTableSectionProtocol> holoSection = holoProxy.holoSections[section];
+    id<HoloTableSectionProtocol> holoSection = holoProxy.proxyData.sections[section];
     return holoSection;
 }
 
@@ -169,7 +163,7 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
         return [self.dataSource numberOfSectionsInTableView:tableView];
     }
     
-    return self.holoSections.count;
+    return self.proxyData.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -277,9 +271,9 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (holoRow.editingDeleteHandler) {
             holoRow.editingDeleteHandler(holoRow.model, ^(BOOL actionPerformed) {
-                if (actionPerformed && self.holoSections.count > indexPath.section) {
+                if (actionPerformed && self.proxyData.sections.count > indexPath.section) {
                     // must remove the data before deleting the cell
-                    id<HoloTableSectionProtocol> holoSection = self.holoSections[indexPath.section];
+                    id<HoloTableSectionProtocol> holoSection = self.proxyData.sections[indexPath.section];
                     HoloTableSectionRemoveRow(holoSection, holoRow);
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
@@ -309,8 +303,8 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
     id<HoloTableRowProtocol> sourceRow = HoloTableRowWithIndexPath(self, sourceIndexPath);
     if (sourceRow.moveHandler) {
         sourceRow.moveHandler(sourceIndexPath, destinationIndexPath, ^(BOOL actionPerformed) {
-            if (actionPerformed && self.holoSections.count > destinationIndexPath.section) {
-                id<HoloTableSectionProtocol> destinationSection = self.holoSections[destinationIndexPath.section];
+            if (actionPerformed && self.proxyData.sections.count > destinationIndexPath.section) {
+                id<HoloTableSectionProtocol> destinationSection = self.proxyData.sections[destinationIndexPath.section];
                 HoloTableSectionRemoveRow(sourceSection, sourceRow);
                 HoloTableSectionInsertRowsAtIndex(destinationSection, @[sourceRow], destinationIndexPath.row);
             }
@@ -1035,10 +1029,6 @@ static void HoloTableSectionInsertRowsAtIndex(id<HoloTableSectionProtocol> holoS
         _proxyData = [HoloTableViewProxyData new];
     }
     return _proxyData;
-}
-
-- (NSArray<HoloTableSectionProtocol> *)holoSections {
-    return self.proxyData.sections;
 }
 
 @end

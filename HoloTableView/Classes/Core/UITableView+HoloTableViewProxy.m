@@ -31,6 +31,30 @@ static char kHoloTableViewProxyKey;
     self.delegate = tableViewProxy;
 }
 
+- (id<UIScrollViewDelegate>)holo_scrollDelegate {
+    return self.holo_proxy.scrollDelegate;
+}
+
+- (void)setHolo_scrollDelegate:(id<UIScrollViewDelegate>)holo_scrollDelegate {
+    self.holo_proxy.scrollDelegate = holo_scrollDelegate;
+}
+
+- (NSArray<NSString *> *)holo_sectionIndexTitles {
+    return self.holo_proxy.proxyData.sectionIndexTitles;
+}
+
+- (void)setHolo_sectionIndexTitles:(NSArray<NSString *> *)holo_sectionIndexTitles {
+    self.holo_proxy.proxyData.sectionIndexTitles = holo_sectionIndexTitles;
+}
+
+- (NSInteger (^)(NSString * _Nonnull, NSInteger))holo_sectionForSectionIndexTitleHandler {
+    return self.holo_proxy.proxyData.sectionForSectionIndexTitleHandler;
+}
+
+- (void)setHolo_sectionForSectionIndexTitleHandler:(NSInteger (^)(NSString * _Nonnull, NSInteger))holo_sectionForSectionIndexTitleHandler {
+    self.holo_proxy.proxyData.sectionForSectionIndexTitleHandler = holo_sectionForSectionIndexTitleHandler;
+}
+
 - (NSArray<HoloTableSectionProtocol> *)holo_sections {
     return self.holo_proxy.proxyData.sections;
 }

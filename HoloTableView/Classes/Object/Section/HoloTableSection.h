@@ -168,12 +168,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) SEL didEndDisplayingFooterSEL;
 
 
+/**
+ *  Add a row to current section.
+ */
 - (void)addRow:(id<HoloTableRowProtocol>)row;
 
+/**
+ *  remove a row from current section.
+ */
 - (void)removeRow:(id<HoloTableRowProtocol>)row;
 
+/**
+ *  Remove all rows of current section.
+ */
 - (void)removeAllRows;
 
+/**
+ *  Insert a row to current section somewhere.
+ */
 - (void)insertRow:(id<HoloTableRowProtocol>)row atIndex:(NSInteger)index;
 
 @end
