@@ -14,11 +14,11 @@ static char kHoloTableViewProxyKey;
 
 @implementation UITableView (HoloTableViewProxy)
 
-- (NSArray<HoloTableSectionProtocol> *)holo_sections {
+- (NSArray<id<HoloTableSectionProtocol>> *)holo_sections {
     return self.holo_proxy.proxyData.sections;
 }
 
-- (void)setHolo_sections:(NSArray<HoloTableSectionProtocol> *)holo_sections {
+- (void)setHolo_sections:(NSArray<id<HoloTableSectionProtocol>> *)holo_sections {
     self.holo_proxy.proxyData.sections = holo_sections;
 }
 

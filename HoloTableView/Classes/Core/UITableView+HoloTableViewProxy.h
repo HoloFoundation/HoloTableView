@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Datasource of current UITableView.
  */
-@property (nonatomic, copy) NSArray<HoloTableSectionProtocol> *holo_sections;
+@property (nonatomic, copy) NSArray<id<HoloTableSectionProtocol>> *holo_sections;
 
 /**
  *  Return list of section titles to display in section index view (e.g. "ABCD...Z#").

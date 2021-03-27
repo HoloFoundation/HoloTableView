@@ -12,7 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _rows = [NSArray<HoloTableRowProtocol> new];
+        _rows = [NSArray<id<HoloTableRowProtocol>> new];
         _headerHeight = CGFLOAT_MIN;
         _footerHeight = CGFLOAT_MIN;
         _headerEstimatedHeight = CGFLOAT_MIN;
@@ -53,7 +53,7 @@
 }
 
 - (void)removeAllRows {
-    self.rows = [NSArray<HoloTableRowProtocol> new];
+    self.rows = [NSArray<id<HoloTableRowProtocol>> new];
 }
 
 - (void)insertRow:(id<HoloTableRowProtocol>)row atIndex:(NSInteger)index {

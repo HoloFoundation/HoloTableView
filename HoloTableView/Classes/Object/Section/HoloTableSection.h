@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Set the rows for the section using the `rows` property.
  */
-@property (nonatomic, copy) NSArray<HoloTableRowProtocol> *rows;
+@property (nonatomic, copy) NSArray<id<HoloTableRowProtocol>> *rows;
 
 /**
  *  Set the tag for the section using the `tag` property.

@@ -10,9 +10,9 @@
 @implementation HoloTableViewProxyData
 
 #pragma mark - getter
-- (NSArray<HoloTableSectionProtocol> *)sections {
+- (NSArray<id<HoloTableSectionProtocol>> *)sections {
     if (!_sections) {
-        _sections = [NSArray<HoloTableSectionProtocol> new];
+        _sections = [NSArray<id<HoloTableSectionProtocol>> new];
     }
     return _sections;
 }
