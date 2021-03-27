@@ -24,10 +24,34 @@
     };
 }
 
-#pragma mark - priority low
 - (HoloTableRowMaker *(^)(id))model {
     return ^id(id obj) {
         self.tableRow.model = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(id (^)(void)))modelHandler {
+    return ^id(id obj) {
+        self.tableRow.modelHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableRowMaker *(^)(SEL))configSEL {
+    return ^id(SEL s) {
+        self.tableRow.configSEL = s;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(void (^)(UITableViewCell *, id)))beforeConfigureHandler {
+    return ^id(id obj) {
+        self.tableRow.beforeConfigureHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(void (^)(UITableViewCell *, id)))afterConfigureHandler {
+    return ^id(id obj) {
+        self.tableRow.afterConfigureHandler = obj;
         return self;
     };
 }
@@ -38,10 +62,22 @@
         return self;
     };
 }
+- (HoloTableRowMaker * (^)(UITableViewCellStyle (^)(id)))styleHandler {
+    return ^id(id obj) {
+        self.tableRow.styleHandler = obj;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker * (^)(NSString *))reuseId {
     return ^id(id obj) {
         self.tableRow.reuseId = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(NSString * (^)(id)))reuseIdHandler {
+    return ^id(id obj) {
+        self.tableRow.reuseIdHandler = obj;
         return self;
     };
 }
@@ -59,10 +95,35 @@
         return self;
     };
 }
+- (HoloTableRowMaker * (^)(CGFloat (^)(id)))heightHandler {
+    return ^id(id obj) {
+        self.tableRow.heightHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker *(^)(SEL))heightSEL {
+    return ^id(SEL s) {
+        self.tableRow.heightSEL = s;
+        return self;
+    };
+}
+
 
 - (HoloTableRowMaker *(^)(CGFloat))estimatedHeight {
     return ^id(CGFloat f) {
         self.tableRow.estimatedHeight = f;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(CGFloat (^)(id)))estimatedHeightHandler {
+    return ^id(id obj) {
+        self.tableRow.estimatedHeightHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker *(^)(SEL))estimatedHeightSEL {
+    return ^id(SEL s) {
+        self.tableRow.estimatedHeightSEL = s;
         return self;
     };
 }
@@ -73,10 +134,28 @@
         return self;
     };
 }
+- (HoloTableRowMaker * (^)(BOOL (^)(id)))shouldHighlightHandler {
+    return ^id(id obj) {
+        self.tableRow.shouldHighlightHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker *(^)(SEL))shouldHighlightSEL {
+    return ^id(SEL s) {
+        self.tableRow.shouldHighlightSEL = s;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker *(^)(BOOL))canEdit {
     return ^id(BOOL b) {
         self.tableRow.canEdit = b;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(BOOL (^)(id)))canEditHandler {
+    return ^id(id obj) {
+        self.tableRow.canEditHandler = obj;
         return self;
     };
 }
@@ -85,6 +164,12 @@
     return ^id(BOOL b) {
         if (b) self.tableRow.canEdit = YES;
         self.tableRow.canMove = b;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(BOOL (^)(id)))canMoveHandler {
+    return ^id(id obj) {
+        self.tableRow.canMoveHandler = obj;
         return self;
     };
 }
@@ -98,11 +183,39 @@
         return self;
     };
 }
+- (HoloTableRowMaker * (^)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id)))leadingSwipeActionsHandler {
+    return ^id(id obj) {
+        if (@available(iOS 11.0, *)) {
+            self.tableRow.leadingSwipeActionsHandler = obj;
+        }
+        return self;
+    };
+}
+
+- (HoloTableRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))leadingSwipeHandler {
+    return ^id(id obj) {
+        self.tableRow.leadingSwipeHandler = obj;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker *(^)(NSArray<HoloTableViewRowSwipeAction *> *))trailingSwipeActions {
     return ^id(NSArray *a) {
         if (a.count > 0) self.tableRow.canEdit = YES;
         self.tableRow.trailingSwipeActions = a;
+        return self;
+    };
+}
+- (HoloTableRowMaker * (^)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id)))trailingSwipeActionsHandler {
+    return ^id(id obj) {
+        self.tableRow.trailingSwipeActionsHandler = obj;
+        return self;
+    };
+}
+
+- (HoloTableRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))trailingSwipeHandler {
+    return ^id(id obj) {
+        self.tableRow.trailingSwipeHandler = obj;
         return self;
     };
 }
@@ -113,87 +226,6 @@
         return self;
     };
 }
-
-- (HoloTableRowMaker * (^)(UITableViewCellEditingStyle))editingStyle {
-    return ^id(UITableViewCellEditingStyle editingStyle) {
-        self.tableRow.editingStyle = editingStyle;
-        return self;
-    };
-}
-
-#pragma mark - priority middle
-- (HoloTableRowMaker * (^)(id (^)(void)))modelHandler {
-    return ^id(id obj) {
-        self.tableRow.modelHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(UITableViewCellStyle (^)(id)))styleHandler {
-    return ^id(id obj) {
-        self.tableRow.styleHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(NSString * (^)(id)))reuseIdHandler {
-    return ^id(id obj) {
-        self.tableRow.reuseIdHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(CGFloat (^)(id)))heightHandler {
-    return ^id(id obj) {
-        self.tableRow.heightHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(CGFloat (^)(id)))estimatedHeightHandler {
-    return ^id(id obj) {
-        self.tableRow.estimatedHeightHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(BOOL (^)(id)))shouldHighlightHandler {
-    return ^id(id obj) {
-        self.tableRow.shouldHighlightHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(BOOL (^)(id)))canEditHandler {
-    return ^id(id obj) {
-        self.tableRow.canEditHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(BOOL (^)(id)))canMoveHandler {
-    return ^id(id obj) {
-        self.tableRow.canMoveHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id)))leadingSwipeActionsHandler {
-    return ^id(id obj) {
-        if (@available(iOS 11.0, *)) {
-            self.tableRow.leadingSwipeActionsHandler = obj;
-        }
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(NSArray<HoloTableViewRowSwipeAction *> *(^)(id)))trailingSwipeActionsHandler {
-    return ^id(id obj) {
-        self.tableRow.trailingSwipeActionsHandler = obj;
-        return self;
-    };
-}
-
 - (HoloTableRowMaker * (^)(NSString * (^)(id)))editingDeleteTitleHandler {
     return ^id(id obj) {
         self.tableRow.editingDeleteTitleHandler = obj;
@@ -201,6 +233,12 @@
     };
 }
 
+- (HoloTableRowMaker * (^)(UITableViewCellEditingStyle))editingStyle {
+    return ^id(UITableViewCellEditingStyle editingStyle) {
+        self.tableRow.editingStyle = editingStyle;
+        return self;
+    };
+}
 - (HoloTableRowMaker * (^)(UITableViewCellEditingStyle (^)(id)))editingStyleHandler {
     return ^id(id obj) {
         self.tableRow.editingStyleHandler = obj;
@@ -214,10 +252,22 @@
         return self;
     };
 }
+- (HoloTableRowMaker *(^)(SEL))willSelectSEL {
+    return ^id(SEL s) {
+        self.tableRow.willSelectSEL = s;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker * (^)(void (^)(id)))willDeselectHandler {
     return ^id(id obj) {
         self.tableRow.willDeselectHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker *(^)(SEL))willDeselectSEL {
+    return ^id(SEL s) {
+        self.tableRow.willDeselectSEL = s;
         return self;
     };
 }
@@ -228,6 +278,12 @@
         return self;
     };
 }
+- (HoloTableRowMaker *(^)(SEL))didDeselectSEL {
+    return ^id(SEL s) {
+        self.tableRow.didDeselectSEL = s;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker * (^)(void (^)(id)))didSelectHandler {
     return ^id(id obj) {
@@ -235,17 +291,9 @@
         return self;
     };
 }
-
-- (HoloTableRowMaker * (^)(void (^)(UITableViewCell *, id)))beforeConfigureHandler {
-    return ^id(id obj) {
-        self.tableRow.beforeConfigureHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker * (^)(void (^)(UITableViewCell *, id)))afterConfigureHandler {
-    return ^id(id obj) {
-        self.tableRow.afterConfigureHandler = obj;
+- (HoloTableRowMaker *(^)(SEL))didSelectSEL {
+    return ^id(SEL s) {
+        self.tableRow.didSelectSEL = s;
         return self;
     };
 }
@@ -256,10 +304,22 @@
         return self;
     };
 }
+- (HoloTableRowMaker *(^)(SEL))willDisplaySEL {
+    return ^id(SEL s) {
+        self.tableRow.willDisplaySEL = s;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker *(^)(void (^)(UITableViewCell *, id)))didEndDisplayingHandler {
     return ^id(id obj) {
         self.tableRow.didEndDisplayingHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker *(^)(SEL))didEndDisplayingSEL {
+    return ^id(SEL s) {
+        self.tableRow.didEndDisplayingSEL = s;
         return self;
     };
 }
@@ -270,10 +330,22 @@
         return self;
     };
 }
+- (HoloTableRowMaker *(^)(SEL))didHighlightSEL {
+    return ^id(SEL s) {
+        self.tableRow.didHighlightSEL = s;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker *(^)(void (^)(id)))didUnHighlightHandler {
     return ^id(id obj) {
         self.tableRow.didUnHighlightHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker *(^)(SEL))didUnHighlightSEL {
+    return ^id(SEL s) {
+        self.tableRow.didUnHighlightSEL = s;
         return self;
     };
 }
@@ -284,17 +356,9 @@
         return self;
     };
 }
-
-- (HoloTableRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))leadingSwipeHandler {
-    return ^id(id obj) {
-        self.tableRow.leadingSwipeHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(void (^)(id, NSInteger, void(^)(BOOL))))trailingSwipeHandler {
-    return ^id(id obj) {
-        self.tableRow.trailingSwipeHandler = obj;
+- (HoloTableRowMaker *(^)(SEL))accessoryButtonTappedSEL {
+    return ^id(SEL s) {
+        self.tableRow.accessoryButtonTappedSEL = s;
         return self;
     };
 }
@@ -305,10 +369,22 @@
         return self;
     };
 }
+- (HoloTableRowMaker *(^)(SEL))willBeginEditingSEL {
+    return ^id(SEL s) {
+        self.tableRow.willBeginEditingSEL = s;
+        return self;
+    };
+}
 
 - (HoloTableRowMaker *(^)(void (^)(id)))didEndEditingHandler {
     return ^id(id obj) {
         self.tableRow.didEndEditingHandler = obj;
+        return self;
+    };
+}
+- (HoloTableRowMaker *(^)(SEL))didEndEditingSEL {
+    return ^id(SEL s) {
+        self.tableRow.didEndEditingSEL = s;
         return self;
     };
 }
@@ -352,113 +428,6 @@
         return self;
     };
 }
-
-#pragma mark - priority high
-- (HoloTableRowMaker *(^)(SEL))configSEL {
-    return ^id(SEL s) {
-        self.tableRow.configSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))heightSEL {
-    return ^id(SEL s) {
-        self.tableRow.heightSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))estimatedHeightSEL {
-    return ^id(SEL s) {
-        self.tableRow.estimatedHeightSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))shouldHighlightSEL {
-    return ^id(SEL s) {
-        self.tableRow.shouldHighlightSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))willSelectSEL {
-    return ^id(SEL s) {
-        self.tableRow.willSelectSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))willDeselectSEL {
-    return ^id(SEL s) {
-        self.tableRow.willDeselectSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))didDeselectSEL {
-    return ^id(SEL s) {
-        self.tableRow.didDeselectSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))didSelectSEL {
-    return ^id(SEL s) {
-        self.tableRow.didSelectSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))willDisplaySEL {
-    return ^id(SEL s) {
-        self.tableRow.willDisplaySEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))didEndDisplayingSEL {
-    return ^id(SEL s) {
-        self.tableRow.didEndDisplayingSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))didHighlightSEL {
-    return ^id(SEL s) {
-        self.tableRow.didHighlightSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))didUnHighlightSEL {
-    return ^id(SEL s) {
-        self.tableRow.didUnHighlightSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))accessoryButtonTappedSEL {
-    return ^id(SEL s) {
-        self.tableRow.accessoryButtonTappedSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))willBeginEditingSEL {
-    return ^id(SEL s) {
-        self.tableRow.willBeginEditingSEL = s;
-        return self;
-    };
-}
-
-- (HoloTableRowMaker *(^)(SEL))didEndEditingSEL {
-    return ^id(SEL s) {
-        self.tableRow.didEndEditingSEL = s;
-        return self;
-    };
-}
-
 
 - (HoloTableRow *)fetchTableRow {
     return self.tableRow;

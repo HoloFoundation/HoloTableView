@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 
 /**
- *  cell class.
+ *  Cell class.
  */
 @property (nonatomic, assign) Class cell;
 
@@ -31,10 +31,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) id (^modelHandler)(void);
 
 /**
- * The cell must implement the `configSEL` property setting method, set data for the cell by `configSEL`.
+ * The cell must implement the `configSEL` property setting method in order for the HoloTableView to pass the model for the cell.
  */
 @property (nonatomic, assign) SEL configSEL;
+
+/**
+ *  Performed before `configSEL`.
+ */
 @property (nonatomic, copy, nullable) void (^beforeConfigureHandler)(UITableViewCell *cell, id _Nullable model);
+
+/**
+ *  Performed after `configSEL`.
+ */
 @property (nonatomic, copy, nullable) void (^afterConfigureHandler)(UITableViewCell *cell, id _Nullable model);
 
 
@@ -117,6 +125,12 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, assign) SEL leadingSwipeActionsSEL;
 
 /**
+ *  Set the leading swipe for the cell using the `leadingSwipeHandler` property.
+ */
+@property (nonatomic, copy, nullable) void (^leadingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+//@property (nonatomic, assign) SEL leadingSwipeSEL API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+
+/**
  *  Set the trailing swipe actions for the cell using the `trailingSwipeActions` property.
  *
  *  If the `trailingSwipeActionsHandler` property is nil, then use the `trailingSwipeActions` property.
@@ -124,6 +138,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSArray<HoloTableViewRowSwipeAction *> *trailingSwipeActions;
 @property (nonatomic, copy, nullable) NSArray<HoloTableViewRowSwipeAction *> *(^trailingSwipeActionsHandler)(id _Nullable model);
 //@property (nonatomic, assign) SEL trailingSwipeActionsSEL;
+
+/**
+ *  Set the trailing swipe for the cell using the `trailingSwipeHandler` property.
+ */
+@property (nonatomic, copy, nullable) void (^trailingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
+//@property (nonatomic, assign) SEL trailingSwipeSEL;
 
 /**
  *  Set the editing delete title for the cell using the `editingDeleteTitle` property.
@@ -142,18 +162,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) UITableViewCellEditingStyle editingStyle;
 @property (nonatomic, copy, nullable) UITableViewCellEditingStyle(^editingStyleHandler)(id _Nullable model);
 //@property (nonatomic, assign) SEL editingStyleSEL;
-
-/**
- *  Set the leading swipe for the cell using the `leadingSwipeHandler` property.
- */
-@property (nonatomic, copy, nullable) void (^leadingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed)) API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
-//@property (nonatomic, assign) SEL leadingSwipeSEL API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
-
-/**
- *  Set the trailing swipe for the cell using the `leadingSwipeHandler` property.
- */
-@property (nonatomic, copy, nullable) void (^trailingSwipeHandler)(id action, NSInteger index, void(^completionHandler)(BOOL actionPerformed));
-//@property (nonatomic, assign) SEL trailingSwipeSEL;
 
 /**
  *  If the cell will select, the `willSelectHandler` will be called.

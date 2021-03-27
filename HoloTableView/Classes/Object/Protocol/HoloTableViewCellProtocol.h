@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 
 /**
- *  Your cell must implement this method in order for the HoloTableView to pass the externally-set model to the current cell.
+ *  Your cell must implement this method in order for the HoloTableView to pass the externally-set model.
  */
 - (void)holo_configureCellWithModel:(id _Nullable)model;
 

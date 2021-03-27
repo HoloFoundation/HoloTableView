@@ -17,20 +17,6 @@
 
 @implementation HoloTableSectionMaker
 
-- (HoloTableSectionMaker *(^)(NSString *))headerTitle {
-    return ^id(id obj) {
-        self.section.headerTitle = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(NSString *))footerTitle {
-    return ^id(id obj) {
-        self.section.footerTitle = obj;
-        return self;
-    };
-}
-
 - (HoloTableSectionMaker * (^)(Class))header {
     return ^id(Class cls) {
         self.section.header = cls;
@@ -45,24 +31,15 @@
     };
 }
 
-#pragma mark - priority low
-- (HoloTableSectionMaker * (^)(id))headerModel {
-    return ^id(id obj) {
-        self.section.headerModel = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker * (^)(id))footerModel {
-    return ^id(id obj) {
-        self.section.footerModel = obj;
-        return self;
-    };
-}
-
 - (HoloTableSectionMaker *(^)(NSString *))headerReuseId {
     return ^id(id obj) {
         self.section.headerReuseId = obj;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(NSString * (^)(id)))headerReuseIdHandler {
+    return ^id(id obj) {
+        self.section.headerReuseIdHandler = obj;
         return self;
     };
 }
@@ -73,71 +50,6 @@
         return self;
     };
 }
-
-- (HoloTableSectionMaker *(^)(CGFloat))headerHeight {
-    return ^id(CGFloat f) {
-        self.section.headerHeight = f;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(CGFloat))footerHeight {
-    return ^id(CGFloat f) {
-        self.section.footerHeight = f;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(CGFloat))headerEstimatedHeight {
-    return ^id(CGFloat f) {
-        self.section.headerEstimatedHeight = f;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(CGFloat))footerEstimatedHeight {
-    return ^id(CGFloat f) {
-        self.section.footerEstimatedHeight = f;
-        return self;
-    };
-}
-
-#pragma mark - priority middle
-- (HoloTableSectionMaker * (^)(NSString * (^)(void)))headerTitleHandler {
-    return ^id(id obj) {
-        self.section.headerTitleHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker * (^)(NSString * (^)(void)))footerTitleHandler {
-    return ^id(id obj) {
-        self.section.footerTitleHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker * (^)(id (^)(void)))headerModelHandler {
-    return ^id(id obj) {
-        self.section.headerModelHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker * (^)(id (^)(void)))footerModelHandler {
-    return ^id(id obj) {
-        self.section.footerModelHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker * (^)(NSString * (^)(id)))headerReuseIdHandler {
-    return ^id(id obj) {
-        self.section.headerReuseIdHandler = obj;
-        return self;
-    };
-}
-
 - (HoloTableSectionMaker * (^)(NSString * (^)(id)))footerReuseIdHandler {
     return ^id(id obj) {
         self.section.footerReuseIdHandler = obj;
@@ -145,63 +57,58 @@
     };
 }
 
-- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))headerHeightHandler {
+- (HoloTableSectionMaker *(^)(NSString *))headerTitle {
     return ^id(id obj) {
-        self.section.headerHeightHandler = obj;
+        self.section.headerTitle = obj;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(NSString * (^)(void)))headerTitleHandler {
+    return ^id(id obj) {
+        self.section.headerTitleHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))footerHeightHandler {
+- (HoloTableSectionMaker *(^)(NSString *))footerTitle {
     return ^id(id obj) {
-        self.section.footerHeightHandler = obj;
+        self.section.footerTitle = obj;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(NSString * (^)(void)))footerTitleHandler {
+    return ^id(id obj) {
+        self.section.footerTitleHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))headerEstimatedHeightHandler {
+- (HoloTableSectionMaker * (^)(id))headerModel {
     return ^id(id obj) {
-        self.section.headerEstimatedHeightHandler = obj;
+        self.section.headerModel = obj;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(id (^)(void)))headerModelHandler {
+    return ^id(id obj) {
+        self.section.headerModelHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))footerEstimatedHeightHandler {
+- (HoloTableSectionMaker * (^)(id))footerModel {
     return ^id(id obj) {
-        self.section.footerEstimatedHeightHandler = obj;
+        self.section.footerModel = obj;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(id (^)(void)))footerModelHandler {
+    return ^id(id obj) {
+        self.section.footerModelHandler = obj;
         return self;
     };
 }
 
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayHeaderHandler {
-    return ^id(id obj) {
-        self.section.willDisplayHeaderHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayFooterHandler {
-    return ^id(id obj) {
-        self.section.willDisplayFooterHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingHeaderHandler {
-    return ^id(id obj) {
-        self.section.didEndDisplayingHeaderHandler = obj;
-        return self;
-    };
-}
-
-- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingFooterHandler {
-    return ^id(id obj) {
-        self.section.didEndDisplayingFooterHandler = obj;
-        return self;
-    };
-}
-
-#pragma mark - priority high
 - (HoloTableSectionMaker *(^)(SEL))headerConfigSEL {
     return ^id(SEL s) {
         self.section.headerConfigSEL = s;
@@ -216,6 +123,18 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(CGFloat))headerHeight {
+    return ^id(CGFloat f) {
+        self.section.headerHeight = f;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))headerHeightHandler {
+    return ^id(id obj) {
+        self.section.headerHeightHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))headerHeightSEL {
     return ^id(SEL s) {
         self.section.headerHeightSEL = s;
@@ -223,6 +142,18 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(CGFloat))footerHeight {
+    return ^id(CGFloat f) {
+        self.section.footerHeight = f;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))footerHeightHandler {
+    return ^id(id obj) {
+        self.section.footerHeightHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))footerHeightSEL {
     return ^id(SEL s) {
         self.section.footerHeightSEL = s;
@@ -230,6 +161,18 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(CGFloat))headerEstimatedHeight {
+    return ^id(CGFloat f) {
+        self.section.headerEstimatedHeight = f;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))headerEstimatedHeightHandler {
+    return ^id(id obj) {
+        self.section.headerEstimatedHeightHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))headerEstimatedHeightSEL {
     return ^id(SEL s) {
         self.section.headerEstimatedHeightSEL = s;
@@ -237,6 +180,18 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(CGFloat))footerEstimatedHeight {
+    return ^id(CGFloat f) {
+        self.section.footerEstimatedHeight = f;
+        return self;
+    };
+}
+- (HoloTableSectionMaker * (^)(CGFloat (^)(id)))footerEstimatedHeightHandler {
+    return ^id(id obj) {
+        self.section.footerEstimatedHeightHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))footerEstimatedHeightSEL {
     return ^id(SEL s) {
         self.section.footerEstimatedHeightSEL = s;
@@ -244,6 +199,12 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayHeaderHandler {
+    return ^id(id obj) {
+        self.section.willDisplayHeaderHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))willDisplayHeaderSEL {
     return ^id(SEL s) {
         self.section.willDisplayHeaderSEL = s;
@@ -251,6 +212,12 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))willDisplayFooterHandler {
+    return ^id(id obj) {
+        self.section.willDisplayFooterHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))willDisplayFooterSEL {
     return ^id(SEL s) {
         self.section.willDisplayFooterSEL = s;
@@ -258,6 +225,12 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingHeaderHandler {
+    return ^id(id obj) {
+        self.section.didEndDisplayingHeaderHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))didEndDisplayingHeaderSEL {
     return ^id(SEL s) {
         self.section.didEndDisplayingHeaderSEL = s;
@@ -265,6 +238,12 @@
     };
 }
 
+- (HoloTableSectionMaker *(^)(void (^)(UIView *, id)))didEndDisplayingFooterHandler {
+    return ^id(id obj) {
+        self.section.didEndDisplayingFooterHandler = obj;
+        return self;
+    };
+}
 - (HoloTableSectionMaker *(^)(SEL))didEndDisplayingFooterSEL {
     return ^id(SEL s) {
         self.section.didEndDisplayingFooterSEL = s;
