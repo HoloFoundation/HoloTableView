@@ -116,8 +116,7 @@
 #pragma mark - Protocol
 
 - (void)makeSectionListByProtocol {
-    // Create your own section class confirms to protocol: HoloTableSectionProtocol
-    // Create your own row class confirms to protocol: HoloTableRowProtocol
+    // You can also reload a table view by creating your own section class confirms to protocol HoloTableSectionProtocol and row class confirms to protocol HoloTableRowProtocol.
 }
 
 
