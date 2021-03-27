@@ -58,7 +58,7 @@
 - (void)insertRow:(id<HoloTableRowProtocol>)row atIndex:(NSInteger)index {
     if (!row) return;
     if (index < 0) index = 0;
-    if (index > self.rows.count) index = self.rows.count;
+    if (index > self.mutableRows.count) index = self.mutableRows.count;
     [self.mutableRows insertObject:row atIndex:index];
 }
 
