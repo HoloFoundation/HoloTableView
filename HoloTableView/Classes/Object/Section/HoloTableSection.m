@@ -7,12 +7,17 @@
 
 #import "HoloTableSection.h"
 
+@interface HoloTableSection ()
+
+@property (nonatomic, strong) NSMutableArray<HoloTableRowProtocol> *mutableRows;
+
+@end
+
 @implementation HoloTableSection
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _rows = [NSArray<HoloTableRowProtocol> new];
         _headerHeight = CGFLOAT_MIN;
         _footerHeight = CGFLOAT_MIN;
         _headerEstimatedHeight = CGFLOAT_MIN;
@@ -38,33 +43,36 @@
 
 - (void)addRow:(id<HoloTableRowProtocol>)row {
     if (!row) return;
-    
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array addObject:row];
-    self.rows = array.copy;
+    [self.mutableRows addObject:row];
 }
 
 - (void)removeRow:(id<HoloTableRowProtocol>)row {
     if (!row) return;
-    
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array removeObject:row];
-    self.rows = array.copy;
+    [self.mutableRows removeObject:row];
 }
 
 - (void)removeAllRows {
-    self.rows = [NSArray<HoloTableRowProtocol> new];
+    [self.mutableRows removeAllObjects];
 }
 
 - (void)insertRow:(id<HoloTableRowProtocol>)row atIndex:(NSInteger)index {
     if (!row) return;
-    
     if (index < 0) index = 0;
     if (index > self.rows.count) index = self.rows.count;
-    
-    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array insertObject:row atIndex:index];
-    self.rows = array.copy;
+    [self.mutableRows insertObject:row atIndex:index];
+}
+
+#pragma mark - getter
+
+- (NSArray<HoloTableRowProtocol> *)rows {
+    return self.mutableRows;
+}
+
+- (NSMutableArray<HoloTableRowProtocol> *)mutableRows {
+    if (!_mutableRows) {
+        _mutableRows = [NSMutableArray<HoloTableRowProtocol> new];
+    }
+    return _mutableRows;
 }
 
 @end

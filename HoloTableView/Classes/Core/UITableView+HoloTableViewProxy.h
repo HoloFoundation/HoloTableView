@@ -38,24 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, copy) NSArray<HoloTableSectionProtocol> *holo_sections;
 
-/**
- *  Add a section to datasource of current UITableView.
- */
-- (void)holo_addSection:(id<HoloTableSectionProtocol>)section;
-
-/**
- *  Reomve a section from datasource of current UITableView.
- */
-- (void)holo_removeSection:(id<HoloTableSectionProtocol>)section;
-
-// You can find this method in UITableView+HoloTableView.h
-//- (void)holo_removeAllSections;
-
-/**
- *  Insert a section to datasource of current UITableView somewhere.
- */
-- (void)holo_insertSection:(id<HoloTableSectionProtocol>)section atIndex:(NSInteger)index;
-
 @end
 
 NS_ASSUME_NONNULL_END
