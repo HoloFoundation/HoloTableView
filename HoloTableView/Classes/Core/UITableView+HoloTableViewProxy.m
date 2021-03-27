@@ -14,29 +14,12 @@ static char kHoloTableViewProxyKey;
 
 @implementation UITableView (HoloTableViewProxy)
 
-- (HoloTableViewProxy *)holo_proxy {
-    HoloTableViewProxy *tableViewProxy = objc_getAssociatedObject(self, &kHoloTableViewProxyKey);
-    if (!tableViewProxy) {
-        tableViewProxy = [HoloTableViewProxy new];
-        objc_setAssociatedObject(self, &kHoloTableViewProxyKey, tableViewProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        self.dataSource = tableViewProxy;
-        self.delegate = tableViewProxy;
-    }
-    return tableViewProxy;
+- (NSArray<HoloTableSectionProtocol> *)holo_sections {
+    return self.holo_proxy.proxyData.sections;
 }
 
-- (void)setHolo_proxy:(HoloTableViewProxy * _Nonnull)tableViewProxy {
-    objc_setAssociatedObject(self, &kHoloTableViewProxyKey, tableViewProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    self.dataSource = tableViewProxy;
-    self.delegate = tableViewProxy;
-}
-
-- (id<UIScrollViewDelegate>)holo_scrollDelegate {
-    return self.holo_proxy.scrollDelegate;
-}
-
-- (void)setHolo_scrollDelegate:(id<UIScrollViewDelegate>)holo_scrollDelegate {
-    self.holo_proxy.scrollDelegate = holo_scrollDelegate;
+- (void)setHolo_sections:(NSArray<HoloTableSectionProtocol> *)holo_sections {
+    self.holo_proxy.proxyData.sections = holo_sections;
 }
 
 - (NSArray<NSString *> *)holo_sectionIndexTitles {
@@ -55,12 +38,29 @@ static char kHoloTableViewProxyKey;
     self.holo_proxy.proxyData.sectionForSectionIndexTitleHandler = holo_sectionForSectionIndexTitleHandler;
 }
 
-- (NSArray<HoloTableSectionProtocol> *)holo_sections {
-    return self.holo_proxy.proxyData.sections;
+- (id<UIScrollViewDelegate>)holo_scrollDelegate {
+    return self.holo_proxy.scrollDelegate;
 }
 
-- (void)setHolo_sections:(NSArray<HoloTableSectionProtocol> *)holo_sections {
-    self.holo_proxy.proxyData.sections = holo_sections;
+- (void)setHolo_scrollDelegate:(id<UIScrollViewDelegate>)holo_scrollDelegate {
+    self.holo_proxy.scrollDelegate = holo_scrollDelegate;
+}
+
+- (HoloTableViewProxy *)holo_proxy {
+    HoloTableViewProxy *tableViewProxy = objc_getAssociatedObject(self, &kHoloTableViewProxyKey);
+    if (!tableViewProxy) {
+        tableViewProxy = [HoloTableViewProxy new];
+        objc_setAssociatedObject(self, &kHoloTableViewProxyKey, tableViewProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        self.dataSource = tableViewProxy;
+        self.delegate = tableViewProxy;
+    }
+    return tableViewProxy;
+}
+
+- (void)setHolo_proxy:(HoloTableViewProxy * _Nonnull)tableViewProxy {
+    objc_setAssociatedObject(self, &kHoloTableViewProxyKey, tableViewProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.dataSource = tableViewProxy;
+    self.delegate = tableViewProxy;
 }
 
 @end

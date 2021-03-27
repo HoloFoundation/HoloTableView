@@ -14,14 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UITableView (HoloTableViewProxy)
 
 /**
- *  Proxy of current UITableView.
+ *  Datasource of current UITableView.
  */
-@property (nonatomic, strong) HoloTableViewProxy *holo_proxy;
-
-/**
- *  The delegate of the scroll-view object.
- */
-@property (nonatomic, weak, nullable) id<UIScrollViewDelegate> holo_scrollDelegate;
+@property (nonatomic, copy) NSArray<HoloTableSectionProtocol> *holo_sections;
 
 /**
  *  Return list of section titles to display in section index view (e.g. "ABCD...Z#").
@@ -34,9 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSInteger (^holo_sectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
 /**
- *  Current UITableView datasource.
+ *  The delegate of the scroll-view object.
  */
-@property (nonatomic, copy) NSArray<HoloTableSectionProtocol> *holo_sections;
+@property (nonatomic, weak, nullable) id<UIScrollViewDelegate> holo_scrollDelegate;
+
+/**
+ *  Proxy of current UITableView.
+ */
+@property (nonatomic, strong) HoloTableViewProxy *holo_proxy;
 
 @end
 

@@ -13,8 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableViewProxy : NSObject <UITableViewDataSource, UITableViewDelegate>
 
+/**
+ *  Proxy data.
+ */
 @property (nonatomic, strong) HoloTableViewProxyData *proxyData;
 
+/**
+ *  The delegate of the scroll-view object.
+ */
 @property (nonatomic, weak, nullable) id<UIScrollViewDelegate> scrollDelegate;
 
 @property (nonatomic, weak, nullable) id<HoloTableViewDataSource> dataSource;
