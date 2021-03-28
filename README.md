@@ -294,32 +294,6 @@ self.tableView.holo_sections = @[section];
 [self.tableView reloadData];
 ```
 
-### 7. You can also reload a table view by creating your own section class confirms to protocol `HoloTableSectionProtocol` and row class confirms to protocol `HoloTableRowProtocol`
-
-```objc
-SomeSection<HoloTableSectionProtocol> *section = [SomeSection new];
-section.tag = TAG;
-
-section.header = ExampleHeaderView.class;
-section.headerModel = @{@"title":@"header"};
-
-section.footer = ExampleFooterView.class;
-section.footerModel = @{@"title":@"footer"};
-section.footerHeight = 100;
-
-NSMutableArray *rows = [NSMutableArray new];
-for (NSDictionary *dict in self.modelArray) {
-    SomeRow<HoloTableRowProtocol> *row = [SomeRow new];
-    row.cell = ExampleTableViewCell.class;
-    row.model = dict;
-    [rows addObject:row];
-}
-section.rows = rows;
-
-self.tableView.holo_sections = @[section];
-[self.tableView reloadData];
-```
-
 
 ## Installation
 

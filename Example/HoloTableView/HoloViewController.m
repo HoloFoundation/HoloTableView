@@ -113,13 +113,6 @@
 }
 
 
-#pragma mark - Protocol
-
-- (void)makeSectionListByProtocol {
-    // You can also reload a table view by creating your own section class confirms to protocol HoloTableSectionProtocol and row class confirms to protocol HoloTableRowProtocol.
-}
-
-
 #pragma mark - buttonAction
 
 - (void)_addButtonAction:(UIButton *)sender {

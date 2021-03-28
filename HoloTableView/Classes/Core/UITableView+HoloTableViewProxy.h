@@ -6,8 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HoloTableSectionProtocol.h"
-@class HoloTableViewProxy;
+@class HoloTableSection, HoloTableViewProxy;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Datasource of current UITableView.
  */
-@property (nonatomic, copy) NSArray<id<HoloTableSectionProtocol>> *holo_sections;
+@property (nonatomic, copy) NSArray<HoloTableSection *> *holo_sections;
 
 /**
  *  Return list of section titles to display in section index view (e.g. "ABCD...Z#").

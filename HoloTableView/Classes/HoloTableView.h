@@ -25,24 +25,22 @@
 // Maker (Update)
 #import <HoloTableView/HoloTableViewUpdateRowMaker.h>
 
-// Object
-#import <HoloTableView/HoloTableRow.h>
-#import <HoloTableView/HoloTableSection.h>
-
-// Object (Protocol)
-#import <HoloTableView/HoloTableViewCellProtocol.h>
-#import <HoloTableView/HoloTableViewHeaderProtocol.h>
-#import <HoloTableView/HoloTableViewFooterProtocol.h>
-
 // Core
 #import <HoloTableView/HoloTableViewProtocol.h>
-#import <HoloTableView/HoloTableRowProtocol.h>
-#import <HoloTableView/HoloTableSectionProtocol.h>
 #import <HoloTableView/HoloTableViewProxy.h>
 #import <HoloTableView/HoloTableViewProxyData.h>
 #import <HoloTableView/UITableView+HoloTableViewProxy.h>
 
-// Core (Swipe)
+// Core (Object)
+#import <HoloTableView/HoloTableRow.h>
+#import <HoloTableView/HoloTableSection.h>
+
+// Core (Protocol)
+#import <HoloTableView/HoloTableViewCellProtocol.h>
+#import <HoloTableView/HoloTableViewHeaderProtocol.h>
+#import <HoloTableView/HoloTableViewFooterProtocol.h>
+
+// Core (SwipeAction)
 #import <HoloTableView/HoloTableViewRowSwipeAction.h>
 
 // Macro

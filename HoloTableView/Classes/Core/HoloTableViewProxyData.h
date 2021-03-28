@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HoloTableSectionProtocol.h"
+@class HoloTableSection;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Datasource of current UITableView.
  */
-@property (nonatomic, copy) NSArray<id<HoloTableSectionProtocol>> *sections;
+@property (nonatomic, copy) NSArray<HoloTableSection *> *sections;
 
 /**
  *  Return list of section titles to display in section index view (e.g. "ABCD...Z#").

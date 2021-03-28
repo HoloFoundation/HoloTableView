@@ -507,7 +507,7 @@
 
 - (NSIndexSet *)_holo_removeAllSection {
     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.holo_proxy.proxyData.sections.count)];
-    self.holo_proxy.proxyData.sections = [NSArray<id<HoloTableSectionProtocol>> new];
+    self.holo_proxy.proxyData.sections = [NSArray new];
     return indexSet;
 }
 

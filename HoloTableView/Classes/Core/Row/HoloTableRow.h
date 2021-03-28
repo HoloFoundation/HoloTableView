@@ -1,8 +1,8 @@
 //
-//  HoloTableRowProtocol.h
+//  HoloTableRow.h
 //  HoloTableView
 //
-//  Created by 与佳期 on 2021/3/23.
+//  Created by 与佳期 on 2020/6/1.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,17 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol HoloTableRowProtocol <NSObject>
-
-@required
+@interface HoloTableRow : NSObject
 
 /**
  *  Cell class.
  */
 @property (nonatomic, assign) Class cell;
-
-
-@optional
 
 /**
  *  Set the data for the cell using the `model` property.
@@ -34,15 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  * The cell must implement the `configSEL` property setting method in order for the HoloTableView to pass the model for the cell.
  */
 @property (nonatomic, assign) SEL configSEL;
-
-/**
- *  Performed before `configSEL`.
- */
 @property (nonatomic, copy, nullable) void (^beforeConfigureHandler)(UITableViewCell *cell, id _Nullable model);
-
-/**
- *  Performed after `configSEL`.
- */
 @property (nonatomic, copy, nullable) void (^afterConfigureHandler)(UITableViewCell *cell, id _Nullable model);
 
 
