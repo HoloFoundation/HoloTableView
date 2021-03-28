@@ -26,10 +26,6 @@
         _headerEstimatedHeightSEL       = @selector(holo_estimatedHeightForHeaderWithModel:);
         _footerEstimatedHeightSEL       = @selector(holo_estimatedHeightForFooterWithModel:);
         
-        _headerFooterConfigSEL          = @selector(holo_configureHeaderFooterWithModel:);
-        _headerFooterHeightSEL          = @selector(holo_heightForHeaderFooterWithModel:);
-        _headerFooterEstimatedHeightSEL = @selector(holo_estimatedHeightForHeaderFooterWithModel:);
-        
         _willDisplayHeaderSEL           = @selector(holo_willDisplayHeaderWithModel:);
         _willDisplayFooterSEL           = @selector(holo_willDisplayFooterWithModel:);
         _didEndDisplayingHeaderSEL      = @selector(holo_didEndDisplayingHeaderWithModel:);
@@ -39,17 +35,13 @@
     return self;
 }
 
-- (NSIndexSet *)insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
-    if (rows.count <= 0) return [NSIndexSet new];
+
+- (void)addRow:(HoloTableRow *)row {
+    if (!row) return;
     
-    if (index < 0) index = 0;
-    if (index > self.rows.count) index = self.rows.count;
-    
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, rows.count)];
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
-    [array insertObjects:rows atIndexes:indexSet];
-    self.rows = array;
-    return indexSet;
+    [array addObject:row];
+    self.rows = array.copy;
 }
 
 - (void)removeRow:(HoloTableRow *)row {
@@ -57,11 +49,22 @@
     
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
     [array removeObject:row];
-    self.rows = array;
+    self.rows = array.copy;
 }
 
 - (void)removeAllRows {
     self.rows = [NSArray new];
+}
+
+- (void)insertRow:(HoloTableRow *)row atIndex:(NSInteger)index {
+    if (!row) return;
+    
+    if (index < 0) index = 0;
+    if (index > self.rows.count) index = self.rows.count;
+    
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.rows];
+    [array insertObject:row atIndex:index];
+    self.rows = array.copy;
 }
 
 @end

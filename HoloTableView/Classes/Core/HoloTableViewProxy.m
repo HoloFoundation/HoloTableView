@@ -7,31 +7,16 @@
 
 #import "HoloTableViewProxy.h"
 #import "HoloTableViewProxyData.h"
-#import "HoloTableRow.h"
-#import "HoloTableViewRowMaker.h"
-#import "HoloTableSection.h"
-#import "HoloTableViewSectionMaker.h"
 #import "HoloTableViewRowSwipeAction.h"
-
-@interface HoloTableViewProxy ()
-
-@property (nonatomic, copy, readonly) NSArray<HoloTableSection *> *holoSections;
-
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoRowsMap;
-
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoHeadersMap;
-
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, Class> *holoFootersMap;
-
-@end
+#import "HoloTableRow.h"
+#import "HoloTableSection.h"
 
 @implementation HoloTableViewProxy
 
-
 static HoloTableSection *HoloTableSectionWithIndex(HoloTableViewProxy *holoProxy, NSInteger section) {
-    if (section >= holoProxy.holoSections.count) return nil;
+    if (section >= holoProxy.proxyData.sections.count) return nil;
     
-    HoloTableSection *holoSection = holoProxy.holoSections[section];
+    HoloTableSection *holoSection = holoProxy.proxyData.sections[section];
     return holoSection;
 }
 
@@ -156,13 +141,31 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
 }
 
+static void HoloTableSectionRemoveRow(HoloTableSection *holoSection, HoloTableRow *holoRow) {
+    NSMutableArray *array = [NSMutableArray arrayWithArray:holoSection.rows];
+    [array removeObject:holoRow];
+    holoSection.rows = array.copy;
+}
+
+static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSArray<HoloTableRow *> *holoRows, NSInteger index) {
+    if (holoRows.count <= 0) return;
+
+    if (index < 0) index = 0;
+    if (index > holoSection.rows.count) index = holoSection.rows.count;
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, holoRows.count)];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:holoSection.rows];
+    [array insertObjects:holoRows atIndexes:indexSet];
+    holoSection.rows = array.copy;
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ([self.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
         return [self.dataSource numberOfSectionsInTableView:tableView];
     }
     
-    return self.holoSections.count;
+    return self.proxyData.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -183,11 +186,11 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     
     if (holoRow.modelHandler) holoRow.model = holoRow.modelHandler();
     if (holoRow.reuseIdHandler) holoRow.reuseId = holoRow.reuseIdHandler(holoRow.model);
-    if (!holoRow.reuseId) holoRow.reuseId = holoRow.cell;
+    if (!holoRow.reuseId) holoRow.reuseId = NSStringFromClass(holoRow.cell);
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.reuseId];
     if (!cell) {
-        Class cls = self.holoRowsMap[holoRow.cell];
+        Class cls = holoRow.cell;
         if (!cls) cls = UITableViewCell.class;
         if (holoRow.styleHandler) holoRow.style = holoRow.styleHandler(holoRow.model);
         cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.reuseId];
@@ -253,7 +256,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
      [Assert] Attempted to call -cellForRowAtIndexPath: on the table view while it was in the process of updating its visible cells, which is not allowed. Make a symbolic breakpoint at UITableViewAlertForCellForRowAtIndexPathAccessDuringUpdate to catch this in the debugger and see what caused this to occur. Perhaps you are trying to ask the table view for a cell from inside a table view callback about a specific row? Table view: <UITableView: 0x7fdce984f800; frame = (0 100; 375 712); clipsToBounds = YES; gestureRecognizers = <NSArray: 0x60000034cae0>; layer = <CALayer: 0x600000d68200>; contentOffset: {0, 0}; contentSize: {375, 3020}; adjustedContentInset: {0, 0, 34, 0}; dataSource: <HoloTableViewProxy: 0x60000034daa0>>
      
      TO:
-     Class cls = self.holoRowsMap[holoRow.cell];
+     Class cls = holoRow.cell;
      [cls respondsToSelector:sel];
      */
     return HoloProxyBOOLResult(holoRow.canEditHandler, holoRow.model, holoRow.canEdit);
@@ -270,10 +273,10 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (holoRow.editingDeleteHandler) {
             holoRow.editingDeleteHandler(holoRow.model, ^(BOOL actionPerformed) {
-                if (actionPerformed && self.holoSections.count > indexPath.section) {
+                if (actionPerformed && self.proxyData.sections.count > indexPath.section) {
                     // must remove the data before deleting the cell
-                    HoloTableSection *holoSection = self.holoSections[indexPath.section];
-                    [holoSection removeRow:holoRow];
+                    HoloTableSection *holoSection = self.proxyData.sections[indexPath.section];
+                    HoloTableSectionRemoveRow(holoSection, holoRow);
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
             });
@@ -302,10 +305,10 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     HoloTableRow *sourceRow = HoloTableRowWithIndexPath(self, sourceIndexPath);
     if (sourceRow.moveHandler) {
         sourceRow.moveHandler(sourceIndexPath, destinationIndexPath, ^(BOOL actionPerformed) {
-            if (actionPerformed && self.holoSections.count > destinationIndexPath.section) {
-                HoloTableSection *destinationSection = self.holoSections[destinationIndexPath.section];
-                [sourceSection removeRow:sourceRow];
-                [destinationSection insertRows:@[sourceRow] atIndex:destinationIndexPath.row];
+            if (actionPerformed && self.proxyData.sections.count > destinationIndexPath.section) {
+                HoloTableSection *destinationSection = self.proxyData.sections[destinationIndexPath.section];
+                HoloTableSectionRemoveRow(sourceSection, sourceRow);
+                HoloTableSectionInsertRowsAtIndex(destinationSection, @[sourceRow], destinationIndexPath.row);
             }
         });
     }
@@ -322,7 +325,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
     
     HoloTableRow *holoRow = HoloTableRowWithIndexPath(self, indexPath);
-    Class cls = self.holoRowsMap[holoRow.cell];
+    Class cls = holoRow.cell;
     return HoloProxyFloatResult(cls, holoRow.heightSEL, holoRow.heightHandler, holoRow.model, holoRow.height);
 }
 
@@ -333,7 +336,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else {
         HoloTableRow *holoRow = HoloTableRowWithIndexPath(self, indexPath);
         
-        Class cls = self.holoRowsMap[holoRow.cell];
+        Class cls = holoRow.cell;
         if (holoRow.estimatedHeightSEL && [cls respondsToSelector:holoRow.estimatedHeightSEL]) {
             height = HoloProxyMethodSignatureFloatResult(cls, holoRow.estimatedHeightSEL, holoRow.model);
         } else if (holoRow.estimatedHeightHandler) {
@@ -463,11 +466,11 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     if (holoSection.header) {
         if (holoSection.headerModelHandler) holoSection.headerModel = holoSection.headerModelHandler();
         if (holoSection.headerReuseIdHandler) holoSection.headerReuseId = holoSection.headerReuseIdHandler(holoSection.headerModel);
-        if (!holoSection.headerReuseId) holoSection.headerReuseId = holoSection.header;
+        if (!holoSection.headerReuseId) holoSection.headerReuseId = NSStringFromClass(holoSection.header);
         
         UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.headerReuseId];
         if (!holoHeaderView) {
-            Class cls = self.holoHeadersMap[holoSection.header];
+            Class cls = holoSection.header;
             if (!cls) cls = UITableViewHeaderFooterView.class;
             holoHeaderView = [[cls alloc] initWithReuseIdentifier:holoSection.headerReuseId];
         }
@@ -476,11 +479,6 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [holoHeaderView performSelector:holoSection.headerConfigSEL withObject:holoSection.headerModel];
-#pragma clang diagnostic pop
-        } else if (holoSection.headerFooterConfigSEL && [holoHeaderView respondsToSelector:holoSection.headerFooterConfigSEL]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [holoHeaderView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.headerModel];
 #pragma clang diagnostic pop
         }
         return holoHeaderView;
@@ -494,9 +492,15 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else {
         headerTitle = holoSection.headerTitle;
     }
-    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
-    headerView.textLabel.text = headerTitle;
-    return headerView;
+    if (headerTitle) {
+        UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        if (!headerView) {
+            headerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        }
+        headerView.textLabel.text = headerTitle;
+        return headerView;
+    }
+    return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -508,11 +512,11 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     if (holoSection.footer) {
         if (holoSection.footerModelHandler) holoSection.footerModel = holoSection.footerModelHandler();
         if (holoSection.footerReuseIdHandler) holoSection.footerReuseId = holoSection.footerReuseIdHandler(holoSection.footerModel);
-        if (!holoSection.footerReuseId) holoSection.footerReuseId = holoSection.footer;
+        if (!holoSection.footerReuseId) holoSection.footerReuseId = NSStringFromClass(holoSection.footer);
         
         UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footerReuseId];
         if (!holoFooterView) {
-            Class cls = self.holoFootersMap[holoSection.footer];
+            Class cls = holoSection.footer;
             if (!cls) cls = UITableViewHeaderFooterView.class;
             holoFooterView = [[cls alloc] initWithReuseIdentifier:holoSection.footerReuseId];
         }
@@ -521,11 +525,6 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [holoFooterView performSelector:holoSection.footerConfigSEL withObject:holoSection.footerModel];
-#pragma clang diagnostic pop
-        } else if (holoSection.headerFooterConfigSEL && [holoFooterView respondsToSelector:holoSection.headerFooterConfigSEL]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [holoFooterView performSelector:holoSection.headerFooterConfigSEL withObject:holoSection.footerModel];
 #pragma clang diagnostic pop
         }
         return holoFooterView;
@@ -539,9 +538,15 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     } else {
         footerTitle = holoSection.footerTitle;
     }
-    UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
-    footerView.textLabel.text = footerTitle;
-    return footerView;
+    if (footerTitle) {
+        UITableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        if (!footerView) {
+            footerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:NSStringFromClass(UITableViewHeaderFooterView.class)];
+        }
+        footerView.textLabel.text = footerTitle;
+        return footerView;
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -551,11 +556,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
     if (!holoSection) return CGFLOAT_MIN;
-    Class header = self.holoHeadersMap[holoSection.header];
+    Class header = holoSection.header;
     if (holoSection.headerHeightSEL && [header respondsToSelector:holoSection.headerHeightSEL]) {
         return HoloProxyMethodSignatureFloatResult(header, holoSection.headerHeightSEL, holoSection.headerModel);
-    } else if (holoSection.headerFooterHeightSEL && [header respondsToSelector:holoSection.headerFooterHeightSEL]) {
-        return HoloProxyMethodSignatureFloatResult(header, holoSection.headerFooterHeightSEL, holoSection.headerModel);
     } else if (holoSection.headerHeightHandler) {
         return holoSection.headerHeightHandler(holoSection.headerModel);
     }
@@ -574,11 +577,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     
     HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
     if (!holoSection) return CGFLOAT_MIN;
-    Class footer = self.holoFootersMap[holoSection.footer];
+    Class footer = holoSection.footer;
     if (holoSection.footerHeightSEL && [footer respondsToSelector:holoSection.footerHeightSEL]) {
         return HoloProxyMethodSignatureFloatResult(footer, holoSection.footerHeightSEL, holoSection.footerModel);
-    } else if (holoSection.headerFooterHeightSEL && [footer respondsToSelector:holoSection.headerFooterHeightSEL]) {
-        return HoloProxyMethodSignatureFloatResult(footer, holoSection.headerFooterHeightSEL, holoSection.footerModel);
     } else if (holoSection.footerHeightHandler) {
         return holoSection.footerHeightHandler(holoSection.footerModel);
     }
@@ -595,11 +596,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         height = [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
     } else {
         HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
-        Class header = self.holoHeadersMap[holoSection.header];
+        Class header = holoSection.header;
         if (holoSection.headerEstimatedHeightSEL && [header respondsToSelector:holoSection.headerEstimatedHeightSEL]) {
             height = HoloProxyMethodSignatureFloatResult(header, holoSection.headerEstimatedHeightSEL, holoSection.headerModel);
-        } else if (holoSection.headerFooterEstimatedHeightSEL && [header respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
-            height = HoloProxyMethodSignatureFloatResult(header, holoSection.headerFooterEstimatedHeightSEL, holoSection.headerModel);
         } else if (holoSection.headerEstimatedHeightHandler) {
             height = holoSection.headerEstimatedHeightHandler(holoSection.headerModel);
         } else if (holoSection.headerEstimatedHeight == CGFLOAT_MIN) {
@@ -625,11 +624,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         height = [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
     } else {
         HoloTableSection *holoSection = HoloTableSectionWithIndex(self, section);
-        Class footer = self.holoFootersMap[holoSection.footer];
+        Class footer = holoSection.footer;
         if (holoSection.footerEstimatedHeightSEL && [footer respondsToSelector:holoSection.footerEstimatedHeightSEL]) {
             height = HoloProxyMethodSignatureFloatResult(footer, holoSection.footerEstimatedHeightSEL, holoSection.footerModel);
-        } else if (holoSection.headerFooterEstimatedHeightSEL && [footer respondsToSelector:holoSection.headerFooterEstimatedHeightSEL]) {
-            height = HoloProxyMethodSignatureFloatResult(footer, holoSection.headerFooterEstimatedHeightSEL, holoSection.footerModel);
         } else if (holoSection.footerEstimatedHeightHandler) {
             height = holoSection.footerEstimatedHeightHandler(holoSection.footerModel);
         }  else if (holoSection.footerEstimatedHeight == CGFLOAT_MIN) {
@@ -736,7 +733,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
                 swipeAction.handler(swipeAction, index, ^(BOOL actionPerformed) {
                     if (swipeAction.style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
                         // must remove the data before deleting the cell
-                        [holoSection removeRow:holoRow];
+                        HoloTableSectionRemoveRow(holoSection, holoRow);
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -745,7 +742,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
                 holoRow.trailingSwipeHandler(swipeAction, index, ^(BOOL actionPerformed) {
                     if (swipeAction.style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
                         // must remove the data before deleting the cell
-                        [holoSection removeRow:holoRow];
+                        HoloTableSectionRemoveRow(holoSection, holoRow);
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -800,7 +797,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
                 swipeAction.handler(swipeAction, index, ^(BOOL actionPerformed) {
                     completionHandler(actionPerformed);
                     if (swipeAction.style == UIContextualActionStyleDestructive && actionPerformed) {
-                        [holoSection removeRow:holoRow];
+                        HoloTableSectionRemoveRow(holoSection, holoRow);
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -809,7 +806,7 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
                 swipeHandler(swipeAction, index, ^(BOOL actionPerformed) {
                     completionHandler(actionPerformed);
                     if (swipeAction.style == UIContextualActionStyleDestructive && actionPerformed) {
-                        [holoSection removeRow:holoRow];
+                        HoloTableSectionRemoveRow(holoSection, holoRow);
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -1034,22 +1031,6 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         _proxyData = [HoloTableViewProxyData new];
     }
     return _proxyData;
-}
-
-- (NSArray<HoloTableSection *> *)holoSections {
-    return self.proxyData.sections;
-}
-
-- (NSDictionary<NSString *, Class> *)holoRowsMap {
-    return self.proxyData.rowsMap;
-}
-
-- (NSDictionary<NSString *,Class> *)holoHeadersMap {
-    return self.proxyData.headersMap;
-}
-
-- (NSDictionary<NSString *,Class> *)holoFootersMap {
-    return self.proxyData.footersMap;
 }
 
 @end

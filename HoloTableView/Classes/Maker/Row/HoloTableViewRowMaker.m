@@ -21,18 +21,7 @@
     return ^id(Class cls) {
         HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
         HoloTableRow *tableRow = [rowMaker fetchTableRow];
-        tableRow.cell = NSStringFromClass(cls);
-        
-        [self.holoRows addObject:tableRow];
-        return rowMaker;
-    };
-}
-
-- (HoloTableRowMaker *(^)(NSString *))rowS {
-    return ^id(id obj) {
-        HoloTableRowMaker *rowMaker = [HoloTableRowMaker new];
-        HoloTableRow *tableRow = [rowMaker fetchTableRow];
-        tableRow.cell = obj;
+        tableRow.cell = cls;
         
         [self.holoRows addObject:tableRow];
         return rowMaker;

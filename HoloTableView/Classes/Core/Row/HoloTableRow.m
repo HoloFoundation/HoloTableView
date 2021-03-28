@@ -16,6 +16,9 @@
         _estimatedHeight = CGFLOAT_MIN;
         _shouldHighlight = YES;
         _style = UITableViewCellStyleDefault;
+        _canEdit = NO;
+        _canMove = NO;
+        _editingStyle = UITableViewCellEditingStyleNone;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         _configSEL                  = @selector(holo_configureCellWithModel:);
@@ -37,9 +40,6 @@
         // support set a delegate for cell
         _delegateSEL                = @selector(holo_configureCellDelegate:);
 #pragma clang diagnostic pop
-        _canEdit = NO;
-        _canMove = NO;
-        _editingStyle = UITableViewCellEditingStyleNone;
     }
     
     return self;
