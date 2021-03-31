@@ -29,7 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
  * The cell must implement the `configSEL` property setting method in order for the HoloTableView to pass the model for the cell.
  */
 @property (nonatomic, assign) SEL configSEL;
+
+/**
+ *  Performed before `configSEL`.
+ */
 @property (nonatomic, copy, nullable) void (^beforeConfigureHandler)(UITableViewCell *cell, id _Nullable model);
+
+/**
+ *  Performed after `configSEL`.
+ */
 @property (nonatomic, copy, nullable) void (^afterConfigureHandler)(UITableViewCell *cell, id _Nullable model);
 
 
@@ -75,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) SEL estimatedHeightSEL;
 
 /**
- *  Set the should highlight or not for the cell using the `estimatedHeight` property.
+ *  Set the should highlight or not for the cell using the `shouldHighlight` property.
  *
  *  If the `shouldHighlightSEL` property is nil or the cell don't implement the `shouldHighlightSEL` property setting method, then use the `shouldHighlightHandler` property.
  *  If the `shouldHighlightHandler` property is nil, then use the `shouldHighlight` property.
@@ -167,20 +175,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) SEL willDeselectSEL;
 
 /**
- *  If the cell did deselect, the `didDeselectHandler` will be called.
- *
- *  If the `didDeselectSEL` property is nil or the cell don't implement the `didDeselectSEL` property setting method, then use the `didDeselectHandler` property.
- */
-@property (nonatomic, copy, nullable) void (^didDeselectHandler)(id _Nullable model);
-@property (nonatomic, assign) SEL didDeselectSEL;
-
-/**
  *  If the cell did select, the `didSelectHandler` will be called.
  *
  *  If the `didSelectSEL` property is nil or the cell don't implement the `didSelectSEL` property setting method, then use the `didSelectHandler` property.
  */
 @property (nonatomic, copy, nullable) void (^didSelectHandler)(id _Nullable model);
 @property (nonatomic, assign) SEL didSelectSEL;
+
+/**
+ *  If the cell did deselect, the `didDeselectHandler` will be called.
+ *
+ *  If the `didDeselectSEL` property is nil or the cell don't implement the `didDeselectSEL` property setting method, then use the `didDeselectHandler` property.
+ */
+@property (nonatomic, copy, nullable) void (^didDeselectHandler)(id _Nullable model);
+@property (nonatomic, assign) SEL didDeselectSEL;
 
 /**
  *  If the cell will display, the `willDisplayHandler` will be called.

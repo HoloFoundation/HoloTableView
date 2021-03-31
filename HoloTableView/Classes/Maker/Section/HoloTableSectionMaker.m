@@ -257,7 +257,9 @@
         HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
         if (block) block(maker);
         
-        [self _holo_section:self.section insertRows:[maker install] atIndex:NSIntegerMax];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:self.section.rows];
+        [array addObjectsFromArray:[maker install]];
+        self.section.rows = array.copy;
         return self;
     };
 }
@@ -269,19 +271,6 @@
 
 - (void)giveTableSection:(HoloTableSection *)section {
     self.section = section;
-}
-
-- (NSIndexSet *)_holo_section:(HoloTableSection *)section insertRows:(NSArray<HoloTableRow *> *)rows atIndex:(NSInteger)index {
-    if (rows.count <= 0) return [NSIndexSet new];
-    
-    if (index < 0) index = 0;
-    if (index > section.rows.count) index = section.rows.count;
-    
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, rows.count)];
-    NSMutableArray *array = [NSMutableArray arrayWithArray:section.rows];
-    [array insertObjects:rows atIndexes:indexSet];
-    section.rows = array.copy;
-    return indexSet;
 }
 
 #pragma mark - getter

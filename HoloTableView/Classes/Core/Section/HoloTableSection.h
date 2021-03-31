@@ -23,30 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *tag;
 
 /**
- *  header class.
+ *  Header class.
  */
 @property (nonatomic, assign, nullable) Class header;
 
 /**
- *  footer class.
+ *  Footer class.
  */
 @property (nonatomic, assign, nullable) Class footer;
-
-/**
- *  Set the reuse identifier for the header using the `headerReuseId` property.
- *
- *  If the `headerReuseIdHandler` property is nil, then use the `headerReuseId` property.
- */
-@property (nonatomic, copy, nullable) NSString *headerReuseId;
-@property (nonatomic, copy, nullable) NSString *(^headerReuseIdHandler)(id _Nullable model);
-
-/**
- *  Set the reuse identifier for the footer using the `footerReuseId` property.
- *
- *  If the `footerReuseIdHandler` property is nil, then use the `footerReuseId` property.
- */
-@property (nonatomic, copy, nullable) NSString *footerReuseId;
-@property (nonatomic, copy, nullable) NSString *(^footerReuseIdHandler)(id _Nullable model);
 
 /**
  *  Set the header title for the section using the `headerTitle` property.
@@ -93,6 +77,22 @@ NS_ASSUME_NONNULL_BEGIN
  * The footer must implement the `footerConfigSEL` property setting method in order for the HoloTableView to pass the model for the footer.
  */
 @property (nonatomic, assign) SEL footerConfigSEL;
+
+/**
+ *  Set the reuse identifier for the header using the `headerReuseId` property.
+ *
+ *  If the `headerReuseIdHandler` property is nil, then use the `headerReuseId` property.
+ */
+@property (nonatomic, copy, nullable) NSString *headerReuseId;
+@property (nonatomic, copy, nullable) NSString *(^headerReuseIdHandler)(id _Nullable model);
+
+/**
+ *  Set the reuse identifier for the footer using the `footerReuseId` property.
+ *
+ *  If the `footerReuseIdHandler` property is nil, then use the `footerReuseId` property.
+ */
+@property (nonatomic, copy, nullable) NSString *footerReuseId;
+@property (nonatomic, copy, nullable) NSString *(^footerReuseIdHandler)(id _Nullable model);
 
 /**
  *  Set the height for the header using the `headerHeight` property.

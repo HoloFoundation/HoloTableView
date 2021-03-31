@@ -58,7 +58,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 // etc.
 ```
 
-The `holo_makeRows:` method is used to create a list of rows **with a default section**. Each `row` is a `cell`. **More properties provided for row see: [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableViewRowMaker.h) and [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableRowMaker.h)**
+The `holo_makeRows:` method is used to create a list of rows **with a default section**. Each `row` is a `cell`. **More properties provided for row see: [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableViewRowMaker.h) and [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableRowMaker.h)**
 
 
 #### Requirements for cell
@@ -80,9 +80,9 @@ Conforms to protocol `HoloTableViewCellProtocol`, `HoloTableView` will automatic
 + (CGFloat)holo_heightForCellWithModel:(id)model;
 ```
 
-**See `HoloTableViewCellProtocol` more methods: [HoloTableViewCellProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Holo/HoloProtocol/HoloTableViewCellProtocol.h)**
+**See `HoloTableViewCellProtocol` more methods: [HoloTableViewCellProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/Protocol/HoloTableViewCellProtocol.h)**
 
-You can also call your own methods by configuring properties such as `configSEL`, `heightSEL`, etc. More properties can find in [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableRowMaker.h).
+You can also call your own methods by configuring properties such as `configSEL`, `heightSEL`, etc. More properties can find in [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableRowMaker.h).
 
 Note that attributes such as `height`, `estimatedHeight`, etc. that exist `SEL` have priority:
 1. First judge whether `cell` implements `heightSEL` method
@@ -118,7 +118,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 [tableView reloadData];
 ```
 
-The `holo_makeSections:` method is used to create a list of `section`. **More properties provided for section see: [HoloTableViewSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableViewSectionMaker.h) and  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableSectionMaker.h)**
+The `holo_makeSections:` method is used to create a list of `section`. **More properties provided for section see: [HoloTableViewSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableViewSectionMaker.h) and  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableSectionMaker.h)**
 
 
 #### Requirements for header and footer
@@ -155,9 +155,9 @@ The `holo_makeSections:` method is used to create a list of `section`. **More pr
 + (CGFloat)holo_heightForFooterWithModel:(id)model;
 ```
 
-**See `HoloTableViewHeaderProtocol` and `HoloTableViewFooterProtocol` more methods: [HoloTableViewHeaderProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Holo/HoloProtocol/HoloTableViewHeaderProtocol.h) and [HoloTableViewFooterProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Holo/HoloProtocol/HoloTableViewFooterProtocol.h)**
+**See `HoloTableViewHeaderProtocol` and `HoloTableViewFooterProtocol` more methods: [HoloTableViewHeaderProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/Protocol/HoloTableViewHeaderProtocol.h) and [HoloTableViewFooterProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/Protocol/HoloTableViewFooterProtocol.h)**
 
-You can also call your own methods by configuring properties such as `headerConfigSEL`, `footerConfigSEL`, etc. More properties can find in  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableSectionMaker.h).
+You can also call your own methods by configuring properties such as `headerConfigSEL`, `footerConfigSEL`, etc. More properties can find in  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableSectionMaker.h).
 
 Like `cell`, properties that contain `SEL` also have a priority.
 
@@ -197,7 +197,7 @@ Like `cell`, properties that contain `SEL` also have a priority.
 ```
 
 `UITableView+HoloTableView.h` provides a series of methods for manipulating `sections`, including adding, inserting, updating, resetting, deleting, etc.
-**More methods provided for section see: [UITableView+HoloTableView.h (about section)](https://github.com/HoloFoundation/HoloTableView/blob/faf89c1dc5d6403b02b9d9d80604622c703d98cf/HoloTableView/Classes/Holo/UITableView%2BHoloTableView.h#L24-L144)**
+**More methods provided for section see: [UITableView+HoloTableView.h (about section)](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/UITableView%2BHoloTableView.h#L24-L144)**
 
 
 ### 4. Methods for row
@@ -245,7 +245,7 @@ Like `cell`, properties that contain `SEL` also have a priority.
 ```
 
 `UITableView+HoloTableView.h` provides a series of methods for manipulating rows, including adding, inserting, updating, resetting, deleting, etc.
-**More methods provided for row see: [UITableView+HoloTableView.h (about row)](https://github.com/HoloFoundation/HoloTableView/blob/faf89c1dc5d6403b02b9d9d80604622c703d98cf/HoloTableView/Classes/Holo/UITableView%2BHoloTableView.h#L146-L328)**
+**More methods provided for row see: [UITableView+HoloTableView.h (about row)](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/UITableView%2BHoloTableView.h#L146-L328)**
 
 
 ### 5. Retrieve Delegate
@@ -264,7 +264,7 @@ self.tableView.holo_proxy.scrollDelegate = self;
 }];
 ```
 
-Once you set up `dataSource`, `delegate`, `scrollDelegate` and implement some of their methods, `HoloTableView` will use your methods and return values first. For specific logic, please refer to: [HoloTableViewProxy.m](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloProxy/HoloTableViewProxy.m)
+Once you set up `dataSource`, `delegate`, `scrollDelegate` and implement some of their methods, `HoloTableView` will use your methods and return values first. For specific logic, please refer to: [HoloTableViewProxy.m](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/HoloTableViewProxy.m)
 
 ### 6. Reload a table view by setting datasource with `HoloTableSection` and `HoloTableRow`
 
