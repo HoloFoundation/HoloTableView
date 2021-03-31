@@ -24,7 +24,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 [tableView reloadData];
 ```
 
-`holo_makeRows:` 方法的作用是创建一系列的 `row`，每个 `row` 就是一个 `cell`，你可以方便的通过 for 循环创建一个 `cell` 列表。**关于 row 提供的更多功能参见： [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableViewRowMaker.h) 及 [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableRowMaker.h)**
+`holo_makeRows:` 方法的作用是创建一系列的 `row`，每个 `row` 就是一个 `cell`，你可以方便的通过 for 循环创建一个 `cell` 列表。**关于 row 提供的更多功能参见： [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableViewRowMaker.h) 及 [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableRowMaker.h)**
 
 
 ### 对 Cell 的要求
@@ -46,9 +46,9 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 + (CGFloat)holo_heightForCellWithModel:(id)model;
 ```
 
- **`HoloTableViewCellProtocol` 协议更多方法参见：[HoloTableViewCellProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Holo/HoloProtocol/HoloTableViewCellProtocol.h)**
+ **`HoloTableViewCellProtocol` 协议更多方法参见：[HoloTableViewCellProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/Protocol/HoloTableViewCellProtocol.h)**
 
-你也可以通过配置 `configSEL` 、 `heightSEL` 等属性去调用你自己的方法。更多功能同样可以在 [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableRowMaker.h) 里找到。
+你也可以通过配置 `configSEL` 、 `heightSEL` 等属性去调用你自己的方法。更多功能同样可以在 [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableRowMaker.h) 里找到。
 
 注意像：`height`、`estimatedHeight` 等存在 `SEL` 的属性存在优先级：
 1. 优先判断 `cell` 是否实现了 `heightSEL` 方法
@@ -84,7 +84,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 [tableView reloadData];
 ```
 
-`holo_makeSections:` 方法的作用是创建一系列的 `section`，你可以方便的通过 for 循环创建一个 `section` 列表。**关于 section 提供的更多功能参见：[HoloTableViewSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableViewSectionMaker.h) 及  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableSectionMaker.h)**
+`holo_makeSections:` 方法的作用是创建一系列的 `section`，你可以方便的通过 for 循环创建一个 `section` 列表。**关于 section 提供的更多功能参见：[HoloTableViewSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableViewSectionMaker.h) 及  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableSectionMaker.h)**
 
 
 ### 对 header、footer 的要求
@@ -124,10 +124,10 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 ```
 
 
- **`HoloTableViewHeaderProtocol`、`HoloTableViewFooterProtocol` 协议更多方法参见：[HoloTableViewHeaderProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Holo/HoloProtocol/HoloTableViewHeaderProtocol.h) 及 [HoloTableViewFooterProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Holo/HoloProtocol/HoloTableViewFooterProtocol.h)**
+ **`HoloTableViewHeaderProtocol`、`HoloTableViewFooterProtocol` 协议更多方法参见：[HoloTableViewHeaderProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/Protocol/HoloTableViewHeaderProtocol.h) 及 [HoloTableViewFooterProtocol](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/Protocol/HoloTableViewFooterProtocol.h)**
  
  
-你也可以通过配置 `headerConfigSEL` 、 `footerConfigSEL` 等属性去调用你自己的方法。更多功能同样可以在 [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableSectionMaker.h) 里找到。
+你也可以通过配置 `headerConfigSEL` 、 `footerConfigSEL` 等属性去调用你自己的方法。更多功能同样可以在 [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableSectionMaker.h) 里找到。
 
 和 `cell` 一样，包含 `SEL` 的属性同样存在优先级。
 
@@ -166,7 +166,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 [self.tableView reloadData];
 ```
 
-`UITableView+HoloTableView.h` 提供了一系列的操作 `section` 的方法，包括添加、插入、更新、重置、删除等操作，**关于操作 section 的更多方法参见：[UITableView+HoloTableView.h (section 部分)](https://github.com/HoloFoundation/HoloTableView/blob/faf89c1dc5d6403b02b9d9d80604622c703d98cf/HoloTableView/Classes/Holo/UITableView%2BHoloTableView.h#L24-L144)**
+`UITableView+HoloTableView.h` 提供了一系列的操作 `section` 的方法，包括添加、插入、更新、重置、删除等操作，**关于操作 section 的更多方法参见：[UITableView+HoloTableView.h (section 部分)](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/UITableView%2BHoloTableView.h#L24-L144)**
 
 
 ## 4、cell 的增删改
@@ -212,12 +212,12 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 [self.tableView reloadData];
 ```
 
-`UITableView+HoloTableView.h` 提供了一系列的操作 `row` 的方法，包括添加、插入、更新、重置、删除等操作，**关于操作 row 的更多方法参见：[UITableView+HoloTableView.h (row 部分)](https://github.com/HoloFoundation/HoloTableView/blob/faf89c1dc5d6403b02b9d9d80604622c703d98cf/HoloTableView/Classes/Holo/UITableView%2BHoloTableView.h#L146-L328)**
+`UITableView+HoloTableView.h` 提供了一系列的操作 `row` 的方法，包括添加、插入、更新、重置、删除等操作，**关于操作 row 的更多方法参见：[UITableView+HoloTableView.h (row 部分)](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/UITableView%2BHoloTableView.h#L146-L328)**
 
 
 ## 5、全量用法：创建 section，设置 header、footer、row
 
-参见： [HoloTableViewSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableViewSectionMaker.h) 及  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Section/HoloTableSectionMaker.h) 
+参见： [HoloTableViewSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableViewSectionMaker.h) 及  [HoloTableSectionMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Section/HoloTableSectionMaker.h) 
 
 
 ```objc
@@ -342,7 +342,7 @@ UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds sty
 
 ## 6、全量用法：创建 row
 
-参见： [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableViewRowMaker.h) 及 [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloMaker/Row/HoloTableRowMaker.h)
+参见： [HoloTableViewRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableViewRowMaker.h) 及 [HoloTableRowMaker.h](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Maker/Row/HoloTableRowMaker.h)
 
 
 ```objc
@@ -553,4 +553,4 @@ self.tableView.holo_proxy.scrollDelegate = self;
 }];
 ```
 
-一旦你设置了 `dataSource`、`delegate`、`scrollDelegate` 并实现了其中某个方法，`HoloTableView` 将优先使用你的方法及返回值。具体逻辑参见：[HoloTableViewProxy.m](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/HoloProxy/HoloTableViewProxy.m)
+一旦你设置了 `dataSource`、`delegate`、`scrollDelegate` 并实现了其中某个方法，`HoloTableView` 将优先使用你的方法及返回值。具体逻辑参见：[HoloTableViewProxy.m](https://github.com/HoloFoundation/HoloTableView/blob/master/HoloTableView/Classes/Core/HoloTableViewProxy.m)
