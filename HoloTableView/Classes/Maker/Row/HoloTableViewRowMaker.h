@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HoloTableViewRowMaker : NSObject
 
+/**
+ * Make a HoloTableRow object and set the cell class.
+ */
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^row)(Class row);
 
 - (NSArray<HoloTableRow *> *)install;

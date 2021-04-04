@@ -141,24 +141,6 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     }
 }
 
-static void HoloTableSectionRemoveRow(HoloTableSection *holoSection, HoloTableRow *holoRow) {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:holoSection.rows];
-    [array removeObject:holoRow];
-    holoSection.rows = array.copy;
-}
-
-static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSArray<HoloTableRow *> *holoRows, NSInteger index) {
-    if (holoRows.count <= 0) return;
-
-    if (index < 0) index = 0;
-    if (index > holoSection.rows.count) index = holoSection.rows.count;
-    
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, holoRows.count)];
-    NSMutableArray *array = [NSMutableArray arrayWithArray:holoSection.rows];
-    [array insertObjects:holoRows atIndexes:indexSet];
-    holoSection.rows = array.copy;
-}
-
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ([self.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
@@ -276,7 +258,7 @@ static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSA
                 if (actionPerformed && self.proxyData.sections.count > indexPath.section) {
                     // must remove the data before deleting the cell
                     HoloTableSection *holoSection = self.proxyData.sections[indexPath.section];
-                    HoloTableSectionRemoveRow(holoSection, holoRow);
+                    [holoSection removeRow:holoRow];
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
             });
@@ -307,8 +289,8 @@ static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSA
         sourceRow.moveHandler(sourceIndexPath, destinationIndexPath, ^(BOOL actionPerformed) {
             if (actionPerformed && self.proxyData.sections.count > destinationIndexPath.section) {
                 HoloTableSection *destinationSection = self.proxyData.sections[destinationIndexPath.section];
-                HoloTableSectionRemoveRow(sourceSection, sourceRow);
-                HoloTableSectionInsertRowsAtIndex(destinationSection, @[sourceRow], destinationIndexPath.row);
+                [sourceSection removeRow:sourceRow];
+                [destinationSection insertRow:sourceRow atIndex:destinationIndexPath.row];
             }
         });
     }
@@ -733,7 +715,7 @@ static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSA
                 swipeAction.handler(swipeAction, index, ^(BOOL actionPerformed) {
                     if (swipeAction.style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
                         // must remove the data before deleting the cell
-                        HoloTableSectionRemoveRow(holoSection, holoRow);
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -742,7 +724,7 @@ static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSA
                 holoRow.trailingSwipeHandler(swipeAction, index, ^(BOOL actionPerformed) {
                     if (swipeAction.style == HoloTableViewRowSwipeActionStyleDestructive && actionPerformed) {
                         // must remove the data before deleting the cell
-                        HoloTableSectionRemoveRow(holoSection, holoRow);
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -797,7 +779,7 @@ static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSA
                 swipeAction.handler(swipeAction, index, ^(BOOL actionPerformed) {
                     completionHandler(actionPerformed);
                     if (swipeAction.style == UIContextualActionStyleDestructive && actionPerformed) {
-                        HoloTableSectionRemoveRow(holoSection, holoRow);
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });
@@ -806,7 +788,7 @@ static void HoloTableSectionInsertRowsAtIndex(HoloTableSection *holoSection, NSA
                 swipeHandler(swipeAction, index, ^(BOOL actionPerformed) {
                     completionHandler(actionPerformed);
                     if (swipeAction.style == UIContextualActionStyleDestructive && actionPerformed) {
-                        HoloTableSectionRemoveRow(holoSection, holoRow);
+                        [holoSection removeRow:holoRow];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 });

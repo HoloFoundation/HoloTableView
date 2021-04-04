@@ -27,6 +27,9 @@ typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
 
 @interface HoloTableViewUpdateRowMaker : NSObject
 
+/**
+ *  Fetch a HoloTableRow object with the tag.
+ */
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections

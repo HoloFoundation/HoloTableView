@@ -30,15 +30,24 @@ typedef NSInteger (^HoloTableViewSectionForSectionIndexTitleHandler)(NSString *t
 
 @interface HoloTableViewMaker : NSObject
 
+/**
+ *  Return list of section titles to display in section index view (e.g. "ABCD...Z#").
+ */
 @property (nonatomic, copy, readonly) HoloTableViewMaker *(^sectionIndexTitles)(NSArray<NSString *> *sectionIndexTitles);
 
+/**
+ *  Tell table which section corresponds to section title/index (e.g. "B",1)).
+ */
 @property (nonatomic, copy, readonly) HoloTableViewMaker *(^sectionForSectionIndexTitleHandler)(NSInteger (^handler)(NSString *title, NSInteger index));
+
+/**
+ *  The delegate of the scroll-view object.
+ */
+@property (nonatomic, copy, readonly) HoloTableViewMaker *(^scrollDelegate)(id<UIScrollViewDelegate> scrollDelegate);
 
 @property (nonatomic, copy, readonly) HoloTableViewMaker *(^delegate)(id<HoloTableViewDelegate> delegate);
 
 @property (nonatomic, copy, readonly) HoloTableViewMaker *(^dataSource)(id<HoloTableViewDataSource> dataSource);
-
-@property (nonatomic, copy, readonly) HoloTableViewMaker *(^scrollDelegate)(id<UIScrollViewDelegate> scrollDelegate);
 
 - (HoloTableViewModel *)install;
 
