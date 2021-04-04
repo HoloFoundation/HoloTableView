@@ -29,6 +29,9 @@ typedef NS_ENUM(NSInteger, HoloTableViewSectionMakerType) {
 
 @interface HoloTableViewSectionMaker : NSObject
 
+/**
+ * Make a HoloTableSection object and set the section tag.
+ */
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^section)(NSString *tag);
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections

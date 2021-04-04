@@ -34,6 +34,13 @@
     };
 }
 
+- (HoloTableViewMaker * (^)(id<UIScrollViewDelegate>))scrollDelegate {
+    return ^id(id obj) {
+        self.tableViewModel.scrollDelegate = obj;
+        return self;
+    };
+}
+
 - (HoloTableViewMaker * (^)(id<HoloTableViewDelegate>))delegate {
     return ^id(id obj) {
         self.tableViewModel.delegate = obj;
@@ -44,13 +51,6 @@
 - (HoloTableViewMaker * (^)(id<HoloTableViewDataSource>))dataSource {
     return ^id(id obj) {
         self.tableViewModel.dataSource = obj;
-        return self;
-    };
-}
-
-- (HoloTableViewMaker * (^)(id<UIScrollViewDelegate>))scrollDelegate {
-    return ^id(id obj) {
-        self.tableViewModel.scrollDelegate = obj;
         return self;
     };
 }
