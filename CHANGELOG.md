@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 
 
+## 3.0.0 (05/04/2021)
+
+### Added
+
+- Support to reload a table view by setting datasource with `HoloTableSection` and `HoloTableRow`. Add `holo_sections` for `UITableView`.
+- Add `holo_sectionIndexTitles` for `UITableView`.
+- Add `holo_sectionForSectionIndexTitleHandler` for `UITableView`.
+- Add `holo_scrollDelegate` for `UITableView`.
+
+### Updated
+
+- Reuse header and footer. And if has no header and header title, return nil for header, if has no footer and footer title, return nil for footer.
+
+### Removed
+
+- No longer support `headerFooterConfigSEL`, `headerFooterHeightSEL` and `headerFooterEstimatedHeightSEL` properties.
+- No longer support `rowS`, `headerS` and `footerS` properties. And no longer support to regist key-Class map (`rowsMap`, `headersMap` and `footersMap`).
+
+
 ## 2.4.0 (16/02/2021)
 
 - Update `HoloTableView.h`, use angle-bracketed instead of double-quoted.
