@@ -15,9 +15,9 @@
 - [x] Provide protocols, implemented in cells, headers and footers to handle proxy events of `UITableVIew`.
 - [x] Provide left-slide and right-slide actions for `cell`.
 - [x] Passing events through the responder chain.
-- [x] Support to regist maps (key-Class) for row, header and footer.
 - [x] [HoloTableViewMGPlugin](https://github.com/HoloFoundation/HoloTableViewMGPlugin) to support `MGSwipeTableCell`, add swip actions for `cell`.
 - [x] Diff reload data. [HoloTableViewDiffPlugin](https://github.com/HoloFoundation/HoloTableViewDiffPlugin) to support `DeepDiff`
+- [x] Support to reload a table view by setting datasource with `HoloTableSection` and `HoloTableRow`.
 - [ ] Modern Objective-C and better Swift support.
 
 
