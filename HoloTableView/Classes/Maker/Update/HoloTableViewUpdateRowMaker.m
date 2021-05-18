@@ -23,16 +23,25 @@
 
 @property (nonatomic, strong) NSMutableArray<HoloTableViewUpdateRowMakerModel *> *makerModels;
 
+// has target section or not
+@property (nonatomic, assign) BOOL targetSection;
+// target section tag
+@property (nonatomic, copy) NSString *sectionTag;
+
 @end
 
 @implementation HoloTableViewUpdateRowMaker
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections
-                                makerType:(HoloTableViewUpdateRowMakerType)makerType {
+                                makerType:(HoloTableViewUpdateRowMakerType)makerType
+                            targetSection:(BOOL)targetSection
+                               sectionTag:(NSString * _Nullable)sectionTag {
     self = [super init];
     if (self) {
         _dataSections = sections;
         _makerType = makerType;
+        _targetSection = targetSection;
+        _sectionTag = sectionTag;
     }
     return self;
 }
@@ -46,6 +55,9 @@
         __block HoloTableRow *targetRow;
         __block NSIndexPath *operateIndexPath;
         [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull section, NSUInteger sectionIdx, BOOL * _Nonnull sectionStop) {
+            if (self.targetSection && !([section.tag isEqualToString:self.sectionTag] || (!section.tag && !self.sectionTag))) {
+                return;
+            }
             [section.rows enumerateObjectsUsingBlock:^(HoloTableRow * _Nonnull row, NSUInteger rowIdx, BOOL * _Nonnull rowStop) {
                 if ([row.tag isEqualToString:tag] || (!row.tag && !tag)) {
                     targetRow = row;

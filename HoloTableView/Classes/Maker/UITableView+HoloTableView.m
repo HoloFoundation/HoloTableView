@@ -364,6 +364,8 @@
 - (void)holo_updateRows:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
                                   block:block
+                          targetSection:NO
+                             sectionTag:nil
                                  reload:NO
                               animation:kNilOptions];
 }
@@ -372,6 +374,29 @@
     withReloadAnimation:(UITableViewRowAnimation)animation {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
                                   block:block
+                          targetSection:NO
+                             sectionTag:nil
+                                 reload:YES
+                              animation:animation];
+}
+
+- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+              inSection:(NSString *)tag {
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
+                                  block:block
+                          targetSection:YES
+                             sectionTag:tag
+                                 reload:NO
+                              animation:kNilOptions];
+}
+
+- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+              inSection:(NSString *)tag
+    withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
+                                  block:block
+                          targetSection:YES
+                             sectionTag:tag
                                  reload:YES
                               animation:animation];
 }
@@ -380,6 +405,8 @@
 - (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
                                   block:block
+                          targetSection:NO
+                             sectionTag:nil
                                  reload:NO
                               animation:kNilOptions];
 }
@@ -388,16 +415,43 @@
     withReloadAnimation:(UITableViewRowAnimation)animation {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
                                   block:block
+                          targetSection:NO
+                             sectionTag:nil
                                  reload:YES
                               animation:animation];
 }
 
+- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+              inSection:(NSString *)tag {
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
+                                  block:block
+                          targetSection:YES
+                             sectionTag:tag
+                                 reload:NO
+                              animation:kNilOptions];
+}
+
+- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+              inSection:(NSString *)tag
+    withReloadAnimation:(UITableViewRowAnimation)animation {
+    [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
+                                  block:block
+                          targetSection:YES
+                             sectionTag:tag
+                                 reload:YES
+                              animation:animation];
+}
 
 - (void)_holo_updateRowsWithMakerType:(HoloTableViewUpdateRowMakerType)makerType
                                 block:(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *))block
+                        targetSection:(BOOL)targetSection
+                           sectionTag:(NSString * _Nullable)sectionTag
                                reload:(BOOL)reload
                             animation:(UITableViewRowAnimation)animation {
-    HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.proxyData.sections makerType:makerType];
+    HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:self.holo_proxy.proxyData.sections
+                                                                                              makerType:makerType
+                                                                                          targetSection:targetSection
+                                                                                             sectionTag:sectionTag];
     if (block) block(maker);
     
     // update data and map
