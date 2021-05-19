@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HoloTableSection, HoloTableViewRowMaker;
+@class HoloTableSection, HoloTableViewRowMaker, HoloTableViewUpdateRowMaker;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -156,7 +156,31 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterHandler)(void(^)(UIView *footer, id _Nullable model));
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^didEndDisplayingFooterSEL)(SEL didEndDisplayingFooterSEL);
 
+/**
+ *  Creates a HoloTableViewRowMaker in the callee for current UITableView.
+ *  Append these rows in the callee to current section.
+ *
+ *  @param block Scope within which you can create some rows which you wish to apply to current UITableView.
+ */
 @property (nonatomic, copy, readonly) HoloTableSectionMaker *(^makeRows)(void(NS_NOESCAPE ^)(HoloTableViewRowMaker *make));
+
+/**
+ *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
+ *  Update these rows in the callee for current section.
+ *  If current section don't contain these rows, ignore them.
+ *
+ *  @param block Scope within which you can update some rows which you wish to apply to current UITableView.
+ */
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^updateRows)(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make));
+
+/**
+ *  Creates a HoloTableViewUpdateRowMaker in the callee for current UITableView.
+ *  Re-create these rows in the callee for current section.
+ *  If current section don't contain these rows, ignore them.
+ *
+ *  @param block Scope within which you can re-create some rows which you wish to apply to current UITableView.
+ */
+@property (nonatomic, copy, readonly) HoloTableSectionMaker *(^remakeRows)(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make));
 
 
 - (HoloTableSection *)fetchTableSection;

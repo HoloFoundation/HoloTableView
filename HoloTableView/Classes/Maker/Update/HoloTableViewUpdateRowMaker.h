@@ -33,7 +33,9 @@ typedef NS_ENUM(NSInteger, HoloTableViewUpdateRowMakerType) {
 @property (nonatomic, copy, readonly) HoloTableRowMaker *(^tag)(NSString *tag);
 
 - (instancetype)initWithProxyDataSections:(NSArray<HoloTableSection *> *)sections
-                                makerType:(HoloTableViewUpdateRowMakerType)makerType;
+                                makerType:(HoloTableViewUpdateRowMakerType)makerType
+                            targetSection:(BOOL)targetSection
+                               sectionTag:(NSString * _Nullable)sectionTag;
 
 - (NSArray<HoloTableViewUpdateRowMakerModel *> *)install;
 

@@ -39,27 +39,27 @@
 - (HoloTableSectionMaker *(^)(NSString *))section {
     return ^id(NSString *tag) {
         HoloTableSectionMaker *sectionMaker = [HoloTableSectionMaker new];
-        HoloTableSection *section = [sectionMaker fetchTableSection];
-        section.tag = tag;
+        HoloTableSection *makerSection = [sectionMaker fetchTableSection];
+        makerSection.tag = tag;
         
-        __block HoloTableSection *targetSection;
-        __block NSNumber *operateIndex;
+        __block NSNumber *operateIndex = nil;
         if (self.makerType == HoloTableViewSectionMakerTypeUpdate || self.makerType == HoloTableViewSectionMakerTypeRemake) {
-            [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj.tag isEqualToString:tag] || (!obj.tag && !tag)) {
-                    targetSection = obj;
+            [self.dataSections enumerateObjectsUsingBlock:^(HoloTableSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([section.tag isEqualToString:tag] || (!section.tag && !tag)) {
                     operateIndex = @(idx);
+                    
+                    if (self.makerType == HoloTableViewSectionMakerTypeUpdate) {
+                        // update: set the row object to maker from datasource
+                        [sectionMaker giveTableSection:section];
+                    }
+                    
                     *stop = YES;
                 }
             }];
         }
         
-        if (targetSection && self.makerType == HoloTableViewSectionMakerTypeUpdate) {
-            section = targetSection;
-        }
-        
         HoloTableViewSectionMakerModel *makerModel = [HoloTableViewSectionMakerModel new];
-        makerModel.operateSection = section;
+        makerModel.operateSection = [sectionMaker fetchTableSection];
         makerModel.operateIndex = operateIndex;
         [self.makerModels addObject:makerModel];
         
