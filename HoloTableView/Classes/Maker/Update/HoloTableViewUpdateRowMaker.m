@@ -63,10 +63,10 @@
                     operateIndexPath = [NSIndexPath indexPathForRow:rowIdx inSection:sectionIdx];
                     
                     if (self.makerType == HoloTableViewUpdateRowMakerTypeUpdate) {
-                        // update: give the row object to maker from datasource
+                        // update: set the row object to maker from datasource
                         [rowMaker giveTableRow:row];
                     } else if (self.makerType == HoloTableViewUpdateRowMakerTypeRemake) {
-                        // remake: give the row object to datasource from maker
+                        // remake: set the row object to datasource from maker
                         NSMutableArray *rows = [NSMutableArray arrayWithArray:section.rows];
                         [rows replaceObjectAtIndex:operateIndexPath.row withObject:makerRow];
                         section.rows = rows.copy;

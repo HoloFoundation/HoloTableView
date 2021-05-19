@@ -49,6 +49,7 @@
                     operateIndex = @(idx);
                     
                     if (self.makerType == HoloTableViewSectionMakerTypeUpdate) {
+                        // update: set the row object to maker from datasource
                         [sectionMaker giveTableSection:section];
                     }
                     
