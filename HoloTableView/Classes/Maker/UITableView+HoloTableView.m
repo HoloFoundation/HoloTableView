@@ -457,24 +457,17 @@
     // update data and map
     NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
     NSMutableArray *updateIndexPaths = [NSMutableArray new];
-    NSMutableArray *updateArray = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
     for (HoloTableViewUpdateRowMakerModel *makerModel in [maker install]) {
         HoloTableRow *operateRow = makerModel.operateRow;
         // HoloTableViewUpdateRowMakerTypeUpdate || HoloTableViewUpdateRowMakerTypeRemake
         if (!makerModel.operateIndexPath) {
-            HoloLog(@"[HoloTableView] No found a row with the tag: %@.", operateRow.tag);
+            // Has a log in HoloTableViewUpdateRowMaker already, because updateRows / remakeRows in HoloTableSectionMaker also need it.
+            // HoloLog(@"[HoloTableView] No found a row with the tag: %@.", operateRow.tag);
             continue;
         }
         
         // update || remake
         [updateIndexPaths addObject:makerModel.operateIndexPath];
-        
-        if (makerType == HoloTableViewUpdateRowMakerTypeRemake) {
-            HoloTableSection *section = updateArray[makerModel.operateIndexPath.section];
-            NSMutableArray *rows = [NSMutableArray arrayWithArray:section.rows];
-            [rows replaceObjectAtIndex:makerModel.operateIndexPath.row withObject:operateRow];
-            section.rows = rows.copy;
-        }
         
         Class cls = operateRow.cell;
         NSString *key = NSStringFromClass(cls);
@@ -489,7 +482,6 @@
         rowsMap[key] = cls;
     }
     self.holo_proxy.proxyData.rowsMap = rowsMap;
-    self.holo_proxy.proxyData.sections = updateArray.copy;
     
     // refresh rows
     if (reload && updateIndexPaths.count > 0) {

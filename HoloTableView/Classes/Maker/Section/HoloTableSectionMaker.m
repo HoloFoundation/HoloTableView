@@ -8,6 +8,7 @@
 #import "HoloTableSectionMaker.h"
 #import "HoloTableSection.h"
 #import "HoloTableViewRowMaker.h"
+#import "HoloTableViewUpdateRowMaker.h"
 
 @interface HoloTableSectionMaker ()
 
@@ -260,6 +261,30 @@
         NSMutableArray *array = [NSMutableArray arrayWithArray:self.section.rows];
         [array addObjectsFromArray:[maker install]];
         self.section.rows = array.copy;
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *)))updateRows {
+    return ^id(void(^block)(HoloTableViewUpdateRowMaker *make)) {
+        HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:@[self.section]
+                                                                                                  makerType:HoloTableViewUpdateRowMakerTypeUpdate
+                                                                                              targetSection:NO
+                                                                                                 sectionTag:nil];
+        if (block) block(maker);
+        
+        return self;
+    };
+}
+
+- (HoloTableSectionMaker * (^)(void (NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *)))remakeRows {
+    return ^id(void(^block)(HoloTableViewUpdateRowMaker *make)) {
+        HoloTableViewUpdateRowMaker *maker = [[HoloTableViewUpdateRowMaker alloc] initWithProxyDataSections:@[self.section]
+                                                                                                  makerType:HoloTableViewUpdateRowMakerTypeRemake
+                                                                                              targetSection:NO
+                                                                                                 sectionTag:nil];
+        if (block) block(maker);
+        
         return self;
     };
 }
