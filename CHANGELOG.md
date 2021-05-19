@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 
 
+## 3.1.0 (05/20/2021)
+
+### Added
+
+- Support for updating and remaking rows for a target section with a tag.
+- Support the `updateRows` and `remakeRows` methods for `sectionMaker`.
+
+### Fixed
+
+- Update sections by `holo_updateSections:` method.
+
+
 ## 3.0.0 (05/04/2021)
 
 ### Added
