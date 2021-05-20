@@ -174,6 +174,52 @@
     XCTAssertEqual(rowNew2.height, 10);
 }
 
+- (void)testRemakeRows {
+    [self.tableView holo_remakeRows:^(HoloTableViewUpdateRowMaker * _Nonnull make) {
+        make.tag(TAG).row(TestTableViewCell.class);
+    }];
+    HoloTableSection *section = self.tableView.holo_sections.firstObject;
+    HoloTableRow *row = section.rows.firstObject;
+    
+    XCTAssertEqual(row.cell, TestTableViewCell.class);
+    XCTAssertNil(row.model);
+    XCTAssertEqual(row.style, UITableViewCellStyleDefault);
+    XCTAssertNil(row.reuseId);
+    XCTAssertEqual(row.height, CGFLOAT_MIN);
+    XCTAssertEqual(row.estimatedHeight, CGFLOAT_MIN);
+    XCTAssertEqual(row.shouldHighlight, YES);
+    XCTAssertEqual(row.canEdit, NO);
+    XCTAssertEqual(row.canMove, NO);
+    XCTAssertEqual(row.leadingSwipeActions.count, 0);
+    XCTAssertEqual(row.trailingSwipeActions.count, 0);
+    XCTAssertNil(row.editingDeleteTitle);
+    XCTAssertEqual(row.editingStyle, UITableViewCellEditingStyleNone);
+    
+    
+    // Multiple rows with the same tag
+    
+    [self.tableView holo_makeRows:^(HoloTableViewRowMaker * _Nonnull make) {
+        make.row(UITableViewCell.class).tag(@"1");
+        make.row(UITableViewCell.class).tag(@"1");
+    }];
+
+    HoloTableRow *row1 = section.rows[1];
+    HoloTableRow *row2 = section.rows[2];
+
+    XCTAssertEqual(row1.cell, UITableViewCell.class);
+    XCTAssertEqual(row2.cell, UITableViewCell.class);
+    
+    [self.tableView holo_remakeRows:^(HoloTableViewUpdateRowMaker * _Nonnull make) {
+        make.tag(@"1").row(TestTableViewCell.class);
+        make.tag(@"1").row(TestTableViewCell.class);
+    }];
+    
+    HoloTableRow *rowNew1 = section.rows[1];
+    HoloTableRow *rowNew2 = section.rows[2];
+    XCTAssertEqual(rowNew1.cell, TestTableViewCell.class);
+    XCTAssertEqual(rowNew2.cell, UITableViewCell.class);
+}
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
