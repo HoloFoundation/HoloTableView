@@ -220,6 +220,40 @@
     XCTAssertEqual(rowNew2.cell, UITableViewCell.class);
 }
 
+- (void)testInsertRows {
+    [self.tableView holo_insertRowsAtIndex:0 block:^(HoloTableViewRowMaker * _Nonnull make) {
+        make.row(UITableViewCell.class).tag(@"0").height(0);
+        make.row(UITableViewCell.class).tag(@"1").height(1);
+    }];
+    
+    HoloTableSection *section = self.tableView.holo_sections.firstObject;
+    HoloTableRow *row0 = section.rows[0];
+    HoloTableRow *row1 = section.rows[1];
+    HoloTableRow *originalRow = section.rows[2];
+    
+    XCTAssertEqual(row0.tag, @"0");
+    XCTAssertEqual(row1.tag, @"1");
+    XCTAssertEqual(originalRow.tag, TAG);
+    
+    XCTAssertEqual(row0.height, 0);
+    XCTAssertEqual(row1.height, 1);
+    XCTAssertEqual(originalRow.height, 10);
+    
+    [self.tableView holo_insertRowsAtIndex:3 block:^(HoloTableViewRowMaker * _Nonnull make) {
+        make.row(UITableViewCell.class).tag(@"3").height(3);
+        make.row(UITableViewCell.class).tag(@"4").height(4);
+    }];
+    
+    HoloTableRow *row3 = section.rows[3];
+    HoloTableRow *row4 = section.rows[4];
+    
+    XCTAssertEqual(row3.tag, @"3");
+    XCTAssertEqual(row3.height, 3);
+
+    XCTAssertEqual(row4.tag, @"4");
+    XCTAssertEqual(row4.height, 4);
+}
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
