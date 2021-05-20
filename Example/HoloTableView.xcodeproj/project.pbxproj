@@ -27,7 +27,7 @@
 		75C81EC122ED6C5100C337A6 /* HoloExampleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C81EC022ED6C5100C337A6 /* HoloExampleTableViewCell.m */; };
 		75D667B222F5DFD600677569 /* HoloExampleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B122F5DFD600677569 /* HoloExampleFooterView.m */; };
 		75D667B522F5DFE100677569 /* HoloExampleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B422F5DFE100677569 /* HoloExampleHeaderView.m */; };
-		75FE94142655751B00E102F8 /* HoloMakeSections.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE94132655751B00E102F8 /* HoloMakeSections.m */; };
+		75FE94142655751B00E102F8 /* HoloTableSectionMakerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE94132655751B00E102F8 /* HoloTableSectionMakerTest.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		A52574C524B80E4B00372FA7 /* README_CN.md in Resources */ = {isa = PBXBuildFile; fileRef = A52574C424B80E4A00372FA7 /* README_CN.md */; };
 /* End PBXBuildFile section */
@@ -73,7 +73,7 @@
 		75D667B122F5DFD600677569 /* HoloExampleFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleFooterView.m; sourceTree = "<group>"; };
 		75D667B322F5DFE100677569 /* HoloExampleHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleHeaderView.h; sourceTree = "<group>"; };
 		75D667B422F5DFE100677569 /* HoloExampleHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleHeaderView.m; sourceTree = "<group>"; };
-		75FE94132655751B00E102F8 /* HoloMakeSections.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloMakeSections.m; sourceTree = "<group>"; };
+		75FE94132655751B00E102F8 /* HoloTableSectionMakerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloTableSectionMakerTest.m; sourceTree = "<group>"; };
 		794AD65C688DA210AADE3D69 /* Pods-HoloTableView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloTableView_Example.release.xcconfig"; path = "Target Support Files/Pods-HoloTableView_Example/Pods-HoloTableView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7F02F1A1FFF210A44B412CF5 /* Pods-HoloTableView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoloTableView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-HoloTableView_Tests/Pods-HoloTableView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				6003F5BB195388D20070C39A /* Tests.m */,
-				75FE94132655751B00E102F8 /* HoloMakeSections.m */,
+				75FE94132655751B00E102F8 /* HoloTableSectionMakerTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
 			path = Tests;
@@ -392,7 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5BC195388D20070C39A /* Tests.m in Sources */,
-				75FE94142655751B00E102F8 /* HoloMakeSections.m in Sources */,
+				75FE94142655751B00E102F8 /* HoloTableSectionMakerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

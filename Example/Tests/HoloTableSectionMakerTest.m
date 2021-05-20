@@ -1,5 +1,5 @@
 //
-//  HoloMakeSections.m
+//  HoloTableSectionMakerTest.m
 //  HoloTableView_Tests
 //
 //  Created by 与佳期 on 2021/5/20.
@@ -20,13 +20,13 @@
 @end
 
 
-@interface HoloMakeSections : XCTestCase
+@interface HoloTableSectionMakerTest : XCTestCase
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
 
-@implementation HoloMakeSections
+@implementation HoloTableSectionMakerTest
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
