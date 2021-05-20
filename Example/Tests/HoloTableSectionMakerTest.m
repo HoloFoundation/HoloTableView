@@ -30,7 +30,7 @@
 
 - (void)setUp {
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView = [UITableView new];
     
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
         make.section(TAG)
@@ -88,7 +88,7 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-- (void)testExample {
+- (void)testMakeSections {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
         
