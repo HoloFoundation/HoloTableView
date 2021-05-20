@@ -157,6 +157,30 @@
     XCTAssertEqual(section.headerEstimatedHeight, 1001);
     XCTAssertEqual(section.footerEstimatedHeight, 2001);
     
+    
+    // Multiple sections with the same tag
+    
+    [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
+        make.section(@"1").headerHeight(1);
+        make.section(@"1").headerHeight(10);
+    }];
+    
+    HoloTableSection *section1 = self.tableView.holo_sections[1];
+    HoloTableSection *section2 = self.tableView.holo_sections[2];
+    
+    XCTAssertEqual(section1.headerHeight, 1);
+    XCTAssertEqual(section2.headerHeight, 10);
+    
+    [self.tableView holo_updateSections:^(HoloTableViewSectionMaker * _Nonnull make) {
+        make.section(@"1").headerHeight(100);
+        make.section(@"1").headerHeight(101);
+    }];
+    
+    HoloTableSection *sectionNew1 = self.tableView.holo_sections[1];
+    HoloTableSection *sectionNew2 = self.tableView.holo_sections[2];
+    
+    XCTAssertEqual(sectionNew1.headerHeight, 101);
+    XCTAssertEqual(sectionNew2.headerHeight, 10);
 }
 
 - (void)testRemakeSections {
@@ -182,6 +206,30 @@
 
     XCTAssertEqual(section.headerEstimatedHeight, CGFLOAT_MIN);
     XCTAssertEqual(section.footerEstimatedHeight, CGFLOAT_MIN);
+    
+    
+    // Multiple sections with the same tag
+    
+    [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
+        make.section(@"1").headerHeight(1);
+        make.section(@"1").headerHeight(10);
+    }];
+    
+    HoloTableSection *section1 = self.tableView.holo_sections[1];
+    HoloTableSection *section2 = self.tableView.holo_sections[2];
+    
+    XCTAssertEqual(section1.headerHeight, 1);
+    XCTAssertEqual(section2.headerHeight, 10);
+    
+    [self.tableView holo_remakeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
+        make.section(@"1");
+        make.section(@"1");
+    }];
+    
+    HoloTableSection *sectionNew1 = self.tableView.holo_sections[1];
+    HoloTableSection *sectionNew2 = self.tableView.holo_sections[2];
+    XCTAssertEqual(sectionNew1.headerHeight, CGFLOAT_MIN);
+    XCTAssertEqual(sectionNew2.headerHeight, 10);
 }
 
 - (void)testInsertSections {
