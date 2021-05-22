@@ -10,6 +10,7 @@
 
 // Maker
 #import <HoloTableView/UITableView+HoloTableView.h>
+#import <HoloTableView/UITableView+HoloDeprecated.h>
 
 // Maker (Row)
 #import <HoloTableView/HoloTableRowMaker.h>
