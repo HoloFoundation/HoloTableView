@@ -9,17 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <HoloTableView/HoloTableView.h>
 
-@interface TestHeaderView : UITableViewHeaderFooterView
-@end
-@implementation TestHeaderView
-@end
-
-@interface TestFooterView : UITableViewHeaderFooterView
-@end
-@implementation TestFooterView
-@end
-
-
 @interface HoloTableSectionMakerTest : XCTestCase
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -82,17 +71,32 @@
             return 201;
         });
     }];
+    
+    
+    // makeSections with rows
+    
+    [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
+        make.section(@"section-1").makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
+            make.row(UITableViewCell.class).tag(@"0").model(@"0").height(0);
+            make.row(UITableViewCell.class).tag(@"1").model(@"1").height(1);
+        });
+    }];
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
+
+#pragma mark - makeSections
+
 - (void)testMakeSections {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-    HoloTableSection *section = self.tableView.holo_sections.firstObject;
+    
+    XCTAssertEqual(self.tableView.holo_sections.count, 2);
+    
+    HoloTableSection *section = self.tableView.holo_sections[0];
     
     XCTAssertEqual(section.tag, TAG);
     
@@ -115,176 +119,84 @@
     XCTAssertEqual(section.footerEstimatedHeight, 200);
 }
 
-- (void)testUpdateSections {
-    [self.tableView holo_updateSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(TAG)
-        .header(TestHeaderView.class)
-        .footer(TestFooterView.class)
-        
-        .headerReuseId(@"headerReuseId-new")
-        .footerReuseId(@"footerReuseId-new")
-        
-        .headerTitle(@"headerTitle-new")
-        .footerTitle(@"footerTitle-new")
-        
-        .headerModel(@"headerModel-new")
-        .footerModel(@"footerModel-new")
-        
-        .headerHeight(101)
-        .footerHeight(201)
-        
-        .headerEstimatedHeight(1001)
-        .footerEstimatedHeight(2001);
-    }];
-    
-    HoloTableSection *section = self.tableView.holo_sections.firstObject;
-    
-    XCTAssertEqual(section.header, TestHeaderView.class);
-    XCTAssertEqual(section.footer, TestFooterView.class);
-    
-    XCTAssertEqual(section.headerReuseId, @"headerReuseId-new");
-    XCTAssertEqual(section.footerReuseId, @"footerReuseId-new");
-    
-    XCTAssertEqual(section.headerTitle, @"headerTitle-new");
-    XCTAssertEqual(section.footerTitle, @"footerTitle-new");
-   
-    XCTAssertEqual(section.headerModel, @"headerModel-new");
-    XCTAssertEqual(section.footerModel, @"footerModel-new");
 
-    XCTAssertEqual(section.headerHeight, 101);
-    XCTAssertEqual(section.footerHeight, 201);
+#pragma mark - makeSections with rows
 
-    XCTAssertEqual(section.headerEstimatedHeight, 1001);
-    XCTAssertEqual(section.footerEstimatedHeight, 2001);
-    
-    
-    // Multiple sections with the same tag
+- (void)testMakeSectionsMakeRows {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
     
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"1").headerHeight(1);
-        make.section(@"1").headerHeight(10);
+        make.section(@"section-1").makeRows(^(HoloTableViewRowMaker * _Nonnull make) {
+            make.row(UITableViewCell.class).model(@"0").height(0);
+            make.row(UITableViewCell.class).model(@"1").height(1);
+        });
     }];
     
-    HoloTableSection *section1 = self.tableView.holo_sections[1];
-    HoloTableSection *section2 = self.tableView.holo_sections[2];
+    // section(TAG)
+    // section(@"section-1")
+    // section(@"section-1")
     
-    XCTAssertEqual(section1.headerHeight, 1);
-    XCTAssertEqual(section2.headerHeight, 10);
+    XCTAssertEqual(self.tableView.holo_sections.count, 3);
     
-    [self.tableView holo_updateSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"1").headerHeight(100);
-        make.section(@"1").headerHeight(101);
-    }];
+    HoloTableSection *section = self.tableView.holo_sections[2];
     
-    HoloTableSection *sectionNew1 = self.tableView.holo_sections[1];
-    HoloTableSection *sectionNew2 = self.tableView.holo_sections[2];
+    XCTAssertEqual(section.rows.count, 2);
     
-    XCTAssertEqual(sectionNew1.headerHeight, 101);
-    XCTAssertEqual(sectionNew2.headerHeight, 10);
+    HoloTableRow *row0 = section.rows[0];
+    HoloTableRow *row1 = section.rows[1];
+    
+    XCTAssertEqual(row0.cell, UITableViewCell.class);
+    XCTAssertEqual(row0.model, @"0");
+    XCTAssertEqual(row0.height, 0);
+    
+    XCTAssertEqual(row1.cell, UITableViewCell.class);
+    XCTAssertEqual(row1.model, @"1");
+    XCTAssertEqual(row1.height, 1);
 }
 
-- (void)testRemakeSections {
-    [self.tableView holo_remakeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(TAG);
-    }];
-    HoloTableSection *section = self.tableView.holo_sections.firstObject;
-    
-    XCTAssertNil(section.header);
-    XCTAssertNil(section.footer);
-    
-    XCTAssertNil(section.headerReuseId);
-    XCTAssertNil(section.footerReuseId);
-    
-    XCTAssertNil(section.headerTitle);
-    XCTAssertNil(section.footerTitle);
-   
-    XCTAssertNil(section.headerModel);
-    XCTAssertNil(section.footerModel);
-
-    XCTAssertEqual(section.headerHeight, CGFLOAT_MIN);
-    XCTAssertEqual(section.footerHeight, CGFLOAT_MIN);
-
-    XCTAssertEqual(section.headerEstimatedHeight, CGFLOAT_MIN);
-    XCTAssertEqual(section.footerEstimatedHeight, CGFLOAT_MIN);
-    
-    
-    // Multiple sections with the same tag
+- (void)testMakeSectionsUpdateRows {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
     
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"1").headerHeight(1);
-        make.section(@"1").headerHeight(10);
+        make.section(@"section-1").updateRows(^(HoloTableViewUpdateRowMaker * _Nonnull make) {
+            make.tag(@"0").height(0);
+            make.tag(@"1").height(1);
+        });
     }];
     
-    HoloTableSection *section1 = self.tableView.holo_sections[1];
-    HoloTableSection *section2 = self.tableView.holo_sections[2];
+    // section(TAG)
+    // section(@"section-1")
+    // section(@"section-1")
     
-    XCTAssertEqual(section1.headerHeight, 1);
-    XCTAssertEqual(section2.headerHeight, 10);
+    XCTAssertEqual(self.tableView.holo_sections.count, 3);
     
-    [self.tableView holo_remakeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"1");
-        make.section(@"1");
-    }];
+    HoloTableSection *section = self.tableView.holo_sections[2];
     
-    HoloTableSection *sectionNew1 = self.tableView.holo_sections[1];
-    HoloTableSection *sectionNew2 = self.tableView.holo_sections[2];
-    XCTAssertEqual(sectionNew1.headerHeight, CGFLOAT_MIN);
-    XCTAssertEqual(sectionNew2.headerHeight, 10);
+    XCTAssertEqual(section.rows.count, 0);
 }
 
-- (void)testInsertSections {
-    [self.tableView holo_insertSectionsAtIndex:0 block:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"0").headerHeight(0);
-        make.section(@"1").headerHeight(1);
-    }];
+- (void)testMakeSectionsRemakeRows {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
     
-    HoloTableSection *section0 = self.tableView.holo_sections[0];
-    HoloTableSection *section1 = self.tableView.holo_sections[1];
-    HoloTableSection *originalSection = self.tableView.holo_sections[2];
-    
-    XCTAssertEqual(section0.tag, @"0");
-    XCTAssertEqual(section1.tag, @"1");
-    XCTAssertEqual(originalSection.tag, TAG);
-
-    XCTAssertEqual(section0.headerHeight, 0);
-    XCTAssertEqual(section1.headerHeight, 1);
-    XCTAssertEqual(originalSection.headerHeight, 10);
-    
-    
-    [self.tableView holo_insertSectionsAtIndex:3 block:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"3").headerHeight(3);
-        make.section(@"4").headerHeight(4);
-    }];
-    
-    HoloTableSection *section3 = self.tableView.holo_sections[3];
-    HoloTableSection *section4 = self.tableView.holo_sections[4];
-
-    XCTAssertEqual(section3.tag, @"3");
-    XCTAssertEqual(section3.headerHeight, 3);
-
-    XCTAssertEqual(section4.tag, @"4");
-    XCTAssertEqual(section4.headerHeight, 4);
-}
-
-
-- (void)testRemoveSections {
     [self.tableView holo_makeSections:^(HoloTableViewSectionMaker * _Nonnull make) {
-        make.section(@"1");
-        make.section(@"2");
-        make.section(@"2");
-        make.section(@"3");
+        make.section(@"section-1").remakeRows(^(HoloTableViewUpdateRowMaker * _Nonnull make) {
+            make.tag(@"0").height(0);
+            make.tag(@"1").height(1);
+        });
     }];
-    XCTAssertEqual(self.tableView.holo_sections.count, 5);
     
-    [self.tableView holo_removeSections:@[@"1", @"2"]];
+    // section(TAG)
+    // section(@"section-1")
+    // section(@"section-1")
     
-    XCTAssertEqual(self.tableView.holo_sections.count, 2);
+    XCTAssertEqual(self.tableView.holo_sections.count, 3);
     
-    HoloTableSection *lastSection = self.tableView.holo_sections.lastObject;
-    XCTAssertEqual(lastSection.tag, @"3");
+    HoloTableSection *section = self.tableView.holo_sections[2];
     
-    [self.tableView holo_removeAllSections];
-    XCTAssertEqual(self.tableView.holo_sections.count, 0);
+    XCTAssertEqual(section.rows.count, 0);
 }
 
 - (void)testPerformanceExample {
