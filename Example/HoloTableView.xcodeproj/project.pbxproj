@@ -28,6 +28,7 @@
 		7543EAAE265660D7001E24B8 /* HoloTableRowMakerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7543EAAD265660D7001E24B8 /* HoloTableRowMakerTest.m */; };
 		7588A8402658EDA3001B9A1D /* HoloTableSectionUpdaterWithRowTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588A83F2658EDA3001B9A1D /* HoloTableSectionUpdaterWithRowTest.m */; };
 		7588A8442658EE05001B9A1D /* HoloTableSectionRemakerWithRowTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588A8432658EE05001B9A1D /* HoloTableSectionRemakerWithRowTest.m */; };
+		7588A8482658F321001B9A1D /* HoloTableRowMakerWithTagTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588A8472658F321001B9A1D /* HoloTableRowMakerWithTagTest.m */; };
 		75C81EC122ED6C5100C337A6 /* HoloExampleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C81EC022ED6C5100C337A6 /* HoloExampleTableViewCell.m */; };
 		75D667B222F5DFD600677569 /* HoloExampleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B122F5DFD600677569 /* HoloExampleFooterView.m */; };
 		75D667B522F5DFE100677569 /* HoloExampleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D667B422F5DFE100677569 /* HoloExampleHeaderView.m */; };
@@ -75,6 +76,7 @@
 		7543EAAD265660D7001E24B8 /* HoloTableRowMakerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloTableRowMakerTest.m; sourceTree = "<group>"; };
 		7588A83F2658EDA3001B9A1D /* HoloTableSectionUpdaterWithRowTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloTableSectionUpdaterWithRowTest.m; sourceTree = "<group>"; };
 		7588A8432658EE05001B9A1D /* HoloTableSectionRemakerWithRowTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloTableSectionRemakerWithRowTest.m; sourceTree = "<group>"; };
+		7588A8472658F321001B9A1D /* HoloTableRowMakerWithTagTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloTableRowMakerWithTagTest.m; sourceTree = "<group>"; };
 		75C81EBF22ED6C5100C337A6 /* HoloExampleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleTableViewCell.h; sourceTree = "<group>"; };
 		75C81EC022ED6C5100C337A6 /* HoloExampleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoloExampleTableViewCell.m; sourceTree = "<group>"; };
 		75D667B022F5DFD600677569 /* HoloExampleFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoloExampleFooterView.h; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				7588A83F2658EDA3001B9A1D /* HoloTableSectionUpdaterWithRowTest.m */,
 				7588A8432658EE05001B9A1D /* HoloTableSectionRemakerWithRowTest.m */,
 				7543EAAD265660D7001E24B8 /* HoloTableRowMakerTest.m */,
+				7588A8472658F321001B9A1D /* HoloTableRowMakerWithTagTest.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
 			path = Tests;
@@ -409,6 +412,7 @@
 				7543EAAE265660D7001E24B8 /* HoloTableRowMakerTest.m in Sources */,
 				6003F5BC195388D20070C39A /* Tests.m in Sources */,
 				75FE94142655751B00E102F8 /* HoloTableSectionMakerTest.m in Sources */,
+				7588A8482658F321001B9A1D /* HoloTableRowMakerWithTagTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
