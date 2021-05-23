@@ -57,9 +57,9 @@
             return 101;
         })
         
-        .shouldHighlight(YES)
+        .shouldHighlight(NO)
         .shouldHighlightHandler(^BOOL(id  _Nullable model) {
-            return YES;
+            return NO;
         })
         
         .canEdit(YES)
@@ -117,7 +117,7 @@
         .reuseId(@"reuseId-new")
         .height(101)
         .estimatedHeight(1001)
-        .shouldHighlight(NO)
+        .shouldHighlight(YES)
         .canEdit(NO)
         .canMove(NO)
         .leadingSwipeActions(@[])
@@ -141,7 +141,7 @@
     XCTAssertEqual(row.reuseId, @"reuseId-new");
     XCTAssertEqual(row.height, 101);
     XCTAssertEqual(row.estimatedHeight, 1001);
-    XCTAssertEqual(row.shouldHighlight, NO);
+    XCTAssertEqual(row.shouldHighlight, YES);
     XCTAssertEqual(row.canEdit, NO);
     XCTAssertEqual(row.canMove, NO);
     XCTAssertEqual(row.leadingSwipeActions.count, 0);

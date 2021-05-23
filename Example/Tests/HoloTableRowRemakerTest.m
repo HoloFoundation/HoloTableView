@@ -57,9 +57,9 @@
             return 101;
         })
         
-        .shouldHighlight(YES)
+        .shouldHighlight(NO)
         .shouldHighlightHandler(^BOOL(id  _Nullable model) {
-            return YES;
+            return NO;
         })
         
         .canEdit(YES)

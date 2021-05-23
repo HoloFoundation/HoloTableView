@@ -51,9 +51,9 @@
             return 101;
         })
         
-        .shouldHighlight(YES)
+        .shouldHighlight(NO)
         .shouldHighlightHandler(^BOOL(id  _Nullable model) {
-            return YES;
+            return NO;
         })
         
         .canEdit(YES)
@@ -121,7 +121,7 @@
     XCTAssertEqual(row.tag, TAG);
     XCTAssertEqual(row.height, 10);
     XCTAssertEqual(row.estimatedHeight, 100);
-    XCTAssertEqual(row.shouldHighlight, YES);
+    XCTAssertEqual(row.shouldHighlight, NO);
     XCTAssertEqual(row.canEdit, YES);
     XCTAssertEqual(row.canMove, YES);
     XCTAssertEqual(row.leadingSwipeActions.count, 1);
