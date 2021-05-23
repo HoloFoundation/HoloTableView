@@ -380,8 +380,8 @@
                               animation:animation];
 }
 
-- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
-              inSection:(NSString *)tag {
+- (void)holo_updateRowsInSection:(NSString *)tag
+                           block:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
                                   block:block
                           targetSection:YES
@@ -390,9 +390,9 @@
                               animation:kNilOptions];
 }
 
-- (void)holo_updateRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
-              inSection:(NSString *)tag
-    withReloadAnimation:(UITableViewRowAnimation)animation {
+- (void)holo_updateRowsInSection:(NSString *)tag
+                           block:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+             withReloadAnimation:(UITableViewRowAnimation)animation {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeUpdate
                                   block:block
                           targetSection:YES
@@ -421,8 +421,8 @@
                               animation:animation];
 }
 
-- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
-              inSection:(NSString *)tag {
+- (void)holo_remakeRowsInSection:(NSString *)tag
+                           block:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
                                   block:block
                           targetSection:YES
@@ -431,9 +431,9 @@
                               animation:kNilOptions];
 }
 
-- (void)holo_remakeRows:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
-              inSection:(NSString *)tag
-    withReloadAnimation:(UITableViewRowAnimation)animation {
+- (void)holo_remakeRowsInSection:(NSString *)tag
+                           block:(void(NS_NOESCAPE ^)(HoloTableViewUpdateRowMaker *make))block
+             withReloadAnimation:(UITableViewRowAnimation)animation {
     [self _holo_updateRowsWithMakerType:HoloTableViewUpdateRowMakerTypeRemake
                                   block:block
                           targetSection:YES
