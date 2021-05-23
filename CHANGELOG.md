@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 
+## 3.1.1 (05/23/2021)
+
+### Updated
+
+- Change api: 1, replace `holo_updateRows:inSection:` with `holo_updateRowsInSection:block:`; 2, replace `holo_remakeRows:inSection:` with `holo_remakeRowsInSection:block:`.
+
+
 ## 3.1.0 (05/20/2021)
 
 ### Added
