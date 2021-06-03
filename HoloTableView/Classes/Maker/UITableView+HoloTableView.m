@@ -118,16 +118,14 @@
                                         makerType:makerType];
     if (block) block(maker);
     
-    // update data and map
-    NSMutableDictionary *headersMap = self.holo_proxy.proxyData.headersMap.mutableCopy;
-    NSMutableDictionary *footersMap = self.holo_proxy.proxyData.footersMap.mutableCopy;
-    NSMutableArray *updateArray = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
+    // update data
     NSMutableArray *addArray = [NSMutableArray new];
     NSMutableIndexSet *updateIndexSet = [NSMutableIndexSet new];
+    NSMutableArray *updateArray = [NSMutableArray arrayWithArray:self.holo_proxy.proxyData.sections];
     for (HoloTableViewSectionMakerModel *makerModel in [maker install]) {
         HoloTableSection *operateSection = makerModel.operateSection;
         if (!makerModel.operateIndex && (makerType == HoloTableViewSectionMakerTypeUpdate || makerType == HoloTableViewSectionMakerTypeRemake)) {
-            HoloLog(@"[HoloTableView] No found a section with the tag: %@.", operateSection.tag);
+            HoloLog(@"[HoloTableView] No section found with the tag: `%@`.", operateSection.tag);
             continue;
         }
         
@@ -141,30 +139,7 @@
             // make || insert
             [addArray addObject:operateSection];
         }
-        
-        if (operateSection.header) [self _holo_registerHeaderFooter:operateSection.header withHeaderFootersMap:headersMap];
-        if (operateSection.footer) [self _holo_registerHeaderFooter:operateSection.footer withHeaderFootersMap:footersMap];
-        
-        // update map
-        NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
-        for (HoloTableRow *row in operateSection.rows) {
-            Class cls = row.cell;
-            NSString *key = NSStringFromClass(cls);
-            if (rowsMap[key]) continue;
-            
-            if (!cls) {
-                NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", key);
-            }
-            
-            if (![cls.new isKindOfClass:UITableViewCell.class]) {
-                NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", key);
-            }
-            rowsMap[key] = cls;
-        }
-        self.holo_proxy.proxyData.rowsMap = rowsMap;
     }
-    self.holo_proxy.proxyData.headersMap = headersMap;
-    self.holo_proxy.proxyData.footersMap = footersMap;
     self.holo_proxy.proxyData.sections = updateArray.copy;
     
     // update sections
@@ -176,20 +151,6 @@
     if (reload && addIndexSet.count > 0) {
         [self insertSections:addIndexSet withRowAnimation:animation];
     }
-}
-
-- (void)_holo_registerHeaderFooter:(Class)headerFooter withHeaderFootersMap:(NSMutableDictionary *)headerFootersMap {
-    Class cls = headerFooter;
-    NSString *key = NSStringFromClass(cls);
-    if (headerFootersMap[key]) return;
-    
-    if (!cls) {
-        NSAssert(NO, @"[HoloTableView] No found a headerFooter class with the name: %@.", key);
-    }
-    if (![cls.new isKindOfClass:UITableViewHeaderFooterView.class]) {
-        NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewHeaderFooterView nor its subclasses.", key);
-    }
-    headerFootersMap[key] = cls;
 }
 
 // holo_removeAllSections
@@ -224,7 +185,7 @@
          withReloadAnimation:(UITableViewRowAnimation)animation {
     NSIndexSet *indexSet = [self _holo_removeSections:tags];
     if (indexSet.count <= 0) {
-        HoloLog(@"[HoloTableView] No found any section with these tags: %@.", tags);
+        HoloLog(@"[HoloTableView] No section found with these tags: `%@`.", tags);
         return;
     }
     if (reload) [self deleteSections:indexSet withRowAnimation:animation];
@@ -314,25 +275,8 @@
     HoloTableViewRowMaker *maker = [HoloTableViewRowMaker new];
     if (block) block(maker);
     
-    // update data and map
-    NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
-    NSMutableArray *rows = [NSMutableArray new];
-    for (HoloTableRow *row in [maker install]) {
-        [rows addObject:row];
-        
-        Class cls = row.cell;
-        NSString *key = NSStringFromClass(cls);
-        if (rowsMap[key]) continue;
-        
-        if (!cls) {
-            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", key);
-        }
-        if (![cls.new isKindOfClass:UITableViewCell.class]) {
-            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", key);
-        }
-        rowsMap[key] = cls;
-    }
-    self.holo_proxy.proxyData.rowsMap = rowsMap;
+    // update data
+    NSArray<HoloTableRow *> *rows = [maker install];
     
     // append rows
     BOOL isNewOne = NO;
@@ -454,34 +398,8 @@
                                                                                              sectionTag:sectionTag];
     if (block) block(maker);
     
-    // update data and map
-    NSMutableDictionary *rowsMap = self.holo_proxy.proxyData.rowsMap.mutableCopy;
-    NSMutableArray *updateIndexPaths = [NSMutableArray new];
-    for (HoloTableViewUpdateRowMakerModel *makerModel in [maker install]) {
-        HoloTableRow *operateRow = makerModel.operateRow;
-        // HoloTableViewUpdateRowMakerTypeUpdate || HoloTableViewUpdateRowMakerTypeRemake
-        if (!makerModel.operateIndexPath) {
-            // Has a log in HoloTableViewUpdateRowMaker already, because updateRows / remakeRows in HoloTableSectionMaker also need it.
-            // HoloLog(@"[HoloTableView] No found a row with the tag: %@.", operateRow.tag);
-            continue;
-        }
-        
-        // update || remake
-        [updateIndexPaths addObject:makerModel.operateIndexPath];
-        
-        Class cls = operateRow.cell;
-        NSString *key = NSStringFromClass(cls);
-        if (rowsMap[key]) continue;
-        
-        if (!cls) {
-            NSAssert(NO, @"[HoloTableView] No found a cell class with the name: %@.", key);
-        }
-        if (![cls.new isKindOfClass:UITableViewCell.class]) {
-            NSAssert(NO, @"[HoloTableView] The class: %@ is neither UITableViewCell nor its subclasses.", key);
-        }
-        rowsMap[key] = cls;
-    }
-    self.holo_proxy.proxyData.rowsMap = rowsMap;
+    // update data
+    NSArray<NSIndexPath *> *updateIndexPaths = [maker install];
     
     // refresh rows
     if (reload && updateIndexPaths.count > 0) {
@@ -529,7 +447,7 @@
      withReloadAnimation:(UITableViewRowAnimation)animation {
     NSArray *indexPaths = [self _holo_removeRows:tags];
     if (indexPaths.count <= 0) {
-        HoloLog(@"[HoloTableView] No found any row with these tags: %@.", tags);
+        HoloLog(@"[HoloTableView] No row found with these tags: `%@`.", tags);
         return;
     }
     if (reload) [self deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];

@@ -57,10 +57,4 @@ static char kHoloTableViewProxyKey;
     return tableViewProxy;
 }
 
-- (void)setHolo_proxy:(HoloTableViewProxy * _Nonnull)tableViewProxy {
-    objc_setAssociatedObject(self, &kHoloTableViewProxyKey, tableViewProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    self.dataSource = tableViewProxy;
-    self.delegate = tableViewProxy;
-}
-
 @end

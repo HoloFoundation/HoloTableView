@@ -173,7 +173,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:holoRow.reuseId];
     if (!cell) {
         Class cls = holoRow.cell;
-        if (!cls) cls = UITableViewCell.class;
+        if (![cls isSubclassOfClass:UITableViewCell.class]) {
+            NSAssert(NO, @"[HoloTableView] The class: `%@` is neither UITableViewCell nor its subclasses.", cls);
+        }
         if (holoRow.styleHandler) holoRow.style = holoRow.styleHandler(holoRow.model);
         cell = [[cls alloc] initWithStyle:holoRow.style reuseIdentifier:holoRow.reuseId];
     }
@@ -453,7 +455,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         UIView *holoHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.headerReuseId];
         if (!holoHeaderView) {
             Class cls = holoSection.header;
-            if (!cls) cls = UITableViewHeaderFooterView.class;
+            if (![cls isSubclassOfClass:UITableViewHeaderFooterView.class]) {
+                NSAssert(NO, @"[HoloTableView] The class: `%@` is neither UITableViewHeaderFooterView nor its subclasses.", cls);
+            }
             holoHeaderView = [[cls alloc] initWithReuseIdentifier:holoSection.headerReuseId];
         }
         
@@ -499,7 +503,9 @@ static void HoloProxyCellPerformWithCell(UITableViewCell *cell, SEL sel, void (^
         UIView *holoFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:holoSection.footerReuseId];
         if (!holoFooterView) {
             Class cls = holoSection.footer;
-            if (!cls) cls = UITableViewHeaderFooterView.class;
+            if (![cls isSubclassOfClass:UITableViewHeaderFooterView.class]) {
+                NSAssert(NO, @"[HoloTableView] The class: `%@` is neither UITableViewHeaderFooterView nor its subclasses.", cls);
+            }
             holoFooterView = [[cls alloc] initWithReuseIdentifier:holoSection.footerReuseId];
         }
         

@@ -17,25 +17,25 @@
     return _sections;
 }
 
-- (NSDictionary<NSString *,Class> *)rowsMap {
-    if (!_rowsMap) {
-        _rowsMap = [NSDictionary new];
-    }
-    return _rowsMap;
-}
-
-- (NSDictionary<NSString *,Class> *)headersMap {
-    if (!_headersMap) {
-        _headersMap = [NSDictionary new];
-    }
-    return _headersMap;
-}
-
-- (NSDictionary<NSString *,Class> *)footersMap {
-    if (!_footersMap) {
-        _footersMap = [NSDictionary new];
-    }
-    return _footersMap;
-}
+//- (NSDictionary<NSString *,Class> *)rowsMap {
+//    if (!_rowsMap) {
+//        _rowsMap = [NSDictionary new];
+//    }
+//    return _rowsMap;
+//}
+//
+//- (NSDictionary<NSString *,Class> *)headersMap {
+//    if (!_headersMap) {
+//        _headersMap = [NSDictionary new];
+//    }
+//    return _headersMap;
+//}
+//
+//- (NSDictionary<NSString *,Class> *)footersMap {
+//    if (!_footersMap) {
+//        _footersMap = [NSDictionary new];
+//    }
+//    return _footersMap;
+//}
 
 @end

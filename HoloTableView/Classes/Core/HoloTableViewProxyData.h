@@ -28,11 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSInteger (^sectionForSectionIndexTitleHandler)(NSString *title, NSInteger index);
 
 
-@property (nonatomic, copy) NSDictionary<NSString *, Class> *rowsMap;
-
-@property (nonatomic, copy) NSDictionary<NSString *, Class> *headersMap;
-
-@property (nonatomic, copy) NSDictionary<NSString *, Class> *footersMap;
+//@property (nonatomic, copy) NSDictionary<NSString *, Class> *rowsMap;
+//
+//@property (nonatomic, copy) NSDictionary<NSString *, Class> *headersMap;
+//
+//@property (nonatomic, copy) NSDictionary<NSString *, Class> *footersMap;
 
 @end
 
