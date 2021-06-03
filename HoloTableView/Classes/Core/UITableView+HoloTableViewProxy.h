@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Proxy of current UITableView.
  */
-@property (nonatomic, strong) HoloTableViewProxy *holo_proxy;
+@property (nonatomic, strong, readonly) HoloTableViewProxy *holo_proxy;
 
 @end
 
