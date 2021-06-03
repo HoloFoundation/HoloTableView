@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 
+## 3.1.2 (06/03/2021)
+
+### Updated
+
+- Check the cell class type and so on after the list appears.
+- Provide default cell class for row and default header and footer class for section.
+- Change `holo_proxy` of `UITableView+HoloTableViewProxy.h` to readonly.
+
+
 ## 3.1.1 (05/23/2021)
 
 ### Updated
