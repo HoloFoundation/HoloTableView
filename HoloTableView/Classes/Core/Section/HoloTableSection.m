@@ -13,6 +13,8 @@
     self = [super init];
     if (self) {
         _rows = [NSArray new];
+        _header = UITableViewHeaderFooterView.class;
+        _footer = UITableViewHeaderFooterView.class;
         _headerHeight = CGFLOAT_MIN;
         _footerHeight = CGFLOAT_MIN;
         _headerEstimatedHeight = CGFLOAT_MIN;

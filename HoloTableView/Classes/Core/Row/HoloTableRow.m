@@ -12,6 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _cell = UITableViewCell.class;
         _height = CGFLOAT_MIN;
         _estimatedHeight = CGFLOAT_MIN;
         _shouldHighlight = YES;

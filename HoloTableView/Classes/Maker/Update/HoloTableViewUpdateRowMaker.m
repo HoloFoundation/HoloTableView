@@ -11,18 +11,13 @@
 #import "HoloTableSection.h"
 #import "HoloTableViewMacro.h"
 
-@implementation HoloTableViewUpdateRowMakerModel
-
-@end
-
-
 @interface HoloTableViewUpdateRowMaker ()
 
 @property (nonatomic, copy) NSArray<HoloTableSection *> *dataSections;
 
 @property (nonatomic, assign) HoloTableViewUpdateRowMakerType makerType;
 
-@property (nonatomic, strong) NSMutableArray<HoloTableViewUpdateRowMakerModel *> *makerModels;
+@property (nonatomic, strong) NSMutableArray<NSIndexPath *> *updateIndexPaths;
 
 // has target section or not
 @property (nonatomic, assign) BOOL targetSection;
@@ -78,29 +73,26 @@
             }];
         }];
         
-        if (!operateIndexPath) {
-            HoloLog(@"[HoloTableView] No found a row with the tag: %@.", tag);
+        if (operateIndexPath) {
+            [self.updateIndexPaths addObject:operateIndexPath];
+        } else {
+            HoloLog(@"[HoloTableView] No row found with the tag: `%@`.", tag);
         }
-        
-        HoloTableViewUpdateRowMakerModel *makerModel = [HoloTableViewUpdateRowMakerModel new];
-        makerModel.operateRow = [rowMaker fetchTableRow];
-        makerModel.operateIndexPath = operateIndexPath;
-        [self.makerModels addObject:makerModel];
         
         return rowMaker;
     };
 }
 
-- (NSArray<HoloTableViewUpdateRowMakerModel *> *)install {
-    return self.makerModels.copy;
+- (NSArray<NSIndexPath *> *)install {
+    return self.updateIndexPaths.copy;
 }
 
 #pragma mark - getter
-- (NSMutableArray<HoloTableViewUpdateRowMakerModel *> *)makerModels {
-    if (!_makerModels) {
-        _makerModels = [NSMutableArray new];
+- (NSMutableArray<NSIndexPath *> *)updateIndexPaths {
+    if (!_updateIndexPaths) {
+        _updateIndexPaths = [NSMutableArray new];
     }
-    return _makerModels;
+    return _updateIndexPaths;
 }
 
 @end
