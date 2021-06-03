@@ -95,8 +95,8 @@
     }];
     HoloTableSection *section = self.tableView.holo_sections.firstObject;
     
-    XCTAssertNil(section.header);
-    XCTAssertNil(section.footer);
+    XCTAssertEqual(section.header, UITableViewHeaderFooterView.class);
+    XCTAssertEqual(section.footer, UITableViewHeaderFooterView.class);
     
     XCTAssertNil(section.headerReuseId);
     XCTAssertNil(section.footerReuseId);
